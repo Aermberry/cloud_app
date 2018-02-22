@@ -1,0 +1,140 @@
+<template>
+  <section class="zkui-core-user">
+    <div class="zkui-core-user-head">
+      <div class="head-top">
+        <m-icon name="zk-setting" class="icon-light" size="2rem" link="/user/info"></m-icon>
+        <m-icon name="zk-security" class="icon-light" size="2rem" link="/user/security"></m-icon>
+      </div>
+      <router-link class="head-info" to="login">
+        <div class="portrait">
+          <img src="../../../assets/images/icon/me-active.png" alt="portrait">
+        </div>
+        <div class="personal-info">
+          <div class="name" href="javascript:;">{{userInfo.name}}
+            <div class="level-icon">
+              <img src="../../../assets/images/icon/level-1.png" alt="level">
+            </div>
+          </div>
+          <a class="info" href="/user/login">{{userInfo.info}}</a>
+        </div>
+      </router-link>
+    </div>
+
+    <group class="zkui-user-order-title">
+      <cell title="我的订单" link="/order/list" value="查看全部"></cell>
+    </group>
+    <zk-grid diykey="grid_user_order_nav" class="icon-brand zkui-grid zkui-grid-border__none border-bottom"></zk-grid>
+
+    <zk-grid diykey="grid_user_index_nav" class="icon-metal zkui-grid zkui-grid-border__none mt-2 border"></zk-grid>
+
+    <zk-cell diykey="cell_user_index" class="mb-2"></zk-cell>
+    <zk-foot></zk-foot>
+  </section>
+</template>
+<script>
+  import { ZkCell, ZkGrid } from 'widgets'
+  import { MIcon, Grid, GridItem, Cell, Group } from 'zkui'
+  export default {
+    components: {
+      ZkCell,
+      MIcon,
+      Grid,
+      Cell,
+      Group,
+      ZkGrid,
+      GridItem
+    },
+    data () {
+      return {
+        userInfo: {
+          name: '马上登录',
+          info: '登陆后享受更多服务'
+        }
+      }
+    }
+  }
+</script>
+<style lang="less">
+  .zkui-core-user {
+    background: #f8f8f8;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+    .zkui-core-user-head {
+      background: #e60044;
+      height: 85*@rem;
+      .head-top {
+        width: 100%;
+        height: 30*@rem;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        svg {
+          float: left;
+          margin-right: 0.5rem;
+          width: 1.5rem;
+        }
+      }
+      .head-info {
+        width: 100%;
+        height: 45*@rem;
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        .portrait {
+          width: 2.4rem;
+          height: 2.4rem;
+          border-radius: 50%;
+          border: 0.1rem solid #fff;
+          margin: 0 0.5rem;
+          overflow: hidden;
+          background: #f8f8f8;
+        }
+        .personal-info {
+          .name {
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            color: #fff;
+            .level-icon {
+              width: 0.5rem;
+              height: 0.5rem;
+              margin-left: 0.3rem;
+            }
+          }
+          .info {
+            color: #fff;
+            position: relative;
+            &:after {
+              content: ' ';
+              display: inline-block;
+              height: 0.4286rem;
+              width: 0.4286rem;
+              border-width: 2px 2px 0 0;
+              border-color: #fff;
+              border-style: solid;
+              transform: rotate(45deg);
+              position: absolute;
+              top: 50%;
+              margin-top: -4*@rem;
+              right: -0.5rem;
+            }
+          }
+        }
+      }
+    }
+
+    .zkui-user-order-title {
+      .weui-cells {
+        margin-top: 0rem;
+        &:before {
+          border-top: none;
+        }
+        .weui-cell {
+          padding: 5*@rem 10*@rem;
+        }
+      }
+    }
+  }
+</style>
