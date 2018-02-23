@@ -2,7 +2,7 @@
   <section class="zkui-user-account-withdraw">
     <!-- 头部 -->
     <zk-head title="提现" goBack="我的钱包"></zk-head>
-    <zk-head :title='title' :goBack='goBack'></zk-head>
+
 
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
@@ -72,8 +72,6 @@
   export default {
     data () {
       return {
-        title: '提现',
-        goBack: '我的钱包',
         withdraw: []
       }
     },

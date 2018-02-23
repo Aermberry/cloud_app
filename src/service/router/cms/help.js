@@ -9,7 +9,7 @@ export default [
     }
   },
   {
-    path: '/help/show',
+    path: '/help/show/:id',
     meta: {
       title: '客服中心详情页'
     },

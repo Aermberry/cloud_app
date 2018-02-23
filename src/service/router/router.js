@@ -64,7 +64,12 @@ router.beforeEach((to, from, next) => {
     }
   }
   //  如果访问的是登陆页面或者注册页面，登陆成功后跳转到登陆会员中心
-  if (isLogin && (to.path === '/user/login' || to.path === '/user/reg')) {
+  if (
+    isLogin &&
+    (to.path === '/user/login' ||
+      to.path === '/user/reg' ||
+      to.path === '/user/findpassword')
+  ) {
     helper.alertSucess('您已成功登陆')
     return next({ path: '/user/index' })
   }
