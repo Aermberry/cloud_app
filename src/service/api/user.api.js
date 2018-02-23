@@ -47,6 +47,7 @@ export default {
   },
   // 修改密码
   async findPassword (data) {
+    console.dir(data)
     var response = await http.put('/user/findPassword', data)
     return response
   },
