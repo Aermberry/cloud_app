@@ -17,8 +17,8 @@ export default {
     return response
   },
   //  发送手机验证码 ，发送六位数手机验证码
-  sendPhoneVerifiyCode (mobile) {
-    var response = http.post('/common/sendPhoneVerifiyCode', mobile)
+  sendmobileVerifiyCode (mobile) {
+    var response = http.post('/common/sendmobileVerifiyCode', mobile)
     return response
   }
 }

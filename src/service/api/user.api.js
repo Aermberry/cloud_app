@@ -32,6 +32,7 @@ export default {
 
   //  用户注册
   async reg (data) {
+    console.dir(data)
     var response = await http.post('/user/reg', data)
     return response
   },

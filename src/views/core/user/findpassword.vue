@@ -7,7 +7,7 @@
 
         <x-input title="用户名" required :min="2" :max="12" v-model="findPasswordInput.userName"></x-input>
         <x-input title="手机号码" required placeholder="输入与用户名对应的手机号" mask="999 9999 9999" v-model="findPasswordInput.mobile" :max="13" is-type="mobile"></x-input>
-        <zk-phone-verifiy v-model="findPasswordInput.phoneVerifiyCode" :mobile="findPasswordInput.mobile"></zk-phone-verifiy>
+        <zk-phone-verifiy v-model="findPasswordInput.mobileVerifiyCode" :mobile="findPasswordInput.mobile"></zk-phone-verifiy>
       </group>
       <group-title slot=" title " gap="0.51rem 0rem">重新设置密码</group-title>
       <group>
@@ -35,11 +35,11 @@
     data () {
       return {
         findPasswordInput: {
-          password: '222222',
-          userName: 'admin',
-          mobile: '17727169875',
-          confirmPassword: '222222',
-          phoneVerifiyCode: ''
+          password: '',
+          userName: '',
+          mobile: '',
+          confirmPassword: '',
+          mobileVerifiyCode: ''
         }
       }
     },

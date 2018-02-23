@@ -48,11 +48,11 @@
         this.mobile = this.mobile.replace(/\s+/g, '')
         console.dir(this.mobile)
         var myreg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/
-        console.dir(myreg.test(this.mobile))
-        if (myreg.test(this.mobile)) {
-          this.$vux.toast.warn('手机号码不正确')
+
+        if (!myreg.test(this.mobile)) {
+          this.$vux.toast.warn('手机号不正确')
         } else {
-          var repsonse = await apiService.sendPhoneVerifiyCode(this.mobile)
+          var repsonse = await apiService.sendmobileVerifiyCode(this.mobile)
           if (repsonse.data.status === 1) {
             this.$vux.toast.text('验证码发送成功', 'bottom')
           } else {
