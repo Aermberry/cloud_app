@@ -16,6 +16,7 @@
 
 <script>
   /* eslint-disable */
+  import apiService from 'src/service/api/common.api'
   export default {
     data () {
       return {
@@ -23,8 +24,22 @@
         isOvertime: false
       }
     },
+    props: {
+      mobile: {
+        type: String,
+        default: '17727169875'
+      }
+    },
     methods: {
-      sendMessage () {
+      //  Regex rg = new Regex(@"^0?(13[0-9]|15[0-9]|18[0-9]|17[0-9]|19[0-9]|16[0-9]|14[0-9])[0-9]{8}$");
+      async sendMessage () {
+        var repsonse = await apiService.sendPhoneVerifiyCode('17727169875')
+        if (repsonse.data.status === 2) {
+          this.$vux.toast.text('验证码发送成功', 'bottom')
+        } else {
+          this.$vux.toast.warn('验证码发送失败')
+        }
+
         if (this.isOvertime) {
           return false
         }
