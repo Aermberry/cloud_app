@@ -49,9 +49,6 @@
     methods: {
       login () {
         if (this.$refs.user_username.valid) {
-          this.$vux.toast.show({
-            text: 'Loading'
-          })
           this.$store.dispatch('UserLogin', this.user)
         }
       }

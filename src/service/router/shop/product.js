@@ -20,14 +20,16 @@ export default [
       require(['src/views/shop/product/list.vue'], resolve)
     }
   },
-  // {
-  //    path: '/product/show/:id', //商品详情页
-  //    meta: {
-  //      title: '分类'
-  //    },
-  //    name: 'product_show',
-  //     component: function (resolve) {  require(['src/views/shop/product/show.vue'], resolve) }
-  //  },
+  {
+    path: '/product/show/:id', // 商品详情页
+    meta: {
+      title: '商品详情'
+    },
+    name: 'product_show',
+    component: function (resolve) {
+      require(['src/views/shop/product/show.vue'], resolve)
+    }
+  },
   {
     path: '/product/search', // 商品搜索页
     meta: {
