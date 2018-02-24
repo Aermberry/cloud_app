@@ -45,9 +45,12 @@ export default {
      async  addFootprint () { // 添加足迹
        let params = {
           entityId: this.productView.id, // 获取商品ID
-          type: 'Footprint' // 操作类型为足迹，与后台对应
+          type: 'footPrint' // 操作类型为足迹，与后台对应
         }
          await userService.addAction(params)
+      },
+      showSaleProperty () {
+       this.$emit('changeSaleState', 'true')
       }
     }
 }
