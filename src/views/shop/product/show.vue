@@ -2,6 +2,7 @@
   <section class="zkui-product-show">
     <!--主图-->
     <show-thumbnail :productView="modelView"></show-thumbnail>
+    <show-intro :productView="modelView"></show-intro>
     <group class="zkui-product-show-parameter">
 
       <!-- <product-parameter :title="parameterTitle" :data="parameterList" v-model="parameterValue" @on-show="onShow" @on-hide="onHide" @on-change="onChange" :cancelText="cancelText" :confirmText="confirmText" :showValue="showValue"></product-parameter>
@@ -15,7 +16,7 @@
   import $ from 'jquery'
   import apiService from 'src/service/api/product.api'
   import ShowThumbnail from './widget/show_thumbnail'
-  // import intro from './widget/show_intro'
+  import ShowIntro from './widget/show_intro'
   // import intro from './widget/show_intro"
   // import bar from './widget/show_bar"
   // import ProductItem from 'src/components/base/zk-product-Item.vue'
@@ -25,7 +26,7 @@
   // import {MProductparameter,MProductsize} from '../../../widgets'
   export default {
     components: {
-      Group, ShowThumbnail
+      Group, ShowThumbnail, ShowIntro
     },
     data () {
       return {
