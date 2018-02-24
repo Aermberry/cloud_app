@@ -1,5 +1,6 @@
 <template>
   <section class="zkui-product-show">
+    <show-header ></show-header>
     <show-thumbnail :productView="modelView" v-if="asyncFlag"></show-thumbnail>
     <show-title :productView="modelView"  v-if="asyncFlag"></show-title>
     <show-parameter :productView="modelView" v-if="asyncFlag"></show-parameter>
@@ -57,63 +58,6 @@
         </li>
       </ul>
     </div>
-    <!--滚动头部-->
-    <div :class="{'zkui-product-show-rolltop':istrue,'isnone':isNone}">
-      <div class="zkui-product-show-rolltop-left">
-        <div class="zkui-product-show-rolltop-left-icon">
-        </div>
-      </div>
-      <div class="zkui-product-show-rolltop-center">
-        <ul>
-          <li class="active">
-            <span>商品</span>
-          </li>
-          <li>
-            <span>详情</span>
-          </li>
-          <li>
-            <span>推荐</span>
-          </li>
-        </ul>
-      </div>
-      <div class="zkui-product-show-rolltop-right">
-
-      </div>
-    </div>
-    <div class="zkui-product-show-rolltop_icon">
-      <div class="zkui-product-show-rolltop_icon-left">
-        <div class="icon">
-          <m-icon name="zk-goback" class="metal"></m-icon>
-        </div>
-      </div>
-      <div></div>
-      <div class="zkui-product-show-rolltop_icon-right">
-        <ul>
-          <li>
-            <router-link to="/order/cart" class="icon">
-              <m-icon name="zk-shopping" class="metal"></m-icon>
-            </router-link>
-          </li>
-          <li>
-            <div class="icon icon-classify" @click="headerClassify=!headerClassify">
-              <m-icon name="zk-classify" class="metal"></m-icon>
-            </div>
-            <div class="zkui-product-show-rolltop_icon-more" v-if="headerClassify">
-              <router-link to="/default">
-                首页
-              </router-link>
-              <router-link to="/default">
-                首页
-              </router-link>
-              <router-link to="/default">
-                首页
-              </router-link>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-
 
 <show-recommend :productView="modelView"></show-recommend>
   </section>
@@ -121,18 +65,19 @@
 
 <script>
   import apiService from 'src/service/api/product.api'
-  import ShowThumbnail from './widget/show_thumbnail'
-  import ShowTitle from './widget/show_title'
-  import ShowParameter from './widget/show_parameter'
-  import ShowBar from './widget/show_bar'
-  import ShowIntro from './widget/show_intro'
-  import ShowRecommend from './widget/show_recommend'
+   import ShowHeader from './widget/show_header' // 头部
+  import ShowThumbnail from './widget/show_thumbnail' // 商品轮播图、商品主图等
+  import ShowTitle from './widget/show_title' // 价格 名称 已售数量等
+  import ShowParameter from './widget/show_parameter' // 商品参数以及规则
+  import ShowIntro from './widget/show_intro' // 商品详情
+  import ShowRecommend from './widget/show_recommend' // 推荐商品
+  import ShowBar from './widget/show_bar' // 底部操作按钮 立即购买 加入购物车等
 
   import { Group, Box } from 'zkui'
 
   export default {
     components: {
-      Group, ShowThumbnail, ShowTitle, ShowParameter, Box, ShowBar, ShowIntro, ShowRecommend
+      Group, ShowThumbnail, ShowTitle, ShowParameter, Box, ShowBar, ShowIntro, ShowRecommend, ShowHeader
     },
     data () {
       return {
