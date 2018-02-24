@@ -130,8 +130,12 @@ export default {
             helper.alertError('您未登陆')
             return
         }
+        if (url.substring(0, 1) !== '/') {
+            url = '/' + url
+        }
         var loginuserid = loginUser.id
         var token = url.toLowerCase() + timestamp + loginUser.userName.toLowerCase()
+        console.dir(token)
         token = md5(token)
         params = {
             ...params,

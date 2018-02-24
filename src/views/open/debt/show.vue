@@ -6,50 +6,50 @@
       <div class="weui-form-preview">
         <div class="weui-form-preview__hd">
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">金额</label>
-            <em class="weui-form-preview__value zkui-reward-show-price brand">{{modelView.reward.amount}} </em>
+            <label class="weui-form-preview__label">债事金额</label>
+            <em class="weui-form-preview__value zkui-reward-show-price brand">{{modelView.plan.amount}} </em>
           </div>
         </div>
         <div class="weui-form-preview__bd">
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">编号</label>
-            <span class="weui-form-preview__value">{{modelView.reward.serial}}</span>
+            <label class="weui-form-preview__label">债务人姓名</label>
+            <span class="weui-form-preview__value">{{modelView.plan.name}}</span>
           </div>
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">用户名</label>
-            <span class="weui-form-preview__value">{{modelView.shareUser.userName}}</span>
+            <label class="weui-form-preview__label">债务人联系电话</label>
+            <span class="weui-form-preview__value">{{modelView.plan.mobile}}</span>
           </div>
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">等级</label>
-            <span class="weui-form-preview__value">{{modelView.shareUser.gradeName}}</span>
+            <label class="weui-form-preview__label">债务人身份证号码</label>
+            <span class="weui-form-preview__value">{{modelView.plan.iDcard}}</span>
           </div>
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">收益账户</label>
-            <span class="weui-form-preview__value">{{modelView.moneyTypeName}}</span>
+            <label class="weui-form-preview__label">债事过程（描述）</label>
+            <span class="weui-form-preview__value">{{modelView.plan.debtProcess}}</span>
           </div>
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">分润分类</label>
-            <span class="weui-form-preview__value">{{modelView.shareModule}}</span>
+            <label class="weui-form-preview__label">债事状态（描述）</label>
+            <span class="weui-form-preview__value">{{modelView.planStatus}}</span>
           </div>
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">账后金额</label>
-            <span class="weui-form-preview__value">{{modelView.reward.afterAmount}}</span>
+            <label class="weui-form-preview__label">申请的商品Id</label>
+            <span class="weui-form-preview__value">{{modelView.plan.applyProductIds}}</span>
           </div>
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">触发用户</label>
-            <span class="weui-form-preview__value">{{modelView.orderUser.userName}}</span>
+            <label class="weui-form-preview__label">是否付款</label>
+            <span class="weui-form-preview__value">{{modelView.isPay}}</span>
           </div>
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">描述</label>
-            <span class="weui-form-preview__value">{{modelView.reward.intro}}</span>
+            <label class="weui-form-preview__label">借条附件上传</label>
+            <span class="weui-form-preview__value">{{modelView.plan.attachment}}</span>
           </div>
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">时间</label>
-            <span class="weui-form-preview__value">{{modelView.reward.createTime}}</span>
+            <span class="weui-form-preview__value">{{modelView.plan.createTime}}</span>
           </div>
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">状态</label>
-            <span class="weui-form-preview__value">{{modelView.shareUser.status}}</span>
+            <label class="weui-form-preview__label">备注</label>
+            <span class="weui-form-preview__value">{{modelView.plan.remark}}</span>
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@
   export default {
     data () {
       return {
-        modelView: null
+        modelView: ''
       }
     },
     mounted () {
