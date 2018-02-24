@@ -4,7 +4,7 @@ export default {
   //  债事申请
   async apply (data) {
     console.dir(data)
-    var response = await http.post('User/Debt/apply', data)
+    var response = await http.postLogin('User/Debt/apply', data)
     return response
   }
 }

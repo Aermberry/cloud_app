@@ -4,8 +4,14 @@ import axios from 'axios'
 import store from 'src/store/index'
 import helper from 'src/service/common/helper'
 // import qs from 'qs'
-import { baseUrl, key, projectId } from 'src/service/config/env'
-import { md5 } from 'zkui' // md5 函数
+import {
+  baseUrl,
+  key,
+  projectId
+} from 'src/service/config/env'
+import {
+  md5
+} from 'zkui' // md5 函数
 const timestamp = Math.round(new Date().getTime() / 1000)
 
 axios.interceptors.request.use(
@@ -88,8 +94,12 @@ export default {
       helper.alertError('您未登陆')
       return
     }
+    if (url.substring(0, 1) !== '/') {
+      url = '/' + url
+    }
     var userId = loginUser.id
     var token = url.toLowerCase() + timestamp + loginUser.userName.toLowerCase()
+    console.dir(token)
     token = md5(token)
 
     let apiUrl = url
@@ -97,9 +107,6 @@ export default {
     axios.defaults.headers.post['Content-Type'] = 'application/json'
     const instance = axios.create()
     instance.defaults.headers.post['Content-Type'] = 'application/json'
-    if (url.substring(0, 1) !== '/') {
-      url = '/' + url
-    }
     var sign = getSign(url)
     url = baseUrl + '/api/' + url
 
@@ -113,7 +120,9 @@ export default {
       token +
       '&loginuserid=' +
       userId
-    data = { ...data, userId }
+    data = { ...data,
+      userId
+    }
     var result = instance.post(url, data).then(response => {
       return checkStatus(response)
     })
@@ -130,7 +139,10 @@ export default {
     var loginuserid = loginUser.id
     var token = url.toLowerCase() + timestamp + loginUser.userName.toLowerCase()
     token = md5(token)
-    params = { ...params, token, loginuserid }
+    params = { ...params,
+      token,
+      loginuserid
+    }
     return this.get(url, params)
   },
 
@@ -141,7 +153,10 @@ export default {
       url = '/' + url
     }
     var sign = getSign(url)
-    params = { ...params, sign, timestamp }
+    params = { ...params,
+      sign,
+      timestamp
+    }
     var result = axios({
       method: 'get',
       baseURL: baseUrl + '/api/',
@@ -211,7 +226,9 @@ export default {
       token +
       '&loginuserid=' +
       userId
-    data = { ...data, userId }
+    data = { ...data,
+      userId
+    }
     var result = instance.put(url, data).then(response => {
       return checkStatus(response)
     })
