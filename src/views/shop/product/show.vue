@@ -1,7 +1,7 @@
 <template>
   <section class="zkui-product-show">
     <!--主图-->
-
+    <show-thumbnail :productView="modelView"></show-thumbnail>
     <group class="zkui-product-show-parameter">
 
       <!-- <product-parameter :title="parameterTitle" :data="parameterList" v-model="parameterValue" @on-show="onShow" @on-hide="onHide" @on-change="onChange" :cancelText="cancelText" :confirmText="confirmText" :showValue="showValue"></product-parameter>
@@ -14,7 +14,7 @@
 <script>
   import $ from 'jquery'
   import apiService from 'src/service/api/product.api'
-  import thumbnail from './widget/show_thumbnail'
+  import ShowThumbnail from './widget/show_thumbnail'
   // import intro from './widget/show_intro'
   // import intro from './widget/show_intro"
   // import bar from './widget/show_bar"
@@ -24,6 +24,9 @@
   // import VGroup from '../../../widgets/m-group/index.vue"
   // import {MProductparameter,MProductsize} from '../../../widgets'
   export default {
+    components: {
+      Group, ShowThumbnail
+    },
     data () {
       return {
         modelView: '', // 商品数据，从服务器上远程获取
@@ -44,9 +47,11 @@
         DatasList: [],
         styleType: '',
         showValue: false,
-        headerClassify: false,
-        thumbnail
+        headerClassify: false
       }
+    },
+    mounted () {
+      this.GetData()
     },
     methods: {
       onClick () {
@@ -56,29 +61,22 @@
         let params = {
           id: this.$route.params.id // 获取URL当中的Id参数
         }
-        this.imgid = this.$route.params.id
         var response = await apiService.show(params)
-        var product = response.data.result
-        this.modelView = product
-        this.thumbnails = product.productThums
-        this.intro.push(product.price, product.marketPrice, product.soldCount, product.name)
-        for (var i = 0; i < product.productPropertys.length; i++) {
-          if (product.productPropertys[i].isSale === true) {
-            this.size.push(product.productPropertys[i].valueName)
-          }
-          if (product.productPropertys[i].isSale === false) {
-            this.parameter.push(product.productPropertys[i].valueName)
-          }
-        }
-        this.sizeList.push(this.size)
-        this.parameterList.push(this.parameter)
+        this.modelView = response.data.result
+        console.dir(this.modelView)
+
+        // this.intro.push(product.price, product.marketPrice, product.soldCount, product.name)
+        // for (var i = 0; i < product.productPropertys.length; i++) {
+        //   if (product.productPropertys[i].isSale === true) {
+        //     this.size.push(product.productPropertys[i].valueName)
+        //   }
+        //   if (product.productPropertys[i].isSale === false) {
+        //     this.parameter.push(product.productPropertys[i].valueName)
+        //   }
+        // }
+        // this.sizeList.push(this.size)
+        // this.parameterList.push(this.parameter)
       }
-    },
-    mounted () {
-      this.GetData()
-    },
-    components: {
-      Group
     }
   }
   $(function () {
