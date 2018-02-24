@@ -1,65 +1,16 @@
 <template>
   <section class="zkui-product-show">
     <show-header ></show-header>
-    <show-thumbnail :productView="modelView" v-if="asyncFlag"></show-thumbnail>
+    <show-thumbnail :productView="modelView" v-if="asyncFlag" ></show-thumbnail>
     <show-title :productView="modelView"  v-if="asyncFlag"></show-title>
-    <show-parameter :productView="modelView" v-if="asyncFlag"></show-parameter>
-    <show-intro :productView="modelView" v-if="asyncFlag"></show-intro>
+    <show-parameter :productView="modelView" v-if="asyncFlag" v-on:showState="changeState"></show-parameter>
+    <!-- <show-intro :productView="modelView" v-if="asyncFlag"></show-intro> -->
 
 
 
-    <!--底部-->
-    <!--<show-bar></show-bar>-->
-    <div class="zkui-product-show-bottom">
-      <ul>
-        <li class="zkui-product-show-bottom-left-box">
-          <ul class="zkui-product-show-bottom-left">
-            <li>
-              <router-link to="/default">
-                <div>
-                  <div class="icon">
-                    <m-icon name="zk-index" class="metal"></m-icon>
-                  </div>
-                </div>
-                <p>首页</p>
-              </router-link>
-            </li>
-            <li>
-              <a href="javascript:">
-                <div>
-                  <div class="icon">
-                    <m-icon name="zk-Star" class="metal"></m-icon>
-                  </div>
-                </div>
-                <p>收藏</p>
-              </a>
-            </li>
-            <li>
-              <router-link to="/order/cart">
-                <div>
-                  <div class="icon">
-                    <m-icon name="zk-shopping" class="metal"></m-icon>
-                  </div>
-                </div>
-                <p>购物车</p>
-              </router-link>
-            </li>
-          </ul>
-        </li>
-        <li class="zkui-product-show-bottom-center">
-          <a href="#">
-            加入购物车
-          </a>
-        </li>
-        <li class="zkui-product-show-bottom-right">
-          <a href="javascript:" @click="onClick">
-            立即购买
-          </a>
-        </li>
-      </ul>
-    </div>
 
 <show-recommend :productView="modelView"></show-recommend>
+  <show-bar></show-bar>
   </section>
 </template>
 
@@ -95,9 +46,14 @@
       this.GetData()
     },
     methods: {
-      onClick () {
-        this.showValue = true
+      showSale () {
+        console.dir('listenTochildEvent')
+        this.$emit('listenTochildEvent', 'true')
       },
+      changeState (data) {
+        console.dir('dddddddddddddddddddddddddddd')
+        alert(data)
+     },
       async GetData () {
         let params = {
           id: this.$route.params.id // 获取URL当中的Id参数

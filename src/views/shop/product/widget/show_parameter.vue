@@ -14,14 +14,14 @@
              <cell title="购买数量"><inline-x-number style="display:block;" :min="0" width="50px" button-style="round"></inline-x-number></cell>
         </group>
          <div style="padding:10px">
-          <x-button type="default" @click.native="showSale = false">加入购物车</x-button>
-          <x-button type="primary" @click.native="showSale = false">立即购买</x-button>
+         <button-tab>
+          <button-tab-item type="default" @click.native="onfilter">加入购物车</button-tab-item>
+          <button-tab-item type="primary"  @click.native="showSale = false">立即购买</button-tab-item>
+        </button-tab>
          </div>
         </div>
       </popup>
     </div>
-
-
     <div v-transfer-dom>
       <popup v-model="showParameter" class="showParameter" height="270*@rem" is-transparent>
         <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem;padding-top:10px;">
@@ -38,22 +38,28 @@
   </div>
 </template>
 <script>
-  import { Group, GroupTitle, Cell, TransferDom, Popup, XButton, XSwitch, InlineXNumber } from 'zkui'
+  import { Group, GroupTitle, Cell, TransferDom, Popup, XButton, XSwitch, InlineXNumber, ButtonTab, ButtonTabItem } from 'zkui'
 
   export default {
     components: {
-     Group, Cell, TransferDom, Popup, XButton, XSwitch, GroupTitle, InlineXNumber
+     Group, Cell, TransferDom, Popup, XButton, XSwitch, GroupTitle, InlineXNumber, ButtonTab, ButtonTabItem
     },
      directives: {
     TransferDom
   },
-    props: ['productView'],
+   props: ['productView'],
   data () {
     return {
       showParameter: false,
       showSale: false
     }
-  }
+  },
+   methods: {
+     onfilter () {
+       this.$emit('showState', 'browse')
+       console.dir('子组件')
+      }
+    }
   }
 </script>
 
