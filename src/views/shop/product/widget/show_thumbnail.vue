@@ -1,32 +1,27 @@
 <template>
-  <div class="swiper-container floor">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide" v-for="(item,index) in thumbnails" :key="index">
-        <router-link :to="'/product/show_preview/'+id">
-          <img :src="item.thumbnailUrl">
+  <swiper :aspect-ratio="300/800">
+    <swiper-item class="swiper-demo-img" v-for="(item, index) in productView.productThums" :key="index">
+       <router-link :to="'/product/show_preview/'+productView.id">
+          <img :src="item.showCaseUrl">
         </router-link>
-      </div>
-    </div>
-    <div class="swiper-pagination swiper-pagination-white"></div>
-  </div>
+    </swiper-item>
+  </swiper>
 </template>
 
 <script>
+  import { Swiper, SwiperItem } from 'zkui'
   export default {
-    props: ['thumbnails', 'id'],
-    data () {
-      return {
-
-      }
-    },
-    mounted () {
-
+    props: ['productView'],
+    components: {
+      Swiper,
+      SwiperItem
     }
   }
 </script>
 
 <style lang="less">
-  .swiper-container {
+  .zkui-product-show
+  .vux-slider {
     width: 100%;
     min-height: 350*@rem;
 
