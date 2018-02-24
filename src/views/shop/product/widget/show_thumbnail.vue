@@ -5,7 +5,6 @@
         <router-link :to="'/product/show_preview/'+id">
           <img :src="item.thumbnailUrl">
         </router-link>
-
       </div>
     </div>
     <div class="swiper-pagination swiper-pagination-white"></div>
@@ -13,8 +12,6 @@
 </template>
 
 <script>
-  import Swiper from 'swiper'
-  import 'swiper/dist/css/swiper.min.css'
   export default {
     props: ['thumbnails', 'id'],
     data () {
@@ -24,16 +21,6 @@
     },
     mounted () {
 
-      var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        loop: true,
-        speed: 600,
-        autoplay: true,
-        onTouchEnd: function () {
-          swiper.startAutoplay()
-        }
-      })
     }
   }
 </script>
