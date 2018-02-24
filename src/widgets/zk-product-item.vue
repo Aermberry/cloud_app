@@ -16,7 +16,7 @@
                 </router-link>
               </dd>
               <dd class="itemPrice">
-                <em>{{item.priceStyle}}</em>
+                <em>{{item.displayPrice}}</em>
                 <span>￥{{item.marketPrice}}</span>
               </dd>
             </dl>
