@@ -3,27 +3,29 @@
     <show-thumbnail :productView="modelView" ></show-thumbnail>
     <show-title :productView="modelView" ></show-title>
     <show-parameter :productView="modelView"></show-parameter>
+    <show-bar :productView="modelView"></show-bar>
+
+
 
 
   </section>
 </template>
 
 <script>
-  import $ from 'jquery'
   import apiService from 'src/service/api/product.api'
   import ShowThumbnail from './widget/show_thumbnail'
   import ShowTitle from './widget/show_title'
   import ShowCss from './widget/show_css'
   import ShowParameter from './widget/show_parameter'
-  // import bar from './widget/show_bar"
-  // import ProductItem from 'src/components/base/zk-product-Item.vue'
+  import ShowBar from './widget/show_bar'
+
 
   import { Group, Box } from 'zkui'
   // import VGroup from '../../../widgets/m-group/index.vue"
   // import {MProductparameter,MProductsize} from '../../../widgets'
   export default {
     components: {
-      Group, ShowThumbnail, ShowTitle, ShowCss, ShowParameter, Box
+      Group, ShowThumbnail, ShowTitle, ShowCss, ShowParameter, Box, ShowBar
     },
     data () {
       return {
@@ -80,10 +82,5 @@
       }
     }
   }
-  $(function () {
-    var rollHeader = $('.zkui-product-show-rolltop-center>ul>li')
-    rollHeader.click(function () {
-      $(this).addClass('active').siblings().removeClass('active')
-    })
-  })
+
 </script>
