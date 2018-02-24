@@ -1,13 +1,10 @@
+@import '../../../../assets/css/zkui/theme';
+@import '../../../../assets/css/zkui/mixin';
+.zkui-product-show {
+  padding-bottom: 2rem;
 
-<style lang="less">
-  @import '../../../../assets/css/zkui/theme';
-    @import '../../../../assets/css/zkui/mixin';
-   .zkui-product-show {
+  .zkui-product-show {
     padding-bottom: 2rem;
-
-     .zkui-product-show {
-    padding-bottom: 2rem;
-
 
     .zkui-product-show-parameter {
       div {
@@ -472,6 +469,75 @@
     .isnone {
       opacity: 1;
     }
+
+    .zkui-product-show-bottom {
+      width: 100%;
+      height: 2rem;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      z-index: 10;
+      .zkui-product-show-bottom-left {
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        height: 100%;
+        text-align: center;
+      }
+      .zkui-product-show-bottom-left > li {
+        -ms-flex: 1;
+        -moz-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        padding: 5*@rem;
+        background: #fff;
+        height: 100%;
+      }
+      .zkui-product-show-bottom-left > li > a {
+        display: block;
+      }
+      .zkui-product-show-bottom-left > li div {
+        margin: 0 auto;
+        .widthHeight(1rem, 1rem);
+      }
+      .zkui-product-show-bottom-left > li p {
+        font-size: @font-size-sm;
+      }
+    }
+    .zkui-product-show-bottom > ul {
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      width: 100%;
+      height: 100%;
+    }
+    .zkui-product-show-bottom-left-box {
+      -ms-flex: 1;
+      -moz-box-flex: 1;
+      -webkit-flex: 1;
+      flex: 1;
+    }
+    .zkui-product-show-bottom-right,
+    .zkui-product-show-bottom-center {
+      .widthHeight(27%, 100%);
+      text-align: center;
+      line-height: 2rem;
+    }
+    .zkui-product-show-bottom-right > a,
+    .zkui-product-show-bottom-center > a {
+      .sizeColor(@h3-font-size, #fff);
+    }
+    .zkui-product-show-bottom-center {
+      background: #ff888e;
+    }
+    .zkui-product-show-bottom-right {
+      background: @brand;
+    }
+
     .zkui-product-show-Btitle {
       .widthHeight(100%, 1.5rem);
       font-size: @h4-font-size;
@@ -578,8 +644,5 @@
     //     transform: translateY(0vh);
     //   }
     // }
-}
-
   }
-</style>
-
+}
