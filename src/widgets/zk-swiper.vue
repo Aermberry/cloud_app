@@ -1,6 +1,6 @@
 
 <template>
-  <swiper :list="swiperList" dots-position="center" auto height="swiperHeight"></swiper>
+  <swiper :list="swiperList" dots-position="center" loop auto height="swiperHeight"></swiper>
 </template>
 <script>
   import { Swiper, SwiperItem } from 'zkui'
