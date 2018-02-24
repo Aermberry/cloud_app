@@ -13,7 +13,7 @@
       <x-button slot="customer" type="default">加入购车</x-button>
       </tabbar-item>
       <tabbar-item >
-         <x-button slot="customer" type="primary">立即购买</x-button>
+         <x-button slot="customer" type="primary"  @click.native="showSaleProperty">立即购买</x-button>
       </tabbar-item>
     </tabbar>
 </section>
@@ -21,7 +21,6 @@
 
 <script>
 import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton } from 'zkui'
-
 export default {
   components: {
     Tabbar,
@@ -30,7 +29,19 @@ export default {
     Cell,
     MIcon,
     XButton
-  }
+  },
+  props: ['productView'],
+  data () {
+    return {
+      showParameter: false,
+      showSale: false
+    }
+  },
+   methods: {
+     showSaleProperty () {
+       this.$emit('changeSaleState', 'true')
+      }
+    }
 }
 </script>
 
@@ -40,7 +51,7 @@ export default {
 .zkui-product-show-bar {
   .weui-tabbar{
     position: fixed;
-    z-index: 999;
+    z-index: 500;
     bottom: 0;
     width: 100%;
     // height: 3.33333333rem;

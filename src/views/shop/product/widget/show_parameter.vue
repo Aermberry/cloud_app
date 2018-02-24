@@ -47,18 +47,29 @@
      directives: {
     TransferDom
   },
-   props: ['productView'],
+   props: ['productView', 'showSaleState'],
   data () {
     return {
       showParameter: false,
       showSale: false
     }
   },
+   mounted () {
+      this.showSaleModel()
+    },
+    watch: {
+       showSaleModeld () {
+       console.dir(this.showSaleState)
+       this.showSale = this.showSaleState
+     }
+    },
    methods: {
-     onfilter () {
-       this.$emit('showState', 'browse')
-       console.dir('子组件')
-      }
+     showSaleModel () {
+       console.dir(this.showSaleState)
+       if (this.showSaleState !== undefined) {
+          this.showSale = this.showSaleState
+       }
+     }
     }
   }
 </script>

@@ -3,14 +3,10 @@
     <show-header ></show-header>
     <show-thumbnail :productView="modelView" v-if="asyncFlag" ></show-thumbnail>
     <show-title :productView="modelView"  v-if="asyncFlag"></show-title>
-    <show-parameter :productView="modelView" v-if="asyncFlag" v-on:showState="changeState"></show-parameter>
-    <!-- <show-intro :productView="modelView" v-if="asyncFlag"></show-intro> -->
-
-
-
-
-<show-recommend :productView="modelView"></show-recommend>
-  <show-bar></show-bar>
+    <show-parameter :productView="modelView" v-if="asyncFlag" :showSaleState="showSale" ></show-parameter>
+    <show-intro :productView="modelView" v-if="asyncFlag"></show-intro>
+    <show-recommend :productView="modelView" ></show-recommend>
+    <show-bar :productView="modelView" v-if="asyncFlag" v-on:changeSaleState="showSaleModel"></show-bar>
   </section>
 </template>
 
@@ -34,25 +30,16 @@
       return {
         modelView: '', // 商品数据，从服务器上远程获取
         asyncFlag: false, // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
-        sizeShow: false,
-        parameterShow: false,
-        showValue: false,
-        istrue: true,
-        isNone: false,
-        headerClassify: false
+        showSale: false // 显示商品购物框
       }
     },
     mounted () {
       this.GetData()
     },
     methods: {
-      showSale () {
-        console.dir('listenTochildEvent')
-        this.$emit('listenTochildEvent', 'true')
-      },
-      changeState (data) {
-        console.dir('dddddddddddddddddddddddddddd')
-        alert(data)
+      showSaleModel (data) {
+        this.showSale = true
+        console.info('立即购买')
      },
       async GetData () {
         let params = {
@@ -63,19 +50,6 @@
         this.asyncFlag = true
         this.modelView = product
         console.dir(product)
-
-
-        // this.intro.push(product.price, product.marketPrice, product.soldCount, product.name)
-        // for (var i = 0; i < product.productPropertys.length; i++) {
-        //   if (product.productPropertys[i].isSale === true) {
-        //     this.size.push(product.productPropertys[i].valueName)
-        //   }
-        //   if (product.productPropertys[i].isSale === false) {
-        //     this.parameter.push(product.productPropertys[i].valueName)
-        //   }
-        // }
-        // this.sizeList.push(this.size)
-        // this.parameterList.push(this.parameter)
       }
     }
   }
