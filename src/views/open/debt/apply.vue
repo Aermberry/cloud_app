@@ -51,13 +51,14 @@
       },
       async apiPost () {
         var response = await apiService.apply(this.debtApiInput)
+        console.dir('ddddd')
         console.dir(response)
-        if (response.data.status === 1) {
-          // this.messageSuccess('申请成功')
-          this.$vux.toast.success('注册成功')
-        } else {
-          this.$vux.toast.warn(response.data.message)
-        }
+        // if (response.data.status === 1) {
+        //   // this.messageSuccess('申请成功')
+        //   this.$vux.toast.success('注册成功')
+        // } else {
+        //   this.$vux.toast.warn(response.data.message)
+        // }
       }
     }
   }
