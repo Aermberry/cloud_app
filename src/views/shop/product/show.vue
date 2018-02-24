@@ -16,7 +16,7 @@
   import apiService from 'src/service/api/product.api'
   import ShowThumbnail from './widget/show_thumbnail'
   import ShowIntro from './widget/show_intro'
-  // import intro from './widget/show_intro"
+  import ShowCss from './widget/show_css'
   // import bar from './widget/show_bar"
   // import ProductItem from 'src/components/base/zk-product-Item.vue'
 
@@ -25,7 +25,7 @@
   // import {MProductparameter,MProductsize} from '../../../widgets'
   export default {
     components: {
-      Group, ShowThumbnail, ShowIntro
+      Group, ShowThumbnail, ShowIntro, ShowCss
     },
     data () {
       return {

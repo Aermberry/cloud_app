@@ -1,9 +1,7 @@
-<template>
 
-</template>
 <style lang="less">
-  @import '../assets/css/zkui/theme';
-  .zkui-product-show {
+  @import '../../../../assets/css/zkui/theme';
+   .zkui-product-show {
     padding-bottom: 2rem;
     .zkui-product-show-swiper {
       width: 100%;
@@ -698,6 +696,6 @@
     //     transform: translateY(0vh);
     //   }
     // }
-
+}
 </style>
 
