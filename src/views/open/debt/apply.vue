@@ -47,9 +47,7 @@
     },
     methods: {
       async apiPost () {
-        console.dir('dddd')
         var response = await apiService.apply(this.debtApiInput)
-        console.dir('ddddd')
         console.dir(response)
         // if (response.data.status === 1) {
         //   // this.messageSuccess('申请成功')

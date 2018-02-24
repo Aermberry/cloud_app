@@ -38,7 +38,7 @@
     methods: {
       showSaleModel (data) {
         this.$refs.show_parameter.$emit('childMethod') // 监听销售属性事件
-        console.info('立即购买')
+        console.info('立即购买或加入购物车')
      },
       async GetData () {
         let params = {

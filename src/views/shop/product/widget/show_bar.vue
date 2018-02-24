@@ -9,7 +9,7 @@
         <m-icon slot="icon" name="zk-Star" class="metal"></m-icon>
         <span slot="label">收藏</span>
       </tabbar-item>
-      <tabbar-item selected link="/component/demo">
+      <tabbar-item>
       <x-button slot="customer" type="default" @click.native="showSaleProperty">加入购物车</x-button>
       </tabbar-item>
       <tabbar-item >
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import userService from 'src/service/api/user.api'
 import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton } from 'zkui'
 export default {
   components: {
@@ -37,9 +38,16 @@ export default {
       showSale: false
     }
   },
+  mounted () {
+      this.addFootprint()
+  },
    methods: {
-     showSaleProperty () {
-       this.$emit('changeSaleState', 'true')
+     async  addFootprint () { // 添加足迹
+       let params = {
+          entityId: this.productView.id, // 获取商品ID
+          type: 'Footprint' // 操作类型为足迹，与后台对应
+        }
+         await userService.addAction(params)
       }
     }
 }
