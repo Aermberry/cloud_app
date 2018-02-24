@@ -2,11 +2,8 @@
   <section class="zkui-product-show">
     <show-thumbnail :productView="modelView" ></show-thumbnail>
     <show-title :productView="modelView" ></show-title>
-    <group class="zkui-product-show-parameter">
+    <show-parameter :productView="modelView"></show-parameter>
 
-      <!-- <product-parameter :title="parameterTitle" :data="parameterList" v-model="parameterValue" @on-show="onShow" @on-hide="onHide" @on-change="onChange" :cancelText="cancelText" :confirmText="confirmText" :showValue="showValue"></product-parameter>
-      <product-size :title="sizeTitle" :data="sizeList" v-model="parameterValue" @on-show="onShow" @on-hide="onHide" @on-change="onChange" :cancelText="cancelText" :confirmText="confirmText"></product-size> -->
-    </group>
 
   </section>
 </template>
@@ -17,15 +14,16 @@
   import ShowThumbnail from './widget/show_thumbnail'
   import ShowTitle from './widget/show_title'
   import ShowCss from './widget/show_css'
+  import ShowParameter from './widget/show_parameter'
   // import bar from './widget/show_bar"
   // import ProductItem from 'src/components/base/zk-product-Item.vue'
 
-  import { Group } from 'zkui'
+  import { Group, Box } from 'zkui'
   // import VGroup from '../../../widgets/m-group/index.vue"
   // import {MProductparameter,MProductsize} from '../../../widgets'
   export default {
     components: {
-      Group, ShowThumbnail, ShowTitle, ShowCss
+      Group, ShowThumbnail, ShowTitle, ShowCss, ShowParameter, Box
     },
     data () {
       return {
