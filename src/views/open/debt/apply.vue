@@ -46,10 +46,8 @@
       }
     },
     methods: {
-      nextStep () {
-        console.dir(this.$ref)
-      },
       async apiPost () {
+        console.dir('dddd')
         var response = await apiService.apply(this.debtApiInput)
         console.dir(response)
         if (response.data.status === 1) {
