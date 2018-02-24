@@ -10,7 +10,7 @@
         <span slot="label">收藏</span>
       </tabbar-item>
       <tabbar-item selected link="/component/demo">
-      <x-button slot="customer" type="default">加入购车</x-button>
+      <x-button slot="customer" type="default" @click.native="showSaleProperty">加入购物车</x-button>
       </tabbar-item>
       <tabbar-item >
          <x-button slot="customer" type="primary"  @click.native="showSaleProperty">立即购买</x-button>

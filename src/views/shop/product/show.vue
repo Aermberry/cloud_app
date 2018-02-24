@@ -3,7 +3,7 @@
     <show-header ></show-header>
     <show-thumbnail :productView="modelView" v-if="asyncFlag" ></show-thumbnail>
     <show-title :productView="modelView"  v-if="asyncFlag"></show-title>
-    <show-parameter :productView="modelView" v-if="asyncFlag" :showSaleState="showSale" ></show-parameter>
+    <show-parameter ref="show_parameter" :productView="modelView" v-if="asyncFlag" ></show-parameter>
     <show-intro :productView="modelView" v-if="asyncFlag"></show-intro>
     <show-recommend :productView="modelView" ></show-recommend>
     <show-bar :productView="modelView" v-if="asyncFlag" v-on:changeSaleState="showSaleModel"></show-bar>
@@ -29,8 +29,7 @@
     data () {
       return {
         modelView: '', // 商品数据，从服务器上远程获取
-        asyncFlag: false, // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
-        showSale: false // 显示商品购物框
+        asyncFlag: false // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
       }
     },
     mounted () {
@@ -38,7 +37,7 @@
     },
     methods: {
       showSaleModel (data) {
-        this.showSale = true
+        this.$refs.show_parameter.$emit('childMethod') // 监听销售属性事件
         console.info('立即购买')
      },
       async GetData () {
@@ -53,8 +52,7 @@
       }
     }
   }
-
 </script>
 <style lang="less">
-  @import './widget/product_show';
+  // @import './widget/product_show';
 </style>

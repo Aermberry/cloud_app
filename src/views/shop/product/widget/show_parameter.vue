@@ -47,30 +47,20 @@
      directives: {
     TransferDom
   },
-   props: ['productView', 'showSaleState'],
+   props: ['productView'],
   data () {
     return {
       showParameter: false,
       showSale: false
     }
   },
-   mounted () {
-      this.showSaleModel()
-    },
-    watch: {
-       showSaleModeld () {
-       console.dir(this.showSaleState)
-       this.showSale = this.showSaleState
-     }
-    },
-   methods: {
-     showSaleModel () {
-       console.dir(this.showSaleState)
-       if (this.showSaleState !== undefined) {
-          this.showSale = this.showSaleState
-       }
-     }
-    }
+  mounted: function () {
+      this.$nextTick(function () {
+        this.$on('childMethod', function () {
+          this.showSale = true
+        })
+      })
+  }
   }
 </script>
 
@@ -84,6 +74,5 @@
   .weui-cells__content{
     min-heigth:240*@rem;
   }
-
 }
 </style>
