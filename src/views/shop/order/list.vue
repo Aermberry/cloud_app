@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-order-list">
-    <!-- 头部 -->
+
     <zk-head :title='title' :goBack='goBack'></zk-head>
 
     <mt-navbar v-model="selected">

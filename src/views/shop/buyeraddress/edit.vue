@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-user-buyeraddress-edit">
-    <!-- 头部 -->
+
     <zk-head :title='title' :goBack='goBack'></zk-head>
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">

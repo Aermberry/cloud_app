@@ -1,7 +1,7 @@
 
 <template>
   <section class="store_index">
-    <!-- 头部 -->
+
     <zk-head title="店铺首页" searchPart="true"></zk-head>
 
 <div class="page__bd ">

@@ -1,6 +1,6 @@
 <template>
   <section class="market">
-    <!-- 头部 -->
+
     <zk-head :title='title' :goBack='goBack'></zk-head>
     <div class="weui-cells">
       <div class="weui-form-preview">

@@ -1,6 +1,6 @@
 <template>
   <section class="market">
-    <!-- 头部 -->
+
     <zk-head title='头条详情'></zk-head>
     <div class="page article">
       <div class="page__bd">

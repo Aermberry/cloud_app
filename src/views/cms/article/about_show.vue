@@ -1,6 +1,6 @@
 <template>
   <section class="market">
-    <!-- 头部 -->
+
     <zk-head title='通知详情' goBack='会员通知'></zk-head>
     <div class="page article">
       <div class="page__bd">

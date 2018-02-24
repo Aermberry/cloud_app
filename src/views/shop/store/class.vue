@@ -1,7 +1,7 @@
 
 <template>
   <section class="store_class">
-    <!-- 头部 -->
+
     <zk-head title="店铺分类页"></zk-head>
   <div class="">分类</div>
     <zk-foot></zk-foot>

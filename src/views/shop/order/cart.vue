@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-order-cart">
-    <!-- 头部 -->
+
     <zk-head :title='title' :goBack='goBack' class="zkui-order-cart-head"></zk-head>
     <div class="zkui-order-cart-box">
       <ul>

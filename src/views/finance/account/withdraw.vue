@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-user-account-withdraw">
-    <!-- 头部 -->
+
     <zk-head title="提现" goBack="我的钱包"></zk-head>
 
 

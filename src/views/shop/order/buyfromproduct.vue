@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-order-buyfromproduct">
-    <!-- 头部 -->
+
     <zk-head :title='title' :goBack='goBack'></zk-head>
 
     <zk-foot></zk-foot>

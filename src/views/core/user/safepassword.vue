@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-user-password">
-    <!-- 头部 -->
+
     <zk-head title='修改安全密码' goBack='安全设置'></zk-head>
     <group gap="2rem 0.2rem" id="form">
       <x-input title="原始密码" required type="password" :min="6" :max="16" v-model="passwordInput.lastPassword"></x-input>

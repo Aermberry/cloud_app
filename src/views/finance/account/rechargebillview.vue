@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-user-account-rechargebillview">
-    <!-- 头部 -->
+
     <zk-head title="充值详情" goBack="充值记录"></zk-head>
     <zk-head :title='title' :goBack='goBack'></zk-head>
     <div class="weui-cells zkui-reward-show-user">

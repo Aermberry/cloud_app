@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-user-reg">
-    <!-- 头部 -->
+
     <zk-head title='注册' goBack='返回'></zk-head>
     <group gap="2rem 0.2rem" id="form">
       <x-input title="用户名" required :min="2" :max="12" v-model="user.username"></x-input>

@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-user-account-withdrawbillview">
-    <!-- 头部 -->
+
     <zk-head :title='title' :goBack='goBack'></zk-head>
     <div class="weui-cells zkui-reward-show-user">
       <div class="weui-form-preview">

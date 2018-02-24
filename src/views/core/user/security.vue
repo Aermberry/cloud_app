@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-user-security">
-    <!-- 头部 -->
+
     <zk-head :title='title' :goBack='goBack'></zk-head>
     <zk-cell :links="links"></zk-cell>
     <zk-foot></zk-foot>

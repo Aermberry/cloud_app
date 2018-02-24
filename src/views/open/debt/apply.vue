@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-user-apply">
-    <!-- 头部 -->
+
     <zk-head title='债事报备' goBack='首页'></zk-head>
     <div>
       <group gap="0.51rem 0rem" id="form">

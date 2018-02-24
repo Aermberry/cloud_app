@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-user-apply">
-    <!-- 头部 -->
+
     <zk-head title='找回密码' goBack='首页'></zk-head>
     <div>
       <group gap="1rem 0rem">

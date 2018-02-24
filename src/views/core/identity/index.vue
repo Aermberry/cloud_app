@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-user-identity-index">
-    <!-- 头部 -->
+
     <zk-head :title='title' :goBack='goBack'></zk-head>
 
     <div class="weui-cells weui-cells_form">

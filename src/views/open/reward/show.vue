@@ -1,7 +1,7 @@
 <template>
   <section class="market">
-    <!-- 头部 -->
-    <zk-head :title='title' :goBack='goBack'></zk-head>
+
+    <zk-head title='分润详情' goBack='我的分润'></zk-head>
     <div class="weui-cells">
       <div class="weui-form-preview">
         <div class="weui-form-preview__hd">
@@ -63,8 +63,6 @@
   export default {
     data () {
       return {
-        title: '分润详情',
-        goBack: '我的分润',
         modelView: null
       }
     },
@@ -83,19 +81,3 @@
     }
   }
 </script>
-<style lang="less">
-  // @import 'zkui/src/styles/zkui.less';
-  // //全局变量CSS，颜色，大小，边框，尺寸，尽量使用变量库里头的变量，请悉知所有变量
-  // .zkui-reward-show {
-  //   .zkui-reward-show-user {
-  //     margin-top: 0;
-  //   }
-  //   .zkui-reward-show_text {
-  //     @include sizeColor($H3Size,$sc);
-  //   }
-  //   label.weui-form-preview__label,
-  //   span.weui-form-preview__value {
-  //     font-size: $H4Size;
-  //   }
-  // }
-</style>

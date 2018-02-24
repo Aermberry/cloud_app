@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-shop-product-search">
-    <!-- 头部 -->
+
     <zk-head searchPart="true"></zk-head>
     <search :placeholder="pla" :cancel-text="canceText" :auto-fixed="false"></search>
     <div class="zkui-product_search-item">

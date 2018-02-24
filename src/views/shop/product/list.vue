@@ -1,7 +1,7 @@
 
 <template>
   <section class="zkui-product_list">
-    <!-- 头部 -->
+
     <zk-head :title='title' :goBack='goBack'></zk-head>
     <grid :cols="4">
       <grid-item v-for="(item,index) in list.Ltitle" :key="index">

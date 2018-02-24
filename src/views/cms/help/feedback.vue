@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-user-apply">
-    <!-- 头部 -->
+
     <zk-head title='意见反馈' goBack='返回'></zk-head>
     <div>
       <group gap="0.51rem 0rem" id="form">

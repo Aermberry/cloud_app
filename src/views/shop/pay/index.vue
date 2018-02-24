@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-pay-index">
-    <!-- 头部 -->
+
     <zk-head :title='title' :goBack='goBack'></zk-head>
     <mt-radio align="right" v-model="value" :options="options">
     </mt-radio>

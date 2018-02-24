@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-shop-product-class">
-    <!-- 头部 -->
+
     <zk-head :title='title' :goBack='goBack'></zk-head>
 
     <div class="zkui-shop-product-class-search">

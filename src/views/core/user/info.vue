@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-user-info">
-    <!-- 头部 -->
+
 
     <div class="zkui-user-info-app-content">
       <div id="self">
