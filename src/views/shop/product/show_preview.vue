@@ -39,7 +39,6 @@
     },
     data () {
       return {
-        img: [],
         list: [{
           src: 'https://ooo.0o0.ooo/2017/05/17/591c271ab71b1.jpg'
         },

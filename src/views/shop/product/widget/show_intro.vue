@@ -46,13 +46,6 @@
       Group,
       Cell
     },
-    props: {
-      productView: {
-       type: Object,
-        default () {
-          return { }
-        }
-      }
-    }
+    props: ['productView']
   }
 </script>

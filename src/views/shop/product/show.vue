@@ -1,8 +1,7 @@
 <template>
   <section class="zkui-product-show">
-    <!--主图-->
-    <show-thumbnail :productView="modelView"></show-thumbnail>
-    <show-intro :productView="modelView"></show-intro>
+    <show-thumbnail :productView="modelView" ></show-thumbnail>
+    <show-intro :productView="modelView" ></show-intro>
     <group class="zkui-product-show-parameter">
 
       <!-- <product-parameter :title="parameterTitle" :data="parameterList" v-model="parameterValue" @on-show="onShow" @on-hide="onHide" @on-change="onChange" :cancelText="cancelText" :confirmText="confirmText" :showValue="showValue"></product-parameter>
@@ -31,6 +30,7 @@
     data () {
       return {
         modelView: '', // 商品数据，从服务器上远程获取
+        previewerList: [],
         istrue: true,
         isNone: false,
         sizeShow: false,
@@ -63,8 +63,10 @@
           id: this.$route.params.id // 获取URL当中的Id参数
         }
         var response = await apiService.show(params)
-        this.modelView = response.data.result
-        console.dir(this.modelView)
+        var product = response.data.result
+        this.modelView = product
+        console.dir(product)
+
 
         // this.intro.push(product.price, product.marketPrice, product.soldCount, product.name)
         // for (var i = 0; i < product.productPropertys.length; i++) {
