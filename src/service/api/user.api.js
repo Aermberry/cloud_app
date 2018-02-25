@@ -64,8 +64,12 @@ export default {
   },
   //  加入购物车、足迹、加入收藏夹等相关操作
   async addAction (data) {
-    console.dir(data)
     var response = await http.postLogin('/user/addAction', data)
+    return response
+  },
+  //  获取购物车、足迹、加入收藏夹等相关操作记录
+  async getAction (data) {
+    var response = await http.getLogin('/user/getAction', data)
     return response
   }
 }

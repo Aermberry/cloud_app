@@ -5,7 +5,7 @@
         <m-icon slot="icon" name="zk-home" class="metal"></m-icon>
         <span slot="label">首页</span>
       </tabbar-item>
-      <tabbar-item class="bar-star">
+      <tabbar-item class="bar-star" @click.native="acctionProductFavorite">
         <m-icon slot="icon" name="zk-Star" class="metal"></m-icon>
         <span slot="label">收藏</span>
       </tabbar-item>
@@ -21,6 +21,7 @@
 
 <script>
 import userService from 'src/service/api/user.api'
+import store from 'src/store/index'
 import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton } from 'zkui'
 export default {
   components: {
@@ -34,20 +35,52 @@ export default {
   props: ['productView'],
   data () {
     return {
-      showParameter: false,
-      showSale: false
+      hasFavorite: false, // 商品是否收藏
+      loginUser: null // 当前登录用户
     }
   },
   mounted () {
       this.addFootprint()
+      this.loginUser = store.state.userStore.loginUser
   },
    methods: {
-     async  addFootprint () { // 添加足迹
+       addFootprint () { // 添加足迹
+        let params = {
+            entityId: this.productView.id, // 获取商品ID
+            type: 'footPrint' // 操作类型为足迹，与后台对应
+          }
+          var t
+          clearTimeout(t)
+          t = setTimeout(function () {
+            userService.addAction(params)
+          }, 2000) // 延迟2s处理
+      },
+       getFavorite () { // 获取收藏夹
+        let params = {
+            entityId: this.productView.id, // 获取商品ID
+            type: 'footPrint' // 操作类型为足迹，与后台对应
+          }
+          var t
+          clearTimeout(t)
+          t = setTimeout(function () {
+            userService.addAction(params)
+          }, 2000) // 延迟2s处理
+      },
+      async acctionProductFavorite () { // 收藏商品
+      if (this.loginUser === null) {
+        this.$vux.toast.warn('请先登录')
+      }
        let params = {
           entityId: this.productView.id, // 获取商品ID
-          type: 'footPrint' // 操作类型为足迹，与后台对应
+          type: 'productFavorite' // 操作类型为收藏商品，与后台对应
         }
-         await userService.addAction(params)
+        var response = await userService.addAction(params)
+        console.info(response)
+        if (response.data.status === 1) {
+           this.$vux.toast.success('收藏成功')
+        } else {
+           this.$vux.toast.warn('您已收藏该商品')
+        }
       },
       showSaleProperty () {
        this.$emit('changeSaleState', 'true')

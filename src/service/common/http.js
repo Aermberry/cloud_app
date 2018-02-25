@@ -38,6 +38,7 @@ function getSign (url) {
 }
 
 function checkStatus (response) {
+  console.dir(response)
   //  loading
   //  如果http状态码正常，则直接返回数据
   if (
@@ -102,6 +103,7 @@ export default {
     var sign = getSign(url)
     url = baseUrl + '/api/' + url
 
+    var loginUserId = userId
     url =
       url +
       '?sign=' +
@@ -114,9 +116,8 @@ export default {
       userId
     data = {
       ...data,
-      userId
+      loginUserId
     }
-    console.dir(data)
     var result = instance.post(url, data).then(response => {
       return checkStatus(response)
     })
