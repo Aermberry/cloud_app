@@ -6,7 +6,7 @@
         <span slot="label">首页</span>
       </tabbar-item>
       <tabbar-item class="bar-star" @click.native="acctionProductFavorite">
-        <m-icon slot="icon" name="zk-Star" class="metal"></m-icon>
+        <m-icon slot="icon" name="zk-favorites"  :class="hasFavorite === false ? 'metal' : 'brand' " ></m-icon>
         <span slot="label">收藏</span>
       </tabbar-item>
       <tabbar-item>
@@ -22,6 +22,7 @@
 <script>
 import userService from 'src/service/api/user.api'
 import store from 'src/store/index'
+import helper from 'src/service/common/helper'
 import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton } from 'zkui'
 export default {
   components: {
@@ -41,6 +42,7 @@ export default {
   },
   mounted () {
       this.addFootprint()
+      this.getFavorite()
       this.loginUser = store.state.userStore.loginUser
   },
    methods: {
@@ -55,32 +57,39 @@ export default {
             userService.addAction(params)
           }, 2000) // 延迟2s处理
       },
-       getFavorite () { // 获取收藏夹
+      async getFavorite () { // 获取收藏夹
         let params = {
             entityId: this.productView.id, // 获取商品ID
-            type: 'footPrint' // 操作类型为足迹，与后台对应
+            type: 'productFavorite' // 操作类型为足迹，与后台对应
           }
-          var t
-          clearTimeout(t)
-          t = setTimeout(function () {
-            userService.addAction(params)
-          }, 2000) // 延迟2s处理
+         var response = await userService.getAction(params)
+           if (response.data.status === 1) {
+           this.hasFavorite = true
+        }
       },
       async acctionProductFavorite () { // 收藏商品
-      if (this.loginUser === null) {
-        this.$vux.toast.warn('请先登录')
-      }
-       let params = {
+       helper.checkLogin(true) // 检查用户是否登录
+        let params = {
           entityId: this.productView.id, // 获取商品ID
           type: 'productFavorite' // 操作类型为收藏商品，与后台对应
         }
+       if (this.hasFavorite === false) {
         var response = await userService.addAction(params)
-        console.info(response)
         if (response.data.status === 1) {
+          this.hasFavorite = true
            this.$vux.toast.success('收藏成功')
         } else {
            this.$vux.toast.warn('您已收藏该商品')
         }
+       } else {
+        response = await userService.removeAction(params)
+        if (response.data.status === 1) {
+          this.hasFavorite = false
+           this.$vux.toast.success('移除成功')
+        } else {
+           this.$vux.toast.warn('您未收藏该商品')
+        }
+       }
       },
       showSaleProperty () {
        this.$emit('changeSaleState', 'true')

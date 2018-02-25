@@ -71,5 +71,10 @@ export default {
   async getAction (data) {
     var response = await http.getLogin('/user/getAction', data)
     return response
+  },
+  //  移除购物车、足迹、加入收藏夹等相关操作记录
+  async removeAction (data) {
+    var response = await http.putLogin('/user/removeAction', data)
+    return response
   }
 }

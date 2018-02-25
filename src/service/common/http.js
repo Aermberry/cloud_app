@@ -136,7 +136,6 @@ export default {
     }
     var loginuserid = loginUser.id
     var token = url.toLowerCase() + timestamp + loginUser.userName.toLowerCase()
-    console.dir(token)
     token = md5(token)
     params = {
       ...params,
@@ -227,9 +226,10 @@ export default {
       token +
       '&loginuserid=' +
       userId
+    var loginuserid = loginUser.id
     data = {
       ...data,
-      userId
+      loginuserid
     }
     var result = instance.put(url, data).then(response => {
       return checkStatus(response)
