@@ -1,7 +1,7 @@
 <template>
   <div>
     <group class="zkui-product-show-parameter">
-     <cell title="请选择：颜色、尺码" @click.native="showSale = true" is-link value="白色 XL"></cell>
+     <cell :title="salePropertyTitle" @click.native="showSale = true" is-link value="白色 XL"></cell>
       <cell title="商品参数" @click.native="showParameter = true" is-link class="border-bottom"></cell>
     </group>
 
@@ -16,33 +16,20 @@
              <dd class="sale-info-price brand">{{productView.displayPrice}}
                <span class="metal">￥{{productView.marketPrice}}</span>
              </dd>
-             <dd class="sale-info-stock metal">库存：{{stock}}</dd>
+             <dd class="sale-info-stock metal">库存：{{skuStock}}</dd>
           </dl>
           <div class="sale-info-property">
-          <dl class="border-bottom">
-             <dt>颜色</dt>
+          <dl class="border-bottom" v-for="(item, index) in productView.productPropertys.salePropertys" :key="index">
+             <dt>{{item.name}}</dt>
              <dd>
                <ul>
-                 <li class="active">
-                   <span onclick="buyInfos(this)" propertyId="@temp.PropertyId" valueId="@temp.Id">红色</span>
+                 <li class="active" v-for="sale in item.propertys" :key="sale.id">
+                   <span onclick="buyInfos(this)" :propertyId="sale.propertyGuid" :valueId="sale.propertyValueGuid">{{sale.valueName}}</span>
                 </li>
-                 <li><span onclick="buyInfos(this)" propertyId="@temp.PropertyId" valueId="@temp.Id">红色</span></li>
-                 <li><span onclick="buyInfos(this)" propertyId="@temp.PropertyId" valueId="@temp.Id">红色</span></li>
-               </ul>
-             </dd>
-          </dl>
-          <dl class="border-bottom">
-             <dt>颜色</dt>
-             <dd>
-               <ul>
-                 <li><span onclick="buyInfos(this)" propertyId="@temp.PropertyId" valueId="@temp.Id">红色</span></li>
-                 <li><span onclick="buyInfos(this)" propertyId="@temp.PropertyId" valueId="@temp.Id">红色</span></li>
-                 <li><span onclick="buyInfos(this)" propertyId="@temp.PropertyId" valueId="@temp.Id">红色</span></li>
                </ul>
              </dd>
           </dl>
           </div>
-
         <group>
           <cell title="购买数量"><inline-x-number style="display:block;" :min="0" width="50px" button-style="round"></inline-x-number></cell>
         </group>
@@ -59,7 +46,7 @@
       <popup v-model="showParameter" class="showParameter" height="270*@rem" is-transparent>
         <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem;padding-top:10px;">
         <group title="商品参数">
-            <cell  v-for="(item, index) in productView.productPropertys"  :key="index"
+            <cell  v-for="(item, index) in productView.productPropertys.parameterPropertys"  :key="index"
              :title="item.propertyName" :value="item.valueName" v-if="item.isSale == false"></cell>
         </group>
          <div style="padding:10px">
@@ -85,7 +72,8 @@
     return {
       showParameter: false,
       showSale: false,
-      stock: 10
+      skuStock: 10, // sku库存
+      salePropertyTitle: '请选择：'
     }
   },
   mounted: function () {
@@ -94,6 +82,15 @@
           this.showSale = true
         })
       })
+      this.init()
+  },
+  methods: {
+    init () {
+      for (var i = 0; i < this.productView.productPropertys.salePropertys.length; i++) {
+         var saleName = this.productView.productPropertys.salePropertys[i].name
+         this.salePropertyTitle = this.salePropertyTitle + saleName + ' '
+       }
+    }
   }
   }
 </script>
