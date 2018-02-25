@@ -236,5 +236,56 @@ export default {
     })
     console.info(result, 'putLogin接口:' + apiUrl, 'URL:' + url)
     return result
+  },
+  // delete数据接口，一般用于数据删除 对应增删改查 中的删
+  delete (url, params) {
+    let apiUrl = url
+    if (url.substring(0, 1) !== '/') {
+      url = '/' + url
+    }
+    var sign = getSign(url)
+    params = {
+      ...params,
+      sign,
+      timestamp
+    }
+    var result = axios({
+      method: 'delete',
+      baseURL: baseUrl + '/api/',
+      url,
+      params, // get 请求时带的参数
+      timeout: 10000,
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      }
+    }).then(response => {
+      return checkStatus(response)
+    })
+    console.info(
+      result,
+      'delete接口:' + apiUrl,
+      'URL:' + baseUrl + '/api/' + url
+    )
+    return result
+  },
+  // delete数据接口，一般用于数据删除 对应增删改查 中的删 , 需要用户登录才能够操作
+  deleteLogin (url, params) {
+    var loginUser = store.state.userStore.loginUser
+    if (loginUser === null) {
+      helper.alertError('您未登陆')
+      return
+    }
+    if (url.substring(0, 1) !== '/') {
+      url = '/' + url
+    }
+    var loginuserid = loginUser.id
+    var token = url.toLowerCase() + timestamp + loginUser.userName.toLowerCase()
+    token = md5(token)
+    params = {
+      ...params,
+      token,
+      loginuserid
+    }
+    return this.delete(url, params)
   }
 }
