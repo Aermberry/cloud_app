@@ -1,22 +1,19 @@
 <template>
   <div>
 
-    <x-switch title="default" @on-change="onChange"></x-switch>
-
   </div>
 </template>
 
+
+
 <script>
-  import { Toast, XSwitch } from 'zkui'
+
+  import apiService from 'src/service/api/apistore.api'
   export default {
-    components: {
-      Toast,
-      XSwitch
-    },
-    methods: {
-      onChange (val) {
-        this.$vux.toast.text('hello', 'min')
-      }
+    mounted: function () {
+      var response = apiService.miniProgramLogin()
+      console.dir(response)
     }
   }
 </script>
+

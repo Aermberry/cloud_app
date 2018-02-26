@@ -50,6 +50,16 @@ export default [
     }
   },
   {
+    path: '/apitest', // Api接口测试页面
+    meta: {
+      title: 'Api接口'
+    },
+    name: 'api_test',
+    component: function (resolve) {
+      require(['src/views/apitest'], resolve)
+    }
+  },
+  {
     path: '/test1', // 默认为空的时候，挑战到首页
     meta: {
       title: '测试'
