@@ -17,7 +17,7 @@
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
     "vux": "^2.7.9",
-    "zkui": "^1.2.4",
+    "zkui": "^1.2.5",
     "zkui-loader": "^0.1.8"
   },
   "devDependencies": {

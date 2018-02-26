@@ -69,9 +69,6 @@
       async upCallback () {
         let params = {
           pageIndex: this.pageIndex, // 当前第页,下拉一次增加一次
-          Keyword: '女装',
-          classIds: '1,2,3',
-          tagsIds: '2,3',
           pageSize: 10 // 每页显示的数量 建议20
         }
 
