@@ -1,86 +1,58 @@
 <template>
   <section class="zkui-product-show">
-    <show-thumbnail :productView="modelView" ></show-thumbnail>
-    <show-title :productView="modelView" ></show-title>
-    <show-parameter :productView="modelView"></show-parameter>
-    <show-bar :productView="modelView"></show-bar>
-
-
-
-
+    <show-header ></show-header>
+    <show-thumbnail :productView="modelView" v-if="asyncFlag" ></show-thumbnail>
+    <show-title :productView="modelView"  v-if="asyncFlag"></show-title>
+    <show-parameter ref="show_parameter" :productView="modelView" v-if="asyncFlag" ></show-parameter>
+    <show-intro :productView="modelView" v-if="asyncFlag"></show-intro>
+    <show-recommend :productView="modelView" ></show-recommend>
+    <show-bar :productView="modelView" v-if="asyncFlag" v-on:changeSaleState="showSaleModel"></show-bar>
   </section>
 </template>
 
 <script>
   import apiService from 'src/service/api/product.api'
-  import ShowThumbnail from './widget/show_thumbnail'
-  import ShowTitle from './widget/show_title'
-  import ShowCss from './widget/show_css'
-  import ShowParameter from './widget/show_parameter'
-  import ShowBar from './widget/show_bar'
-
+   import ShowHeader from './widget/show_header' // 头部
+  import ShowThumbnail from './widget/show_thumbnail' // 商品轮播图、商品主图等
+  import ShowTitle from './widget/show_title' // 价格 名称 已售数量等
+  import ShowParameter from './widget/show_parameter' // 商品参数以及规则
+  import ShowIntro from './widget/show_intro' // 商品详情
+  import ShowRecommend from './widget/show_recommend' // 推荐商品
+  import ShowBar from './widget/show_bar' // 底部操作按钮 立即购买 加入购物车等
 
   import { Group, Box } from 'zkui'
-  // import VGroup from '../../../widgets/m-group/index.vue"
-  // import {MProductparameter,MProductsize} from '../../../widgets'
+
   export default {
     components: {
-      Group, ShowThumbnail, ShowTitle, ShowCss, ShowParameter, Box, ShowBar
+      Group, ShowThumbnail, ShowTitle, ShowParameter, Box, ShowBar, ShowIntro, ShowRecommend, ShowHeader
     },
     data () {
       return {
         modelView: '', // 商品数据，从服务器上远程获取
-        previewerList: [],
-        istrue: true,
-        isNone: false,
-        sizeShow: false,
-        parameterShow: false,
-        parameter: [],
-        sizeList: [],
-        parameterList: [],
-        sizeValue: [''],
-        parameterValue: [''],
-        sizeTitle: '商品参数',
-        parameterTitle: '请选择:颜色、尺码',
-        evaluateTitle: '买家评论 199 | 销量 1531',
-        cancelText: '取消',
-        confirmText: '完成',
-        DatasList: [],
-        styleType: '',
-        showValue: false,
-        headerClassify: false
+        asyncFlag: false // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
       }
     },
     mounted () {
       this.GetData()
     },
     methods: {
-      onClick () {
-        this.showValue = true
-      },
+      showSaleModel (data) {
+        this.$refs.show_parameter.$emit('childMethod') // 监听销售属性事件
+        console.info('立即购买或加入购物车')
+     },
       async GetData () {
         let params = {
           id: this.$route.params.id // 获取URL当中的Id参数
         }
         var response = await apiService.show(params)
         var product = response.data.result
+        this.asyncFlag = true
         this.modelView = product
         console.dir(product)
-
-
-        // this.intro.push(product.price, product.marketPrice, product.soldCount, product.name)
-        // for (var i = 0; i < product.productPropertys.length; i++) {
-        //   if (product.productPropertys[i].isSale === true) {
-        //     this.size.push(product.productPropertys[i].valueName)
-        //   }
-        //   if (product.productPropertys[i].isSale === false) {
-        //     this.parameter.push(product.productPropertys[i].valueName)
-        //   }
-        // }
-        // this.sizeList.push(this.size)
-        // this.parameterList.push(this.parameter)
       }
     }
   }
-
 </script>
+<style lang="less">
+  // @import './widget/product_show';
+</style>

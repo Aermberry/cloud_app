@@ -1,7 +1,7 @@
 <template>
 <div>
   <swiper :aspect-ratio="520/520" loop dots-position="center" auto >
-    <swiper-item class="swiper-demo-img" v-for="(item, index) in productView.productThums"  :key="index" >
+    <swiper-item class="swiper-demo-img" v-for="(item, index) in productView.productPropertys.productThums"  :key="index" >
       <!-- <img  class="previewer-demo-img" :src="item.showCaseUrl" @click="show(index)"> -->
        <img  class="previewer-demo-img" :src="item.showCaseUrl">
     </swiper-item>
@@ -28,8 +28,8 @@
   methods: {
     show (index) {
      console.dir(this.list)
-      for (var i = 0; i < this.productView.productThums.length; i++) {
-         var originalUrl = this.productView.productThums[i].originalUrl
+      for (var i = 0; i < this.productView.productPropertys.productThums.length; i++) {
+         var originalUrl = this.productView.productPropertys.productThums[i].originalUrl
          var imgItem = {
            src: originalUrl
           }

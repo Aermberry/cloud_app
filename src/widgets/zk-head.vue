@@ -16,10 +16,8 @@ export default {
     TransferDom
   },
   props: ['title', 'goBack']
-
 }
 </script>
-
 <style>
 .zk-head-fixed {
   position: fixed;

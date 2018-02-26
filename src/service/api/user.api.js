@@ -58,8 +58,23 @@ export default {
     return response
   },
   //  会员明细
-  view (data) {
-    var response = http.getLogin('/user/view', data)
+  async view (data) {
+    var response = await http.getLogin('/user/view', data)
+    return response
+  },
+  //  加入购物车、足迹、加入收藏夹等相关操作
+  async addAction (data) {
+    var response = await http.postLogin('/user/addAction', data)
+    return response
+  },
+  //  获取购物车、足迹、加入收藏夹等相关操作记录
+  async getAction (data) {
+    var response = await http.getLogin('/user/getAction', data)
+    return response
+  },
+  //  移除购物车、足迹、加入收藏夹等相关操作记录
+  async removeAction (data) {
+    var response = await http.deleteLogin('/user/removeAction', data)
     return response
   }
 }
