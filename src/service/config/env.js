@@ -18,8 +18,8 @@ let baseUrl
 let routerMode = 'history'
 
 if (process.env.NODE_ENV === 'development') {
-  // baseUrl = 'http://183.60.143.29:8110'
-  baseUrl = 'http://localhost:9011'
+  baseUrl = 'http://139.159.243.8:8001'
+  // baseUrl = 'http://localhost:9011'
 } else {
   baseUrl = 'http://139.159.243.8:8001'
 }

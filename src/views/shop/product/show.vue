@@ -1,18 +1,18 @@
 <template>
   <section class="zkui-product-show">
-    <show-header ></show-header>
-    <show-thumbnail :productView="modelView" v-if="asyncFlag" ></show-thumbnail>
-    <show-title :productView="modelView"  v-if="asyncFlag"></show-title>
-    <show-parameter ref="show_parameter" :productView="modelView" v-if="asyncFlag" ></show-parameter>
+    <show-header></show-header>
+    <show-thumbnail :productView="modelView" v-if="asyncFlag"></show-thumbnail>
+    <show-title :productView="modelView" v-if="asyncFlag"></show-title>
+    <show-parameter ref="show_parameter" :productView="modelView" v-if="asyncFlag"></show-parameter>
     <show-intro :productView="modelView" v-if="asyncFlag"></show-intro>
-    <show-recommend :productView="modelView" ></show-recommend>
+    <show-recommend :productView="modelView"></show-recommend>
     <show-bar :productView="modelView" v-if="asyncFlag" v-on:changeSaleState="showSaleModel"></show-bar>
   </section>
 </template>
 
 <script>
   import apiService from 'src/service/api/product.api'
-   import ShowHeader from './widget/show_header' // 头部
+  import ShowHeader from './widget/show_header' // 头部
   import ShowThumbnail from './widget/show_thumbnail' // 商品轮播图、商品主图等
   import ShowTitle from './widget/show_title' // 价格 名称 已售数量等
   import ShowParameter from './widget/show_parameter' // 商品参数以及规则
@@ -39,7 +39,7 @@
       showSaleModel (data) {
         this.$refs.show_parameter.$emit('childMethod') // 监听销售属性事件
         console.info('立即购买或加入购物车')
-     },
+      },
       async GetData () {
         let params = {
           id: this.$route.params.id // 获取URL当中的Id参数
