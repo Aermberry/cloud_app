@@ -29,10 +29,7 @@
     },
     methods: {
       async GetData () {
-        let params = {
-          EntityId: 'WebsiteConfig' // 获取URL当中的Id参数
-        }
-        var response = await apiService.GetConfigValue(params)
+        var response = await apiService.GetConfigValue('WebsiteConfig')
         this.modelView = response.data.result
         console.dir((this.modelView))
       }

@@ -9,14 +9,22 @@
 
 <script>
 
-  import apiService from 'src/service/api/apistore.api'
+  import apiService from 'src/service/api/user.api'
   export default {
     mounted () {
       this.GetData()
     },
     methods: {
       async GetData () {
-        var response = await apiService.miniProgramLogin()
+        let user = {
+          Remark: '备注',
+          Birthday: '生日',
+          Address: '地址',
+          Avator: 'http://www.xxx.com/j.jpg',
+          NickName: '昵称',
+          Sex: '1'
+        }
+        var response = await apiService.update(user)
         console.dir(response)
         if (response.data.status === 1) {
           this.$vux.toast.success('请求成功')
