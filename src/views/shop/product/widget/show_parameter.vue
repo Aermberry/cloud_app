@@ -174,6 +174,7 @@
       min-height: 160*@rem;
       dl {
         width: 100%;
+        height: 100px;
         min-height: 80*@rem;
         dt {
           width: 100%;
@@ -191,7 +192,7 @@
             padding: 4*@rem 8*@rem;
             margin-right: 5*@rem;
             border-radius: 4*@rem;
-            line-height: 18@rem;
+            line-height: 18*@rem;
           }
           .sale-item-selected {
             background-color: @brand;
