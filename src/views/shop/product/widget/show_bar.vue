@@ -9,6 +9,10 @@
         <m-icon slot="icon" name="zk-favorites" :class="hasFavorite === false ? 'metal' : 'brand' "></m-icon>
         <span slot="label">收藏</span>
       </tabbar-item>
+      <tabbar-item link="/cart" class="bar-cart">
+        <m-icon slot="icon" name="zk-cart" class="metal"></m-icon>
+        <span slot="label">购物车</span>
+      </tabbar-item>
       <tabbar-item>
         <x-button slot="customer" type="default" @click.native="showSaleProperty">加入购物车</x-button>
       </tabbar-item>

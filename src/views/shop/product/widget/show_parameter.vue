@@ -1,7 +1,7 @@
 <template>
   <div>
     <group class="zkui-product-show-parameter">
-      <cell :title="salePropertyTitle" @click.native="showSale = true" is-link value="白色 XL"></cell>
+      <cell :title="salePropertyTitle" @click.native="showSale = true" is-link :value="salePropertyValue"></cell>
       <cell title="商品参数" @click.native="showParameter = true" is-link class="border-bottom"></cell>
     </group>
 
@@ -20,13 +20,29 @@
           </dl>
           <div class="sale-info-property">
             <dl class="border-bottom" v-for="(item, index) in productView.productExtensions.productCategory.salePropertys" :key="index">
-              <dt>{{item.name}}</dt>
-              <dd>
-                <ul>
-                  <li class="active" v-for="sale in item.propertyValues" :key="sale.id">
-                    <span onclick="buyInfos(this)" :propertyId="sale.propertyId" :valueId="sale.id">{{sale.valueAlias}}</span>
-                  </li>
-                </ul>
+              <dt v-if="index === 0">{{item.name}}</dt>
+              <dd v-if="index === 0">
+                <checker v-model="saleItem0" default-item-class="sale-item" @on-change="setsalePropertyValue" selected-item-class="sale-item-selected" disabled-item-class="sale-item-disabled" :radio-required="true">
+                  <checker-item :value="sale" v-for="sale in item.propertyValues" :key="sale.id" @on-item-click="buyInfoItem"> {{sale.valueAlias}} </checker-item>
+                </checker>
+              </dd>
+              <dt v-if="index === 1">{{item.name}}</dt>
+              <dd v-if="index === 1">
+                <checker v-model="saleItem1" default-item-class="sale-item" @on-change="setsalePropertyValue" selected-item-class="sale-item-selected" disabled-item-class="sale-item-disabled" :radio-required="true">
+                  <checker-item :value="sale" v-for="sale in item.propertyValues" :key="sale.id" @on-item-click="buyInfoItem"> {{sale.valueAlias}} </checker-item>
+                </checker>
+              </dd>
+              <dt v-if="index === 2">{{item.name}}</dt>
+              <dd v-if="index === 2">
+                <checker v-model="saleItem2" default-item-class="sale-item" selected-item-class="sale-item-selected" disabled-item-class="sale-item-disabled" :radio-required="true">
+                  <checker-item :value="sale" v-for="sale in item.propertyValues" :key="sale.id" @on-item-click="buyInfoItem"> {{sale.valueAlias}} </checker-item>
+                </checker>
+              </dd>
+              <dt v-if="index === 3">{{item.name}}</dt>
+              <dd v-if="index === 3">
+                <checker v-model="saleItem3" default-item-class="sale-item" selected-item-class="sale-item-selected" disabled-item-class="sale-item-disabled" :radio-required="true">
+                  <checker-item :value="sale" v-for="sale in item.propertyValues" :key="sale.id" @on-item-click="buyInfoItem"> {{sale.valueAlias}} </checker-item>
+                </checker>
               </dd>
             </dl>
           </div>
@@ -59,11 +75,11 @@
   </div>
 </template>
 <script>
-  import { Group, GroupTitle, Cell, TransferDom, Popup, XButton, XSwitch, InlineXNumber, ButtonTab, ButtonTabItem } from 'zkui'
+  import { Group, Checker, CheckerItem, Divider, GroupTitle, Cell, TransferDom, Popup, XButton, XSwitch, InlineXNumber, ButtonTab, ButtonTabItem } from 'zkui'
 
   export default {
     components: {
-      Group, Cell, TransferDom, Popup, XButton, XSwitch, GroupTitle, InlineXNumber, ButtonTab, ButtonTabItem
+      Group, Cell, TransferDom, Popup, XButton, XSwitch, GroupTitle, InlineXNumber, ButtonTab, ButtonTabItem, Checker, CheckerItem, Divider
     },
     directives: {
       TransferDom
@@ -74,7 +90,12 @@
         showParameter: false,
         showSale: false,
         skuStock: 10, // sku库存
-        salePropertyTitle: '请选择：'
+        salePropertyTitle: '请选择：',
+        salePropertyValue: '',
+        saleItem0: { key: '2' }, // 可能存在多个商品规格属性，默认填充四个
+        saleItem1: [1], // 可能存在多个商品规格属性
+        saleItem2: '', // 可能存在多个商品规格属性
+        saleItem3: '' // 可能存在多个商品规格属性
       }
     },
     mounted: function () {
@@ -91,6 +112,22 @@
           var saleName = this.productView.productExtensions.productCategory.salePropertys[i].name
           this.salePropertyTitle = this.salePropertyTitle + saleName + ' '
         }
+      },
+      // 购买商品
+      buyInfoItem (value, disabled) {
+
+      },
+      // 设置规格标题，目前bug,值要延后一次
+      setsalePropertyValue () {
+        if (this.saleItem0.valueAlias !== undefined) {
+          this.salePropertyValue = this.saleItem0.valueAlias
+          if (this.saleItem1.valueAlias !== undefined) {
+            this.salePropertyValue = this.saleItem0.valueAlias + ' ' + this.saleItem1.valueAlias
+            if (this.saleItem2.valueAlias !== undefined) {
+              this.salePropertyValue = this.saleItem0.valueAlias + ' ' + this.saleItem1.valueAlias + ' ' + this.saleItem2.valueAlias
+            }
+          }
+        }
       }
     }
   }
@@ -101,10 +138,10 @@
   @import '../../../../assets/css/zkui/mixin';
   .zkui-product-show-parameter {
     .weui-cells__title {
-      text-algin: center;
+      text-align: center;
     }
     .weui-cells__content {
-      min-heigth: 240*@rem;
+      min-height: 240*@rem;
     }
   }
 
@@ -134,10 +171,10 @@
     }
 
     .sale-info-property {
-      height: 120*@rem;
+      min-height: 160*@rem;
       dl {
         width: 100%;
-        height: 60*@rem;
+        min-height: 80*@rem;
         dt {
           width: 100%;
           height: 20*@rem;
@@ -145,19 +182,23 @@
         }
         dd {
           width: 100%;
-          ul li.active {
-            border: 1px solid @brand;
-            background-color: @brand;
-            color: @light;
-          }
-          ul li {
-            height: 24px;
-            border: 1px solid @metal;
+          .vux-checker-box {
             float: left;
-            margin: 0 6px 6px 0;
-            overflow: hidden;
-            font-family: arial;
-            border-radius: 0.5rem;
+          }
+          .sale-item {
+            background-color: #ddd;
+            color: #222;
+            padding: 4*@rem 8*@rem;
+            margin-right: 5*@rem;
+            border-radius: 4*@rem;
+            line-height: 18@rem;
+          }
+          .sale-item-selected {
+            background-color: @brand;
+            color: #fff;
+          }
+          .sale-item-disabled {
+            color: #999;
           }
         }
       }
