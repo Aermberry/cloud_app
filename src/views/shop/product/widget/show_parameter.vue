@@ -7,7 +7,7 @@
 
     <div v-transfer-dom>
       <popup v-model="showSale" class="zk-product-showSale" height="270*@rem" is-transparent>
-        <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem;padding-top:10px;">
+        <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem;padding-top:25px;">
           <dl class="sale-info">
             <dt class="sale-info-img">
               <img :src="productView.thumbnailUrl" />
@@ -17,6 +17,7 @@
               <span class="metal">￥{{productView.marketPrice}}</span>
             </dd>
             <dd class="sale-info-stock metal">库存：{{skuStock}}</dd>
+            <a class="sale-info-close" href=""></a>
           </dl>
           <div class="sale-info-property">
             <dl class="border-bottom" v-for="(item, index) in productView.productExtensions.productCategory.salePropertys" :key="index">
@@ -46,7 +47,7 @@
               </dd>
             </dl>
           </div>
-          <group>
+          <group class="zkui-product-show-parameter-amount">
             <cell title="购买数量">
               <inline-x-number style="display:block;" :min="0" width="50px" button-style="round"></inline-x-number>
             </cell>
@@ -147,10 +148,12 @@
 
   .zk-product-showSale {
     .sale-info {
-      height: 80*@rem;
+      height: 100*@rem;
       dd {
         float: right;
-        width: 75%;
+        width: 65%;
+        margin-right: 15*@rem;
+        padding-top: 2*@rem;
       }
       .sale-info-price {
         font-weight: border;
@@ -159,9 +162,28 @@
           font-weight: 100;
         }
       }
+      .sale-info-close {
+        width: 20px;
+        height: 20px;
+        border-radius: 10px;
+        border: 1px solid #5f646e;
+        display: inline-block;
+        position: absolute;
+        right: 5px;
+        top: 4px;
+      }
+      .sale-info-close::after {
+        content: '\2716'; //特殊字符或形状，一个勾
+        color: #5f646e;
+        font-size: 12px;
+        position: absolute;
+        right: 5px;
+        top: 1px;
+      }
       dt {
         float: left;
         width: 25%;
+        margin-left: 1rem;
         img {
           border-radius: 0.2rem;
           width: 90%;
@@ -174,22 +196,24 @@
       min-height: 160*@rem;
       dl {
         width: 100%;
-        min-height: 80*@rem;
+        min-height: 100*@rem;
         dt {
           width: 100%;
           height: 20*@rem;
+          margin: 8*@rem 0 0 8*@rem;
           font-weight: border;
         }
         dd {
           width: 100%;
           .vux-checker-box {
             float: left;
+            margin-left: 8*@rem;
           }
           .sale-item {
             background-color: #ddd;
             color: #222;
             padding: 4*@rem 8*@rem;
-            margin-right: 5*@rem;
+            margin: 5*@rem 5*@rem 5*@rem 5*@rem;
             border-radius: 4*@rem;
             line-height: 18@rem;
           }
@@ -201,6 +225,28 @@
             color: #999;
           }
         }
+      }
+    }
+  }
+  .zkui-product-show-parameter-amount {
+    .weui-cells {
+      margin-top: 0;
+    }
+    .weui-cells:before {
+      border-top: 0;
+    }
+    .vux-number-round .vux-number-selector-sub svg {
+      position: relative;
+      top: -0.3rem;
+      right: 0.05rem;
+    }
+    .vux-number-round .vux-number-selector-plus {
+      border: 1px solid @actionsheet-label-disabled-color;
+      svg {
+        position: relative;
+        top: -0.2rem;
+        right: 2*@rem;
+        fill: @actionsheet-label-disabled-color;
       }
     }
   }
