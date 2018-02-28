@@ -31,7 +31,7 @@
           </div>
           <group class="zkui-product-show-parameter-amount ">
             <cell title="购买数量 ">
-              <inline-x-number style="display:block; " :min="1 " width="50px " button-style="round "></inline-x-number>
+              <inline-x-number style="display:block; " :min="1 " width="50px " :max="selectSku.stock" button-style="round"></inline-x-number>
             </cell>
           </group>
           <div style="padding:10px ">

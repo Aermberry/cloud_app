@@ -1,7 +1,7 @@
 <template>
   <section class="zkui-shop-product-class">
 
-    <zk-head :title='title' :goBack='goBack'></zk-head>
+    <zk-head title='商品分类' goBack='首页'></zk-head>
 
     <router-link to="/product/search">
       <search placeholder="搜索您想要的商品" cancel-text="取消" :auto-fixed="false"></search>
@@ -31,8 +31,6 @@
 
 
 <script>
-  /* eslint-disable */
-  import $ from 'jquery'
   import apiService from 'src/service/api/product.api'
   import { Search, Tab, TabItem, Sticky, Divider, XButton, Swiper, SwiperItem, Grid, GridItem, GroupTitle, MIcon } from 'zkui'
   export default {
@@ -53,12 +51,8 @@
     data () {
       return {
         listDatas: [],
-        flag: 0,
-        title: '商品分类',
-        goBack: '',
         list2: [],
-        demo2: '服装',
-        index: 0,
+        list: [],
         getBarWidth: function (index) {
           return (index + 1) * 22 + 'px'
         }
@@ -66,7 +60,7 @@
     },
     mounted () {
       this.getData()
-      var leftBottom = document.getElementsByClassName('vux-tab-ink-bar');
+      var leftBottom = document.getElementsByClassName('vux-tab-ink-bar')
       console.log(leftBottom)
       console.log(leftBottom.style.display = 'none')
     },
@@ -97,12 +91,12 @@
       },
       addTab () {
         if (this.list2.length < 5) {
-          this.list2 = list().slice(0, this.list2.length + 1)
+          this.list2 = this.list.slice(0, this.list2.length + 1)
         }
       },
       removeTab () {
         if (this.list2.length > 1) {
-          this.list2 = list().slice(0, this.list2.length - 1)
+          this.list2 = this.list.slice(0, this.list2.length - 1)
         }
       },
       next () {
@@ -121,56 +115,6 @@
       }
     }
   }
-
-
-
-
-
-  $(function () {
-    //  搜索框js
-    var $searchBar = $('#searchBar')
-    var $searchResult = $('#searchResult')
-    var $searchText = $('#searchText')
-    var $searchInput = $('#searchInput')
-    var $searchClear = $('#searchClear')
-    var $searchCancel = $('#searchCancel')
-
-    function hideSearchResult () {
-      $searchResult.hide()
-      $searchInput.val('')
-    }
-
-    function cancelSearch () {
-      hideSearchResult()
-      $searchBar.removeClass('weui-search-bar_focusing')
-      $searchText.show()
-    }
-
-    $searchText.on('click', function () {
-      $searchBar.addClass('weui-search-bar_focusing')
-      $searchInput.focus()
-    })
-    $searchInput
-      .on('blur', function () {
-        if (!this.value.length) cancelSearch()
-      })
-      .on('input', function () {
-        if (this.value.length) {
-          $searchResult.show()
-        } else {
-          $searchResult.hide()
-        }
-      })
-    $searchClear.on('click', function () {
-      hideSearchResult()
-      $searchInput.focus()
-    })
-    $searchCancel.on('click', function () {
-      cancelSearch()
-      $searchInput.blur()
-    })
-  })
-
 </script>
 <style lang="less">
   .zkui-shop-product-class {
