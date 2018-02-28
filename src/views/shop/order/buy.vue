@@ -1,7 +1,7 @@
 <template>
   <section class="zkui-order-buyfromproduct">
 
-    <zk-head :title='title' :goBack='goBack'></zk-head>
+    <zk-head title='确认下单' goBack='商品详情'></zk-head>
 
     <zk-foot></zk-foot>
   </section>
@@ -12,8 +12,6 @@
   export default {
     data () {
       return {
-        title: '提交订单',
-        goBack: '商品详情'
       }
     }
   }
