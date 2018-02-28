@@ -31,7 +31,7 @@
           </div>
           <group class="zkui-product-show-parameter-amount ">
             <cell title="购买数量 ">
-              <inline-x-number style="display:block; " :min="1 " width="50px " :max="selectSku.stock" button-style="round"></inline-x-number>
+              <inline-x-number style="display:block; " :min="1 " width="50px " v-model="buyCount" :max="selectSku.stock" button-style="round"></inline-x-number>
             </cell>
           </group>
           <div style="padding:10px ">
@@ -74,7 +74,7 @@
         showSale: false, // 显示规格选择窗口
         salePropertyTitle: '请选择：',
         selectSku: '', // 选择的商品Sku
-        buyCount: '1', // 商品购买数量
+        buyCount: 10, // 商品购买数量
         saleItems: [] // 可能存在多个商品规格属性，默认填充四个
       }
     },
@@ -98,6 +98,15 @@
       },
       // 购买商品
       buyProduct () {
+        if (this.selectSku.id === undefined) {
+          this.$vux.toast.warn('请选择商品规格')
+        }
+        if (this.buyCount < 1) {
+          this.$vux.toast.warn('购买数量不能小于1')
+        }
+         if (this.buyCount * 20000 > this.selectSku.stock) {
+          this.$vux.toast.warn('库存不足')
+        }
         this.showSale = false
       },
       getSku () {
