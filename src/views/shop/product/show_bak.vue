@@ -110,7 +110,7 @@
         <div class="icon">
           <m-icon name="zk-particulars" class="metal"></m-icon>
         </div>
-      </b>商品详情
+      </b>
     </div>
     <div class="zkui-product-show-images">
       <div v-html='modelView.detail.mobileIntro'></div>
