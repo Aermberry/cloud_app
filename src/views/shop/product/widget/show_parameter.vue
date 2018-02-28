@@ -223,12 +223,7 @@
       min-height: 160*@rem;
       dl {
         width: 100%;
-<<<<<<< HEAD
-        height: 100px;
-        min-height: 80*@rem;
-=======
         min-height: 100*@rem;
->>>>>>> 5ece7fa3f5766f2b5d4e29983a157a7e1a9c3b3c
         dt {
           width: 100%;
           height: 20*@rem;
