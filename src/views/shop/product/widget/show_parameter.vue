@@ -21,27 +21,9 @@
           </dl>
           <div class="sale-info-property ">
             <dl class="border-bottom " v-for="(item, index) in productView.productExtensions.productCategory.salePropertys " :key="index ">
-              <dt v-if="index===0 ">{{item.name}}</dt>
-              <dd v-if="index===0 ">
-                <checker v-model="saleItems[0] " default-item-class="sale-item " @on-change="setsalePropertyValue " selected-item-class="sale-item-selected " disabled-item-class="sale-item-disabled " :radio-required="true ">
-                  <checker-item :value="sale " v-for="sale in item.propertyValues " :key="sale.id " @on-item-click="buyInfoItem "> {{sale.valueAlias}} </checker-item>
-                </checker>
-              </dd>
-              <dt v-if="index===1 ">{{item.name}}</dt>
-              <dd v-if="index===1 ">
-                <checker v-model="saleItems[1]" default-item-class="sale-item " @on-change="setsalePropertyValue " selected-item-class="sale-item-selected " disabled-item-class="sale-item-disabled " :radio-required="true ">
-                  <checker-item :value="sale " v-for="sale in item.propertyValues " :key="sale.id " @on-item-click="buyInfoItem "> {{sale.valueAlias}} </checker-item>
-                </checker>
-              </dd>
-              <dt v-if="index===2 ">{{item.name}}</dt>
-              <dd v-if="index===2 ">
-                <checker v-model="saleItem2 " default-item-class="sale-item " selected-item-class="sale-item-selected " disabled-item-class="sale-item-disabled " :radio-required="true ">
-                  <checker-item :value="sale " v-for="sale in item.propertyValues " :key="sale.id " @on-item-click="buyInfoItem "> {{sale.valueAlias}} </checker-item>
-                </checker>
-              </dd>
-              <dt v-if="index===3 ">{{item.name}}</dt>
-              <dd v-if="index===3 ">
-                <checker v-model="saleItem3 " default-item-class="sale-item " selected-item-class="sale-item-selected " disabled-item-class="sale-item-disabled " :radio-required="true ">
+              <dt>{{item.name}}</dt>
+              <dd>
+                <checker v-model="saleItems[index] " default-item-class="sale-item " @on-change="setSalePropertyValue " selected-item-class="sale-item-selected " disabled-item-class="sale-item-disabled " :radio-required="true ">
                   <checker-item :value="sale " v-for="sale in item.propertyValues " :key="sale.id " @on-item-click="buyInfoItem "> {{sale.valueAlias}} </checker-item>
                 </checker>
               </dd>
@@ -49,7 +31,7 @@
           </div>
           <group class="zkui-product-show-parameter-amount ">
             <cell title="购买数量 ">
-              <inline-x-number style="display:block; " :min="0 " width="50px " button-style="round "></inline-x-number>
+              <inline-x-number style="display:block; " :min="1 " width="50px " button-style="round "></inline-x-number>
             </cell>
           </group>
           <div style="padding:10px ">
@@ -122,25 +104,9 @@
       },
       getSku () {
         var specSn = ''
-        var specCount = this.productView.productExtensions.productCategory.salePropertys.length // 规格数量
-        if (specCount === 1) {
-          specSn = this.saleItems[0].id + '|'
-        }
-        if (specCount === 2) {
-          specSn = this.saleItem[0].id + '|' + this.saleItem[1].id + '|'
-          console.dir(specSn)
-        }
-        if (specCount === 3) {
-          specSn = this.saleItem0.id + '|' + this.saleItem1.id + '|' + this.saleItem2.id + '|'
-        }
-        if (specCount === 4) {
-          specSn = this.saleItem0.id + '|' + this.saleItem1.id + '|' + this.saleItem2.id + '|' + this.saleItem3.id + '|'
-        }
-        if (specSn.indexOf('undefined') !== -1) {
-          this.$vux.toast.warn('请选择所有商品规格')
-        }
-        // console.info('第一个规格', this.saleItem0)
-        // console.info('第二个规格', this.saleItem1)
+        this.saleItems.forEach(element => {
+          specSn += element.id + '|'
+        })
         var skus = this.productView.productExtensions.productSkus
         var sku = ''
         console.dir(specSn)
@@ -154,7 +120,7 @@
       },
 
       // 获取Sku
-      setsalePropertyValue () {
+      setSalePropertyValue () {
         this.selectSku = this.getSku() // 根据specSn获取商品的规格
       }
     }
