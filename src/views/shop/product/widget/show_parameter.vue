@@ -23,8 +23,8 @@
             <dl class="border-bottom " v-for="(item, index) in productView.productExtensions.productCategory.salePropertys " :key="index ">
               <dt>{{item.name}}</dt>
               <dd>
-                <checker v-model="saleItems[index] " default-item-class="sale-item " @on-change="setSalePropertyValue " selected-item-class="sale-item-selected " disabled-item-class="sale-item-disabled " :radio-required="true ">
-                  <checker-item :value="sale " v-for="sale in item.propertyValues " :key="sale.id " @on-item-click="buyInfoItem "> {{sale.valueAlias}} </checker-item>
+                <checker v-model="saleItems[index] " default-item-class="sale-item " @on-change="changSku " selected-item-class="sale-item-selected " disabled-item-class="sale-item-disabled " :radio-required="true ">
+                  <checker-item :value="sale " v-for="sale in item.propertyValues " :key="sale.id "> {{sale.valueAlias}} </checker-item>
                 </checker>
               </dd>
             </dl>
@@ -36,7 +36,7 @@
           </group>
           <div style="padding:10px ">
             <button-tab>
-              <button-tab-item type="default " @click.native="onfilter ">加入购物车</button-tab-item>
+              <button-tab-item type="default " @click.native="addToCart ">加入购物车</button-tab-item>
               <button-tab-item type="primary " @click.native="buyProduct ">立即购买</button-tab-item>
             </button-tab>
           </div>
@@ -70,11 +70,11 @@
     props: ['productView'],
     data () {
       return {
-        showParameter: false,
-        showSale: false,
-        skuStock: 10, // sku库存
+        showParameter: false, // 是否显示商品参数窗口
+        showSale: false, // 显示规格选择窗口
         salePropertyTitle: '请选择：',
         selectSku: '', // 选择的商品Sku
+        buyCount: '1', // 商品购买数量
         saleItems: [] // 可能存在多个商品规格属性，默认填充四个
       }
     },
@@ -88,15 +88,13 @@
     },
     methods: {
       init () {
-        for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
-          var saleName = this.productView.productExtensions.productCategory.salePropertys[i].name
-          this.salePropertyTitle = this.salePropertyTitle + saleName + ' '
-        }
+        this.productView.productExtensions.productCategory.salePropertys.forEach(element => {
+          this.salePropertyTitle = this.salePropertyTitle + element.name + ' '
+        })
         this.selectSku = this.productView.productExtensions.productSkus[0] // 根据specSn获取商品的规格
       },
-      //
-      buyInfoItem (value, disabled) {
-
+      // 添加到购物车
+      AddToCart () {
       },
       // 购买商品
       buyProduct () {
@@ -109,18 +107,18 @@
         })
         var skus = this.productView.productExtensions.productSkus
         var sku = ''
-        console.dir(specSn)
         for (var i = 0; i < skus.length; i++) {
           if (skus[i].specSn === specSn) {
             sku = skus[i]
-            console.dir(sku)
           }
+        }
+        if (sku.id === undefined) {
+          this.$vux.toast.warn('请选择商品规格')
         }
         return sku
       },
-
-      // 获取Sku
-      setSalePropertyValue () {
+      // 获取Sku ，用户选择不同的sku
+      changSku () {
         this.selectSku = this.getSku() // 根据specSn获取商品的规格
       }
     }
