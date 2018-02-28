@@ -1,7 +1,7 @@
 <template>
   <div>
     <group class="zkui-product-show-parameter">
-      <cell :title="salePropertyTitle" @click.native="showSale = true" is-link :value="salePropertyValue"></cell>
+      <cell :title="salePropertyTitle" @click.native="showSale = true" is-link :value="selectSku.propertyValueDesc"></cell>
       <cell title="商品参数" @click.native="showParameter = true" is-link class="border-bottom"></cell>
     </group>
 
@@ -13,24 +13,23 @@
               <img :src="productView.thumbnailUrl" />
             </dt>
             <dd class="sale-info-name">{{productView.name}}</dd>
-            <dd class="sale-info-price brand">{{productView.displayPrice}}
-              <span class="metal">￥{{productView.marketPrice}}</span>
+            <dd class="sale-info-price brand">{{selectSku.displayPrice}}
+              <span class="metal">￥{{selectSku.marketPrice}}</span>
             </dd>
-            <dd class="sale-info-stock metal">库存：{{skuStock}}</dd>
-            <a class="sale-info-close" href=""></a>
+            <dd class="sale-info-stock metal">库存：{{selectSku.stock}} 货号：{{selectSku.bn}}</dd>
             <x-button type="primary" class="sale-info-close" @click.native=" showSale = false "></x-button>
           </dl>
           <div class="sale-info-property ">
             <dl class="border-bottom " v-for="(item, index) in productView.productExtensions.productCategory.salePropertys " :key="index ">
               <dt v-if="index===0 ">{{item.name}}</dt>
               <dd v-if="index===0 ">
-                <checker v-model="saleItem0 " default-item-class="sale-item " @on-change="setsalePropertyValue " selected-item-class="sale-item-selected " disabled-item-class="sale-item-disabled " :radio-required="true ">
+                <checker v-model="saleItems[0] " default-item-class="sale-item " @on-change="setsalePropertyValue " selected-item-class="sale-item-selected " disabled-item-class="sale-item-disabled " :radio-required="true ">
                   <checker-item :value="sale " v-for="sale in item.propertyValues " :key="sale.id " @on-item-click="buyInfoItem "> {{sale.valueAlias}} </checker-item>
                 </checker>
               </dd>
               <dt v-if="index===1 ">{{item.name}}</dt>
               <dd v-if="index===1 ">
-                <checker v-model="saleItem1 " default-item-class="sale-item " @on-change="setsalePropertyValue " selected-item-class="sale-item-selected " disabled-item-class="sale-item-disabled " :radio-required="true ">
+                <checker v-model="saleItems[1]" default-item-class="sale-item " @on-change="setsalePropertyValue " selected-item-class="sale-item-selected " disabled-item-class="sale-item-disabled " :radio-required="true ">
                   <checker-item :value="sale " v-for="sale in item.propertyValues " :key="sale.id " @on-item-click="buyInfoItem "> {{sale.valueAlias}} </checker-item>
                 </checker>
               </dd>
@@ -93,11 +92,8 @@
         showSale: false,
         skuStock: 10, // sku库存
         salePropertyTitle: '请选择：',
-        salePropertyValue: '',
-        saleItem0: { key: '2' }, // 可能存在多个商品规格属性，默认填充四个
-        saleItem1: [1], // 可能存在多个商品规格属性
-        saleItem2: '', // 可能存在多个商品规格属性
-        saleItem3: '' // 可能存在多个商品规格属性
+        selectSku: '', // 选择的商品Sku
+        saleItems: [] // 可能存在多个商品规格属性，默认填充四个
       }
     },
     mounted: function () {
@@ -114,6 +110,7 @@
           var saleName = this.productView.productExtensions.productCategory.salePropertys[i].name
           this.salePropertyTitle = this.salePropertyTitle + saleName + ' '
         }
+        this.selectSku = this.productView.productExtensions.productSkus[0] // 根据specSn获取商品的规格
       },
       //
       buyInfoItem (value, disabled) {
@@ -121,42 +118,44 @@
       },
       // 购买商品
       buyProduct () {
-        this.getSku()
         this.showSale = false
       },
       getSku () {
         var specSn = ''
-        console.dir(this.productView.productExtensions.productCategory.salePropertys.length)
-        for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
-          if (i === 0) {
-            specSn = this.saleItem0.propertyId + '|'
-            if (i === 1) {
-              specSn = this.saleItem0.propertyId + this.saleItem1.propertyId + '|'
-              console.info('属性值', this.saleItem1.propertyId)
-            }
-            if (i === 2) {
-              specSn = this.saleItem0.propertyId + this.saleItem1.propertyId + '|' + this.saleItem2.propertyId + '|'
-              if (i === 3) {
-                specSn = this.saleItem0.propertyId + this.saleItem1.propertyId + '|' + this.saleItem2.propertyId + '|' + this.saleItem3.propertyId + '|'
-              }
-            }
+        var specCount = this.productView.productExtensions.productCategory.salePropertys.length // 规格数量
+        if (specCount === 1) {
+          specSn = this.saleItems[0].id + '|'
+        }
+        if (specCount === 2) {
+          specSn = this.saleItem[0].id + '|' + this.saleItem[1].id + '|'
+          console.dir(specSn)
+        }
+        if (specCount === 3) {
+          specSn = this.saleItem0.id + '|' + this.saleItem1.id + '|' + this.saleItem2.id + '|'
+        }
+        if (specCount === 4) {
+          specSn = this.saleItem0.id + '|' + this.saleItem1.id + '|' + this.saleItem2.id + '|' + this.saleItem3.id + '|'
+        }
+        if (specSn.indexOf('undefined') !== -1) {
+          this.$vux.toast.warn('请选择所有商品规格')
+        }
+        // console.info('第一个规格', this.saleItem0)
+        // console.info('第二个规格', this.saleItem1)
+        var skus = this.productView.productExtensions.productSkus
+        var sku = ''
+        console.dir(specSn)
+        for (var i = 0; i < skus.length; i++) {
+          if (skus[i].specSn === specSn) {
+            sku = skus[i]
+            console.dir(sku)
           }
         }
-        console.dir(specSn)
-        return specSn
+        return sku
       },
 
-      // 设置规格标题
+      // 获取Sku
       setsalePropertyValue () {
-        if (this.saleItem0.valueAlias !== undefined) {
-          this.salePropertyValue = this.saleItem0.valueAlias
-          if (this.saleItem1.valueAlias !== undefined) {
-            this.salePropertyValue = this.saleItem0.valueAlias + ' ' + this.saleItem1.valueAlias
-            if (this.saleItem2.valueAlias !== undefined) {
-              this.salePropertyValue = this.saleItem0.valueAlias + ' ' + this.saleItem1.valueAlias + ' ' + this.saleItem2.valueAlias
-            }
-          }
-        }
+        this.selectSku = this.getSku() // 根据specSn获取商品的规格
       }
     }
   }
