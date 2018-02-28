@@ -18,57 +18,58 @@
             </dd>
             <dd class="sale-info-stock metal">库存：{{skuStock}}</dd>
             <a class="sale-info-close" href=""></a>
+            <x-button type="primary" class="sale-info-close" @click.native=" showSale = false "></x-button>
           </dl>
-          <div class="sale-info-property">
-            <dl class="border-bottom" v-for="(item, index) in productView.productExtensions.productCategory.salePropertys" :key="index">
-              <dt v-if="index === 0">{{item.name}}</dt>
-              <dd v-if="index === 0">
-                <checker v-model="saleItem0" default-item-class="sale-item" @on-change="setsalePropertyValue" selected-item-class="sale-item-selected" disabled-item-class="sale-item-disabled" :radio-required="true">
-                  <checker-item :value="sale" v-for="sale in item.propertyValues" :key="sale.id" @on-item-click="buyInfoItem"> {{sale.valueAlias}} </checker-item>
+          <div class="sale-info-property ">
+            <dl class="border-bottom " v-for="(item, index) in productView.productExtensions.productCategory.salePropertys " :key="index ">
+              <dt v-if="index===0 ">{{item.name}}</dt>
+              <dd v-if="index===0 ">
+                <checker v-model="saleItem0 " default-item-class="sale-item " @on-change="setsalePropertyValue " selected-item-class="sale-item-selected " disabled-item-class="sale-item-disabled " :radio-required="true ">
+                  <checker-item :value="sale " v-for="sale in item.propertyValues " :key="sale.id " @on-item-click="buyInfoItem "> {{sale.valueAlias}} </checker-item>
                 </checker>
               </dd>
-              <dt v-if="index === 1">{{item.name}}</dt>
-              <dd v-if="index === 1">
-                <checker v-model="saleItem1" default-item-class="sale-item" @on-change="setsalePropertyValue" selected-item-class="sale-item-selected" disabled-item-class="sale-item-disabled" :radio-required="true">
-                  <checker-item :value="sale" v-for="sale in item.propertyValues" :key="sale.id" @on-item-click="buyInfoItem"> {{sale.valueAlias}} </checker-item>
+              <dt v-if="index===1 ">{{item.name}}</dt>
+              <dd v-if="index===1 ">
+                <checker v-model="saleItem1 " default-item-class="sale-item " @on-change="setsalePropertyValue " selected-item-class="sale-item-selected " disabled-item-class="sale-item-disabled " :radio-required="true ">
+                  <checker-item :value="sale " v-for="sale in item.propertyValues " :key="sale.id " @on-item-click="buyInfoItem "> {{sale.valueAlias}} </checker-item>
                 </checker>
               </dd>
-              <dt v-if="index === 2">{{item.name}}</dt>
-              <dd v-if="index === 2">
-                <checker v-model="saleItem2" default-item-class="sale-item" selected-item-class="sale-item-selected" disabled-item-class="sale-item-disabled" :radio-required="true">
-                  <checker-item :value="sale" v-for="sale in item.propertyValues" :key="sale.id" @on-item-click="buyInfoItem"> {{sale.valueAlias}} </checker-item>
+              <dt v-if="index===2 ">{{item.name}}</dt>
+              <dd v-if="index===2 ">
+                <checker v-model="saleItem2 " default-item-class="sale-item " selected-item-class="sale-item-selected " disabled-item-class="sale-item-disabled " :radio-required="true ">
+                  <checker-item :value="sale " v-for="sale in item.propertyValues " :key="sale.id " @on-item-click="buyInfoItem "> {{sale.valueAlias}} </checker-item>
                 </checker>
               </dd>
-              <dt v-if="index === 3">{{item.name}}</dt>
-              <dd v-if="index === 3">
-                <checker v-model="saleItem3" default-item-class="sale-item" selected-item-class="sale-item-selected" disabled-item-class="sale-item-disabled" :radio-required="true">
-                  <checker-item :value="sale" v-for="sale in item.propertyValues" :key="sale.id" @on-item-click="buyInfoItem"> {{sale.valueAlias}} </checker-item>
+              <dt v-if="index===3 ">{{item.name}}</dt>
+              <dd v-if="index===3 ">
+                <checker v-model="saleItem3 " default-item-class="sale-item " selected-item-class="sale-item-selected " disabled-item-class="sale-item-disabled " :radio-required="true ">
+                  <checker-item :value="sale " v-for="sale in item.propertyValues " :key="sale.id " @on-item-click="buyInfoItem "> {{sale.valueAlias}} </checker-item>
                 </checker>
               </dd>
             </dl>
           </div>
-          <group class="zkui-product-show-parameter-amount">
-            <cell title="购买数量">
-              <inline-x-number style="display:block;" :min="0" width="50px" button-style="round"></inline-x-number>
+          <group class="zkui-product-show-parameter-amount ">
+            <cell title="购买数量 ">
+              <inline-x-number style="display:block; " :min="0 " width="50px " button-style="round "></inline-x-number>
             </cell>
           </group>
-          <div style="padding:10px">
+          <div style="padding:10px ">
             <button-tab>
-              <button-tab-item type="default" @click.native="onfilter">加入购物车</button-tab-item>
-              <button-tab-item type="primary" @click.native="buyProduct">立即购买</button-tab-item>
+              <button-tab-item type="default " @click.native="onfilter ">加入购物车</button-tab-item>
+              <button-tab-item type="primary " @click.native="buyProduct ">立即购买</button-tab-item>
             </button-tab>
           </div>
         </div>
       </popup>
     </div>
     <div v-transfer-dom>
-      <popup v-model="showParameter" class="showParameter" height="270*@rem" is-transparent>
-        <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem;padding-top:10px;">
-          <group title="商品参数">
-            <cell v-for="(item, index) in productView.productExtensions.productCategory.displayPropertys" :key="index" :title="item.name" :value="item.displayValue" v-if="item.isSale == false"></cell>
+      <popup v-model="showParameter " class="showParameter " height="270*@rem " is-transparent>
+        <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem;padding-top:10px; ">
+          <group title="商品参数 ">
+            <cell v-for="(item, index) in productView.productExtensions.productCategory.displayPropertys " :key="index " :title="item.name " :value="item.displayValue " v-if="item.isSale==false "></cell>
           </group>
-          <div style="padding:10px">
-            <x-button type="primary" @click.native="showParameter = false">完成</x-button>
+          <div style="padding:10px ">
+            <x-button type="primary " @click.native="showParameter=false ">完成</x-button>
           </div>
         </div>
       </popup>

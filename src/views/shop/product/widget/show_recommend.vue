@@ -1,23 +1,17 @@
 <template>
-<section>
-   <div class="zkui-product-show-Btitle floor ">
-      <b>
-        <div class="icon">
-          <m-icon name="zk-recommend" class="metal"></m-icon>
-        </div>
-      </b>推荐
-    </div>
-    <div class="zkui-product-show-recommend">
-      <zk-product-item :pageSize=4 classIds='' tagsId='' diykey='index'></zk-product-item>
-    </div>
-</section>
+  <section>
+    <divider>推荐商品</divider>
+    <zk-product-item :pageSize=4 classIds='' tagsId='' diykey='index'></zk-product-item>
+
+  </section>
 </template>
 
 <script>
-    import { ZkProductItem } from 'widgets'
+  import { ZkProductItem } from 'widgets'
+  import { Divider } from 'zkui'
   export default {
     components: {
-    ZkProductItem
+      ZkProductItem, Divider
     },
     props: ['productView']
   }
