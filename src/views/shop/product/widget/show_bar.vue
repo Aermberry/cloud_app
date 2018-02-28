@@ -117,8 +117,6 @@
       bottom: 0;
       width: 100%;
       // height: 3.33333333rem;
-      background: rgba(255, 255, 255, 0.9);
-      border-top: 1px solid rgba(229, 229, 229, 0.4);
       height: 3.5rem;
       .bar-home {
         width: 15%;
@@ -155,7 +153,8 @@
         box-sizing: border-box;
         border-radius: 0;
       }
-      .bar-home {
+      .bar-home,
+      .bar-star {
         width: 15%;
         border-right: 1px solid #e5e5e5;
       }
