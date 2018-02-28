@@ -54,7 +54,7 @@
           <div style="padding:10px">
             <button-tab>
               <button-tab-item type="default" @click.native="onfilter">加入购物车</button-tab-item>
-              <button-tab-item type="primary" @click.native="showSale = false">立即购买</button-tab-item>
+              <button-tab-item type="primary" @click.native="buyProduct">立即购买</button-tab-item>
             </button-tab>
           </div>
         </div>
@@ -113,11 +113,38 @@
           this.salePropertyTitle = this.salePropertyTitle + saleName + ' '
         }
       },
-      // 购买商品
+      //
       buyInfoItem (value, disabled) {
 
       },
-      // 设置规格标题，目前bug,值要延后一次
+      // 购买商品
+      buyProduct () {
+        this.getSku()
+        this.showSale = false
+      },
+      getSku () {
+        var specSn = ''
+        console.dir(this.productView.productExtensions.productCategory.salePropertys.length)
+        for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
+          if (i === 0) {
+            specSn = this.saleItem0.propertyId + '|'
+            if (i === 1) {
+              specSn = this.saleItem0.propertyId + this.saleItem1.propertyId + '|'
+              console.info('属性值', this.saleItem1.propertyId)
+            }
+            if (i === 2) {
+              specSn = this.saleItem0.propertyId + this.saleItem1.propertyId + '|' + this.saleItem2.propertyId + '|'
+              if (i === 3) {
+                specSn = this.saleItem0.propertyId + this.saleItem1.propertyId + '|' + this.saleItem2.propertyId + '|' + this.saleItem3.propertyId + '|'
+              }
+            }
+          }
+        }
+        console.dir(specSn)
+        return specSn
+      },
+
+      // 设置规格标题
       setsalePropertyValue () {
         if (this.saleItem0.valueAlias !== undefined) {
           this.salePropertyValue = this.saleItem0.valueAlias
