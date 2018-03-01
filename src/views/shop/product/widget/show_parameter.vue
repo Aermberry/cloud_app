@@ -104,7 +104,7 @@
         if (this.buyCount < 1) {
           this.$vux.toast.warn('购买数量不能小于1')
         }
-         if (this.buyCount * 20000 > this.selectSku.stock) {
+        if (this.buyCount * 20000 > this.selectSku.stock) {
           this.$vux.toast.warn('库存不足')
         }
         this.showSale = false
@@ -138,7 +138,16 @@
   @import '../../../../assets/css/zkui/theme';
   @import '../../../../assets/css/zkui/mixin';
   .zkui-product-show-parameter {
-    margin-top: 20*@rem;
+    .weui-cell {
+      padding: 1rem 1.5rem 1rem 1.5rem;
+    }
+    .weui-cells:before {
+      border-top: 15px solid #efefef;
+      padding-bottom: 20*@rem;
+    }
+    .weui-cells:after {
+      border-bottom: 15px solid #efefef;
+    }
     .weui-cells__title {
       text-align: center;
     }
