@@ -44,7 +44,7 @@
       </popup>
     </div>
     <div v-transfer-dom>
-      <popup v-model="showParameter " class="showParameter " height="270*@rem " is-transparent>
+      <popup v-model="showParameter " class="showParameter " height="400*@rem " is-transparent>
         <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem;padding-top:10px; ">
           <group title="商品参数 ">
             <cell v-for="(item, index) in productView.productExtensions.productCategory.displayPropertys " :key="index " :title="item.name " :value="item.displayValue " v-if="item.isSale==false "></cell>
@@ -193,7 +193,7 @@
     }
 
     .sale-info-property {
-      min-height: 160*@rem;
+      min-height: 200*@rem;
       dl {
         width: 100%;
         min-height: 100*@rem;
