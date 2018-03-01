@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-product-show">
-
+    <show-header :productView="modelView" v-if="asyncFlag"></show-header>
     <show-thumbnail :productView="modelView" v-if="asyncFlag"></show-thumbnail>
     <show-title :productView="modelView" v-if="asyncFlag"></show-title>
     <show-parameter ref="show_parameter" :productView="modelView" v-if="asyncFlag"></show-parameter>
