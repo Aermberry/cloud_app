@@ -43,13 +43,14 @@ export default [
     }
   },
   {
-    path: '/order/buyfromproduct',
+    path: '/order/buy',
     meta: {
-      title: '提交订单'
+      title: '确认下单',
+      login: true
     },
-    name: 'order_buyfromproduct',
+    name: 'order_buy',
     component: function (resolve) {
-      require(['src/views/shop/order/buyfromproduct'], resolve)
+      require(['src/views/shop/order/buy'], resolve)
     }
   },
   {

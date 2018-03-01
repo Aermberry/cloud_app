@@ -1,6 +1,6 @@
 <template>
   <section>
-    <divider>商家详情</divider>
+    <divider>商品详情</divider>
     <div class="zkui-product-show-images">
       <div v-html='productView.detail.mobileIntro'></div>
     </div>

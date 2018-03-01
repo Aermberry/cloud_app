@@ -1,7 +1,7 @@
 <template>
   <div>
     <group class="zkui-product-show-parameter">
-      <cell :title="salePropertyTitle" @click.native="showSale = true" is-link :value="salePropertyValue"></cell>
+      <cell :title="salePropertyTitle" @click.native="showSale = true" is-link :value="selectSku.propertyValueDesc"></cell>
       <cell title="商品参数" @click.native="showParameter = true" is-link class="border-bottom"></cell>
     </group>
 
@@ -13,62 +13,44 @@
               <img :src="productView.thumbnailUrl" />
             </dt>
             <dd class="sale-info-name">{{productView.name}}</dd>
-            <dd class="sale-info-price brand">{{productView.displayPrice}}
-              <span class="metal">￥{{productView.marketPrice}}</span>
+            <dd class="sale-info-price brand">{{selectSku.displayPrice}}
+              <span class="metal">￥{{selectSku.marketPrice}}</span>
             </dd>
-            <dd class="sale-info-stock metal">库存：{{skuStock}}</dd>
-            <a class="sale-info-close" href=""></a>
+            <dd class="sale-info-stock metal">库存：{{selectSku.stock}} 货号：{{selectSku.bn}}</dd>
+            <x-button type="primary" class="sale-info-close" @click.native=" showSale = false "></x-button>
           </dl>
-          <div class="sale-info-property">
-            <dl class="border-bottom" v-for="(item, index) in productView.productExtensions.productCategory.salePropertys" :key="index">
-              <dt v-if="index === 0">{{item.name}}</dt>
-              <dd v-if="index === 0">
-                <checker v-model="saleItem0" default-item-class="sale-item" @on-change="setsalePropertyValue" selected-item-class="sale-item-selected" disabled-item-class="sale-item-disabled" :radio-required="true">
-                  <checker-item :value="sale" v-for="sale in item.propertyValues" :key="sale.id" @on-item-click="buyInfoItem"> {{sale.valueAlias}} </checker-item>
-                </checker>
-              </dd>
-              <dt v-if="index === 1">{{item.name}}</dt>
-              <dd v-if="index === 1">
-                <checker v-model="saleItem1" default-item-class="sale-item" @on-change="setsalePropertyValue" selected-item-class="sale-item-selected" disabled-item-class="sale-item-disabled" :radio-required="true">
-                  <checker-item :value="sale" v-for="sale in item.propertyValues" :key="sale.id" @on-item-click="buyInfoItem"> {{sale.valueAlias}} </checker-item>
-                </checker>
-              </dd>
-              <dt v-if="index === 2">{{item.name}}</dt>
-              <dd v-if="index === 2">
-                <checker v-model="saleItem2" default-item-class="sale-item" selected-item-class="sale-item-selected" disabled-item-class="sale-item-disabled" :radio-required="true">
-                  <checker-item :value="sale" v-for="sale in item.propertyValues" :key="sale.id" @on-item-click="buyInfoItem"> {{sale.valueAlias}} </checker-item>
-                </checker>
-              </dd>
-              <dt v-if="index === 3">{{item.name}}</dt>
-              <dd v-if="index === 3">
-                <checker v-model="saleItem3" default-item-class="sale-item" selected-item-class="sale-item-selected" disabled-item-class="sale-item-disabled" :radio-required="true">
-                  <checker-item :value="sale" v-for="sale in item.propertyValues" :key="sale.id" @on-item-click="buyInfoItem"> {{sale.valueAlias}} </checker-item>
+          <div class="sale-info-property ">
+            <dl class="border-bottom " v-for="(item, index) in productView.productExtensions.productCategory.salePropertys " :key="index ">
+              <dt>{{item.name}}</dt>
+              <dd>
+                <checker v-model="saleItems[index] " default-item-class="sale-item " @on-change="changSku " selected-item-class="sale-item-selected " disabled-item-class="sale-item-disabled " :radio-required="true ">
+                  <checker-item :value="sale " v-for="sale in item.propertyValues " :key="sale.id "> {{sale.valueAlias}} </checker-item>
                 </checker>
               </dd>
             </dl>
           </div>
-          <group class="zkui-product-show-parameter-amount">
-            <cell title="购买数量">
-              <inline-x-number style="display:block;" :min="0" width="50px" button-style="round"></inline-x-number>
+          <group class="zkui-product-show-parameter-amount ">
+            <cell title="购买数量 ">
+              <inline-x-number style="display:block; " :min="1 " width="50px " v-model="buyCount" :max="selectSku.stock" button-style="round"></inline-x-number>
             </cell>
           </group>
-          <div style="padding:10px">
+          <div style="padding:10px ">
             <button-tab>
-              <button-tab-item type="default" @click.native="onfilter">加入购物车</button-tab-item>
-              <button-tab-item type="primary" @click.native="showSale = false">立即购买</button-tab-item>
+              <button-tab-item type="default " @click.native="addToCart ">加入购物车</button-tab-item>
+              <button-tab-item type="primary " @click.native="buyProduct ">立即购买</button-tab-item>
             </button-tab>
           </div>
         </div>
       </popup>
     </div>
     <div v-transfer-dom>
-      <popup v-model="showParameter" class="showParameter" height="270*@rem" is-transparent>
-        <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem;padding-top:10px;">
-          <group title="商品参数">
-            <cell v-for="(item, index) in productView.productExtensions.productCategory.displayPropertys" :key="index" :title="item.name" :value="item.displayValue" v-if="item.isSale == false"></cell>
+      <popup v-model="showParameter " class="showParameter " height="270*@rem " is-transparent>
+        <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem;padding-top:10px; ">
+          <group title="商品参数 ">
+            <cell v-for="(item, index) in productView.productExtensions.productCategory.displayPropertys " :key="index " :title="item.name " :value="item.displayValue " v-if="item.isSale==false "></cell>
           </group>
-          <div style="padding:10px">
-            <x-button type="primary" @click.native="showParameter = false">完成</x-button>
+          <div style="padding:10px ">
+            <x-button type="primary " @click.native="showParameter=false ">完成</x-button>
           </div>
         </div>
       </popup>
@@ -88,15 +70,12 @@
     props: ['productView'],
     data () {
       return {
-        showParameter: false,
-        showSale: false,
-        skuStock: 10, // sku库存
+        showParameter: false, // 是否显示商品参数窗口
+        showSale: false, // 显示规格选择窗口
         salePropertyTitle: '请选择：',
-        salePropertyValue: '',
-        saleItem0: { key: '2' }, // 可能存在多个商品规格属性，默认填充四个
-        saleItem1: [1], // 可能存在多个商品规格属性
-        saleItem2: '', // 可能存在多个商品规格属性
-        saleItem3: '' // 可能存在多个商品规格属性
+        selectSku: '', // 选择的商品Sku
+        buyCount: 10, // 商品购买数量
+        saleItems: [] // 可能存在多个商品规格属性，默认填充四个
       }
     },
     mounted: function () {
@@ -109,26 +88,47 @@
     },
     methods: {
       init () {
-        for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
-          var saleName = this.productView.productExtensions.productCategory.salePropertys[i].name
-          this.salePropertyTitle = this.salePropertyTitle + saleName + ' '
-        }
+        this.productView.productExtensions.productCategory.salePropertys.forEach(element => {
+          this.salePropertyTitle = this.salePropertyTitle + element.name + ' '
+        })
+        this.selectSku = this.productView.productExtensions.productSkus[0] // 根据specSn获取商品的规格
+      },
+      // 添加到购物车
+      AddToCart () {
       },
       // 购买商品
-      buyInfoItem (value, disabled) {
-
+      buyProduct () {
+        if (this.selectSku.id === undefined) {
+          this.$vux.toast.warn('请选择商品规格')
+        }
+        if (this.buyCount < 1) {
+          this.$vux.toast.warn('购买数量不能小于1')
+        }
+         if (this.buyCount * 20000 > this.selectSku.stock) {
+          this.$vux.toast.warn('库存不足')
+        }
+        this.showSale = false
       },
-      // 设置规格标题，目前bug,值要延后一次
-      setsalePropertyValue () {
-        if (this.saleItem0.valueAlias !== undefined) {
-          this.salePropertyValue = this.saleItem0.valueAlias
-          if (this.saleItem1.valueAlias !== undefined) {
-            this.salePropertyValue = this.saleItem0.valueAlias + ' ' + this.saleItem1.valueAlias
-            if (this.saleItem2.valueAlias !== undefined) {
-              this.salePropertyValue = this.saleItem0.valueAlias + ' ' + this.saleItem1.valueAlias + ' ' + this.saleItem2.valueAlias
-            }
+      getSku () {
+        var specSn = ''
+        this.saleItems.forEach(element => {
+          specSn += element.id + '|'
+        })
+        var skus = this.productView.productExtensions.productSkus
+        var sku = ''
+        for (var i = 0; i < skus.length; i++) {
+          if (skus[i].specSn === specSn) {
+            sku = skus[i]
           }
         }
+        if (sku.id === undefined) {
+          this.$vux.toast.warn('请选择商品规格')
+        }
+        return sku
+      },
+      // 获取Sku ，用户选择不同的sku
+      changSku () {
+        this.selectSku = this.getSku() // 根据specSn获取商品的规格
       }
     }
   }
@@ -216,7 +216,7 @@
             padding: 4*@rem 8*@rem;
             margin: 5*@rem 5*@rem 5*@rem 5*@rem;
             border-radius: 4*@rem;
-            line-height: 18@rem;
+            line-height: 18*@rem;
           }
           .sale-item-selected {
             background-color: @brand;
