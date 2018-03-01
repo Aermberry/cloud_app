@@ -11,6 +11,7 @@ import ZkGrid from 'src/widgets/zk-grid'
 import ZkList from 'src/widgets/zk-list'
 import ZkProductItem from 'src/widgets/zk-product-item'
 import ZkPhoneVerifiy from 'src/widgets/zk-phone-verifiy' // 手机验证码
+import ZkAddress from 'src/widgets/zk-address' // 地址组件
 
 export {
   ZkSwiper,
@@ -20,5 +21,6 @@ export {
   ZkGrid,
   ZkProductItem,
   ZkList,
-  ZkPhoneVerifiy
+  ZkPhoneVerifiy,
+  ZkAddress
 }
