@@ -138,6 +138,7 @@
   @import '../../../../assets/css/zkui/theme';
   @import '../../../../assets/css/zkui/mixin';
   .zkui-product-show-parameter {
+    margin-top: 20*@rem;
     .weui-cells__title {
       text-align: center;
     }
