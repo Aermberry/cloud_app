@@ -1,7 +1,7 @@
 <template>
   <section class="zkui-user-account-recharge">
 
-    <zk-head :title='title' :goBack='goBack'></zk-head>
+    <zk-head title='充值' goBack='我的钱包'></zk-head>
 
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
@@ -36,8 +36,7 @@
   export default {
     data () {
       return {
-        title: '充值',
-        goBack: '我的钱包'
+
       }
     }
   }

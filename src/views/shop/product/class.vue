@@ -16,8 +16,10 @@
           <grid :cols="3">
             <h1>{{items.name}}</h1>
             <grid-item v-for="(item,index) in items.childClass" :key="index">
-              <img :src="item.icon">
-              <p>{{item.name}}</p>
+              <router-link :to="'/product/list/'+item.id">
+                <img :src="item.icon">
+                <p>{{item.name}}</p>
+              </router-link>
             </grid-item>
           </grid>
 
@@ -52,6 +54,7 @@
         listDatas: [],
         list2: [],
         list: [],
+        demo2: '',
         index: 0,
         getBarWidth: function (index) {
           return (index + 1) * 22 + 'px'
@@ -65,6 +68,7 @@
       async  getData () {
         let response = await apiService.class()
         this.listDatas = response.data.result
+        this.demo2 = this.listDatas[0].name
         console.dir(this.listDatas) // 通过这个来查看数据结构
         for (var i = 0; i < this.listDatas.length; i++) {
           this.list2.push(this.listDatas[i].name)
@@ -157,7 +161,7 @@
     text-align: center;
     padding: 0.7143rem 0.7143rem;
   }
-  .weui-grids > .weui-grid > img {
+  .weui-grids > .weui-grid img {
     display: block;
     width: 4.2857rem;
     height: 4.2857rem;
@@ -165,7 +169,7 @@
     border-radius: 50%;
     border: 1px solid #e5e5e5;
   }
-  .weui-grids > .weui-grid > p {
+  .weui-grids > .weui-grid p {
     font-size: 1.1429rem;
     margin: 0.3571rem;
     color: black;

@@ -1,7 +1,7 @@
 <template>
   <section class="zkui-user-identity-index">
 
-    <zk-head :title='title' :goBack='goBack'></zk-head>
+    <zk-head title='实名认证' goBack='会员中心'></zk-head>
 
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
@@ -129,8 +129,7 @@
   export default {
     data () {
       return {
-        title: '实名认证',
-        goBack: '会员中心'
+
       }
     }
   }

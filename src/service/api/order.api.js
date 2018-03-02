@@ -21,5 +21,4 @@ export default {
     var response = http.getLogin('/order/show', data)
     return response
   }
-
 }

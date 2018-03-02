@@ -1,6 +1,5 @@
 <template>
-  <section class="zkui-reward-list">
-
+  <section class="zkui-user-account-rechargebill">
     <zk-head title='充值记录' goBack='我的钱包'></zk-head>
     <zk-list :styleType=1 dataType='recharge' diyKey='list_user_recharge' :isLogin='true'></zk-list>
     <zk-foot></zk-foot>
