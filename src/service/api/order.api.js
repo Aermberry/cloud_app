@@ -20,6 +20,9 @@ export default {
   show (data) {
     var response = http.getLogin('/order/show', data)
     return response
+  },
+  GetCart () {
+    var response = http.getLogin('/Cart/GetCart')
+    return response
   }
-
 }

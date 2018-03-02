@@ -59,7 +59,7 @@
 </template>
 <script>
   import { Group, Checker, CheckerItem, Divider, GroupTitle, Cell, TransferDom, Popup, XButton, XSwitch, InlineXNumber, ButtonTab, ButtonTabItem } from 'zkui'
-
+  import userService from 'src/service/api/user.api'
   export default {
     components: {
       Group, Cell, TransferDom, Popup, XButton, XSwitch, GroupTitle, InlineXNumber, ButtonTab, ButtonTabItem, Checker, CheckerItem, Divider
@@ -94,7 +94,13 @@
         this.selectSku = this.productView.productExtensions.productSkus[0] // 根据specSn获取商品的规格
       },
       // 添加到购物车
-      AddToCart () {
+      async addToCart () {
+        let params = {
+          ProductSkuId: this.selectSku.id,
+          Count: this.buyCount
+        }
+        var response = await userService.AddCart(params)
+        console.log(response)
       },
       // 购买商品
       buyProduct () {

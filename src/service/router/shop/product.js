@@ -11,7 +11,7 @@ export default [
     }
   },
   {
-    path: '/product/list/', // 商品列表页
+    path: '/product/list/:id', // 商品列表页
     meta: {
       title: '商品列表页'
     },

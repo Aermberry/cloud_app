@@ -89,13 +89,14 @@
 </template>
 
 <script>
-  // import apiUser from 'src/service/api/user.api'
+  import apiOrder from 'src/service/api/order.api'
   import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton } from 'zkui'
   export default {
     data () {
       return {
         title: '购物车',
-        goBack: ''
+        goBack: '',
+        moduleView: ''
       }
     },
     components: {
@@ -107,6 +108,7 @@
       XButton
     },
     mounted () {
+      this.GetData()
       var chbAll = document.querySelector('.bar-left input')
       var chbs = document.querySelectorAll('.zkui-order-cart-box input')
       chbAll.onclick = function () {
@@ -126,6 +128,13 @@
             }
           }
         }
+      }
+    },
+    methods: {
+      async GetData () {
+        var response = await apiOrder.GetCart()
+        this.moduleView = response
+        console.log(this.moduleView)
       }
     }
   }

@@ -80,6 +80,7 @@
         if (this.hasFavorite === false) {
           var response = await userService.addAction(params)
           if (response.data.status === 1) {
+            console.log(response.data)
             this.hasFavorite = true
             this.$vux.toast.success('收藏成功')
           } else {

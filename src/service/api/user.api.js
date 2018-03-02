@@ -1,7 +1,9 @@
 import http from 'src/service/common/http'
 // import helper from 'src/service/common/helper'
 import local from 'src/service/common/local'
-import { md5 } from 'zkui' // md5 函数
+import {
+  md5
+} from 'zkui' // md5 函数
 
 export default {
   //  用户登录
@@ -75,6 +77,21 @@ export default {
   //  移除购物车、足迹、加入收藏夹等相关操作记录
   async removeAction (data) {
     var response = await http.deleteLogin('/user/removeAction', data)
+    return response
+  },
+  //  加入购物车
+  async AddCart (data) {
+    var response = await http.postLogin('/Cart/AddCart', data)
+    return response
+  },
+  //  获取购物车
+  async GetCart (data) {
+    var response = await http.postLogin('/Cart/GetCart', data)
+    return response
+  },
+  // 删除购物车
+  async RemoveCart (data) {
+    var response = await http.postLogin('/Cart/RemoveCart', data)
     return response
   }
 }
