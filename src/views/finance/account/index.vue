@@ -1,5 +1,5 @@
 <template>
-  <section class="zk-account-index">
+  <section class="zkui-account-index">
     <zk-head title='我的钱包' goBack='会员中心'></zk-head>
     <card :header="{title: '我的资产'}">
       <div slot="content" class="card-demo-flex card-demo-content01">
