@@ -3,74 +3,44 @@
 
     <zk-head title='购物车' class="zkui-order-cart-head"></zk-head>
     <div class="zkui-order-cart-box">
-      <ul>
-        <li class="zkui-order-cart-item">
-          <div class="order-cart-store flex">
-            <div class="label">
-              <input type="checkbox" />
+      <div v-for="(items,indexs) in dataList.storeProducts" :key="indexs">
+        <div class="order-cart-store flex">
+          <div class="label">
+            <input type="checkbox" />
+          </div>
+          <h2 class="flex_one">酷跑运动 </h2>
+        </div>
+        <ul>
+          <li class="zkui-order-cart-item" v-for="(item,index) in items.productItems" :key="index">
+            <div class="order-cart-commodity">
+              <ul class="flex order-cart-commodity-box">
+                <li class="order-cart-commodity-left">
+                  <div class="label">
+                    <input type="checkbox" />
+                  </div>
+                </li>
+                <li class="flex_one">
+                  <div class="order-cart-commodit-into flex">
+                    <div class="order-cart-commodity-into_left">
+                      <img :src="item.product.thumbnailUrl" alt="">
+                    </div>
+                    <div class="flex_one order-cart-commodity-into_right ">
+                      <p>{{item.product.name}}</p>
+                      <span>{{item.productSku.propertyValueDesc}}</span>
+                      <ul class="flex">
+                        <li class="price_now">￥{{item.product.price}}</li>
+                        <li class="price_old">￥{{item.product.displayPrice}}</li>
+                        <li class="flex_one price_num">×{{item.count}}</li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </div>
-            <h2 class="flex_one">酷跑运动</h2>
-          </div>
-          <div class="order-cart-commodity">
-            <ul class="flex order-cart-commodity-box">
-              <li class="order-cart-commodity-left">
-                <div class="label">
-                  <input type="checkbox" />
-                </div>
-              </li>
-              <li class="flex_one">
-                <div class="order-cart-commodit-into flex">
-                  <div class="order-cart-commodity-into_left">
-                    <img src="https://o5omsejde.qnssl.com/demo/test1.jpg" alt="">
-                  </div>
-                  <div class="flex_one order-cart-commodity-into_right ">
-                    <p>阿迪达斯阿迪达斯阿迪达斯阿迪达斯阿迪达斯</p>
-                    <span>颜色：BB9774,尺码：36</span>
-                    <ul class="flex">
-                      <li class="price_now">￥439.12</li>
-                      <li class="price_old">￥499.00</li>
-                      <li class="flex_one price_num">×1</li>
-                    </ul>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </li>
-        <li class="zkui-order-cart-item">
-          <div class="order-cart-store flex">
-            <div class="label">
-              <input type="checkbox" />
-            </div>
-            <h2 class="flex_one">酷跑运动</h2>
-          </div>
-          <div class="order-cart-commodity">
-            <ul class="flex order-cart-commodity-box">
-              <li class="order-cart-commodity-left">
-                <div class="label">
-                  <input type="checkbox" />
-                </div>
-              </li>
-              <li class="flex_one">
-                <div class="order-cart-commodit-into flex">
-                  <div class="order-cart-commodity-into_left">
-                    <img src="https://o5omsejde.qnssl.com/demo/test1.jpg" alt="">
-                  </div>
-                  <div class="flex_one order-cart-commodity-into_right ">
-                    <p>阿迪达斯阿迪达斯阿迪达斯阿迪达斯阿迪达斯</p>
-                    <span>颜色：BB9774,尺码：36</span>
-                    <ul class="flex">
-                      <li class="price_now">￥439.12</li>
-                      <li class="price_old">￥499.00</li>
-                      <li class="flex_one price_num">×1</li>
-                    </ul>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
+
     </div>
     <div class="zkui-order-cart-bar">
       <tabbar>
@@ -89,18 +59,11 @@
 </template>
 
 <script>
-  import apiOrder from 'src/service/api/order.api'
+  import userService from 'src/service/api/user.api'
   import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton } from 'zkui'
   export default {
     data () {
       return {
-<<<<<<< HEAD
-        title: '购物车',
-        goBack: '',
-        moduleView: ''
-=======
-
->>>>>>> 5672481ea44c2092bb926711028026b64f7ce0a2
       }
     },
     components: {
@@ -109,7 +72,9 @@
       Group,
       Cell,
       MIcon,
-      XButton
+      XButton,
+      data: '',
+      dataList: ''
     },
     mounted () {
       this.GetData()
@@ -136,9 +101,9 @@
     },
     methods: {
       async GetData () {
-        var response = await apiOrder.GetCart()
-        this.moduleView = response
-        console.log(this.moduleView)
+        var reponse = await userService.GetCart(this.data)
+        console.log(reponse.data.result.storeProducts)
+        this.dataList = reponse.data.result
       }
     }
   }
@@ -178,6 +143,7 @@
     .order-cart-store {
       height: 3.5rem;
       border-bottom: 1px solid @load-more-line-color;
+      background: @white;
       h2 {
         line-height: 3.5rem;
         padding-left: 5*@rem;
@@ -220,12 +186,11 @@
               color: @gray-500;
             }
             ul {
-              width: 100%;
+              width: 95%;
               position: absolute;
               left: 10*@rem;
               bottom: 10*@rem;
               height: 2rem;
-              padding-right: 20*@rem;
               vertical-align: bottom;
               li.price_now {
                 color: @black;
@@ -242,6 +207,7 @@
                 text-align: right;
                 line-height: 2.25rem;
                 color: @gray-500;
+                padding-right: 10*@rem;
               }
             }
           }
@@ -253,6 +219,9 @@
     .weui-tabbar {
       background: @white;
       height: 3.5rem;
+      position: fixed;
+      bottom: 0;
+      left: 0;
       .weui-tabbar__item {
         height: 3.5rem !important;
         p {

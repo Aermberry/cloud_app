@@ -86,7 +86,7 @@ export default {
   },
   //  获取购物车
   async GetCart (data) {
-    var response = await http.postLogin('/Cart/GetCart', data)
+    var response = await http.getLogin('/Cart/GetCart', data)
     return response
   },
   // 删除购物车

@@ -95,12 +95,18 @@
       },
       // 添加到购物车
       async addToCart () {
-        let params = {
-          ProductSkuId: this.selectSku.id,
-          Count: this.buyCount
+        if (this.selectSku.id === undefined) {
+          this.$vux.toast.warn('请选择商品规格')
+        } else {
+          let params = {
+            ProductSkuId: this.selectSku.id,
+            Count: this.buyCount
+          }
+          var response = await userService.AddCart(params)
+          if (response.data.status === 1) {
+            this.$vux.toast.success('加入购物车成功')
+          }
         }
-        var response = await userService.AddCart(params)
-        console.log(response)
       },
       // 购买商品
       buyProduct () {
