@@ -2,7 +2,7 @@
   <section>
     <div class="weui-cell weui-cell_vcode">
       <div class="weui-cell__hd">
-        <label class="weui-label">验证码</label>
+        <label class="weui-label" style="width:4rem;">验证码</label>
       </div>
       <div class="weui-cell__bd">
         <input class="weui-input" type="number" required maxlength="6" minlength="6" v-model="currentValue" placeholder="输入六位数手机验证码">
