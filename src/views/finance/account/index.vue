@@ -13,59 +13,7 @@
     </card>
 
     <p class="account-index-service">服务</p>
-    <div class="account-index-service-list">
-      <div class="weui-grids">
-        <router-link to="/user/account/recharge" class="weui-grid">
-          <div class="weui-grid__icon">
-            <m-icon name="zk-recharge" class="metal"></m-icon>
-          </div>
-          <p class="weui-grid__label">充值</p>
-        </router-link>
-        <router-link to="/user/account/rechargebill" class="weui-grid">
-          <div class="weui-grid__icon">
-            <m-icon name="zk-rechargebill" class="metal"></m-icon>
-          </div>
-          <p class="weui-grid__label">充值记录</p>
-        </router-link>
-        <router-link to="/user/account/financebill" class="weui-grid">
-          <div class="weui-grid__icon">
-            <m-icon name="zk-financebill" class="metal"></m-icon>
-          </div>
-          <p class="weui-grid__label">财务记录</p>
-        </router-link>
-        <router-link to="/user/account/withdraw" class="weui-grid">
-          <div class="weui-grid__icon">
-            <m-icon name="zk-withdraw" class="metal"></m-icon>
-          </div>
-          <p class="weui-grid__label">提现</p>
-        </router-link>
-        <router-link to="/user/account/withdrawbill" class="weui-grid">
-          <div class="weui-grid__icon">
-            <m-icon name="zk-withdrawbill" class="metal"></m-icon>
-          </div>
-          <p class="weui-grid__label">提现记录</p>
-        </router-link>
-        <router-link to="/user/account/bankcard/index" class="weui-grid">
-          <div class="weui-grid__icon">
-            <m-icon name="zk-bankcard" class="metal"></m-icon>
-          </div>
-          <p class="weui-grid__label">我的银行卡</p>
-        </router-link>
-        <router-link to="/user/account/transfer" class="weui-grid">
-          <div class="weui-grid__icon">
-            <m-icon name="zk-transfer" class="metal"></m-icon>
-          </div>
-          <p class="weui-grid__label">转账</p>
-        </router-link>
-        <router-link to="/user/account/transferbill" class="weui-grid">
-          <div class="weui-grid__icon">
-            <m-icon name="zk-transferbill" class="metal"></m-icon>
-          </div>
-          <p class="weui-grid__label">转账记录</p>
-        </router-link>
-      </div>
-    </div>
-
+    <zk-grid diykey="grid_user_account_index" class="weui-grid weui-grid__icon weui-grid__label metal"></zk-grid>
     <zk-foot></zk-foot>
   </section>
 </template>
