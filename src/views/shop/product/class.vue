@@ -32,7 +32,7 @@
 
 <script>
   import apiService from 'src/service/api/product.api'
-  import { Search, Tab, TabItem, Sticky, Divider, XButton, Swiper, SwiperItem, Grid, GridItem, GroupTitle, MIcon } from 'zkui'
+  import { Search, Tab, TabItem, Sticky, Divider, Swiper, SwiperItem, Grid, GridItem, GroupTitle, MIcon } from 'zkui'
   export default {
     components: {
       Search,
@@ -40,7 +40,6 @@
       TabItem,
       Sticky,
       Divider,
-      XButton,
       Swiper,
       SwiperItem,
       Grid,
@@ -53,6 +52,7 @@
         listDatas: [],
         list2: [],
         list: [],
+        index: 0,
         getBarWidth: function (index) {
           return (index + 1) * 22 + 'px'
         }
@@ -60,9 +60,6 @@
     },
     mounted () {
       this.getData()
-      var leftBottom = document.getElementsByClassName('vux-tab-ink-bar')
-      console.log(leftBottom)
-      console.log(leftBottom.style.display = 'none')
     },
     methods: {
       async  getData () {

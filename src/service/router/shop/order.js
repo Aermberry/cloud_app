@@ -21,6 +21,17 @@ export default [
     }
   },
   {
+    path: '/order/show',
+    meta: {
+      title: '订单详情',
+      login: true
+    },
+    name: 'order_show',
+    component: function (resolve) {
+      require(['src/views/shop/order/show'], resolve)
+    }
+  },
+  {
     path: '/user/favorite/index',
     meta: {
       title: '我的收藏',
