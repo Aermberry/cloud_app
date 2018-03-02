@@ -1,5 +1,5 @@
 <template>
-  <section class="market">
+  <section class="zkui-finance-view">
 
     <zk-head title='财务详情' goBack='财务记录'></zk-head>
     <div class="weui-cells">
