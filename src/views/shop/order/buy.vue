@@ -17,9 +17,9 @@
     <tabbar>
       <tabbar-item>
         <div slot="label" class="total">
-          <span>总计:</span>
-          <span class="money">￥1250.45</span>
-          <span class="amount">共8件商品</span>
+          <span>总计</span>
+          <span class="money">￥{{modelView.totalAmount}}</span>
+          <span class="amount">共{{modelView.totalCount}}件商品</span>
         </div>
         <x-button slot="customer" type="primary" @click.native="showSaleProperty">提交订单</x-button>
       </tabbar-item>
@@ -28,8 +28,8 @@
 </template>
 
 <script>
-  // import apiUser from 'src/service/api/user.api'
   import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, XAddress, InlineXNumber, XTextarea } from 'zkui'
+  import apiService from 'src/service/api/order.api'
   export default {
     components: {
       Tabbar,
@@ -50,6 +50,8 @@
       return {
         buyCount: 0,
         type: '1',
+        modelView: '', // 商品数据，从服务器上远程获取
+        asyncFlag: false, // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
         list: [{
           src: 'http://somedomain.somdomain/x.jpg',
           fallbackSrc: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
@@ -59,9 +61,27 @@
         }
         ]
       }
+    },
+    mounted () {
+      this.GetData()
+    },
+    methods: {
+      async GetData () {
+        let params = {
+          id: this.$route.params.id // 获取URL当中的Id参数
+        }
+        var response = await apiService.buyProduct(params)
+        this.modelView = response.data.result
+        this.asyncFlag = true
+        console.dir(this.modelView)
+      }
     }
   }
 </script>
+
+
+
+
 
 <style lang="less">
   .zkui-order-buyfromproduct {
@@ -125,10 +145,10 @@
     margin-left: 8*@rem;
     margin-top: 13*@rem;
     font-weight: bold;
-    font-size: 32px;
     color: black;
     .money {
       color: @danger;
+      font-size: @h3-font-size;
     }
     .amount {
       margin-left: 55*@rem;
