@@ -1,7 +1,7 @@
 <template>
   <section class="zkui-user-security">
 
-    <zk-head :title='title' :goBack='goBack'></zk-head>
+    <zk-head title='安全设置' goBack='会员中心'></zk-head>
     <zk-cell :links="links"></zk-cell>
     <zk-foot></zk-foot>
   </section>
@@ -16,8 +16,7 @@
     },
     data () {
       return {
-        title: '安全设置',
-        goBack: '会员中心',
+
         links: [
           {
             color: 'metal',

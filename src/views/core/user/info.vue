@@ -26,7 +26,7 @@
       </div>
     </div>
 
-    <zk-head :title='title' :goBack='goBack'></zk-head>
+    <zk-head title='账户信息' goBack='会员中心'></zk-head>
 
     <zk-foot></zk-foot>
   </section>
@@ -43,8 +43,7 @@
     //  https://segmentfault.com/q/1010000012824355 参考这个实现方式，更为优雅
     data () {
       return {
-        title: '账户信息',
-        goBack: '会员中心',
+
         userInfo: {
           name: '马上登录',
           info: '登陆后享受更多服务'

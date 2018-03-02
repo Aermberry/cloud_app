@@ -1,7 +1,7 @@
 <template>
   <section class="zkui-order-list">
 
-    <zk-head :title='title' :goBack='goBack'></zk-head>
+    <zk-head title='我的订单' goBack='会员中心'></zk-head>
 
     <mt-navbar v-model="selected">
       <mt-tab-item id="1">全部</mt-tab-item>
@@ -145,8 +145,7 @@
   export default {
     data () {
       return {
-        title: '我的订单',
-        goBack: '会员中心',
+
         selected: 1
       }
     }

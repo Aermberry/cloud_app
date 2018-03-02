@@ -1,7 +1,7 @@
 <template>
   <section class="zkui-user-buyeraddress-edit">
 
-    <zk-head :title='title' :goBack='goBack'></zk-head>
+    <zk-head title='地址编辑' goBack='收货地址'></zk-head>
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
         <div class="weui-cell__hd">
@@ -48,8 +48,7 @@
   export default {
     data () {
       return {
-        title: '地址编辑',
-        goBack: '收货地址'
+
       }
     }
   }

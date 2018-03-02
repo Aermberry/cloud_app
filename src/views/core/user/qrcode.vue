@@ -1,7 +1,7 @@
 <template>
   <section class="zkui-user-qrcode">
 
-    <zk-head :title='title' :goBack='goBack'></zk-head>
+    <zk-head :title='二维码名片' :goBack='会员中心'></zk-head>
 
     <zk-foot></zk-foot>
   </section>
@@ -12,8 +12,7 @@
   export default {
     data () {
       return {
-        title: '二维码名片',
-        goBack: '会员中心'
+
       }
     }
   }

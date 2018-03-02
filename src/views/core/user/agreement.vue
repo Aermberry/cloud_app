@@ -1,7 +1,7 @@
 <template>
   <section class="zkui-user-agreement">
 
-    <zk-head :title='title' :goBack='goBack'></zk-head>
+    <zk-head title='服务条款' goBack='注册'></zk-head>
     <div class="page article js_show">
       <div class="page__bd">
         <article class="weui-article">
@@ -19,9 +19,7 @@
   export default {
     data () {
       return {
-        modelView: '',
-        title: '服务条款',
-        goBack: '注册'
+        modelView: ''
       }
     },
     mounted () {

@@ -1,7 +1,7 @@
 <template>
   <section class="zkui-user-account-transfer">
 
-    <zk-head :title='title' :goBack='goBack'></zk-head>
+    <zk-head title='转账' goBack='我的钱包'></zk-head>
 
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
@@ -61,8 +61,7 @@
   export default {
     data () {
       return {
-        title: '转账',
-        goBack: '我的钱包'
+
       }
     }
   }
