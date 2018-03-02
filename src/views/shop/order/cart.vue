@@ -94,13 +94,6 @@
   export default {
     data () {
       return {
-<<<<<<< HEAD
-        title: '购物车',
-        goBack: '',
-        moduleView: ''
-=======
-
->>>>>>> 5672481ea44c2092bb926711028026b64f7ce0a2
       }
     },
     components: {
