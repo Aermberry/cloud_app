@@ -2,7 +2,7 @@
 <template>
   <section class="zkui-product_list">
 
-    <zk-head :title='title' :goBack='goBack'></zk-head>
+    <zk-head title='列表页面' goBack=''></zk-head>
     <grid :cols="4">
       <grid-item v-for="(item,index) in list.Ltitle" :key="index">
         <router-link :to="item.url">
@@ -29,8 +29,7 @@
     },
     data () {
       return {
-        title: '列表页面',
-        goBack: '',
+
         selected: 1,
         list: {
           Ltitle: [

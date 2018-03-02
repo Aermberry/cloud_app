@@ -1,7 +1,7 @@
 <template>
   <section class="zkui-pay-index">
 
-    <zk-head :title='title' :goBack='goBack'></zk-head>
+    <zk-head title='支付订单' goBack='提交订单'></zk-head>
     <mt-radio align="right" v-model="value" :options="options">
     </mt-radio>
 
@@ -27,8 +27,7 @@
   export default {
     data () {
       return {
-        title: '支付订单',
-        goBack: '提交订单',
+
         //  存放所选选项（字符串）
         value: '',
         //  radio的选项

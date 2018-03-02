@@ -1,7 +1,7 @@
 <template>
   <section class="zkui-order-cart">
 
-    <zk-head :title='title' :goBack='goBack' class="zkui-order-cart-head"></zk-head>
+    <zk-head title='购物车' class="zkui-order-cart-head"></zk-head>
     <div class="zkui-order-cart-box">
       <ul>
         <li class="zkui-order-cart-item">
@@ -94,9 +94,13 @@
   export default {
     data () {
       return {
+<<<<<<< HEAD
         title: '购物车',
         goBack: '',
         moduleView: ''
+=======
+
+>>>>>>> 5672481ea44c2092bb926711028026b64f7ce0a2
       }
     },
     components: {
