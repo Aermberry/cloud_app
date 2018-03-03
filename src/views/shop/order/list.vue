@@ -1,27 +1,136 @@
 <template>
   <section class="zkui-order-list">
+                </ul>
+
     <zk-head title='我的订单' goBack='会员中心'></zk-head>
-    <group class="zkui-order-buy-parameter-amount">
-      <panel header="户外专营店" :list="list" :type="type"></panel>
-      <cell-form-preview :list="message"></cell-form-preview>
-      <cell :value="1024"></cell>
-    </group>
-    <tabbar>
-      <tabbar-item>
-        <div slot="label" class="total">
-          <span>总计</span>
-          <span class="money">￥{{modelView.totalAmount}}</span>
-          <span class="amount">共{{modelView.totalCount}}件商品</span>
+
+    <mt-navbar v-model="selected">
+      <mt-tab-item id="1">全部</mt-tab-item>
+      <mt-tab-item id="2">待付款</mt-tab-item>
+      <mt-tab-item id="3">待发货</mt-tab-item>
+      <mt-tab-item id="4">待收货</mt-tab-item>
+      <mt-tab-item id="5">待评价</mt-tab-item>
+    </mt-navbar>
+
+    <mt-tab-container v-model="selected">
+      <mt-tab-container-item id="1">
+        <div class="zkui-order-list-all">
+          <ul class="zkui-order-list-content">
+            <li>
+              <h2 class="zkui-order-list-content-title">
+                龙府国际运动
+              </h2>
+              <ul class="zkui-order-list-message">
+                <li class="zkui-order-list-message-img">
+                  <img src="../../../../static/images/swiper/01.jpg" alt="">
+                </li>
+                <li class="zkui-order-list-message-content">
+                  <p>承恩哥的阿迪达斯承恩哥的阿迪达斯承恩哥的阿迪达斯</p>
+                  <span>颜色：AQ6272 镭射尾；尺码42</span>
+                </li>
+                <li class="zkui-order-list-message-price">
+                  <p class="zkui-order-list-message-oldprice">￥829.00</p>
+                  <p class="zkui-order-list-message-nowprice">￥372.92</p>
+                  <p class="zkui-order-list-message-quantity">X1</p>
+                </li>
+              </ul>
+              <div class="zkui-order-list-aggregate ">
+                <ul>
+                  <li>全国包邮</li>
+                  <li>总计</li>
+                  <li class="zkui-order-list-aggregate-price ">￥397.92</li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <h2 class="zkui-order-list-content-title">
+                龙府国际运动
+              </h2>
+              <ul class="zkui-order-list-message">
+                <li class="zkui-order-list-message-img">
+                  <img src="../../../../static/images/swiper/01.jpg" alt="">
+                </li>
+                <li class="zkui-order-list-message-content">
+                  <p>承恩哥的阿迪达斯承恩哥的阿迪达斯承恩哥的阿迪达斯</p>
+                  <span>颜色：AQ6272 镭射尾；尺码42</span>
+                </li>
+                <li class="zkui-order-list-message-price">
+                  <p class="zkui-order-list-message-oldprice">￥829.00</p>
+                  <p class="zkui-order-list-message-nowprice">￥372.92</p>
+                  <p class="zkui-order-list-message-quantity">X1</p>
+                </li>
+              </ul>
+              <div class="zkui-order-list-aggregate ">
+                <ul>
+                  <li>全国包邮</li>
+                  <li>总计</li>
+                  <li class="zkui-order-list-aggregate-price ">￥397.92</li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <h2 class="zkui-order-list-content-title">
+                龙府国际运动
+              </h2>
+              <ul class="zkui-order-list-message">
+                <li class="zkui-order-list-message-img">
+                  <img src="../../../../static/images/swiper/01.jpg" alt="">
+                </li>
+                <li class="zkui-order-list-message-content">
+                  <p>承恩哥的阿迪达斯承恩哥的阿迪达斯承恩哥的阿迪达斯</p>
+                  <span>颜色：AQ6272 镭射尾；尺码42</span>
+                </li>
+                <li class="zkui-order-list-message-price">
+                  <p class="zkui-order-list-message-oldprice">￥829.00</p>
+                  <p class="zkui-order-list-message-nowprice">￥372.92</p>
+                  <p class="zkui-order-list-message-quantity">X1</p>
+                </li>
+              </ul>
+              <div class="zkui-order-list-aggregate ">
+                <ul>
+                  <li>全国包邮</li>
+                  <li>总计</li>
+                  <li class="zkui-order-list-aggregate-price ">￥397.92</li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <h2 class="zkui-order-list-content-title">
+                龙府国际运动
+              </h2>
+              <ul class="zkui-order-list-message">
+                <li class="zkui-order-list-message-img">
+                  <img src="../../../../static/images/swiper/01.jpg" alt="">
+                </li>
+                <li class="zkui-order-list-message-content">
+                  <p>承恩哥的阿迪达斯承恩哥的阿迪达斯承恩哥的阿迪达斯</p>
+                  <span>颜色：AQ6272 镭射尾；尺码42</span>
+                </li>
+                <li class="zkui-order-list-message-price">
+                  <p class="zkui-order-list-message-oldprice">￥829.00</p>
+                  <p class="zkui-order-list-message-nowprice">￥372.92</p>
+                  <p class="zkui-order-list-message-quantity">X1</p>
+                </li>
+              </ul>
+              <div class="zkui-order-list-aggregate ">
+                <ul>
+                  <li>全国包邮</li>
+                  <li>总计</li>
+                  <li class="zkui-order-list-aggregate-price ">￥397.92</li>
+                </ul>
+              </div>
+            </li>
+          </ul>
         </div>
-      </tabbar-item>
-    </tabbar>
-    <zk-foot></zk-foot>
+        </tabbar-item>
+        </tabbar>
+        <zk-foot></zk-foot>
   </section>
 </template>
 
 <script>
   // import apiUser from 'src/service/api/user.api'
-import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, XAddress, InlineXNumber, XTextarea } from 'zkui'
+  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, XAddress, InlineXNumber, XTextarea } from 'zkui'
   export default {
     components: {
       Tabbar,
@@ -39,28 +148,8 @@ import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellB
     },
     data () {
       return {
-        buyCount: 0,
-        type: '1',
-        modelView: '', // 商品数据，从服务器上远程获取
-        asyncFlag: false, // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
-        list: [{
-          src: 'http://somedomain.somdomain/x.jpg',
-          fallbackSrc: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
-          title: '阿迪达斯贝壳头休闲鞋男款易烊千玺',
-          desc: '颜色：AQ6278炫彩; 尺码：36',
-          url: '/component/cell'
-        }
-        ],
-        message: [{
-        label: 'Apple',
-        value: '3.29'
-      }, {
-        label: 'Banana',
-        value: '1.04'
-      }, {
-        label: 'Fish',
-        value: '8.00'
-      }]
+
+        selected: 1
       }
     }
   }

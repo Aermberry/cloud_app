@@ -2,46 +2,56 @@
   <section class="zkui-order-cart">
 
     <zk-head title='购物车' class="zkui-order-cart-head"></zk-head>
-    <div class="zkui-order-cart-box">
-      <div v-for="(items,indexs) in viewModel.storeProducts" :key="indexs">
-        <div class="order-cart-store flex">
-          <div class="label">
-            <input type="checkbox" />
-          </div>
-          <h2 class="flex_one">{{items.storeName}} </h2>
-        </div>
-        <ul>
-          <li class="zkui-order-cart-item" v-for="(item,index) in items.productItems" :key="index">
-            <div class="order-cart-commodity">
-              <ul class="flex order-cart-commodity-box">
-                <li class="order-cart-commodity-left">
-                  <div class="label">
-                    <input type="checkbox" />
-                  </div>
-                </li>
-                <li class="flex_one">
-                  <div class="order-cart-commodit-into flex">
-                    <div class="order-cart-commodity-into_left">
-                      <img :src="item.product.thumbnailUrl" alt="">
-                    </div>
-                    <div class="flex_one order-cart-commodity-into_right ">
-                      <p>{{item.product.name}}</p>
-                      <span>{{item.productSku.propertyValueDesc}}</span>
-                      <ul class="flex">
-                        <li class="price_now">￥{{item.product.price}}</li>
-                        <li class="price_old">￥{{item.product.displayPrice}}</li>
-                        <li class="flex_one price_num">×{{item.count}}</li>
-                      </ul>
-                    </div>
-                  </div>
-                </li>
-              </ul>
+    <swipeout>
+      <div class="zkui-order-cart-box">
+        <div v-for="(items,indexs) in viewModel.storeProducts" :key="indexs">
+          <div class="order-cart-store flex">
+            <div class="label">
+              <input type="checkbox" />
             </div>
-          </li>
-        </ul>
-      </div>
+            <h2 class="flex_one">{{items.storeName}} </h2>
+          </div>
+          <ul>
+            <li class="zkui-order-cart-item" v-for="(item,index) in items.productItems" :key="index">
+              <div class="order-cart-commodity">
+                <swipeout-item @on-close="handleEvents('on-close')" @on-open="handleEvents('on-open')" transition-mode="follow">
+                  <div slot="right-menu">
+                    <swipeout-button type="warn" @click.native="onButtonClick(item.productSku.id)">删除</swipeout-button>
+                  </div>
+                  <div slot="content" class="demo-content border-top" style="height:10rem">
+                    <ul class="flex order-cart-commodity-box">
+                      <li class="order-cart-commodity-left">
+                        <div class="label">
+                          <input type="checkbox" />
+                        </div>
+                      </li>
+                      <li class="flex_one">
+                        <div class="order-cart-commodit-into flex">
+                          <div class="order-cart-commodity-into_left">
+                            <img :src="item.product.thumbnailUrl" alt="">
+                          </div>
+                          <div class="flex_one order-cart-commodity-into_right ">
+                            <p>{{item.product.name}}</p>
+                            <span>{{item.productSku.propertyValueDesc}}</span>
+                            <ul class="flex">
+                              <li class="price_now">￥{{item.product.price}}</li>
+                              <li class="price_old">￥{{item.product.displayPrice}}</li>
+                              <li class="flex_one price_num">×{{item.count}}</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </swipeout-item>
 
-    </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </swipeout>
     <div class="zkui-order-cart-bar">
       <tabbar>
         <tabbar-item class="bar-left">
@@ -60,11 +70,12 @@
 
 <script>
   import userService from 'src/service/api/user.api'
-  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton } from 'zkui'
+  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, GroupTitle, Swipeout, SwipeoutItem, SwipeoutButton } from 'zkui'
   export default {
     data () {
       return {
-        viewModel: ''
+        viewModel: '',
+        disabled: false
       }
     },
     components: {
@@ -73,7 +84,11 @@
       Group,
       Cell,
       MIcon,
-      XButton
+      XButton,
+      GroupTitle,
+      Swipeout,
+      SwipeoutItem,
+      SwipeoutButton
     },
     mounted () {
       this.GetData()
@@ -103,6 +118,16 @@
         var reponse = await userService.GetCart(this.data)
         console.log(reponse.data.result.storeProducts)
         this.viewModel = reponse.data.result
+      },
+      async onButtonClick (id) {
+        var result = await userService.RemoveCart(id)
+        if (result.data.status === 1) {
+          this.$vux.toast.success('删除成功')
+        } else {
+          this.$vux.toast.warn('删除失败')
+        }
+      },
+      handleEvents (type) {
       }
     }
   }
