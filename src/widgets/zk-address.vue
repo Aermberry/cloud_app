@@ -16,7 +16,7 @@
     data () {
       return {
         title4: '城市/区域',
-        regionList: [{
+   regionList: [{
     name: '北京',
     value: '110000',
     parent: 0

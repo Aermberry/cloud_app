@@ -18,18 +18,9 @@ let baseUrl
 let routerMode = 'history'
 
 if (process.env.NODE_ENV === 'development') {
-  baseUrl = 'https://wx.5ug.com'
-  // baseUrl = 'http://localhost:9011'
+    // baseUrl = 'https://wx.5ug.com'
+    baseUrl = 'http://localhost:9011'
 } else {
-  baseUrl = 'http://139.159.243.8:8001'
-<<<<<<< HEAD
-=======
-}
-export {
-  baseUrl,
-  routerMode,
-  key,
-  projectId
->>>>>>> 20bd2e3b00b8fb6a468336953ad392d78983e2f4
+    baseUrl = 'http://139.159.243.8:8001'
 }
 export { baseUrl, routerMode, key, projectId }
