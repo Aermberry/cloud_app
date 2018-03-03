@@ -2,21 +2,6 @@
   <section class="zkui-user-buyeraddress-edit">
 
     <zk-head title='地址编辑' goBack='收货地址'></zk-head>
-<<<<<<< HEAD
-    <div>
-      <group id="form">
-        <x-input title="收货人" required :min="2" :max="12" v-model="debtApiInput.name"></x-input>
-        <x-input title="联系电话" required placeholder="请输入债务人的手机号" mask="999 9999 9999" v-model="debtApiInput.mobile" :max="13" is-type="mobile"></x-input>
-      </group>
-      <group>
-        <zk-address></zk-address>
-        <x-textarea placeholder="请填写详细信息" :show-counter="false" :rows="3"></x-textarea>
-      </group>
-      <group>
-        <x-button type="primary">确定</x-button>
-        <x-button type="warn">取消</x-button>
-      </group>
-=======
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
         <div class="weui-cell__hd">
@@ -53,7 +38,6 @@
     </div>
     <div class="weui-btn-area">
       <a class="weui-btn " href="javascript:" id="showTooltips">确定</a>
->>>>>>> 20bd2e3b00b8fb6a468336953ad392d78983e2f4
     </div>
 
   </section>
@@ -69,24 +53,6 @@
     },
     data () {
       return {
-<<<<<<< HEAD
-        debtApiInput: {
-          name: 'ddd',
-          mobile: '13865466956'
-        }
-      }
-    },
-    methods: {
-      async apiPost () {
-        var response = await apiService.apply(this.debtApiInput)
-        if (response.data.status === 1) {
-          this.messageSuccess('申请成功')
-        } else {
-          this.$vux.toast.warn(response.data.message)
-        }
-=======
-
->>>>>>> 20bd2e3b00b8fb6a468336953ad392d78983e2f4
       }
     }
   }

@@ -1,19 +1,5 @@
 <template>
   <section class="zkui-order-list">
-<<<<<<< HEAD
-    <zk-head title='我的订单' goBack='会员中心'></zk-head>
-    <group class="zkui-order-buy-parameter-amount">
-      <panel header="户外专营店" :list="list" :type="type"></panel>
-      <cell-form-preview :list="message"></cell-form-preview>
-      <cell :value="1024"></cell>
-    </group>
-    <tabbar>
-      <tabbar-item>
-        <div slot="label" class="total">
-          <span>总计</span>
-          <span class="money">￥{{modelView.totalAmount}}</span>
-          <span class="amount">共{{modelView.totalCount}}件商品</span>
-=======
 
     <zk-head title='我的订单' goBack='会员中心'></zk-head>
 
@@ -134,17 +120,16 @@
               </div>
             </li>
           </ul>
->>>>>>> 20bd2e3b00b8fb6a468336953ad392d78983e2f4
         </div>
-      </tabbar-item>
-    </tabbar>
-    <zk-foot></zk-foot>
+        </tabbar-item>
+        </tabbar>
+        <zk-foot></zk-foot>
   </section>
 </template>
 
 <script>
   // import apiUser from 'src/service/api/user.api'
-import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, XAddress, InlineXNumber, XTextarea } from 'zkui'
+  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, XAddress, InlineXNumber, XTextarea } from 'zkui'
   export default {
     components: {
       Tabbar,
@@ -162,33 +147,8 @@ import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellB
     },
     data () {
       return {
-<<<<<<< HEAD
-        buyCount: 0,
-        type: '1',
-        modelView: '', // 商品数据，从服务器上远程获取
-        asyncFlag: false, // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
-        list: [{
-          src: 'http://somedomain.somdomain/x.jpg',
-          fallbackSrc: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
-          title: '阿迪达斯贝壳头休闲鞋男款易烊千玺',
-          desc: '颜色：AQ6278炫彩; 尺码：36',
-          url: '/component/cell'
-        }
-        ],
-        message: [{
-        label: 'Apple',
-        value: '3.29'
-      }, {
-        label: 'Banana',
-        value: '1.04'
-      }, {
-        label: 'Fish',
-        value: '8.00'
-      }]
-=======
 
         selected: 1
->>>>>>> 20bd2e3b00b8fb6a468336953ad392d78983e2f4
       }
     }
   }
