@@ -1,7 +1,18 @@
 <template>
 
   <div class="zk-class-tab">
+    <swipeout>
 
+      <swipeout-item @on-close="handleEvents('on-close')" @on-open="handleEvents('on-open')" transition-mode="follow">
+        <div slot="right-menu">
+          <swipeout-button @click.native="onButtonClick('delete')" type="warn">456</swipeout-button>
+        </div>
+        <div slot="content" class="demo-content border-top">
+          789
+        </div>
+      </swipeout-item>
+
+    </swipeout>
   </div>
 
 </template>
@@ -12,40 +23,29 @@
   import { GroupTitle, Swipeout, SwipeoutItem, SwipeoutButton, XButton } from 'zkui'
   export default {
     components: {
+      GroupTitle,
+      Swipeout,
+      SwipeoutItem,
+      SwipeoutButton,
+      XButton
     },
     data () {
       return {
-        GroupTitle,
-        Swipeout,
-        SwipeoutItem,
-        SwipeoutButton,
-        XButton
+        disabled: false
       }
     },
     methods: {
+      onButtonClick (type) {
+        alert('on button click ' + type)
+      },
+      handleEvents (type) {
+        console.log('event: ', type)
+      }
     }
   }
 </script>
 
 <style>
-  .zk-class-tab {
-    width: 100%;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    height: auto;
-  }
-  .zk-class-tab-left {
-    width: 75px;
-    display: block !important;
-  }
-  .zk-class-tab-right {
-    -ms-flex: 1;
-    -moz-box-flex: 1;
-    -webkit-flex: 1;
-    flex: 1;
-  }
+
 </style>
 
