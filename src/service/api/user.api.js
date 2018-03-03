@@ -93,5 +93,35 @@ export default {
   async RemoveCart (data) {
     var response = await http.postLogin('/Cart/RemoveCart', data)
     return response
+  },
+  // 二维码
+  async QrCode (data) {
+    var response = await http.getLogin('/UserDetail/QrCode', data)
+    return response
+  },
+  // 组织架构图
+  async Tree (data) {
+    var response = await http.getLogin('/UserDetail/Tree', data)
+    return response
+  },
+  // 添加地址
+  async AddAddress (data) {
+    var response = await http.postLogin('/UserAddress/add', data)
+    return response
+  },
+  // 获取地址
+  async GetAddress (data) {
+    var response = await http.getLogin('/UserAddress/get', data)
+    return response
+  },
+  // 删除地址
+  async DeleteAddress (data) {
+    var response = await http.postLogin('/UserAddress/delete', data)
+    return response
+  },
+  // 修改地址
+  async UpdateAddress (data) {
+    var response = await http.postLogin('/UserAddress/update', data)
+    return response
   }
 }
