@@ -3,12 +3,12 @@
 
     <zk-head title='购物车' class="zkui-order-cart-head"></zk-head>
     <div class="zkui-order-cart-box">
-      <div v-for="(items,indexs) in dataList.storeProducts" :key="indexs">
+      <div v-for="(items,indexs) in viewModel.storeProducts" :key="indexs">
         <div class="order-cart-store flex">
           <div class="label">
             <input type="checkbox" />
           </div>
-          <h2 class="flex_one">酷跑运动 </h2>
+          <h2 class="flex_one">{{items.storeName}} </h2>
         </div>
         <ul>
           <li class="zkui-order-cart-item" v-for="(item,index) in items.productItems" :key="index">
@@ -64,6 +64,7 @@
   export default {
     data () {
       return {
+        viewModel: ''
       }
     },
     components: {
@@ -72,9 +73,7 @@
       Group,
       Cell,
       MIcon,
-      XButton,
-      data: '',
-      dataList: ''
+      XButton
     },
     mounted () {
       this.GetData()
@@ -103,7 +102,7 @@
       async GetData () {
         var reponse = await userService.GetCart(this.data)
         console.log(reponse.data.result.storeProducts)
-        this.dataList = reponse.data.result
+        this.viewModel = reponse.data.result
       }
     }
   }
