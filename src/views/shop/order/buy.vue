@@ -19,7 +19,7 @@
                 <router-link :to="'/product/show/'+product.product.id">{{product.product.name}}</router-link>
               </h4>
               <p class="weui-media-box__desc">
-                {{product.productSku.propertyValueDesc}}<br/>
+                {{product.productSku.bn}} {{product.productSku.propertyValueDesc}}<br/>
                 <span class="cart_buy_price">
                   <em>￥</em>{{product.productSku.price}}</span>
               </p>
@@ -31,6 +31,9 @@
 
       <cell title="配送方式" value="快递 免邮" is-link></cell>
       <x-textarea title="卖家留言" placeholder="选填：填写内容已和卖家协商确认" :show-counter="false" :rows="1" autosize></x-textarea>
+      <cell>
+        <div>共{{store.totalCount}}商品 小计{{store.totalAmount}}</div>
+      </cell>
     </group>
     <tabbar>
       <tabbar-item>
@@ -67,20 +70,8 @@
     },
     data () {
       return {
-        buyCount: 0,
-        message: '',
-
-        type: '1',
         modelView: '', // 商品数据，从服务器上远程获取
-        asyncFlag: false, // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
-        list: [{
-          src: 'https://wx.5ug.com/wwwroot/Uploads/Product/2018/02/22a5501688774d10ab313c3b2bba3ee1.jpg_520X520.jpg',
-          fallbackSrc: 'https://wx.5ug.com/wwwroot/Uploads/Product/2018/02/22a5501688774d10ab313c3b2bba3ee1.jpg_520X520.jpg',
-          title: '阿迪达斯贝壳头休闲鞋男款易烊千玺',
-          desc: '颜色：AQ6278炫彩; 尺码：36',
-          url: '/component/cell'
-        }
-        ]
+        asyncFlag: false // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
       }
     },
     mounted () {
