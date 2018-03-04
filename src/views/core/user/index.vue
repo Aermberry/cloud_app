@@ -49,7 +49,7 @@
     data () {
       return {
         userInfo: {
-          name: '马上登录',
+          name: '',
           info: '登陆后享受更多服务'
         }
       }
@@ -60,7 +60,8 @@
     methods: {
       async GetData () {
         var reponse = await userService.view(this.data)
-        console.log(reponse)
+        this.userInfo.name = reponse.data.result.userName
+        this.userInfo.info = reponse.data.result.mobile
       }
     }
   }
