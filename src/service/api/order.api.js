@@ -3,7 +3,7 @@ import http from 'src/service/common/http'
 export default {
   //  根据商品信息，确认订单页面，获取商品的购买信息,包括价格，物理、等计算
   buyProduct (data) {
-    var response = http.getLogin('/order/GetBuyInfo', data)
+    var response = http.postLogin('/order/BuyInfo', data)
     return response
   },
   //  提交订单，购物商品

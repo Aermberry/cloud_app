@@ -118,11 +118,12 @@
         if (this.buyCount < 1) {
           this.$vux.toast.warn('购买数量不能小于1')
         }
-        let buyProductInfo = {
+        let buyProductInfo = [{
           ProductSkuId: this.selectSku.id,
           Count: this.buyCount,
+          ProductId: this.productView.id,
           LoginUserId: store.state.userStore.loginUser.id
-        }
+        }]
         this.showSale = false
         this.$router.push({
           name: 'order_buy',

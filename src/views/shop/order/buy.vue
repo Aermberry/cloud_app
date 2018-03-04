@@ -30,6 +30,7 @@
 <script>
   import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, XAddress, InlineXNumber, XTextarea } from 'zkui'
   import apiService from 'src/service/api/order.api'
+  import store from 'src/store/index'
   export default {
     components: {
       Tabbar,
@@ -50,6 +51,7 @@
       return {
         buyCount: 0,
         message: '',
+
         type: '1',
         modelView: '', // 商品数据，从服务器上远程获取
         asyncFlag: false, // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
@@ -69,8 +71,39 @@
     methods: {
       async GetData () {
         var buyProductInfo = this.$route.params.buyInfo
-        //  console.info('购买商品', buyProductInfo)
-        var response = await apiService.buyProduct(buyProductInfo)
+        buyProductInfo =
+          [
+            {
+              ProductSkuId: 81,
+              Count: 1,
+              ProductId: 44,
+              LoginUserId: 1
+            },
+            {
+              ProductSkuId: 82,
+              Count: 5,
+              ProductId: 44,
+              LoginUserId: 1
+            },
+            {
+              ProductSkuId: 107,
+              Count: 1,
+              ProductId: 45,
+              LoginUserId: 1
+            },
+            {
+              ProductSkuId: 109,
+              Count: 1,
+              ProductId: 45,
+              LoginUserId: 1
+            }
+          ]
+        console.dir('商品参数', buyProductInfo)
+        let buyInfoInput = {
+          loginUserId: store.state.userStore.loginUser.id,
+          productJson: JSON.stringify(buyProductInfo)
+        }
+        var response = await apiService.buyProduct(buyInfoInput)
         this.modelView = response.data.result
         this.asyncFlag = true
         console.dir(this.modelView)
