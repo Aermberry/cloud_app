@@ -33,6 +33,9 @@ export default [
   // },
   {
     path: '/order/buy',
+    params: {
+      buyInfo: ''
+    },
     meta: {
       title: '确认下单',
       login: true

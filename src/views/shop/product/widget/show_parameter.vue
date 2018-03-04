@@ -60,6 +60,7 @@
 <script>
   import { Group, Checker, CheckerItem, Divider, GroupTitle, Cell, TransferDom, Popup, XButton, XSwitch, InlineXNumber, ButtonTab, ButtonTabItem } from 'zkui'
   import userService from 'src/service/api/user.api'
+  import store from 'src/store/index'
   export default {
     components: {
       Group, Cell, TransferDom, Popup, XButton, XSwitch, GroupTitle, InlineXNumber, ButtonTab, ButtonTabItem, Checker, CheckerItem, Divider
@@ -74,7 +75,7 @@
         showSale: false, // 显示规格选择窗口
         salePropertyTitle: '请选择：',
         selectSku: '', // 选择的商品Sku
-        buyCount: 10, // 商品购买数量
+        buyCount: 1, // 商品购买数量
         saleItems: [] // 可能存在多个商品规格属性，默认填充四个
       }
     },
@@ -105,6 +106,7 @@
           var response = await userService.AddCart(params)
           if (response.data.status === 1) {
             this.$vux.toast.success('加入购物车成功')
+            this.showSale = false
           }
         }
       },
@@ -116,10 +118,18 @@
         if (this.buyCount < 1) {
           this.$vux.toast.warn('购买数量不能小于1')
         }
-        if (this.buyCount * 20000 > this.selectSku.stock) {
-          this.$vux.toast.warn('库存不足')
+        let buyProductInfo = {
+          ProductSkuId: this.selectSku.id,
+          Count: this.buyCount,
+          LoginUserId: store.state.userStore.loginUser.id
         }
         this.showSale = false
+        this.$router.push({
+          name: 'order_buy',
+          params: {
+            buyInfo: buyProductInfo
+          }
+        })
       },
       getSku () {
         var specSn = ''
