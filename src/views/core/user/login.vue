@@ -1,6 +1,7 @@
 <template>
   <section class="zkui-login">
     <zk-head title='登录' goBack='首页'></zk-head>
+    <div class="title"></div>
     <div class="page__hd">
       <h1 class="page__title">用户名/手机/邮箱登录</h1>
     </div>
@@ -55,3 +56,9 @@
     }
   }
 </script>
+
+<style>
+  .title {
+    padding-top: 1rem;
+  }
+</style>
