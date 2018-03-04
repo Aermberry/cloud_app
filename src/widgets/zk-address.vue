@@ -29,97 +29,97 @@
   {
     name: '东城区',
     value: '110101',
-    parent: 110100
+    parent: '110100'
   },
   {
     name: '西城区',
     value: '110102',
-    parent: 110100
+    parent: '110100'
   },
   {
     name: '崇文区',
     value: '110103',
-    parent: 110100
+    parent: '110100'
   },
   {
     name: '宣武区',
     value: '110104',
-    parent: 110100
+    parent: '110100'
   },
   {
     name: '朝阳区',
     value: '110105',
-    parent: 110100
+    parent: '110100'
   },
   {
     name: '丰台区',
     value: '110106',
-    parent: 110100
+    parent: '110100'
   },
   {
     name: '石景山区',
     value: '110107',
-    parent: 110100
+    parent: '110100'
   },
   {
     name: '海淀区',
     value: '110108',
-    parent: 110100
+    parent: '110100'
   },
   {
     name: '门头沟区',
     value: '110109',
-    parent: 110100
+    parent: '110100'
   },
   {
     name: '房山区',
     value: '110111',
-    parent: 110100
+    parent: '110100'
   },
   {
     name: '通州区',
     value: '110112',
-    parent: 110100
+    parent: '110100'
   },
   {
     name: '顺义区',
     value: '110113',
-    parent: 110100
+    parent: '110100'
   },
   {
     name: '昌平区',
     value: '110114',
-    parent: 110100
+    parent: '110100'
   },
   {
     name: '大兴区',
     value: '110115',
-    parent: 110100
+    parent: '110100'
   },
   {
     name: '怀柔区',
     value: '110116',
-    parent: 110100
+    parent: '110100'
   },
   {
     name: '平谷区',
     value: '110117',
-    parent: 110100
+    parent: '110100'
   },
   {
     name: '密云县',
     value: '110228',
-    parent: 110100
+    parent: '110100'
   },
   {
     name: '延庆县',
     value: '110229',
-    parent: 110100
+    parent: '110100'
   },
   {
     name: '其它区',
     value: '110230',
-    parent: 110100
+    parent: '110100'
   },
   {
     name: '天津',

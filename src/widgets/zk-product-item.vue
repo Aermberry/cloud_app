@@ -103,7 +103,7 @@
         a {
           display: block;
           width: 100%;
-          min-height: 5rem;
+          min-height: 2rem;
           img {
             width: 100%;
             display: block;
@@ -116,13 +116,14 @@
             margin: 0.3rem 0.3rem 0.1rem 0.3rem;
             overflow: hidden;
             text-overflow: ellipsis;
-            display: -webkit-box;
             -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
+            -webkit-line-clamp: 1;
+            white-space: nowrap;
           }
         }
         .itemPrice {
           padding-left: 10*@rem;
+          min-height: 3rem;
           em {
             color: @brand;
             font-weight: bold;

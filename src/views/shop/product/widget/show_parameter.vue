@@ -1,14 +1,16 @@
 <template>
   <div>
     <group class="zkui-product-show-parameter">
+      <div class="weui-cells-top"></div>
       <cell :title="salePropertyTitle" @click.native="showSale = true" is-link :value="selectSku.propertyValueDesc"></cell>
       <cell title="商品参数" @click.native="showParameter = true" is-link class="border-bottom"></cell>
+      <div class="weui-cells-bottom"></div>
     </group>
 
     <div v-transfer-dom>
-      <popup v-model="showSale" class="zk-product-showSale" height="270*@rem" is-transparent>
-        <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem;padding-top:25px;">
-          <dl class="sale-info">
+      <popup v-model="showSale" class="zk-product-showSale" max-height="70%" is-transparent>
+        <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem;">
+          <dl class="sale-info goods-information">
             <dt class="sale-info-img">
               <img :src="productView.thumbnailUrl" />
             </dt>
@@ -19,7 +21,7 @@
             <dd class="sale-info-stock metal">库存：{{selectSku.stock}} 货号：{{selectSku.bn}}</dd>
             <x-button type="primary" class="sale-info-close" @click.native=" showSale = false "></x-button>
           </dl>
-          <div class="sale-info-property ">
+          <div class="sale-info-property goods-select">
             <dl class="border-bottom " v-for="(item, index) in productView.productExtensions.productCategory.salePropertys " :key="index ">
               <dt>{{item.name}}</dt>
               <dd>
@@ -28,13 +30,14 @@
                 </checker>
               </dd>
             </dl>
+            <group class="zkui-product-show-parameter-amount ">
+              <cell title="购买数量 ">
+                <inline-x-number style="display:block; " :min="1 " width="50px " v-model="buyCount" :max="selectSku.stock" button-style="round"></inline-x-number>
+              </cell>
+            </group>
           </div>
-          <group class="zkui-product-show-parameter-amount ">
-            <cell title="购买数量 ">
-              <inline-x-number style="display:block; " :min="1 " width="50px " v-model="buyCount" :max="selectSku.stock" button-style="round"></inline-x-number>
-            </cell>
-          </group>
-          <div style="padding:10px ">
+
+          <div class="base">
             <button-tab>
               <button-tab-item type="default " @click.native="addToCart ">加入购物车</button-tab-item>
               <button-tab-item type="primary " @click.native="buyProduct ">立即购买</button-tab-item>
@@ -44,13 +47,14 @@
       </popup>
     </div>
     <div v-transfer-dom>
-      <popup v-model="showParameter " class="showParameter " height="400*@rem " is-transparent>
-        <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem;padding-top:10px; ">
-          <group title="商品参数 ">
+      <popup v-model="showParameter " class="showParameter " max-height="70%" is-transparent>
+        <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem; ">
+          <div class="goods-title">商品参数</div>
+          <group class="goods-item">
             <cell v-for="(item, index) in productView.productExtensions.productCategory.displayPropertys " :key="index " :title="item.name " :value="item.displayValue " v-if="item.isSale==false "></cell>
           </group>
-          <div style="padding:10px ">
-            <x-button type="primary " @click.native="showParameter=false ">完成</x-button>
+          <div class="base">
+            <x-button type="primary " @click.native="showParameter=false" class="goods-title">关闭</x-button>
           </div>
         </div>
       </popup>
@@ -164,12 +168,17 @@
     .weui-cell {
       padding: 1rem 1.5rem 1rem 1.5rem;
     }
-    .weui-cells:before {
-      border-top: 15px solid #efefef;
-      padding-bottom: 20*@rem;
+    .weui-cells-top {
+      height: 8px;
+      background-color: #efefef;
+      margin-bottom: -2*@rem;
+      border: 1px solid white;
     }
-    .weui-cells:after {
-      border-bottom: 15px solid #efefef;
+    .weui-cells-bottom {
+      height: 8px;
+      background-color: #efefef;
+      margin-top: -2*@rem;
+      border: 1px solid white;
     }
     .weui-cells__title {
       text-align: center;
@@ -282,5 +291,51 @@
         fill: @actionsheet-label-disabled-color;
       }
     }
+  }
+  .goods-title {
+    display: flex;
+    padding-top: 0.5rem;
+    justify-content: center;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    color: #999999;
+    font-size: 1rem;
+    position: fixed;
+    width: 100%;
+    height: auto;
+    overflow-y: auto;
+    min-height: 40px;
+    z-index: 5;
+    background-color: white;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .goods-item {
+    padding-top: 1.8rem;
+    margin-bottom: 2.9rem;
+  }
+  .goods-information {
+    padding-top: 1rem;
+    justify-content: center;
+    padding-right: 1.25rem;
+    color: #999999;
+    position: fixed;
+    min-height: 40px;
+    z-index: 5;
+    background-color: white;
+  }
+  .goods-select {
+    padding-top: 5.8rem;
+    margin-bottom: 3rem;
+  }
+  .base {
+    margin-top: 8rem;
+    position: fixed;
+    width: 100%;
+    height: auto;
+    overflow-y: auto;
+    min-height: 40px;
+    z-index: 5;
+    background-color: white;
+    bottom: 0px;
   }
 </style>

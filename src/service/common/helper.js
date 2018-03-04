@@ -6,7 +6,8 @@ export default {
   alertSucess (data) {
     // 使用mint-ui的toast函数  http://mint-ui.github.io/docs/#/en2/toast
     console.info(data)
-    this.$vux.toast.success('data')
+    alert(data)
+    // this.$vux.toast.success('data')
     // weui.toast(data)
   },
   // 操作失败提示函数
