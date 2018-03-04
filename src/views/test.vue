@@ -1,6 +1,7 @@
 <template>
   <section class="zkui-reward-list">
 
+<<<<<<< HEAD
     <zk-head title='z' goBack='�ҵ�Ǯ��'></zk-head>
     <group>
       <x-input title="收件人" type="text" placeholder="请输入联系人" v-model="recipients"></x-input>
@@ -18,6 +19,9 @@
       <x-button type="primary" @click.native="GetData()">保存</x-button>
       <x-button>取消</x-button>
     </div>
+=======
+    <zk-head title='' goBack=''></zk-head>
+>>>>>>> 9207d866c6202e28ae14870aca5c5c6066e2ca29
     <zk-foot></zk-foot>
   </section>
 </template>
