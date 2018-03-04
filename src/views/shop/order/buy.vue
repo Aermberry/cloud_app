@@ -4,14 +4,32 @@
     <group>
       <cell title="地址" value="请选择地址" is-link></cell>
     </group>
-    <group class="zkui-order-buy-parameter-amount">
-      <panel header="户外专营店" :list="list" :type="type"></panel>
-      <cell title="购买数量 ">
-        <inline-x-number style="display:block; " :min="1 " width="50px " v-model="buyCount" button-style="round"></inline-x-number>
-      </cell>
-      <cell title="店铺优惠" value="399包邮" is-link></cell>
+    <group class="zkui-order-buy-parameter-amount" v-for="store in modelView.storeProducts" :key="store.storeId">
+      <div class="weui-panel weui-panel_access">
+        <div class="weui-panel__hd">{{store.storeName}}</div>
+        <div class="weui-panel__bd" v-for="product in store.productItems" :key="product.productSku.id">
+          <div class="weui-media-box weui-media-box_appmsg">
+            <div class="weui-media-box__hd">
+              <router-link :to="'/product/show/'+product.product.id">
+                <img :src="product.product.thumbnailUrl" :alt="product.product.name" class="weui-media-box__thumb">
+              </router-link>
+            </div>
+            <div class="weui-media-box__bd">
+              <h4 class="weui-media-box__title">
+                <router-link :to="'/product/show/'+product.product.id">{{product.product.name}}</router-link>
+              </h4>
+              <p class="weui-media-box__desc">
+                {{product.productSku.propertyValueDesc}}<br/>
+                <span class="cart_buy_price">
+                  <em>￥</em>{{product.productSku.price}}</span>
+              </p>
+              <inline-x-number style="display:block; " :min="1" width="50px " :v-model="product.count" button-style="round"></inline-x-number>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <cell title="配送方式" value="快递 免邮" is-link></cell>
-      <cell title="运费险" value="卖家送收货前可赔付" is-link></cell>
       <x-textarea title="卖家留言" placeholder="选填：填写内容已和卖家协商确认" :show-counter="false" :rows="1" autosize></x-textarea>
     </group>
     <tabbar>
@@ -96,14 +114,25 @@
               Count: 1,
               ProductId: 45,
               LoginUserId: 1
+            },
+            {
+              ProductSkuId: 142,
+              Count: 1,
+              ProductId: 47,
+              LoginUserId: 1
             }
           ]
-        console.dir('商品参数', buyProductInfo)
+        // console.dir('商品参数', buyProductInfo)
         let buyInfoInput = {
           loginUserId: store.state.userStore.loginUser.id,
           productJson: JSON.stringify(buyProductInfo)
         }
         var response = await apiService.buyProduct(buyInfoInput)
+        if (response.data.status !== 1) {
+          this.messageWarn(response.data.message)
+        } else {
+          this.modelView = response.data.result
+        }
         this.modelView = response.data.result
         this.asyncFlag = true
         console.dir(this.modelView)
