@@ -21,6 +21,7 @@
 </template>
 
 <script>
+/* eslint-disable */
    import userService from 'src/service/api/user.api'
   import { FormPreview, PopupPicker } from 'vux'
   import { Group, XInput, Box, XButton, Cell, Picker, Divider, XSwitch, XTextarea } from 'zkui'
@@ -58,7 +59,7 @@
 
          }
          var response = await userService.AddAddress(par)
-         if(response.data.result===1){
+         if(response.data.result === 1){
                      this.$vux.toast.success('添加成功')
          }else{
                                 this.$vux.toast.warn('添加失败')
