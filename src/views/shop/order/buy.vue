@@ -49,12 +49,13 @@
     data () {
       return {
         buyCount: 0,
+        message: '',
         type: '1',
         modelView: '', // 商品数据，从服务器上远程获取
         asyncFlag: false, // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
         list: [{
-          src: 'http://somedomain.somdomain/x.jpg',
-          fallbackSrc: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
+          src: 'https://wx.5ug.com/wwwroot/Uploads/Product/2018/02/22a5501688774d10ab313c3b2bba3ee1.jpg_520X520.jpg',
+          fallbackSrc: 'https://wx.5ug.com/wwwroot/Uploads/Product/2018/02/22a5501688774d10ab313c3b2bba3ee1.jpg_520X520.jpg',
           title: '阿迪达斯贝壳头休闲鞋男款易烊千玺',
           desc: '颜色：AQ6278炫彩; 尺码：36',
           url: '/component/cell'
@@ -67,10 +68,9 @@
     },
     methods: {
       async GetData () {
-        let params = {
-          id: this.$route.params.id // 获取URL当中的Id参数
-        }
-        var response = await apiService.buyProduct(params)
+        var buyProductInfo = this.$route.params.buyInfo
+        //  console.info('购买商品', buyProductInfo)
+        var response = await apiService.buyProduct(buyProductInfo)
         this.modelView = response.data.result
         this.asyncFlag = true
         console.dir(this.modelView)

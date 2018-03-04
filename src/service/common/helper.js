@@ -7,12 +7,13 @@ export default {
     // 使用mint-ui的toast函数  http://mint-ui.github.io/docs/#/en2/toast
     console.info(data)
     alert(data)
+    // this.$vux.toast.success('data')
     // weui.toast(data)
   },
   // 操作失败提示函数
   alertError (data) {
     console.error(data)
-    // alert(data)
+    alert(data)
     //  weui.toast(data)
   },
 

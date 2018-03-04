@@ -12,7 +12,7 @@
             <h2 class="flex_one">{{items.storeName}} </h2>
           </div>
           <ul>
-            <li class="zkui-order-cart-item" v-for="(item,index) in items.productItems" :key="index">
+            <li class="zkui-order-cart-item" v-for="(item,index) in items.productItems" :key="index" @click="onItem(item.productSku.id)">
               <div class="order-cart-commodity">
                 <swipeout-item @on-close="handleEvents('on-close')" @on-open="handleEvents('on-open')" transition-mode="follow">
                   <div slot="right-menu">
@@ -52,6 +52,7 @@
 
       </div>
     </swipeout>
+
     <div class="zkui-order-cart-bar">
       <tabbar>
         <tabbar-item class="bar-left">
@@ -94,6 +95,7 @@
       this.GetData()
       var chbAll = document.querySelector('.bar-left input')
       var chbs = document.querySelectorAll('.zkui-order-cart-box input')
+      console.log(chbs)
       chbAll.onclick = function () {
         for (var i = 0; i < chbs.length; i++) {
           chbs[i].checked = this.checked
@@ -127,6 +129,9 @@
           this.$vux.toast.warn('删除失败')
         }
       },
+      async onItem (id) {
+        console.log(id)
+      },
       handleEvents (type) {
       }
     }
@@ -135,6 +140,9 @@
 <style lang="less">
   body {
     background: @gray-100;
+  }
+  .zkui-order-cart {
+    padding-bottom: 50*@rem;
   }
   .flex {
     display: -moz-box;

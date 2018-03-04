@@ -24,7 +24,6 @@
         </p>
       </div>
     </div>
-
   </section>
 </template>
 
@@ -69,4 +68,24 @@
     }
   }
 </script>
+
+<style  lang="less">
+  button.weui-btn {
+    padding: 0.8rem 0;
+    font-size: @h4-font-size;
+  }
+  .weui-msg__extra-area {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    .weui-footer {
+      margin: 0 auto;
+      .weui-footer__links {
+        text-align: center;
+      }
+    }
+  }
+</style>
+
 
