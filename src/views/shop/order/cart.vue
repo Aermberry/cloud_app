@@ -94,6 +94,7 @@
       this.GetData()
       var chbAll = document.querySelector('.bar-left input')
       var chbs = document.querySelectorAll('.zkui-order-cart-box input')
+      console.log(chbs)
       chbAll.onclick = function () {
         for (var i = 0; i < chbs.length; i++) {
           chbs[i].checked = this.checked
