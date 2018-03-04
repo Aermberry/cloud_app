@@ -8,11 +8,20 @@
 </template>
 
 <script>
-  // import apiUser from 'src/service/api/user.api'
+  import userService from 'src/service/api/user.api'
   export default {
     data () {
       return {
 
+      }
+    },
+    mounted () {
+      this.GetData()
+    },
+    methods: {
+      async GetData () {
+        var respone = await userService.Tree()
+        console.log(respone)
       }
     }
   }

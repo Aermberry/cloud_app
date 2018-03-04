@@ -56,3 +56,10 @@
     }
   }
 </script>
+<style lang="less">
+  button.weui-btn {
+    padding: 0.8rem 0;
+    font-size: @h4-font-size;
+  }
+</style>
+
