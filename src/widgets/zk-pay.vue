@@ -1,30 +1,30 @@
 <template>
   <div>
     <group>
-         <x-button type="default" @click.native="show7= true">Cancel</x-button>
+      <x-button type="default" @click.native="buy= true">Cancel</x-button>
     </group>
     <div v-transfer-dom>
-      <popup v-model="show7" height="460px" is-transparent>
+      <popup v-model="buy" height="460px" is-transparent>
         <div style="width: 95%;background-color:#fff;height:450px;margin:0 auto;border-radius:5px;">
-         <x-header :right-options="{showMore: true}">确认付款</x-header>
-         <p class="count">￥156312115.00</p>
-         <group style="margin-top:30px;">
+          <x-header :right-options="{showMore: true}">确认付款</x-header>
+          <p class="count">￥156312115.00</p>
+          <group style="margin-top:30px;">
             <cell title="支付宝账号" value="songMath"></cell>
-            <cell title="付款方式" value="中国建设银行" @click.native="show8= true" is-link></cell>
+            <cell title="付款方式" value="中国建设银行" @click.native="pay= true" is-link></cell>
           </group>
           <div style="padding:190px 15px;">
-            <x-button type="primary" >立即付款</x-button>
+            <x-button type="primary">立即付款</x-button>
           </div>
         </div>
       </popup>
     </div>
 
-     <div v-transfer-dom>
-      <popup v-model="show8" height="460px" is-transparent>
+    <div v-transfer-dom>
+      <popup v-model="pay" height="460px" is-transparent>
         <div style="width: 95%;background-color:#fff;height:450px;margin:0 auto;border-radius:5px;">
-         <x-header :right-options="{showMore: true}">选择付款方式</x-header>
-         <group>
-        <cell v-for="i in 20" :key="i" :title="i"></cell>
+          <x-header :right-options="{showMore: true}">选择付款方式</x-header>
+          <group>
+            <cell v-for="i in 20" :key="i" :title="i"></cell>
           </group>
         </div>
       </popup>
@@ -44,26 +44,26 @@
       TransferDom,
       XHeader
     },
-     directives: {
+    directives: {
       TransferDom
     },
     data () {
       return {
-        show7: false,
-        show8: false
+        buy: false,
+        pay: false
       }
     }
   }
 </script>
 
 <style>
-.vux-popup-dialog {
-    overflow-y:hidden !important;
-}
-.count{
-  font-size:36px;
-  font-weight:bond;
-  text-align:center;
-  padding-top:15px;
-}
+  .vux-popup-dialog {
+    overflow-y: hidden !important;
+  }
+  .count {
+    font-size: 36px;
+    font-weight: bond;
+    text-align: center;
+    padding-top: 15px;
+  }
 </style>

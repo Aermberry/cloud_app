@@ -5,7 +5,7 @@
         <x-header :right-options="{showMore: true}">请输入支付密码</x-header>
         <div class="fake-box-outside">
           <div class="fake-box">
-            <input type="password" readonly="">
+            <input type="password" readonly="" v-on:blur="changeCount(value)">
             <input type="password" readonly="">
             <input type="password" readonly="">
             <input type="password" readonly="">
@@ -37,7 +37,12 @@
         paypassword: false
       }
     },
-    props: ['showPay']
+    props: ['showPay'],
+    methods: {
+      changeCount: function (value) {
+        alert(value)
+      }
+    }
   }
 </script>
 

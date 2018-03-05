@@ -43,12 +43,7 @@
           <span class="money">￥{{modelView.totalAmount}}</span>
           <span class="amount">共{{modelView.totalCount}}件商品</span>
         </div>
-<<<<<<< HEAD
-
-        <x-button slot="customer" type="primary" @click.native="showSaleProperty">提交订单</x-button>
-=======
-        <x-button slot="customer" type="primary" @click.native="buy">提交订单</x-button>
->>>>>>> abdf76abcd03a4f31c646de76fd4e87191b38cdd
+        <x-button slot="customer" type="primary" @click.native="buy= true">提交订单</x-button>
       </tabbar-item>
     </tabbar>
     <zk-pay></zk-pay>
@@ -58,13 +53,9 @@
 </template>
 
 <script>
-<<<<<<< HEAD
   import { PopupPicker } from 'vux'
-  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, XAddress, InlineXNumber, XTextarea, Picker } from 'zkui'
-=======
-  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, XAddress, InlineXNumber, XTextarea } from 'zkui'
+  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, XAddress, InlineXNumber, XTextarea, Picker, Popup, TransferDom } from 'zkui'
   import { ZkPaypassword, ZkPay } from 'widgets'
->>>>>>> abdf76abcd03a4f31c646de76fd4e87191b38cdd
   import apiService from 'src/service/api/order.api'
   import store from 'src/store/index'
   export default {
@@ -80,16 +71,13 @@
       Panel,
       XAddress,
       InlineXNumber,
-<<<<<<< HEAD
       XTextarea,
       PopupPicker,
-      Picker
-=======
+      Picker,
+      Popup,
+      TransferDom,
       ZkPaypassword,
-      ZkPay,
-      XTextarea
->>>>>>> abdf76abcd03a4f31c646de76fd4e87191b38cdd
-
+      ZkPay
     },
     data () {
       return {

@@ -34,14 +34,15 @@
       <popup v-model="show9" height="460px" class="noscroll" is-transparent>
         <div class="pwd-box">
           <x-header :right-options="{showMore: true}">请输入支付密码</x-header>
+
           <div class="fake-box-outside">
             <div class="fake-box">
-              <input type="password" readonly="">
-              <input type="password" readonly="">
-              <input type="password" readonly="">
-              <input type="password" readonly="">
-              <input type="password" readonly="">
-              <input type="password" readonly="">
+              <input type="password" readonly="" autofocus="">
+              <input type=" password " readonly=" ">
+              <input type="password " readonly=" ">
+              <input type="password " readonly=" ">
+              <input type="password " readonly=" ">
+              <input type="password " readonly=" ">
             </div>
           </div>
         </div>
