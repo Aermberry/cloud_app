@@ -1,17 +1,19 @@
 <template>
   <section class="zkui-user-buyeraddress-edit">
-    <zk-head title='地址编辑' goBack='收货地址'></zk-head>
+    <zk-head title='添加地址' goBack='收货地址'></zk-head>
     <group>
       <x-input title="收件人" type="text" placeholder="请输入联系人" v-model="recipients"></x-input>
       <x-input title="联系电话" type="text" placeholder="请输入联系电话" v-model="relationPhone" :max="13" is-type="china-mobile" mask="99999999999"></x-input>
-      <x-input title="邮政编码" type="text" placeholder="请输入邮政编码" v-model="postalCode" :max="6" is-type="china-mobile"></x-input>
+
+      <x-input title="邮政编码" type="text" placeholder="请输入邮政编码" v-model="postalCode" :max="6"></x-input>
     </group>
+    <group>
     <popup-picker title="选择地址" :data="list3" :columns="3" v-model="value3" ref="picker3"></popup-picker>
     <cell title="你选择的地址" :value="$refs.picker3&&$refs.picker3.getNameValues()"></cell>
+    </group>
     <group>
       <x-textarea :max="200" placeholder="详细地址" autosize v-model="detailedAddress"></x-textarea>
-      <x-switch title="是否默认" :value-map="['0', '1']" v-model="stringValue"></x-switch>
-      <cell title="" :value="stringValue"></cell>
+      <x-switch title="是否默认" :value-map="['false', 'true']" v-model="stringValue"></x-switch>
     </group>
     <div class="reward-list-buttom">
       <x-button type="primary" @click.native="GetData()">保存</x-button>
@@ -23,8 +25,9 @@
 <script>
 /* eslint-disable */
    import userService from 'src/service/api/user.api'
-  import { FormPreview, PopupPicker } from 'vux'
-  import { Group, XInput, Box, XButton, Cell, Picker, Divider, XSwitch, XTextarea } from 'zkui'
+  import { FormPreview, PopupPicker,XInput } from 'vux'
+  import { Group, Box, XButton, Cell, Picker, Divider, XSwitch, XTextarea } from 'zkui'
+
   export default {
     components: {
       FormPreview,
@@ -40,14 +43,13 @@
       XTextarea
     },
     mounted () {
-
     },
     methods: {
       async GetData () {
         this.province=this.value3[0]
         this.city=this.value3[1]
         this.district=this.value3[2]
-         let par = {
+         let addressInput = {
            isDefault: this.stringValue,
            mobile: this.relationPhone,
            zipCode: this.postalCode,
@@ -58,12 +60,12 @@
            city:this.city,
            country:this.district
           }
-          console.log(par)
-         var response = await userService.AddAddress(par)
-         if(response.data.result === 1){
+          console.log(addressInput)
+         var response = await userService.AddAddress(addressInput)
+         if(response.data.status === 1){
             this.$vux.toast.success('添加成功')
          }else{
-            this.$vux.toast.warn('添加失败')
+            this.$vux.toast.warn(response.data.message)
          }
       },
       onClick (newVal, oldVal) {
@@ -83,7 +85,7 @@
         recipients: '',
         relationPhone: '',
         detailedAddress: '',
-        stringValue: '否',
+        stringValue: 'false',
         postalCode: '',
         province:'',
         city:'',
@@ -20639,6 +20641,12 @@
   }
   .weui-cells:after {
     content: none !important;
+  }
+  .vux-popup-picker-value{
+    display: none !important;
+  }
+  .weui-cells{
+    margin-top:0 !important;
   }
 </style>
 

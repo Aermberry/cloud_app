@@ -1,8 +1,26 @@
 <template>
   <section class="zkui-order-buyfromproduct">
     <zk-head title='确认下单' goBack='商品详情'></zk-head>
-    <group>
-      <cell title="地址" value="请选择地址" is-link></cell>
+    <router-link to="/user/buyeraddress/select" v-show="showAddress">
+      <group to="/user/buyeraddress/select">
+        <cell title="地址" value="请选择地址" is-link></cell>
+      </group>
+    </router-link>
+    <group v-show="!showAddress">
+      <div class="vux-form-preview weui-form-preview">
+        <div class="weui-form-preview__hd">
+          <label class="weui-form-preview__label address_name">承恩</label>
+          <em class="weui-form-preview__value">13763166594</em>
+        </div>
+        <div class="weui-form-preview__bd">
+          <div class="weui-form-preview__item">
+            <span class="weui-form-preview__value address_particulars ">承恩哥的家
+            </span>
+          </div>
+        </div>
+        <div class="weui-form-preview__ft">
+        </div>
+      </div>
     </group>
     <group class="zkui-order-buy-parameter-amount" v-for="store in modelView.storeProducts" :key="store.storeId">
       <div class="weui-panel weui-panel_access">
@@ -71,7 +89,8 @@
     data () {
       return {
         modelView: '', // 商品数据，从服务器上远程获取
-        asyncFlag: false // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
+        asyncFlag: false, // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
+        showAddress: true
       }
     },
     mounted () {
@@ -126,7 +145,11 @@
         }
         this.modelView = response.data.result
         this.asyncFlag = true
-        console.dir(this.modelView)
+        var selectId = this.$route.params.selectId
+        if (selectId === '') {
+          console.log('空')
+        }
+        console.log(selectId, 123123132132)
       }
     }
   }
@@ -222,6 +245,19 @@
         right: 2*@rem;
         fill: @actionsheet-label-disabled-color;
       }
+    }
+  }
+  .vux-form-preview {
+    .weui-form-preview__hd {
+      label {
+        font-size: 1.2rem;
+        color: @black;
+      }
+    }
+    .address_particulars {
+      font-size: 1rem;
+      color: @black;
+      text-align: left;
     }
   }
 </style>

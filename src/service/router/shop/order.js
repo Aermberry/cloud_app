@@ -33,7 +33,8 @@ export default [{
   {
     path: '/order/buy',
     params: {
-      buyInfo: ''
+      buyInfo: '',
+      selectId: ''
     },
     meta: {
       title: '确认下单',
@@ -58,12 +59,34 @@ export default [{
   {
     path: '/user/buyeraddress/edit',
     meta: {
-      title: '地址编辑',
+      title: '添加地址',
       login: true
     },
     name: 'buyeraddress_edit',
     component: function (resolve) {
       require(['src/views/shop/buyeraddress/edit'], resolve)
+    }
+  },
+  {
+    path: '/user/buyeraddress/redact',
+    meta: {
+      title: '编辑地址',
+      login: true
+    },
+    name: 'buyeraddress_redact',
+    component: function (resolve) {
+      require(['src/views/shop/buyeraddress/redact'], resolve)
+    }
+  },
+  {
+    path: '/user/buyeraddress/select',
+    meta: {
+      title: '选择收货地址',
+      login: true
+    },
+    name: 'buyeraddress_select',
+    component: function (resolve) {
+      require(['src/views/shop/order/cart_address'], resolve)
     }
   }
 ]
