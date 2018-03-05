@@ -325,7 +325,7 @@
   }
   .goods-select {
     padding-top: 5.8rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2.9rem;
   }
   .base {
     margin-top: 8rem;

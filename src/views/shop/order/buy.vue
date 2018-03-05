@@ -1,10 +1,9 @@
 <template>
   <section class="zkui-order-buyfromproduct">
     <zk-head title='确认下单' goBack='商品详情'></zk-head>
-    <group>
-      <cell title="地址" value="请选择地址" is-link></cell>
-    </group>
     <group class="zkui-order-buy-parameter-amount" v-for="store in modelView.storeProducts" :key="store.storeId">
+      <cell title="地址" value="请选择地址" is-link></cell>
+      <div class="weui-cells-top"></div>
       <div class="weui-panel weui-panel_access">
         <div class="weui-panel__hd">{{store.storeName}}</div>
         <div class="weui-panel__bd" v-for="product in store.productItems" :key="product.productSku.id">
@@ -19,21 +18,23 @@
                 <router-link :to="'/product/show/'+product.product.id">{{product.product.name}}</router-link>
               </h4>
               <p class="weui-media-box__desc">
-                {{product.productSku.bn}} {{product.productSku.propertyValueDesc}}<br/>
-                <span class="cart_buy_price">
-                  <em>￥</em>{{product.productSku.price}}</span>
+                {{product.productSku.bn}} {{product.productSku.propertyValueDesc}}
               </p>
               <inline-x-number style="display:block; " :min="1" width="50px " :v-model="product.count" button-style="round"></inline-x-number>
+              <span style="float:right">
+                <em>￥</em>{{product.productSku.price}}
+              </span>
             </div>
           </div>
         </div>
       </div>
 
-      <cell title="配送方式" value="快递 免邮" is-link></cell>
+      <popup-picker title="请选择" :data="list" v-model="value5"></popup-picker>
       <x-textarea title="卖家留言" placeholder="选填：填写内容已和卖家协商确认" :show-counter="false" :rows="1" autosize></x-textarea>
       <cell>
         <div>共{{store.totalCount}}商品 小计{{store.totalAmount}}</div>
       </cell>
+      <div class="weui-cells-bottom"></div>
     </group>
     <tabbar>
       <tabbar-item>
@@ -42,6 +43,7 @@
           <span class="money">￥{{modelView.totalAmount}}</span>
           <span class="amount">共{{modelView.totalCount}}件商品</span>
         </div>
+
         <x-button slot="customer" type="primary" @click.native="showSaleProperty">提交订单</x-button>
       </tabbar-item>
     </tabbar>
@@ -49,7 +51,8 @@
 </template>
 
 <script>
-  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, XAddress, InlineXNumber, XTextarea } from 'zkui'
+  import { PopupPicker } from 'vux'
+  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, XAddress, InlineXNumber, XTextarea, Picker } from 'zkui'
   import apiService from 'src/service/api/order.api'
   import store from 'src/store/index'
   export default {
@@ -65,13 +68,19 @@
       Panel,
       XAddress,
       InlineXNumber,
-      XTextarea
+      XTextarea,
+      PopupPicker,
+      Picker
 
     },
     data () {
       return {
         modelView: '', // 商品数据，从服务器上远程获取
-        asyncFlag: false // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
+        asyncFlag: false, // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
+        value5: ['快递 包邮'],
+        list: [[
+          '快递 包邮', '顺丰'
+        ]]
       }
     },
     mounted () {
@@ -138,6 +147,7 @@
 
 <style lang="less">
   .zkui-order-buyfromproduct {
+    margin-bottom: 2.5rem;
     .weui-tabbar {
       position: fixed;
       z-index: 500;
@@ -196,7 +206,7 @@
   .total {
     float: left;
     margin-left: 8*@rem;
-    margin-top: 13*@rem;
+    margin-top: 20*@rem;
     font-weight: bold;
     color: black;
     .money {
@@ -222,6 +232,24 @@
         right: 2*@rem;
         fill: @actionsheet-label-disabled-color;
       }
+    }
+    .weui-cells {
+      margin-top: 0;
+    }
+    .weui-cells-top {
+      height: 10px;
+      background-color: #efefef;
+      margin-bottom: -2*@rem;
+      border: 1px solid white;
+    }
+    .weui-cells-bottom {
+      height: 15px;
+      background-color: #efefef;
+      margin-top: -2*@rem;
+      border: 1px solid white;
+    }
+    .weui-panel {
+      margin-top: 0 !important;
     }
   }
 </style>
