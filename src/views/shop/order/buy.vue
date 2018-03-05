@@ -1,8 +1,6 @@
 <template>
   <section class="zkui-order-buyfromproduct">
     <zk-head title='确认下单' goBack='商品详情'></zk-head>
-<<<<<<< HEAD
-=======
     <router-link to="/user/buyeraddress/select" v-show="showAddress">
       <group to="/user/buyeraddress/select">
         <cell title="地址" value="请选择地址" is-link></cell>
@@ -24,7 +22,6 @@
         </div>
       </div>
     </group>
->>>>>>> 6275effea44260e648d24eb453e8b0c18174a321
     <group class="zkui-order-buy-parameter-amount" v-for="store in modelView.storeProducts" :key="store.storeId">
       <cell title="地址" value="请选择地址" is-link></cell>
       <div class="weui-cells-top"></div>
@@ -77,8 +74,7 @@
 </template>
 
 <script>
-  import { PopupPicker } from 'vux'
-  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, XAddress, InlineXNumber, XTextarea, Picker, Popup, TransferDom } from 'zkui'
+  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, XAddress, InlineXNumber, XTextarea, Picker, Popup, TransferDom, PopupPicker } from 'zkui'
   import { ZkPaypassword, ZkPay } from 'widgets'
   import apiService from 'src/service/api/order.api'
   import store from 'src/store/index'
@@ -107,14 +103,11 @@
       return {
         modelView: '', // 商品数据，从服务器上远程获取
         asyncFlag: false, // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
-<<<<<<< HEAD
         value5: ['快递 包邮'],
         list: [[
           '快递 包邮', '顺丰'
-        ]]
-=======
+        ]],
         showAddress: true
->>>>>>> 6275effea44260e648d24eb453e8b0c18174a321
       }
     },
     mounted () {

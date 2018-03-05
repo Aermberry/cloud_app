@@ -116,11 +116,7 @@ export default {
   },
   // 删除地址
   async DeleteAddress (data) {
-<<<<<<< HEAD
-    var response = await http.postLogin('/UserAddress/Delete', data)
-=======
     var response = await http.postLogin('/UserAddress/delete', data)
->>>>>>> 3cda214d2a0ee8378c7b1465fd97080f1a743dcc
     return response
   },
   // 修改地址

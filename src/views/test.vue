@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import { Checker, CheckerItem, Divider, Group, Cell, Popup, TransferDom } from 'vux'
+  import { Checker, CheckerItem, Divider, Group, Cell, Popup, TransferDom } from 'zkui'
 
   export default {
     directives: {
