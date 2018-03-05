@@ -21,11 +21,6 @@ if (process.env.NODE_ENV === 'development') {
   baseUrl = 'https://wx.5ug.com'
   // baseUrl = 'http://localhost:9011'
 } else {
-  baseUrl = 'http://139.159.243.8:8001'
+  baseUrl = 'https://wx.5ug.com'
 }
-export {
-  baseUrl,
-  routerMode,
-  key,
-  projectId
-}
+export { baseUrl, routerMode, key, projectId }
