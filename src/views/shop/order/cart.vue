@@ -117,8 +117,8 @@
     },
     methods: {
       async GetData () {
-        var reponse = await userService.GetCart(this.data)
-        console.log(reponse.data.result.storeProducts)
+        var reponse = await userService.GetCart()
+        console.log(reponse)
         this.viewModel = reponse.data.result
       },
       async onButtonClick (id) {

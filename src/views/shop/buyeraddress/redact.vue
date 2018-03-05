@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-user-buyeraddress-edit">
-    <zk-head title='添加地址' goBack='收货地址'></zk-head>
+    <zk-head title='地址编辑' goBack='收货地址'></zk-head>
     <group>
       <x-input title="收件人" type="text" placeholder="请输入联系人" v-model="recipients"></x-input>
       <x-input title="联系电话" type="text" placeholder="请输入联系电话" v-model="relationPhone" :max="13" is-type="china-mobile" mask="99999999999"></x-input>
@@ -62,11 +62,7 @@
           }
           console.log(addressInput)
          var response = await userService.AddAddress(addressInput)
-         if(response.data.status === 1){
-            this.$vux.toast.success('添加成功')
-         }else{
-            this.$vux.toast.warn(response.data.message)
-         }
+         
       },
       onClick (newVal, oldVal) {
         console.log(newVal, oldVal)
@@ -90,25 +86,6 @@
         province:'',
         city:'',
         district:'',
-        list: [{
-          label: '商品',
-          value: '电动打蛋机',
-          title: '付款金额'
-        }, {
-          label: '标题标题',
-          value: '名字名字名字'
-        }, {
-          label: '标题标题',
-          value: '很长很长的名字很长很长的名字很长很长的名字很长很长的名字很长很长的名字'
-        }],
-        buttons1: [{
-          style: 'default',
-          text: '辅助操作'
-        }, {
-          style: 'primary',
-          text: '跳转到首页',
-          link: '/'
-        }],
         list3:[
   {
     name: '北京',
