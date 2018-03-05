@@ -43,16 +43,28 @@
           <span class="money">￥{{modelView.totalAmount}}</span>
           <span class="amount">共{{modelView.totalCount}}件商品</span>
         </div>
+<<<<<<< HEAD
 
         <x-button slot="customer" type="primary" @click.native="showSaleProperty">提交订单</x-button>
+=======
+        <x-button slot="customer" type="primary" @click.native="buy">提交订单</x-button>
+>>>>>>> abdf76abcd03a4f31c646de76fd4e87191b38cdd
       </tabbar-item>
     </tabbar>
+    <zk-pay></zk-pay>
+    <zk-paypassword></zk-paypassword>
   </section>
+
 </template>
 
 <script>
+<<<<<<< HEAD
   import { PopupPicker } from 'vux'
   import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, XAddress, InlineXNumber, XTextarea, Picker } from 'zkui'
+=======
+  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, XAddress, InlineXNumber, XTextarea } from 'zkui'
+  import { ZkPaypassword, ZkPay } from 'widgets'
+>>>>>>> abdf76abcd03a4f31c646de76fd4e87191b38cdd
   import apiService from 'src/service/api/order.api'
   import store from 'src/store/index'
   export default {
@@ -68,9 +80,15 @@
       Panel,
       XAddress,
       InlineXNumber,
+<<<<<<< HEAD
       XTextarea,
       PopupPicker,
       Picker
+=======
+      ZkPaypassword,
+      ZkPay,
+      XTextarea
+>>>>>>> abdf76abcd03a4f31c646de76fd4e87191b38cdd
 
     },
     data () {
@@ -87,6 +105,14 @@
       this.GetData()
     },
     methods: {
+      async buy () {
+        var orderBuyInput = {
+          RegionId: '2112',
+          PaymentId: '2323'
+        }
+        var response = await apiService.Buy(orderBuyInput)
+        console.dir(response)
+      },
       async GetData () {
         var buyProductInfo = this.$route.params.buyInfo
         buyProductInfo =

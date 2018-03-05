@@ -13,6 +13,8 @@ import ZkProductItem from 'src/widgets/zk-product-item'
 import ZkPhoneVerifiy from 'src/widgets/zk-phone-verifiy' // 手机验证码
 import ZkAddress from 'src/widgets/zk-address' // 地址组件
 import ZkTree from 'src/widgets/zk-tree'
+import ZkPaypassword from 'src/widgets/zk-paypassword' // 输入支付密码
+import ZkPay from 'src/widgets/zk-pay' // 支付方式列表
 
 export {
   ZkSwiper,
@@ -24,5 +26,7 @@ export {
   ZkList,
   ZkPhoneVerifiy,
   ZkAddress,
-  ZkTree
+  ZkTree,
+  ZkPaypassword,
+  ZkPay
 }

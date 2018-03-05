@@ -129,9 +129,6 @@
           this.$vux.toast.warn('删除失败')
         }
       },
-      async onItem (id) {
-        console.log(id)
-      },
       handleEvents (type) {
       }
     }
