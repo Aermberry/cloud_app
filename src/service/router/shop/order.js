@@ -1,4 +1,5 @@
-export default [{
+export default [
+  {
     path: '/order/cart',
     meta: {
       title: '购物车'
@@ -19,17 +20,17 @@ export default [{
   //     require(['src/views/shop/favorite/index'], resolve)
   //   }
   // },
-  {
-    path: '/user/buyeraddress/index',
-    meta: {
-      title: '收货地址',
-      login: true
-    },
-    name: 'buyeraddress_index',
-    component: function (resolve) {
-      require(['src/views/shop/buyeraddress/index'], resolve)
-    }
-  },
+  // {
+  //   path: '/user/buyeraddress/index',
+  //   meta: {
+  //     title: '收货地址',
+  //     login: true
+  //   },
+  //   name: 'buyeraddress_index',
+  //   component: function (resolve) {
+  //     require(['src/views/shop/buyeraddress/index'], resolve)
+  //   }
+  // },
   {
     path: '/order/buy',
     params: {
@@ -54,16 +55,15 @@ export default [{
     component: function (resolve) {
       require(['src/views/shop/pay/index'], resolve)
     }
-  },
-  {
-    path: '/user/buyeraddress/edit',
-    meta: {
-      title: '地址编辑',
-      login: true
-    },
-    name: 'buyeraddress_edit',
-    component: function (resolve) {
-      require(['src/views/shop/buyeraddress/edit'], resolve)
-    }
   }
+  // {
+  //   path: '/user/buyeraddress/edit',
+  //   meta: {
+  //     title: '地址编辑',
+  //     login: true
+  //   },
+  //   name: 'buyeraddress_edit',
+  //   component: function (resolve) {
+  //     require(['src/views/shop/buyeraddress/edit'], resolve)
+  //   }
 ]

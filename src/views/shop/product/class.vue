@@ -26,7 +26,7 @@
         </swiper-item>
       </swiper>
     </div>
-
+    <zk-foot></zk-foot>
   </section>
 </template>
 
@@ -181,8 +181,5 @@
     color: black;
     font-weight: bold;
     border-bottom: 1px solid #e5e5e5;
-  }
-  .vux-swiper {
-    height: 82vh !important;
   }
 </style>
