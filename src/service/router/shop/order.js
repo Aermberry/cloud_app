@@ -31,20 +31,20 @@ export default [
   //     require(['src/views/shop/buyeraddress/index'], resolve)
   //   }
   // },
-  {
-    path: '/order/buy',
-    params: {
-      buyInfo: ''
-    },
-    meta: {
-      title: '确认下单',
-      login: true
-    },
-    name: 'order_buy',
-    component: function (resolve) {
-      require(['src/views/shop/order/buy'], resolve)
-    }
-  },
+  // {
+  //  path: '/order/buy',
+  //  params: {
+  //    buyInfo: ''
+  // },
+  // meta: {
+  //   title: '确认下单',
+  //   login: true
+  // },
+  // name: 'order_buy',
+  // component: function (resolve) {
+  //   require(['src/views/shop/order/buy'], resolve)
+  // }
+  // },
   {
     path: '/pay/index',
     meta: {

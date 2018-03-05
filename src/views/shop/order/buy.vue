@@ -155,10 +155,6 @@
   }
 </script>
 
-
-
-
-
 <style lang="less">
   .zkui-order-buyfromproduct {
     margin-bottom: 2.5rem;
