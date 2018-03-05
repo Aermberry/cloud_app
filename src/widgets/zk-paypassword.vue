@@ -36,7 +36,8 @@
       return {
         paypassword: false
       }
-    }
+    },
+    props: ['showPay']
   }
 </script>
 
@@ -56,7 +57,6 @@
     height: 450px;
     margin: 0 auto;
     border-radius: 5px;
-    over-flow: hidden;
   }
   .pwd-box input[type='tel'] {
     width: 99%;

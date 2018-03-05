@@ -60,14 +60,18 @@
           <span class="money">￥{{modelView.totalAmount}}</span>
           <span class="amount">共{{modelView.totalCount}}件商品</span>
         </div>
-        <x-button slot="customer" type="primary" @click.native="showSaleProperty">提交订单</x-button>
+        <x-button slot="customer" type="primary" @click.native="buy">提交订单</x-button>
       </tabbar-item>
     </tabbar>
+    <zk-pay></zk-pay>
+    <zk-paypassword></zk-paypassword>
   </section>
+
 </template>
 
 <script>
   import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, XAddress, InlineXNumber, XTextarea } from 'zkui'
+  import { ZkPaypassword, ZkPay } from 'widgets'
   import apiService from 'src/service/api/order.api'
   import store from 'src/store/index'
   export default {
@@ -83,6 +87,8 @@
       Panel,
       XAddress,
       InlineXNumber,
+      ZkPaypassword,
+      ZkPay,
       XTextarea
 
     },
@@ -97,6 +103,14 @@
       this.GetData()
     },
     methods: {
+      async buy () {
+        var orderBuyInput = {
+          RegionId: '2112',
+          PaymentId: '2323'
+        }
+        var response = await apiService.Buy(orderBuyInput)
+        console.dir(response)
+      },
       async GetData () {
         var buyProductInfo = this.$route.params.buyInfo
         buyProductInfo =
