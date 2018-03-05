@@ -3,19 +3,19 @@
     <zk-head title='地址编辑' goBack='收货地址'></zk-head>
     <group>
       <x-input title="收件人" type="text" placeholder="请输入联系人" v-model="recipients"></x-input>
-      <x-input title="联系电话" type="text" placeholder="请输入联系电话" v-model="relationPhone" :max="13" is-type="china-mobile" mask="999 9999 9999"></x-input>
+      <x-input title="联系电话" type="text" placeholder="请输入联系电话" v-model="relationPhone" :max="13" is-type="china-mobile" mask="99999999999"></x-input>
       <x-input title="邮政编码" type="text" placeholder="请输入邮政编码" v-model="postalCode" :max="6" is-type="china-mobile"></x-input>
     </group>
     <popup-picker title="选择地址" :data="list3" :columns="3" v-model="value3" ref="picker3"></popup-picker>
     <cell title="你选择的地址" :value="$refs.picker3&&$refs.picker3.getNameValues()"></cell>
     <group>
       <x-textarea :max="200" placeholder="详细地址" autosize v-model="detailedAddress"></x-textarea>
-      <x-switch title="是否默认" :value-map="['否', '是']" v-model="stringValue"></x-switch>
+      <x-switch title="是否默认" :value-map="['0', '1']" v-model="stringValue"></x-switch>
       <cell title="" :value="stringValue"></cell>
     </group>
     <div class="reward-list-buttom">
       <x-button type="primary" @click.native="GetData()">保存</x-button>
-      <x-button>取消</x-button>
+      <x-button >取消</x-button>
     </div>
   </section>
 </template>
@@ -48,26 +48,23 @@
         this.city=this.value3[1]
         this.district=this.value3[2]
          let par = {
-           IsDefault: this.stringValue,
-           Mobile: this.relationPhone,
-           ZipCode: this.postalCode,
-           Address: this.detailedAddress,
-          Name: this.recipients,
-           Province:this. province,
-          City:this.city,
-          Country:this.district
-
-         }
+           isDefault: this.stringValue,
+           mobile: this.relationPhone,
+           zipCode: this.postalCode,
+           tel:'',
+           address: this.detailedAddress,
+           name: this.recipients,
+           province:this. province,
+           city:this.city,
+           country:this.district
+          }
+          console.log(par)
          var response = await userService.AddAddress(par)
          if(response.data.result === 1){
-                     this.$vux.toast.success('添加成功')
+            this.$vux.toast.success('添加成功')
          }else{
-                                this.$vux.toast.warn('添加失败')
+            this.$vux.toast.warn('添加失败')
          }
-      },
-
-      ceshi () {
-        console.log(this.value3)
       },
       onClick (newVal, oldVal) {
         console.log(newVal, oldVal)
@@ -82,7 +79,6 @@
     },
     data () {
       return {
-        qwe: '',
         value3: [],
         recipients: '',
         relationPhone: '',
