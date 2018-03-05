@@ -1,11 +1,7 @@
 <template>
   <section class="zkui-order-buyfromproduct">
     <zk-head title='确认下单' goBack='商品详情'></zk-head>
-    <router-link to="/user/buyeraddress/select" v-show="showAddress">
-      <group to="/user/buyeraddress/select">
-        <cell title="地址" value="请选择地址" is-link></cell>
-      </group>
-    </router-link>
+    <cell title="地址" value="请选择地址" is-link link="/user/buyeraddress/index"></cell>
     <group v-show="!showAddress">
       <div class="vux-form-preview weui-form-preview">
         <div class="weui-form-preview__hd">
@@ -23,7 +19,7 @@
       </div>
     </group>
     <group class="zkui-order-buy-parameter-amount" v-for="store in modelView.storeProducts" :key="store.storeId">
-      <cell title="地址" value="请选择地址" is-link></cell>
+
       <div class="weui-cells-top"></div>
       <div class="weui-panel weui-panel_access">
         <div class="weui-panel__hd">{{store.storeName}}</div>

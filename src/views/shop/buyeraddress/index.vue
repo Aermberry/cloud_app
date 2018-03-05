@@ -28,8 +28,7 @@
 
 <script>
   import apiUser from 'src/service/api/user.api'
-  import { FormPreview } from 'vux'
-  import { Checker, CheckerItem, Divider, Group, Cell, Popup, TransferDom } from 'zkui'
+  import { Checker, CheckerItem, Divider, Group, Cell, Popup, TransferDom, FormPreview } from 'zkui'
   export default {
     directives: {
       TransferDom

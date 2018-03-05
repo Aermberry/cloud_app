@@ -105,11 +105,11 @@ const webpackConfig = {
     child_process: 'empty'
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('common.js'),
-    new webpack.ProvidePlugin({
-      jQuery: 'jquery',
-      $: 'jquery'
-    })
+    new webpack.optimize.CommonsChunkPlugin('common.js')
+    // new webpack.ProvidePlugin({
+    //   jQuery: 'jquery',
+    //   $: 'jquery'
+    // })
   ]
 }
 
