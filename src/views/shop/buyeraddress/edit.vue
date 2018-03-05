@@ -86,9 +86,9 @@
         detailedAddress: '',
         stringValue: 'false',
         postalCode: '',
-        province:'',
-        city:'',
-        district:'',
+        province: '',
+        city: '',
+        district: '',
         list: [{
           label: '商品',
           value: '电动打蛋机',

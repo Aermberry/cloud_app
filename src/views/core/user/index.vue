@@ -67,6 +67,7 @@
   }
 </script>
 <style lang="less">
+  @import '../../../assets/css/zkui/theme';
   .zkui-core-user {
     background: #f8f8f8;
     img {
@@ -74,7 +75,7 @@
       height: 100%;
     }
     .zkui-core-user-head {
-      background: #e60044;
+      background: @brand;
       height: 85*@rem;
       .head-top {
         width: 100%;

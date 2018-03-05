@@ -1,16 +1,14 @@
 <template>
   <div>
-    <group>
-      <x-button type="default" @click.native="buy= true">Cancel</x-button>
-    </group>
     <div v-transfer-dom>
-      <popup v-model="buy" height="460px" is-transparent>
+      <popup v-model="showPupop" height="460px" is-transparent>
         <div style="width: 95%;background-color:#fff;height:450px;margin:0 auto;border-radius:5px;">
-          <x-header :right-options="{showMore: true}">确认付款</x-header>
-          <p class="count">￥156312115.00</p>
+          <x-header>收银台</x-header>
+          <p class="count">
+            <span>{{amount}}</span>元</p>
           <group style="margin-top:30px;">
             <cell title="支付宝账号" value="songMath"></cell>
-            <cell title="付款方式" value="中国建设银行" @click.native="pay= true" is-link></cell>
+            <cell title="付款方式" value="中国建设银行" @click.native="payShow= true" is-link></cell>
           </group>
           <div style="padding:190px 15px;">
             <x-button type="primary">立即付款</x-button>
@@ -35,6 +33,7 @@
 
 <script>
   import { Popup, Group, Cell, XButton, TransferDom, XHeader } from 'zkui'
+  import store from 'src/store/index'
   export default {
     components: {
       Popup,
@@ -47,23 +46,43 @@
     directives: {
       TransferDom
     },
+    props: ['show'],
     data () {
       return {
-        buy: false,
-        pay: false
+        showPupop: true, // 显示支付主窗体
+        payShow: false, // 选择支付方式
+        userName: '', // 会员名
+        amount: 0.0 // 支付金额
+      }
+    },
+    mounted: function () {
+      this.$nextTick(function () {
+        this.$on('childMethod', function () {
+          this.showPay = true
+        })
+      })
+      this.init()
+    },
+    methods: {
+      init () {
+        this.userName = store.state.userStore.loginUser.userName
       }
     }
   }
 </script>
 
-<style>
+<style lang='less'>
+  @import '../assets/css/zkui/theme';
   .vux-popup-dialog {
     overflow-y: hidden !important;
   }
   .count {
-    font-size: 36px;
-    font-weight: bond;
     text-align: center;
     padding-top: 15px;
+    span {
+      font-size: @h3-font-size;
+      font-weight: bold;
+      color: @brand;
+    }
   }
 </style>
