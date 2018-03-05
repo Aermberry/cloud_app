@@ -7,7 +7,7 @@
       <m-icon name="zk-qrcode1" class="icon-brand index-qrcode mr-1 mt-1" link="/user/qrcode" size="1rem"></m-icon>
     </div>
     <zk-swiper diykey="swiper_index" height="210px"></zk-swiper>
-    <zk-grid diykey="grid_index" :cols="4" class="zkui-grid-border__none border-bottom "></zk-grid>
+    <zk-grid diykey="grid_index" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
 
     <group-title>流行单品</group-title>
     <zk-product-item :pageSize=4 classIds='' tagsId='' diykey='index'></zk-product-item>
