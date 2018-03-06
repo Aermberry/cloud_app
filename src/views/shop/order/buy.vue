@@ -19,7 +19,6 @@
       </div>
     </group>
     <group class="zkui-order-buy-parameter-amount" v-for="store in modelView.storeProducts" :key="store.storeId">
-
       <div class="weui-cells-top"></div>
       <div class="weui-panel weui-panel_access">
         <div class="weui-panel__hd">{{store.storeName}}</div>
@@ -45,7 +44,7 @@
           </div>
         </div>
       </div>
-      <!-- <popup-picker title="请选择" :data="list" v-model="value5"></popup-picker> -->
+      <popup-radio title="请选择" :options="showDeliverys" v-model="showDelivery"></popup-radio>
       <x-textarea title="卖家留言" placeholder="选填：填写内容已和卖家协商确认" :show-counter="false" :rows="1" autosize></x-textarea>
       <cell>
         <div>共{{store.totalCount}}商品 小计{{store.totalAmount}}</div>
@@ -68,7 +67,7 @@
 </template>
 
 <script>
-  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, XAddress, InlineXNumber, XTextarea, Picker, Popup, TransferDom, PopupPicker } from 'zkui'
+  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, XAddress, InlineXNumber, XTextarea, Picker, Popup, TransferDom, PopupRadio } from 'zkui'
   import { ZkPay } from 'widgets'
   import apiService from 'src/service/api/order.api'
   import store from 'src/store/index'
@@ -86,7 +85,7 @@
       XAddress,
       InlineXNumber,
       XTextarea,
-      PopupPicker,
+      PopupRadio,
       Picker,
       Popup,
       TransferDom,
@@ -96,11 +95,15 @@
       return {
         modelView: '', // 商品数据，从服务器上远程获取
         asyncFlag: false, // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
-        value5: ['快递 包邮'],
-        list: [[
-          '快递 包邮', '顺丰'
-        ]],
-        showAddress: true
+        showDeliverys: [{
+          key: 'A',
+          value: 'label A'
+        }, {
+          key: 'B',
+          value: 'label B'
+        }],
+        showAddress: true, // 显示地址
+        showDelivery: '' // 显示物流快递
       }
     },
     mounted () {
