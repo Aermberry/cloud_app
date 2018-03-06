@@ -4,11 +4,12 @@
       <div class="pay-head">
         <div class="vux-header">
           <div class="vux-header-left">
+            <x-button type="default" @click.native="showPupop=false" class="sale-info-close"></x-button>
           </div>
           <h1 class="vux-header-title">确认付款</h1>
           <!---->
           <div class="vux-header-right">
-            <x-button type="primary" @click.native="showPupop=false" class="pay-close"></x-button>
+            <!---->
           </div>
         </div>
         <p class="count">
@@ -112,6 +113,7 @@
         text-align: center;
         padding-top: 15px;
         background-color: @light;
+        min-height: 5rem;
         span {
           font-size: @h3-font-size;
           font-weight: bold;
@@ -121,21 +123,28 @@
     }
     .pay-index {
       padding-top: 8rem;
+      margin-bottom: 3rem;
     }
-    .pay-close {
-      display: flex;
-      padding-top: 0.5rem;
-      justify-content: center;
-      padding-left: 1.25rem;
-      padding-right: 1.25rem;
-      color: #999999;
-      font-size: 1rem;
-      width: 100%;
-      height: auto;
-      overflow-y: auto;
-      min-height: 40px;
-      z-index: 5;
-      background-color: white;
+    .sale-info-close {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      -moz-border-radius: 50%;
+      -webkit-border-radius: 50%;
+      display: inline-block;
+      position: absolute;
+      padding: 0.32rem;
+      background-color: @brand;
+    }
+    .sale-info-close::after {
+      content: '\2716'; //特殊字符或形状，一个勾
+      color: @light;
+      font-size: @h2-font-size;
+      position: absolute;
+      right: 5px;
+    }
+    .weui-btn:after {
+      border: 0;
     }
     .pay-head {
       font-size: 1rem;
@@ -156,6 +165,9 @@
       z-index: 5;
       background-color: white;
       bottom: 0px;
+    }
+    .weui-btn {
+      border-radius: 0;
     }
   }
 </style>
