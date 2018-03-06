@@ -53,7 +53,9 @@ exports.install = function (Vue, options) {
   Vue.prototype.padLeftZero = function (str) {
     return ('00' + str).substr(str.length)
   }
-  Vue.prototype.Client = function () {
+
+  // 获取访问终端类型
+  Vue.prototype.ClientType = function () {
     var u = navigator.userAgent
     var client = ''
     if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {

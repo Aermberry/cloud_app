@@ -34,6 +34,7 @@
 
 <script>
   import { Popup, Group, Cell, XButton, TransferDom, Radio, MIcon } from 'zkui'
+  import apiService from 'src/service/api/pay.api'
   // import { ZkPassword } from 'widgets'
   import store from 'src/store/index'
   export default {
@@ -70,10 +71,18 @@
       this.init()
     },
     methods: {
-      init () {
-        var u = navigator.userAgent
-        console.info('终端信息', u)
+      async init () {
         this.userName = store.state.userStore.loginUser.userName
+        let paras = {
+          clientType: 'wapH5' // this.ClientType // 在gloal中获取支付方式列表
+        }
+        var response = await apiService.GetList(paras) // 获取支付方式列表
+        console.dir(response)
+        if (response.data.status === 1) {
+          this.$vux.toast.success('请求成功')
+        } else {
+          this.$vux.toast.warn(response.data.message)
+        }
       }
     }
   }

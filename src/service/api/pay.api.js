@@ -2,17 +2,13 @@ import http from 'src/service/common/http'
 
 export default {
   //  获取支付方式
-  async miniProgramLogin () {
-    var data = {
-      jsCode: '0138SwYj0rjidn1Ub2Zj00QAYj08SwYQ',
-      mobile: '17727169875'
-    }
-    var response = await http.get('ApiStore/Login', data)
+  async GetList (data) {
+    var response = await http.getLogin('pay/GetList', data)
     return response
   },
-  //  债事详情
-  async show (data) {
-    var response = await http.getLogin('User/Debt/show', data)
+  //  支付
+  async Pay (data) {
+    var response = await http.postLogin('pay/pay', data)
     return response
   }
 }
