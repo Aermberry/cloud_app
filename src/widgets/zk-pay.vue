@@ -71,6 +71,8 @@
     },
     methods: {
       init () {
+        var u = navigator.userAgent
+        console.info('终端信息', u)
         this.userName = store.state.userStore.loginUser.userName
       }
     }
