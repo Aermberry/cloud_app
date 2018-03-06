@@ -54,7 +54,7 @@
             <cell v-for="(item, index) in productView.productExtensions.productCategory.displayPropertys " :key="index " :title="item.name " :value="item.displayValue " v-if="item.isSale==false "></cell>
           </group>
           <div class="base">
-            <x-button type="primary " @click.native="showParameter=false" class="goods-title">关闭</x-button>
+            <x-button type="primary " @click.native="showParameter=false" class="goods-title"></x-button>
           </div>
         </div>
       </popup>

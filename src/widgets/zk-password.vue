@@ -21,6 +21,7 @@
 <script>
   import { Popup, Group, Cell, XButton, TransferDom, XHeader } from 'zkui'
   export default {
+    name: 'zk-password',
     components: {
       Popup,
       Group,

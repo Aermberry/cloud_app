@@ -1,47 +1,52 @@
 <template>
-  <div>
-    <div v-transfer-dom>
-      <popup v-model="showPupop" height="460px" is-transparent>
-        <div style="width: 95%;background-color:#fff;height:450px;margin:0 auto;border-radius:5px;">
-          <x-header>收银台</x-header>
-          <p class="count">
-            <span>{{amount}}</span>元</p>
-          <group style="margin-top:30px;">
-            <cell title="支付宝账号" value="songMath"></cell>
-            <cell title="付款方式" value="中国建设银行" @click.native="payShow= true" is-link></cell>
-          </group>
-          <div style="padding:190px 15px;">
-            <x-button type="primary">立即付款</x-button>
-          </div>
+  <popup v-model="showPupop" is-transparent class="zk-pay">
+    <div class="pay-pupop">
+      <div class="vux-header">
+        <div class="vux-header-left">
+          <x-button type="primary" @click.native="showPupop=false" class="pay-close"></x-button>
         </div>
-      </popup>
-    </div>
-
-    <div v-transfer-dom>
-      <popup v-model="pay" height="460px" is-transparent>
-        <div style="width: 95%;background-color:#fff;height:450px;margin:0 auto;border-radius:5px;">
-          <x-header :right-options="{showMore: true}">选择付款方式</x-header>
-          <group>
-            <cell v-for="i in 20" :key="i" :title="i"></cell>
-          </group>
+        <h1 class="vux-header-title">确认付款</h1>
+        <!---->
+        <div class="vux-header-right">
+          <!---->
         </div>
-      </popup>
+      </div>
+      <p class="count">
+        ￥
+        <span>{{amount}}</span>
+      </p>
+      <group class="pay-index">
+        <radio :options="radio001">
+          <template slot-scope="props" slot="each-item">
+            <p>
+              <m-icon name='zk-home' class="vux-radio-icon"></m-icon> {{ props.label }}
+            </p>
+          </template>
+        </radio>
+      </group>
+      <div class="pay-buttom">
+        <x-button type="primary">立即付款</x-button>
+      </div>
     </div>
-
-  </div>
+    <!-- <zk-password showPay="false"></zk-password> -->
+  </popup>
 </template>
 
 <script>
-  import { Popup, Group, Cell, XButton, TransferDom, XHeader } from 'zkui'
+  import { Popup, Group, Cell, XButton, TransferDom, Radio, MIcon } from 'zkui'
+  // import { ZkPassword } from 'widgets'
   import store from 'src/store/index'
   export default {
+    name: 'zk-pay',
     components: {
       Popup,
       Group,
       Cell,
       XButton,
       TransferDom,
-      XHeader
+      // ZkPassword,
+      MIcon,
+      Radio
     },
     directives: {
       TransferDom
@@ -51,8 +56,9 @@
       return {
         showPupop: true, // 显示支付主窗体
         payShow: false, // 选择支付方式
-        userName: '', // 会员名
+        radio001: ['余额支付', '支付宝支付', '微信支付', '网银支付', '京东支付', 'PayPal支付'],
         amount: 0.0 // 支付金额
+
       }
     },
     mounted: function () {
@@ -73,16 +79,42 @@
 
 <style lang='less'>
   @import '../assets/css/zkui/theme';
-  .vux-popup-dialog {
-    overflow-y: hidden !important;
-  }
-  .count {
-    text-align: center;
-    padding-top: 15px;
-    span {
-      font-size: @h3-font-size;
-      font-weight: bold;
-      color: @brand;
+  .zk-pay {
+    height: 60vh;
+    .pay-pupop {
+      background-color: #fff;
+      height: 100%;
+      margin: 0 auto;
+      .vux-popup-dialog {
+        overflow-y: hidden !important;
+      }
+      .count {
+        text-align: center;
+        padding-top: 15px;
+        span {
+          font-size: @h3-font-size;
+          font-weight: bold;
+          color: @brand;
+        }
+      }
+    }
+    .pay-index {
+      margin-top: 1rem;
+    }
+    .pay-close {
+      display: flex;
+      padding-top: 0.5rem;
+      justify-content: center;
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+      color: #999999;
+      font-size: 1rem;
+      width: 100%;
+      height: auto;
+      overflow-y: auto;
+      min-height: 40px;
+      z-index: 5;
+      background-color: white;
     }
   }
 </style>

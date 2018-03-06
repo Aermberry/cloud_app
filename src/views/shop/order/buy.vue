@@ -45,8 +45,7 @@
           </div>
         </div>
       </div>
-
-      <popup-picker title="请选择" :data="list" v-model="value5"></popup-picker>
+      <!-- <popup-picker title="请选择" :data="list" v-model="value5"></popup-picker> -->
       <x-textarea title="卖家留言" placeholder="选填：填写内容已和卖家协商确认" :show-counter="false" :rows="1" autosize></x-textarea>
       <cell>
         <div>共{{store.totalCount}}商品 小计{{store.totalAmount}}</div>
@@ -64,14 +63,13 @@
       </tabbar-item>
     </tabbar>
     <zk-pay :show="true"></zk-pay>
-    <zk-paypassword></zk-paypassword>
   </section>
 
 </template>
 
 <script>
   import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, XAddress, InlineXNumber, XTextarea, Picker, Popup, TransferDom, PopupPicker } from 'zkui'
-  import { ZkPaypassword, ZkPay } from 'widgets'
+  import { ZkPay } from 'widgets'
   import apiService from 'src/service/api/order.api'
   import store from 'src/store/index'
   export default {
@@ -92,7 +90,6 @@
       Picker,
       Popup,
       TransferDom,
-      ZkPaypassword,
       ZkPay
     },
     data () {
