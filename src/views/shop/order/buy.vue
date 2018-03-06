@@ -105,6 +105,7 @@
         }],
         showAddress: true, // 显示地址
         showPay: false, // 显示支付方式
+        payAmount: '', // 需要支付的金额，人民币支付
         showDelivery: '' // 显示物流快递
       }
     },
@@ -117,7 +118,8 @@
           RegionId: '2112',
           PaymentId: '2323'
         }
-        this.$refs.show_pay.$emit('payMethod', '500') // 唤起支付窗口
+        this.payAmount = '1250.23' // 设置实际需支付的金额
+        this.$refs.show_pay.$emit('payMethod', this.payAmount) // 唤起支付窗口
         var response = await apiService.Buy(orderBuyInput)
         console.dir(response)
       },
@@ -173,7 +175,6 @@
         if (selectId === '') {
           console.log('空')
         }
-        console.log(selectId, 123123132132)
       }
     }
   }
