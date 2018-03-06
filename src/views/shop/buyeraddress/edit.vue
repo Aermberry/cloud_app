@@ -25,11 +25,10 @@
 <script>
 /* eslint-disable */
    import userService from 'src/service/api/user.api'
-  import { Group, Box, XButton, Cell, Picker, Divider, XSwitch, XTextarea,FormPreview, PopupPicker,XInput } from 'zkui'
+  import { Group, Box, XButton, Cell, Picker, Divider, XSwitch, XTextarea, PopupPicker,XInput } from 'zkui'
 
   export default {
     components: {
-      FormPreview,
       Group,
       XInput,
       Box,

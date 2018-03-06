@@ -123,5 +123,10 @@ export default {
   async UpdateAddress (data) {
     var response = await http.postLogin('/UserAddress/update', data)
     return response
+  },
+  // 获取单个地址
+  async SingleAddress (data) {
+    var response = await http.getLogin('/UserAddress/Single', data)
+    return response
   }
 }
