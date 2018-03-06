@@ -1,7 +1,5 @@
 <template>
   <section class="zkui-shop-product-search">
-<<<<<<< HEAD
-=======
 
     <div class="vux-header zk-head-fixed" searchpart="true">
       <div class="vux-header-left">
@@ -14,7 +12,6 @@
         <!---->
       </div>
     </div>
->>>>>>> 893aaef012109c8124da126750e46319116552c2
     <search :placeholder="pla" :cancel-text="canceText" :auto-fixed="false"></search>
     <div>
       <flexbox orient="vertical">
