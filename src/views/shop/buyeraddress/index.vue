@@ -47,16 +47,20 @@
       this.GetData()
     },
     methods: {
-      ceshi (a) {
-        console.log(a)
-      },
       async GetData () {
         var response = await apiUser.GetAddress()
         this.viewModel = response.data.result
+        console.log(this.viewModel)
       },
       async AddressDelete (id) {
+        console.log(id)
         var deleteResult = await apiUser.DeleteAddress(id)
         console.log(deleteResult)
+        if (deleteResult.data.status === 1) {
+          this.$vux.toast.success('删除成功')
+        } else {
+          this.$vux.toast.warn('删除失败')
+        }
       }
     },
     data () {

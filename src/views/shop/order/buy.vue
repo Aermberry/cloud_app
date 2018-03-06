@@ -3,19 +3,21 @@
     <zk-head title='确认下单' goBack='商品详情'></zk-head>
     <cell title="地址" value="请选择地址" is-link link="/user/buyeraddress/select" v-if="addressBox"></cell>
     <!-- 有默认地址或者选择了默认地址后显示 -->
-    <div class="vux-form-preview weui-form-preview" v-if="!addressBox">
-      <div class="weui-form-preview__hd">
-        <label class="weui-form-preview__label address_name">weqweq</label>
-        <em class="weui-form-preview__value">13763166594</em>
-      </div>
-      <div class="weui-form-preview__bd">
-        <div class="weui-form-preview__item">
-          <span class="weui-form-preview__value address_particulars ">
-            465承恩哥的家
-          </span>
+    <router-link to="/user/buyeraddress/select">
+      <div class="vux-form-preview weui-form-preview" v-if="!addressBox">
+        <div class="weui-form-preview__hd">
+          <label class="weui-form-preview__label address_name">{{addressMessage.name}}</label>
+          <em class="weui-form-preview__value">{{addressMessage.mobile}}</em>
+        </div>
+        <div class="weui-form-preview__bd">
+          <div class="weui-form-preview__item">
+            <span class="weui-form-preview__value address_particulars ">
+              {{addressMessage.address}}
+            </span>
+          </div>
         </div>
       </div>
-    </div>
+    </router-link>
     <group v-show="!showAddress">
       <div class="vux-form-preview weui-form-preview">
         <div class="weui-form-preview__hd">
@@ -76,9 +78,13 @@
       </tabbar-item>
     </tabbar>
 
+
     <zk-pay :show="false"></zk-pay>
 
     <zk-pay ref="show_pay"></zk-pay>
+
+
+    <zk-pay :show="false" ref="show_pay"></zk-pay>
 
   </section>
 
@@ -113,7 +119,10 @@
     },
     data () {
       return {
+        selectId: '',
+        addressMessage: '',
         addressBox: true,
+        par: '',
         modelView: '', // 商品数据，从服务器上远程获取
         asyncFlag: false, // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
         showDeliverys: [{
@@ -131,7 +140,7 @@
     },
     mounted () {
       this.GetData()
-      this.SingleAddress()
+      this.Single()
     },
     methods: {
       async buy () {
@@ -192,15 +201,33 @@
         }
         this.modelView = response.data.result
         this.asyncFlag = true
-        var selectId = this.$route.params.selectId
-        if (selectId === '') {
-          console.log('空')
-        }
-        console.log(selectId)
+        // var selectId = this.$route.params.selectId
+        // if (typeof (selectId) === 'undefined') {
+        //   console.log('空')
+        // }
+        // console.log(selectId, 123123132132)
       },
-      async SingleAddress () {
-        var singleAddress = await apiUser.SingleAddress()
-        console.log(singleAddress)
+      async Single () {
+        this.par = {
+          id: '72BE65E6-3A64-414D-972E-1A3D4A36F123'
+        }
+        var address = await apiUser.SingleAddress(this.par)
+        this.selectId = this.$route.params.selectId
+
+        // 判断有没获取到默认地址
+        if (address.data.status === 1) {
+          this.addressBox = false
+          this.addressMessage = address.data.result
+        } else if (address.data.status !== 1) {
+          this.addressBox = true
+        }
+
+        if (typeof (this.selectId) !== 'undefined') {
+          this.par.id = this.selectId
+          console.log(this.selectId)
+          var addressSelect = await apiUser.SingleAddress(this.par)
+          this.addressMessage = addressSelect.data.result
+        }
       }
     }
   }
