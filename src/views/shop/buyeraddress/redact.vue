@@ -4,7 +4,6 @@
     <group>
       <x-input title="收件人" type="text" placeholder="请输入联系人" v-model="recipients"></x-input>
       <x-input title="联系电话" type="text" placeholder="请输入联系电话" v-model="relationPhone" :max="13" is-type="china-mobile" mask="99999999999"></x-input>
-
       <x-input title="邮政编码" type="text" placeholder="请输入邮政编码" v-model="postalCode" :max="6"></x-input>
     </group>
     <group>

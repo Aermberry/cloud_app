@@ -110,7 +110,7 @@
       }
       .count {
         text-align: center;
-        padding-top: 15px;
+        padding-top: 1rem;
         background-color: @light;
         min-height: 5rem;
         span {
@@ -125,8 +125,8 @@
       margin-bottom: 3rem;
     }
     .sale-info-close {
-      width: 20px;
-      height: 20px;
+      width: 1.3rem;
+      height: 1.3rem;
       border-radius: 50%;
       -moz-border-radius: 50%;
       -webkit-border-radius: 50%;
@@ -140,7 +140,7 @@
       color: @light;
       font-size: @h2-font-size;
       position: absolute;
-      right: 5px;
+      right: 0.3rem;
     }
     .weui-btn:after {
       border: 0;
@@ -151,7 +151,7 @@
       width: 100%;
       height: auto;
       overflow-y: auto;
-      min-height: 40px;
+      min-height: 2.5rem;
       z-index: 5;
     }
     .base {
@@ -160,7 +160,6 @@
       width: 100%;
       height: auto;
       overflow-y: auto;
-      min-height: 40px;
       z-index: 5;
       background-color: white;
       bottom: 0px;

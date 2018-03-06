@@ -47,7 +47,6 @@
             selectId: a
           }
         })
-        console.log(a)
       },
       async GetData () {
         var response = await apiUser.GetAddress()
