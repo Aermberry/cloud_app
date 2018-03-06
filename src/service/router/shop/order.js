@@ -1,5 +1,4 @@
-export default [
-  {
+export default [{
     path: '/order/cart',
     meta: {
       title: '购物车'
@@ -32,6 +31,17 @@ export default [
     }
   },
   {
+    path: '/user/buyeraddress/select',
+    meta: {
+      title: '选择收货地址',
+      login: true
+    },
+    name: 'buyeraddress_select',
+    component: function (resolve) {
+      require(['src/views/shop/buyeraddress/sel'], resolve)
+    }
+  },
+  {
     path: '/order/buy',
     params: {
       buyInfo: '',
@@ -60,12 +70,23 @@ export default [
   {
     path: '/user/buyeraddress/edit',
     meta: {
-      title: '地址编辑',
+      title: '添加地址',
       login: true
     },
     name: 'buyeraddress_edit',
     component: function (resolve) {
       require(['src/views/shop/buyeraddress/edit'], resolve)
+    }
+  },
+  {
+    path: '/user/buyeraddress/redact',
+    meta: {
+      title: '编辑地址',
+      login: true
+    },
+    name: 'buyeraddress_redact',
+    component: function (resolve) {
+      require(['src/views/shop/buyeraddress/redact'], resolve)
     }
   }
 ]

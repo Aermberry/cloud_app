@@ -9,13 +9,14 @@
         </div>
         <div class="weui-form-preview__bd">
           <div class="weui-form-preview__item">
-            <span class="weui-form-preview__value address_particulars ">{{item.address}}承恩哥的家
+            <span class="weui-form-preview__value address_particulars ">
+              {{item.address}}承恩哥的家
             </span>
           </div>
         </div>
         <div class="weui-form-preview__ft">
           <a href="javascript:" class="weui-form-preview__btn weui-form-preview__btn_default" @click.native="chengen()">
-            <checker-item :value="item.id" @click.native="chengen(item.id)">是否默认</checker-item>
+            <checker-item :value="item.id" @click.native="ceshi(item.id)">是否默认</checker-item>
           </a>
           <a href="javascript:" class="weui-form-preview__btn weui-form-preview__btn_default">编辑</a>
           <a href="javascript:" class="weui-form-preview__btn weui-form-preview__btn_primary" @click="AddressDelete(item.id)">删除</a>
@@ -46,7 +47,7 @@
       this.GetData()
     },
     methods: {
-      chengen (a) {
+      ceshi (a) {
         console.log(a)
       },
       async GetData () {
