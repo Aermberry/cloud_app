@@ -1,7 +1,7 @@
 <template>
   <section class="zkui-order-buyfromproduct">
     <zk-head title='确认下单' goBack='商品详情'></zk-head>
-    <cell title="地址" value="请选择地址" is-link link="/user/buyeraddress/index"></cell>
+    <cell title="地址" value="请选择地址" is-link link="/user/buyeraddress/select"></cell>
     <group v-show="!showAddress">
       <div class="vux-form-preview weui-form-preview">
         <div class="weui-form-preview__hd">
