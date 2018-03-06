@@ -16,12 +16,8 @@
         <span>{{amount}}</span>
       </p>
       <group class="pay-index">
-        <radio :options="radio001">
-          <template slot-scope="props" slot="each-item">
-            <p>
-              <m-icon name='zk-home' class="vux-radio-icon"></m-icon> {{ props.label }}
-            </p>
-          </template>
+        <radio :options="payTypes" fill-label="Other" @on-change="change">
+
         </radio>
       </group>
       <div class="pay-buttom">
@@ -58,6 +54,7 @@
         showPupop: true, // 显示支付主窗体
         payShow: false, // 选择支付方式
         radio001: ['余额支付', '支付宝支付', '微信支付', '网银支付', '京东支付', 'PayPal支付'],
+        payTypes: [], // 支付方式
         amount: 0.0 // 支付金额
 
       }
@@ -77,12 +74,22 @@
           clientType: 'wapH5' // this.ClientType // 在gloal中获取支付方式列表
         }
         var response = await apiService.GetList(paras) // 获取支付方式列表
-        console.dir(response)
         if (response.data.status === 1) {
-          this.$vux.toast.success('请求成功')
+          var pays = response.data.result // 所有的支付方式
+          pays.forEach(element => {
+            var pay = {}
+            pay['key'] = element.payType
+            pay['value'] = element.name
+            pay['icon'] = element.icon
+            this.payTypes.push(pay)
+          })
+          console.info('赋值完成', this.payTypes)
         } else {
-          this.$vux.toast.warn(response.data.message)
+          this.$vux.toast.warn('支付方式获取失败')
         }
+      },
+      change (value, label) {
+        console.log('change:', value, label)
       }
     }
   }
