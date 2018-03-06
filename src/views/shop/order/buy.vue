@@ -72,10 +72,14 @@
           <span class="money">￥{{modelView.totalAmount}}</span>
           <span class="amount">共{{modelView.totalCount}}件商品</span>
         </div>
-        <x-button slot="customer" type="primary" @click.native="buy= true">提交订单</x-button>
+        <x-button slot="customer" type="primary" @click.native="buy">提交订单</x-button>
       </tabbar-item>
     </tabbar>
+<<<<<<< HEAD
     <zk-pay :show="false"></zk-pay>
+=======
+    <zk-pay ref="show_pay"></zk-pay>
+>>>>>>> 893aaef012109c8124da126750e46319116552c2
   </section>
 
 </template>
@@ -86,6 +90,7 @@
   import apiService from 'src/service/api/order.api'
   import apiUser from 'src/service/api/user.api'
   import store from 'src/store/index'
+
   export default {
     components: {
       Tabbar,
@@ -119,6 +124,8 @@
           value: 'label B'
         }],
         showAddress: true, // 显示地址
+        showPay: false, // 显示支付方式
+        payAmount: '', // 需要支付的金额，人民币支付
         showDelivery: '' // 显示物流快递
       }
     },
@@ -132,6 +139,8 @@
           RegionId: '2112',
           PaymentId: '2323'
         }
+        this.payAmount = '1250.23' // 设置实际需支付的金额
+        this.$refs.show_pay.$emit('payMethod', this.payAmount) // 唤起支付窗口
         var response = await apiService.Buy(orderBuyInput)
         console.dir(response)
       },
@@ -270,40 +279,7 @@
       color: @gray-500;
     }
   }
-  .zkui-order-buy-parameter-amount {
-    .vux-number-round .vux-number-selector-sub svg {
-      position: relative;
-      top: -0.3rem;
-      right: 0.05rem;
-    }
-    .vux-number-round .vux-number-selector-plus {
-      border: 1px solid @actionsheet-label-disabled-color;
-      svg {
-        position: relative;
-        top: -0.2rem;
-        right: 2*@rem;
-        fill: @actionsheet-label-disabled-color;
-      }
-    }
-    .weui-cells {
-      margin-top: 0;
-    }
-    .weui-cells-top {
-      height: 10px;
-      background-color: #efefef;
-      margin-bottom: -2*@rem;
-      border: 1px solid white;
-    }
-    .weui-cells-bottom {
-      height: 15px;
-      background-color: #efefef;
-      margin-top: -2*@rem;
-      border: 1px solid white;
-    }
-    .weui-panel {
-      margin-top: 0 !important;
-    }
-  }
+
   .vux-form-preview {
     .weui-form-preview__hd {
       label {
