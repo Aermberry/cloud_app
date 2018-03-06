@@ -58,10 +58,10 @@
           <span class="money">￥{{modelView.totalAmount}}</span>
           <span class="amount">共{{modelView.totalCount}}件商品</span>
         </div>
-        <x-button slot="customer" type="primary" @click.native="buy= true">提交订单</x-button>
+        <x-button slot="customer" type="primary" @click.native="buy">提交订单</x-button>
       </tabbar-item>
     </tabbar>
-    <zk-pay :show="true"></zk-pay>
+    <zk-pay ref="show_pay"></zk-pay>
   </section>
 
 </template>
@@ -71,6 +71,7 @@
   import { ZkPay } from 'widgets'
   import apiService from 'src/service/api/order.api'
   import store from 'src/store/index'
+
   export default {
     components: {
       Tabbar,
@@ -103,6 +104,7 @@
           value: 'label B'
         }],
         showAddress: true, // 显示地址
+        showPay: false, // 显示支付方式
         showDelivery: '' // 显示物流快递
       }
     },
@@ -115,6 +117,7 @@
           RegionId: '2112',
           PaymentId: '2323'
         }
+        this.$refs.show_pay.$emit('payMethod', '500') // 唤起支付窗口
         var response = await apiService.Buy(orderBuyInput)
         console.dir(response)
       },

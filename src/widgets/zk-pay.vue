@@ -48,11 +48,9 @@
     directives: {
       TransferDom
     },
-    props: ['show'],
     data () {
       return {
-        showPupop: true, // 显示支付主窗体
-        payShow: false, // 选择支付方式
+        showPupop: false, // 显示支付主窗体
         radio001: ['余额支付', '支付宝支付', '微信支付', '网银支付', '京东支付', 'PayPal支付'],
         payTypes: [], // 支付方式
         amount: 0.0 // 支付金额
@@ -61,8 +59,9 @@
     },
     mounted: function () {
       this.$nextTick(function () {
-        this.$on('childMethod', function () {
-          this.showPay = true
+        this.$on('payMethod', function (amount) {
+          this.showPupop = true
+          this.amount = amount
         })
       })
       this.init()
@@ -81,6 +80,7 @@
             pay['key'] = element.payType
             pay['value'] = element.name
             pay['icon'] = element.icon
+            pay['desc'] = element.intro
             this.payTypes.push(pay)
           })
           console.info('赋值完成', this.payTypes)
