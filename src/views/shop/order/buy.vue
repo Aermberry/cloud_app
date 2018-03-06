@@ -253,40 +253,7 @@
       color: @gray-500;
     }
   }
-  .zkui-order-buy-parameter-amount {
-    .vux-number-round .vux-number-selector-sub svg {
-      position: relative;
-      top: -0.3rem;
-      right: 0.05rem;
-    }
-    .vux-number-round .vux-number-selector-plus {
-      border: 1px solid @actionsheet-label-disabled-color;
-      svg {
-        position: relative;
-        top: -0.2rem;
-        right: 2*@rem;
-        fill: @actionsheet-label-disabled-color;
-      }
-    }
-    .weui-cells {
-      margin-top: 0;
-    }
-    .weui-cells-top {
-      height: 10px;
-      background-color: #efefef;
-      margin-bottom: -2*@rem;
-      border: 1px solid white;
-    }
-    .weui-cells-bottom {
-      height: 15px;
-      background-color: #efefef;
-      margin-top: -2*@rem;
-      border: 1px solid white;
-    }
-    .weui-panel {
-      margin-top: 0 !important;
-    }
-  }
+
   .vux-form-preview {
     .weui-form-preview__hd {
       label {

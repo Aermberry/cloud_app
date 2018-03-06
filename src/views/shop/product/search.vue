@@ -1,7 +1,17 @@
 <template>
   <section class="zkui-shop-product-search">
 
-    <zk-head searchPart="true"></zk-head>
+    <div class="vux-header zk-head-fixed" searchpart="true">
+      <div class="vux-header-left">
+        <a class="vux-header-back"></a>
+        <div class="left-arrow"></div>
+      </div>
+      <h1 class="vux-header-title"></h1>
+      <!---->
+      <div class="vux-header-right">
+        <!---->
+      </div>
+    </div>
     <search :placeholder="pla" :cancel-text="canceText" :auto-fixed="false"></search>
     <div class="zkui-product_search-item">
       <ul>
