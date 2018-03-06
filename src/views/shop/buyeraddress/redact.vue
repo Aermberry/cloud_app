@@ -26,7 +26,7 @@
 /* eslint-disable */
    import userService from 'src/service/api/user.api'
   //import { FormPreview, PopupPicker,XInput } from 'vux'
-  import { Group, Box, XButton, Cell, Picker, Divider, XSwitch, XTextarea } from 'zkui'
+  import { Group, Box, XButton, Cell, Picker, Divider, XSwitch, XTextarea,FormPreview, PopupPicker,XInput  } from 'zkui'
 
   export default {
     components: {
