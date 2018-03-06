@@ -1,26 +1,28 @@
 <template>
-  <popup v-model="showPupop" is-transparent class="zk-pay">
+  <popup v-model="showPupop" is-transparent class="zk-pay" max-height="70%">
     <div class="pay-pupop">
-      <div class="vux-header">
-        <div class="vux-header-left">
-          <x-button type="primary" @click.native="showPupop=false" class="pay-close"></x-button>
-        </div>
-        <h1 class="vux-header-title">确认付款</h1>
-        <!---->
-        <div class="vux-header-right">
+      <div class="pay-head">
+        <div class="vux-header">
+          <div class="vux-header-left">
+            <x-button type="default" @click.native="showPupop=false" class="sale-info-close"></x-button>
+          </div>
+          <h1 class="vux-header-title">确认付款</h1>
           <!---->
+          <div class="vux-header-right">
+            <!---->
+          </div>
         </div>
+        <p class="count">
+          ￥
+          <span>{{amount}}</span>
+        </p>
       </div>
-      <p class="count">
-        ￥
-        <span>{{amount}}</span>
-      </p>
       <group class="pay-index">
         <radio :options="payTypes" fill-label="Other" @on-change="change">
 
         </radio>
       </group>
-      <div class="pay-buttom">
+      <div class="pay-buttom base">
         <x-button type="primary">立即付款</x-button>
       </div>
     </div>
@@ -48,11 +50,9 @@
     directives: {
       TransferDom
     },
-    props: ['show'],
     data () {
       return {
-        showPupop: true, // 显示支付主窗体
-        payShow: false, // 选择支付方式
+        showPupop: false, // 显示支付主窗体
         radio001: ['余额支付', '支付宝支付', '微信支付', '网银支付', '京东支付', 'PayPal支付'],
         payTypes: [], // 支付方式
         amount: 0.0 // 支付金额
@@ -61,8 +61,9 @@
     },
     mounted: function () {
       this.$nextTick(function () {
-        this.$on('childMethod', function () {
-          this.showPay = true
+        this.$on('payMethod', function (amount) {
+          this.showPupop = true
+          this.amount = amount
         })
       })
       this.init()
@@ -110,6 +111,8 @@
       .count {
         text-align: center;
         padding-top: 15px;
+        background-color: @light;
+        min-height: 5rem;
         span {
           font-size: @h3-font-size;
           font-weight: bold;
@@ -118,22 +121,52 @@
       }
     }
     .pay-index {
-      margin-top: 1rem;
+      padding-top: 8rem;
+      margin-bottom: 3rem;
     }
-    .pay-close {
-      display: flex;
-      padding-top: 0.5rem;
-      justify-content: center;
-      padding-left: 1.25rem;
-      padding-right: 1.25rem;
-      color: #999999;
+    .sale-info-close {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      -moz-border-radius: 50%;
+      -webkit-border-radius: 50%;
+      display: inline-block;
+      position: absolute;
+      padding: 0.32rem;
+      background-color: @brand;
+    }
+    .sale-info-close::after {
+      content: '\2716'; //特殊字符或形状，一个勾
+      color: @light;
+      font-size: @h2-font-size;
+      position: absolute;
+      right: 5px;
+    }
+    .weui-btn:after {
+      border: 0;
+    }
+    .pay-head {
       font-size: 1rem;
+      position: fixed;
+      width: 100%;
+      height: auto;
+      overflow-y: auto;
+      min-height: 40px;
+      z-index: 5;
+    }
+    .base {
+      margin-top: 8rem;
+      position: fixed;
       width: 100%;
       height: auto;
       overflow-y: auto;
       min-height: 40px;
       z-index: 5;
       background-color: white;
+      bottom: 0px;
+    }
+    .weui-btn {
+      border-radius: 0;
     }
   }
 </style>

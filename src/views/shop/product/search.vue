@@ -1,27 +1,39 @@
 <template>
   <section class="zkui-shop-product-search">
 
-    <zk-head searchPart="true"></zk-head>
+    <div class="vux-header zk-head-fixed" searchpart="true">
+      <div class="vux-header-left">
+        <a class="vux-header-back"></a>
+        <div class="left-arrow"></div>
+      </div>
+      <h1 class="vux-header-title"></h1>
+      <!---->
+      <div class="vux-header-right">
+        <!---->
+      </div>
+    </div>
     <search :placeholder="pla" :cancel-text="canceText" :auto-fixed="false"></search>
-    <div class="zkui-product_search-item">
-      <ul>
-        <li v-for="(list, index) in lists" :key="index">
-          <a href="">
-            <h3>{{list.id}}</h3>
-          </a>
-        </li>
-      </ul>
+    <div>
+      <flexbox orient="vertical">
+        <flexbox-item :span="4">
+          <div class="flex-demo">1/3</div>
+        </flexbox-item>
+        <flexbox-item>
+          <div class="flex-demo">2/3</div>
+        </flexbox-item>
+      </flexbox>
     </div>
     <zk-foot></zk-foot>
   </section>
 </template>
 
-
 <script>
-  import { Search } from 'zkui'
+  import { Search, Flexbox, FlexboxItem } from 'zkui'
   export default {
     components: {
-      Search
+      Search,
+      Flexbox,
+      FlexboxItem
     },
     data () {
       return {
@@ -41,7 +53,14 @@
 
 
 </script>
+
 <style lang="less">
+  .flex-demo {
+    text-align: center;
+    color: #fff;
+    background-color: #20b907;
+    border-radius: 4px;
+  }
   // @import 'zkui/src/styles/zkui.less';
   //全局变量CSS，颜色，大小，边框，尺寸，尽量使用变量库里头的变量，请悉知所有变量
   // .zkui-product-search {

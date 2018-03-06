@@ -19,7 +19,7 @@
               <span class="metal">￥{{selectSku.marketPrice}}</span>
             </dd>
             <dd class="sale-info-stock metal">库存：{{selectSku.stock}} 货号：{{selectSku.bn}}</dd>
-            <x-button type="primary" class="sale-info-close" @click.native=" showSale = false "></x-button>
+            <x-button type="default" class="sale-info-close" @click.native=" showSale = false "></x-button>
           </dl>
           <div class="sale-info-property goods-select">
             <dl class="border-bottom " v-for="(item, index) in productView.productExtensions.productCategory.salePropertys " :key="index ">
@@ -207,12 +207,15 @@
       .sale-info-close {
         width: 20px;
         height: 20px;
-        border-radius: 10px;
+        border-radius: 50%;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
         border: 1px solid #5f646e;
         display: inline-block;
         position: absolute;
         right: 5px;
         top: 4px;
+        padding: 0.32rem;
       }
       .sale-info-close::after {
         content: '\2716'; //特殊字符或形状，一个勾
@@ -220,7 +223,7 @@
         font-size: 12px;
         position: absolute;
         right: 5px;
-        top: 1px;
+        padding-top: 0.4rem;
       }
       dt {
         float: left;
