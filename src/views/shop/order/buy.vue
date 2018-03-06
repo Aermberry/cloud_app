@@ -192,14 +192,11 @@
         if (selectId === '') {
           console.log('空')
         }
-<<<<<<< HEAD
-=======
         console.log(selectId)
       },
       async SingleAddress () {
         var singleAddress = await apiUser.SingleAddress()
         console.log(singleAddress)
->>>>>>> 866134e8e05fb124129d1b0514546715590c05b9
       }
     }
   }
