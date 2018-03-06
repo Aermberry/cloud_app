@@ -75,11 +75,11 @@
         <x-button slot="customer" type="primary" @click.native="buy">提交订单</x-button>
       </tabbar-item>
     </tabbar>
-<<<<<<< HEAD
+
     <zk-pay :show="false"></zk-pay>
-=======
+
     <zk-pay ref="show_pay"></zk-pay>
->>>>>>> 893aaef012109c8124da126750e46319116552c2
+
   </section>
 
 </template>
