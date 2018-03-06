@@ -1,20 +1,21 @@
 <template>
-  <popup v-model="showPupop" is-transparent class="zk-pay">
+  <popup v-model="showPupop" is-transparent class="zk-pay" max-height="70%">
     <div class="pay-pupop">
-      <div class="vux-header">
-        <div class="vux-header-left">
-          <x-button type="primary" @click.native="showPupop=false" class="pay-close"></x-button>
-        </div>
-        <h1 class="vux-header-title">确认付款</h1>
-        <!---->
-        <div class="vux-header-right">
+      <div class="pay-head">
+        <div class="vux-header">
+          <div class="vux-header-left">
+          </div>
+          <h1 class="vux-header-title">确认付款</h1>
           <!---->
+          <div class="vux-header-right">
+            <x-button type="primary" @click.native="showPupop=false" class="pay-close"></x-button>
+          </div>
         </div>
+        <p class="count">
+          ￥
+          <span>{{amount}}</span>
+        </p>
       </div>
-      <p class="count">
-        ￥
-        <span>{{amount}}</span>
-      </p>
       <group class="pay-index">
         <radio :options="radio001">
           <template slot-scope="props" slot="each-item">
@@ -24,7 +25,7 @@
           </template>
         </radio>
       </group>
-      <div class="pay-buttom">
+      <div class="pay-buttom base">
         <x-button type="primary">立即付款</x-button>
       </div>
     </div>
@@ -102,6 +103,7 @@
       .count {
         text-align: center;
         padding-top: 15px;
+        background-color: @light;
         span {
           font-size: @h3-font-size;
           font-weight: bold;
@@ -110,7 +112,7 @@
       }
     }
     .pay-index {
-      margin-top: 1rem;
+      padding-top: 8rem;
     }
     .pay-close {
       display: flex;
@@ -126,6 +128,26 @@
       min-height: 40px;
       z-index: 5;
       background-color: white;
+    }
+    .pay-head {
+      font-size: 1rem;
+      position: fixed;
+      width: 100%;
+      height: auto;
+      overflow-y: auto;
+      min-height: 40px;
+      z-index: 5;
+    }
+    .base {
+      margin-top: 8rem;
+      position: fixed;
+      width: 100%;
+      height: auto;
+      overflow-y: auto;
+      min-height: 40px;
+      z-index: 5;
+      background-color: white;
+      bottom: 0px;
     }
   }
 </style>
