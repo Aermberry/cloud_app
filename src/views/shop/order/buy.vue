@@ -2,7 +2,6 @@
   <section class="zkui-order-buyfromproduct">
     <zk-head title='确认下单' goBack='商品详情'></zk-head>
     <cell title="地址" value="请选择地址" is-link link="/user/buyeraddress/select" v-if="addressBox"></cell>
-    <!-- 有默认地址或者选择了默认地址后显示 -->
     <router-link to="/user/buyeraddress/select">
       <div class="vux-form-preview weui-form-preview" v-if="!addressBox">
         <div class="weui-form-preview__hd">
@@ -77,15 +76,7 @@
         <x-button slot="customer" type="primary" @click.native="buy">提交订单</x-button>
       </tabbar-item>
     </tabbar>
-
-
-    <zk-pay :show="false"></zk-pay>
-
     <zk-pay ref="show_pay"></zk-pay>
-
-
-    <zk-pay :show="false" ref="show_pay"></zk-pay>
-
   </section>
 
 </template>
