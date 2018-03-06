@@ -25,7 +25,7 @@
 <script>
 /* eslint-disable */
    import userService from 'src/service/api/user.api'
-  import { FormPreview, PopupPicker,XInput } from 'vux'
+  //import { FormPreview, PopupPicker,XInput } from 'vux'
   import { Group, Box, XButton, Cell, Picker, Divider, XSwitch, XTextarea } from 'zkui'
 
   export default {
@@ -62,7 +62,7 @@
           }
           console.log(addressInput)
          var response = await userService.AddAddress(addressInput)
-         
+
       },
       onClick (newVal, oldVal) {
         console.log(newVal, oldVal)
