@@ -116,7 +116,7 @@ export default {
   },
   // 删除地址
   async DeleteAddress (data) {
-    var response = await http.postLogin('/UserAddress/delete', data)
+    var response = await http.deleteLogin('/UserAddress/delete', data)
     return response
   },
   // 修改地址
@@ -126,7 +126,7 @@ export default {
   },
   // 获取单个地址
   async SingleAddress (data) {
-    var response = await http.getLogin('/UserAddress/Single', data)
+    var response = await http.getLogin('/UserAddress/single', data)
     return response
   }
 }
