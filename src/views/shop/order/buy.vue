@@ -1,7 +1,21 @@
 <template>
   <section class="zkui-order-buyfromproduct">
     <zk-head title='确认下单' goBack='商品详情'></zk-head>
-    <cell title="地址" value="请选择地址" is-link link="/user/buyeraddress/select"></cell>
+    <cell title="地址" value="请选择地址" is-link link="/user/buyeraddress/select" v-if="addressBox"></cell>
+    <!-- 有默认地址或者选择了默认地址后显示 -->
+    <div class="vux-form-preview weui-form-preview" v-if="!addressBox">
+      <div class="weui-form-preview__hd">
+        <label class="weui-form-preview__label address_name">weqweq</label>
+        <em class="weui-form-preview__value">13763166594</em>
+      </div>
+      <div class="weui-form-preview__bd">
+        <div class="weui-form-preview__item">
+          <span class="weui-form-preview__value address_particulars ">
+            465承恩哥的家
+          </span>
+        </div>
+      </div>
+    </div>
     <group v-show="!showAddress">
       <div class="vux-form-preview weui-form-preview">
         <div class="weui-form-preview__hd">
@@ -70,6 +84,7 @@
   import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, XAddress, InlineXNumber, XTextarea, Picker, Popup, TransferDom, PopupRadio } from 'zkui'
   import { ZkPay } from 'widgets'
   import apiService from 'src/service/api/order.api'
+  import apiUser from 'src/service/api/user.api'
   import store from 'src/store/index'
   export default {
     components: {
@@ -93,6 +108,7 @@
     },
     data () {
       return {
+        addressBox: true,
         modelView: '', // 商品数据，从服务器上远程获取
         asyncFlag: false, // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
         showDeliverys: [{
@@ -108,6 +124,7 @@
     },
     mounted () {
       this.GetData()
+      this.SingleAddress()
     },
     methods: {
       async buy () {
@@ -170,7 +187,11 @@
         if (selectId === '') {
           console.log('空')
         }
-        console.log(selectId, 123123132132)
+        console.log(selectId)
+      },
+      async SingleAddress () {
+        var singleAddress = await apiUser.SingleAddress()
+        console.log(singleAddress)
       }
     }
   }

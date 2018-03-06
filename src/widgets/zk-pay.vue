@@ -82,6 +82,7 @@
             pay['key'] = element.payType
             pay['value'] = element.name
             pay['icon'] = element.icon
+            pay['desc'] = element.intro
             this.payTypes.push(pay)
           })
           console.info('赋值完成', this.payTypes)
