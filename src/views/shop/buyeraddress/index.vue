@@ -15,7 +15,7 @@
           </div>
         </div>
         <div class="weui-form-preview__ft">
-          <a href="javascript:" class="weui-form-preview__btn weui-form-preview__btn_default" @click.native="chengen()">
+          <a href="javascript:" class="weui-form-preview__btn weui-form-preview__btn_default">
             <checker-item :value="item.id" @click.native="ceshi(item.id)">是否默认</checker-item>
           </a>
           <a href="javascript:" class="weui-form-preview__btn weui-form-preview__btn_default">编辑</a>
