@@ -2,99 +2,97 @@
   <section class="zkui-order-cart">
     <zk-head title='购物车' class="zkui-order-cart-head"></zk-head>
     <div data-v-f9013b68="" class="">
-      <div class="weui-cells__title">Set random order</div>
-      <div class="weui-cells weui-cells_checkbox">
-        <label for="checkbox_yqyep_0" class="weui-cell weui-check_label">
-          <div class="weui-cell__hd"><input type="checkbox" name="vux-checkbox-yqyep" id="checkbox_yqyep_0" class="weui-check" value="03">
-            <i class="weui-icon-checked vux-checklist-icon-checked"></i>
-          </div>
-          <div class="weui-cell__bd">
-            <p>03</p>
-            <!---->
-          </div>
-        </label>
-        <label for="checkbox_yqyep_1" class="weui-cell weui-check_label">
-          <div class="weui-cell__hd"><input type="checkbox" name="vux-checkbox-yqyep" id="checkbox_yqyep_1" class="weui-check" value="01">
-            <i class="weui-icon-checked vux-checklist-icon-checked"></i>
-          </div>
-          <div class="weui-cell__bd">
-            <p>01</p>
-            <!---->
-          </div>
-        </label>
-        <label for="checkbox_yqyep_2" class="weui-cell weui-check_label">
-          <div class="weui-cell__hd"><input type="checkbox" name="vux-checkbox-yqyep" id="checkbox_yqyep_2" class="weui-check" value="02">
-            <i class="weui-icon-checked vux-checklist-icon-checked"></i>
-          </div>
-          <div class="weui-cell__bd">
-            <p>02</p>
-            <!---->
-          </div>
-        </label>
-      </div>
-    </div>
-    <checklist ref="carCheckList" required :options="stores" v-model="selectModel" @on-change="change">
+      <!-- <checklist ref="carCheckList" required :options="stores" v-model="selectModel" @on-change="change" style="dispant:none">
       <div slot="content">
         <checklist ref="carCheckList" :options="storeProducts" @on-change="change">
 
         </checklist>
       </div>
-    </checklist>
+    </checklist> -->
 
-    <swipeout style="display:none">
-      <div class="zkui-order-cart-box">
-        <div v-for="(items,indexs) in viewModel.storeProducts" :key="indexs">
-          <div class="order-cart-store flex">
-            <div class="label">
-              <input type="checkbox" />
-            </div>
-            <h2 class="flex_one">{{items.storeName}} </h2>
-          </div>
-          <ul>
-            <li class="zkui-order-cart-item" v-for="(item,index) in items.productItems" :key="index" @click="onItem(item.productSku.id)">
-              <div class="order-cart-commodity">
-                <swipeout-item @on-close="handleEvents('on-close')" @on-open="handleEvents('on-open')" transition-mode="follow">
-                  <div slot="right-menu">
-                    <swipeout-button type="warn" @click.native="onButtonClick(item.productSku.id)">删除</swipeout-button>
-                  </div>
-                  <div slot="content" class="demo-content border-top" style="height:10rem">
-                    <ul class="flex order-cart-commodity-box">
-                      <li class="order-cart-commodity-left">
-                        <div class="label">
-                          <input type="checkbox" />
-                        </div>
-                      </li>
-                      <li class="flex_one">
-                        <div class="order-cart-commodit-into flex">
-                          <div class="order-cart-commodity-into_left">
-                            <img :src="item.product.thumbnailUrl" alt="">
-                          </div>
-                          <div class="flex_one order-cart-commodity-into_right ">
-                            <p>{{item.product.name}}</p>
-                            <span>{{item.productSku.propertyValueDesc}}</span>
-                            <ul class="flex">
-                              <li class="price_now">￥{{item.product.price}}</li>
-                              <li class="price_old">￥{{item.product.displayPrice}}</li>
-                              <li class="flex_one price_num">×{{item.count}}</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </swipeout-item>
+      <swipeout>
+        <div class="zkui-order-cart-box">
+          <div v-for="(items,indexs) in viewModel.storeProducts" :key="indexs" class="cart_item-box">
+            <!-- <div class="order-cart-store flex">
+              <div class="label">
+                <input type="checkbox" />
               </div>
-            </li>
-          </ul>
-        </div>
+              <h2 class="flex_one">{{items.storeName}} </h2>
+            </div> -->
+            <div class="weui-cells weui-cells_checkbox">
+              <label for="checkbox_yqyep_4" class="weui-cell weui-check_label cart_item-title">
+                <div class="weui-cell__hd"><input type="checkbox" name="vux-checkbox-yqyep" id="checkbox_yqyep_4" class="weui-check" value="04">
+                  <i class="weui-icon-checked vux-checklist-icon-checked"></i>
+                </div>
+                <div class="weui-cell__bd">
+                  <p>{{items.storeName}}</p>
+                </div>
+              </label>
+            </div>
+            <ul>
+              <li class="zkui-order-cart-item" v-for="(item,index) in items.productItems" :key="index">
+                <div class="order-cart-commodity">
+                  <swipeout-item @on-close="handleEvents('on-close')" @on-open="handleEvents('on-open')" transition-mode="follow">
+                    <div slot="right-menu">
+                      <swipeout-button type="warn" @click.native="onButtonClick(item.productSku.id)">删除</swipeout-button>
+                    </div>
+                    <div slot="content" class="demo-content border-top" style="height:10rem">
+                      <ul class="flex order-cart-commodity-box">
+                        <li class="order-cart-commodity-left">
+                          <!-- <div class="label">
+                            <input type="checkbox" />
+                          </div> -->
 
-      </div>
-    </swipeout>
+                          <div class="weui-cells weui-cells_checkbox">
+                            <label for="checkbox_yqyep_5" class="weui-cell weui-check_label car_item-left">
+                              <div class="weui-cell__hd"><input type="checkbox" name="vux-checkbox-yqyep" id="checkbox_yqyep_5" class="weui-check" value="04">
+                                <i class="weui-icon-checked vux-checklist-icon-checked"></i>
+                              </div>
+                            </label>
+                          </div>
+                        </li>
+                        <li class="flex_one">
+                          <div class="order-cart-commodit-into flex">
+                            <div class="order-cart-commodity-into_left">
+                              <img :src="item.product.thumbnailUrl" alt="">
+                            </div>
+                            <div class="flex_one order-cart-commodity-into_right ">
+                              <p>{{item.product.name}}</p>
+                              <span>{{item.productSku.propertyValueDesc}}</span>
+                              <ul class="flex">
+                                <li class="price_now">￥{{item.product.price}}</li>
+                                <li class="price_old">￥{{item.product.displayPrice}}</li>
+                                <li class="flex_one price_num">×{{item.count}}</li>
+                              </ul>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </swipeout-item>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </swipeout>
+    </div>
 
     <div class="zkui-order-cart-bar">
       <tabbar>
         <tabbar-item class="bar-left">
-          <span slot="label" class="label"><input type="checkbox" /></span>
+          <span slot="label" class="label">
+            <div class="weui-cells weui-cells_checkbox">
+              <label for="checkbox_yqyep_8" class="weui-cell weui-check_label car_item-all">
+                <div class="weui-cell__hd"><input type="checkbox" name="vux-checkbox-yqyep" id="checkbox_yqyep_8" class="weui-check" value="04">
+                  <i class="weui-icon-checked vux-checklist-icon-checked"></i>
+                </div>
+              </label>
+            </div>
+          </span>
+        </tabbar-item>
+        <tabbar-item class="bar-center">
           <span slot="label">全选(0)</span>
         </tabbar-item>
         <tabbar-item class="bar-right">
@@ -203,8 +201,16 @@
     }
   }
   .zkui-order-cart-box {
-    .zkui-order-cart-item {
+    .cart_item-box {
       margin-bottom: 10*@rem;
+    }
+    .weui-cells_checkbox {
+      .cart_item-title {
+        padding: 0.8rem 0;
+      }
+    }
+    .zkui-order-cart-item {
+      margin-bottom: 1*@rem;
       background: @white;
     }
     .order-cart-store {
@@ -225,8 +231,21 @@
       }
       .order-cart-commodity-left {
         width: 3.5rem;
-        .label {
-          margin-top: 3.25rem;
+        position: relative;
+        .weui-cells_checkbox {
+          width: 3.5rem;
+          height: 3.5rem;
+          margin-top: 0;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          .weui-cell {
+            padding: 0;
+          }
+        }
+        .weui-cells:before,
+        .weui-cells:after {
+          content: none;
         }
       }
       .flex_one {
@@ -297,11 +316,30 @@
         }
       }
       .bar-left {
+        width: 3.5rem;
+        height: 3.5rem;
+        flex: none;
+        .weui-cells_checkbox {
+          width: 3.5rem;
+          height: 3.5rem;
+          .car_item-all {
+            padding: 0.4rem 0;
+          }
+        }
+      }
+      .bar-center {
         .weui-tabbar__label {
           text-align: left;
           line-height: 3.5rem !important;
           .label {
             display: inline-block;
+          }
+        }
+        .weui-cells_checkbox {
+          width: 3.5rem;
+          height: 3.5rem;
+          .car_item-all {
+            padding: 0.8rem 0;
           }
         }
       }
@@ -325,6 +363,9 @@
         }
       }
     }
+  }
+  .weui-cells {
+    margin: 0;
   }
 </style>
 
