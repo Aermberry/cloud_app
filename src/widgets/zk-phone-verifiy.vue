@@ -20,7 +20,6 @@
     data () {
       return {
         word: '发送验证码',
-        isOvertime: false,
         currentValue: '',
         sendAuthCode: true,
         auth_time: 0

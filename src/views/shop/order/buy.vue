@@ -197,11 +197,6 @@
         }
         this.modelView = response.data.result
         this.asyncFlag = true
-        // var selectId = this.$route.params.selectId
-        // if (typeof (selectId) === 'undefined') {
-        //   console.log('空')
-        // }
-        // console.log(selectId, 123123132132)
       },
       async Single () {
         this.par = {
@@ -217,7 +212,6 @@
         } else if (address.data.status !== 1) {
           this.addressBox = true
         }
-
         if (typeof (this.selectId) !== 'undefined') {
           this.par.id = this.selectId
           console.log(this.selectId)
