@@ -16,7 +16,7 @@
         </div>
         <div class="weui-form-preview__ft">
           <a href="javascript:" class="weui-form-preview__btn weui-form-preview__btn_default">
-            <checker-item :value="item.id" @click.native="ceshi(item.id)">是否默认</checker-item>
+            <checker-item :value="item.id" @click.native="cutDefault(item,item.id)" :class="{'demo2-item-selected':item.active}">是否默认</checker-item>
           </a>
           <a href="javascript:" class="weui-form-preview__btn weui-form-preview__btn_default">编辑</a>
           <a href="javascript:" class="weui-form-preview__btn weui-form-preview__btn_primary" @click="AddressDelete(item.id)">删除</a>
@@ -64,6 +64,26 @@
         } else {
           this.$vux.toast.warn('删除失败')
         }
+      },
+      async cutDefault (item, id) {
+        console.log(item)
+        let par = {
+          id: id,
+          isDefault: true
+        }
+        var isDefault = await apiUser.UpdateAddress(par)
+        if (isDefault.data.status === 1) {
+          this.$vux.toast.success('设置成功')
+        } else {
+          this.$vux.toast.warn('设置失败')
+        }
+        // this.$nextTick(function () {
+        //   this.viewModel.forEach(function () {
+        //     vue.set(item, 'active', true)
+        //   })
+        //   vue.set(item, 'active', false)
+        //   console.log(this.viewModel)
+        // })
       }
     },
     data () {
