@@ -1,8 +1,16 @@
 <template>
   <section class="zkui-order-cart">
-
     <zk-head title='购物车' class="zkui-order-cart-head"></zk-head>
-    <swipeout>
+
+    <checklist ref="carCheckList" required :options="stores" v-model="selectModel" @on-change="change">
+      <div slot="content">
+        <checklist ref="carCheckList" :options="storeProducts" @on-change="change">
+
+        </checklist>
+      </div>
+    </checklist>
+
+    <swipeout style="display:none">
       <div class="zkui-order-cart-box">
         <div v-for="(items,indexs) in viewModel.storeProducts" :key="indexs">
           <div class="order-cart-store flex">
@@ -65,18 +73,20 @@
         </tabbar-item>
       </tabbar>
     </div>
-    <!--<zk-foot></zk-foot>-->
   </section>
 </template>
 
 <script>
   import userService from 'src/service/api/user.api'
-  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, GroupTitle, Swipeout, SwipeoutItem, SwipeoutButton } from 'zkui'
+  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, GroupTitle, Swipeout, SwipeoutItem, SwipeoutButton, Checklist } from 'zkui'
   export default {
     data () {
       return {
-        viewModel: '',
-        disabled: false
+        viewModel: '', // 数据对象
+        disabled: false,
+        selectModel: '',
+        stores: [], // 店铺数据
+        storeProducts: [] // 店铺商品数据
       }
     },
     components: {
@@ -87,39 +97,33 @@
       MIcon,
       XButton,
       GroupTitle,
+      Checklist,
       Swipeout,
       SwipeoutItem,
       SwipeoutButton
     },
     mounted () {
       this.GetData()
-      var chbAll = document.querySelector('.bar-left input')
-      var chbs = document.querySelectorAll('.zkui-order-cart-box input')
-      console.log(chbs)
-      chbAll.onclick = function () {
-        for (var i = 0; i < chbs.length; i++) {
-          chbs[i].checked = this.checked
-        }
-      }
-      for (var i = 0; i < chbs.length; i++) {
-        chbs[i].onclick = function () {
-          if (!this.checked) {
-            chbAll.checked = false
-          } else {
-            var unchecked =
-              document.querySelector('.zkui-order-cart-box input:not(:checked)')
-            if (unchecked === null) {
-              chbAll.checked = true
-            }
-          }
-        }
-      }
     },
     methods: {
       async GetData () {
         var reponse = await userService.GetCart()
-        console.log(reponse)
         this.viewModel = reponse.data.result
+        console.info('购物车数据', reponse)
+        this.viewModel.storeProducts.forEach(element => {
+          var store = {}
+          store['key'] = element.storeId
+          store['value'] = element.storeName
+          element.productItems.forEach(item => {
+            var productItem = {}
+            productItem['key'] = item.product.id
+            productItem['value'] = item.product.name
+            this.storeProducts.push(productItem)
+            // this.stores['productItems'].push(productItem)
+          })
+          this.stores.push(store)
+        })
+        console.info('店铺数据', this.stores)
       },
       async onButtonClick (id) {
         var result = await userService.RemoveCart(id)
@@ -130,6 +134,10 @@
         }
       },
       handleEvents (type) {
+      },
+      //  选择事件
+      change () {
+
       }
     }
   }

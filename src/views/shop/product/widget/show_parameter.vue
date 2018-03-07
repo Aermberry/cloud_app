@@ -105,6 +105,7 @@
         } else {
           let params = {
             ProductSkuId: this.selectSku.id,
+            productId: this.productView.id,
             Count: this.buyCount
           }
           var response = await userService.AddCart(params)

@@ -1,25 +1,6 @@
 <template>
   <section class="zkui-shop-product-search">
-
-    <div class="vux-header zk-head-fixed" searchpart="true">
-      <div class="vux-header-left">
-        <a class="vux-header-back"></a>
-        <div class="left-arrow"></div>
-      </div>
-      <h1 class="vux-header-title"></h1>
-      <!---->
-      <div class="vux-header-right">
-        <!---->
-      </div>
-    </div>
-
-    <search :placeholder="pla" :cancel-text="canceText" :auto-fixed="false"></search>
-    <p></p>
-    <tab>
-      <tab-item selected @on-item-click="onItemClick">商品</tab-item>
-      <tab-item @on-item-click="onItemClick">店铺</tab-item>
-      <tab-item @on-item-click="onItemClick">用户</tab-item>
-    </tab>
+    <search placeholder="搜索您想要的商品" cancel-text="取消" :auto-fixed="false"></search>
     <div class="zkui-product_search-item">
       <ul>
         <li v-for="(list, index) in lists" :key="index">
@@ -51,9 +32,7 @@
           { id: '保暖衫' },
           { id: '羽绒裤' },
           { id: '羽绒衣羽绒裤' }
-        ],
-        pla: 'pla',
-        canceText: '取消'
+        ]
       }
     }
   }
