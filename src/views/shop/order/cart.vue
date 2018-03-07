@@ -44,8 +44,8 @@
                           </div> -->
 
                           <div class="weui-cells weui-cells_checkbox">
-                            <label for="checkbox_yqyep_5" class="weui-cell weui-check_label car_item-left">
-                              <div class="weui-cell__hd"><input type="checkbox" name="vux-checkbox-yqyep" id="checkbox_yqyep_5" class="weui-check" value="04">
+                            <label :for="index" class="weui-cell weui-check_label car_item-left">
+                              <div class="weui-cell__hd"><input type="checkbox" name="vux-checkbox-yqyep" :id="index" class="weui-check" value="04">
                                 <i class="weui-icon-checked vux-checklist-icon-checked"></i>
                               </div>
                             </label>
