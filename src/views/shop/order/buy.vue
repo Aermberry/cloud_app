@@ -5,78 +5,88 @@
     <router-link to="/user/buyeraddress/select">
       <div class="vux-form-preview weui-form-preview" v-if="!addressBox">
         <div class="weui-form-preview__hd">
-          <label class="weui-form-preview__label address_name">{{addressMessage.name}}</label>
+          <label class="weui-form-preview__label address_name">收货人：{{addressMessage.name}}</label>
           <em class="weui-form-preview__value">{{addressMessage.mobile}}</em>
-        </div>
-        <div class="weui-form-preview__bd">
           <div class="weui-form-preview__item">
-            <span class="weui-form-preview__value address_particulars ">
-              {{addressMessage.address}}
+            <span class="weui-form-preview__value address_particulars address_name">
+              <m-icon name="zk-orderaddress" size="2.5rem" class="icon"></m-icon>
+              收货地址：{{addressMessage.address}}
             </span>
+
           </div>
         </div>
       </div>
     </router-link>
-    <group v-show="!showAddress">
-      <div class="vux-form-preview weui-form-preview">
-        <div class="weui-form-preview__hd">
-          <label class="weui-form-preview__label address_name">承恩</label>
-          <em class="weui-form-preview__value">13763166594</em>
+    <group v-show=" !showAddress ">
+      <div class="vux-form-preview weui-form-preview ">
+        <div class="weui-form-preview__hd ">
+          <label class="weui-form-preview__label address_name ">承恩</label>
+          <em class="weui-form-preview__value ">13763166594</em>
         </div>
-        <div class="weui-form-preview__bd">
-          <div class="weui-form-preview__item">
+        <div class="weui-form-preview__bd ">
+          <div class="weui-form-preview__item ">
             <span class="weui-form-preview__value address_particulars ">承恩哥的家
             </span>
           </div>
         </div>
-        <div class="weui-form-preview__ft">
+        <div class="weui-form-preview__ft ">
         </div>
       </div>
     </group>
-    <divider class="divider-bg"></divider>
-    <group class="zkui-order-buy-parameter-amount" v-for="store in modelView.storeProducts" :key="store.storeId">
-      <div class="weui-panel weui-panel_access">
-        <div class="weui-panel__hd">{{store.storeName}}</div>
-        <div class="weui-panel__bd" v-for="product in store.productItems" :key="product.productSku.id">
-          <div class="weui-media-box weui-media-box_appmsg">
-            <div class="weui-media-box__hd">
-              <router-link :to="'/product/show/'+product.product.id">
-                <img :src="product.product.thumbnailUrl" :alt="product.product.name" class="weui-media-box__thumb">
+    <divider class="divider-bg "></divider>
+    <group class="zkui-order-buy-parameter-amount " v-for="store in modelView.storeProducts " :key="store.storeId ">
+      <div class="weui-panel weui-panel_access ">
+        <div class="weui-panel__hd ">{{store.storeName}}</div>
+        <div class="weui-panel__bd " v-for="product in store.productItems " :key="product.productSku.id ">
+          <div class="weui-media-box weui-media-box_appmsg ">
+            <div class="weui-media-box__hd ">
+              <router-link :to=" '/product/show/'+product.product.id ">
+                <img :src="product.product.thumbnailUrl " :alt="product.product.name " class="weui-media-box__thumb ">
               </router-link>
             </div>
-            <div class="weui-media-box__bd">
-              <h4 class="weui-media-box__title">
-                <router-link :to="'/product/show/'+product.product.id">{{product.product.name}}</router-link>
+            <div class="weui-media-box__bd ">
+              <h4 class="weui-media-box__title ">
+                <router-link :to=" '/product/show/'+product.product.id ">{{product.product.name}}</router-link>
               </h4>
-              <p class="weui-media-box__desc">
-                {{product.productSku.bn}} {{product.productSku.propertyValueDesc}}
+              <p class="weui-media-box__desc spec">
+                <span> {{product.productSku.bn}} {{product.productSku.propertyValueDesc}}</span><br>
+                <inline-x-number :min="1 " :v-model="product.count " button-style="round " class="buy-account "></inline-x-number>
               </p>
-              <inline-x-number style="display:block; " :min="1" width="50px " :v-model="product.count" button-style="round"></inline-x-number>
-              <span style="float:right">
+
+              <span style="float:right ">
                 <em>￥</em>{{product.productSku.price}}
               </span>
             </div>
           </div>
         </div>
       </div>
-      <popup-radio title="请选择" :options="showDeliverys" v-model="showDelivery"></popup-radio>
-      <x-textarea title="卖家留言" placeholder="选填：填写内容已和卖家协商确认" :show-counter="false" :rows="1" autosize></x-textarea>
+
+      <popup-radio title="请选择 " :options="showDeliverys " v-model="showDelivery "></popup-radio>
+      <x-textarea title="卖家留言 " placeholder="选填：填写内容已和卖家协商确认 " :show-counter="false " :rows="1 " autosize></x-textarea>
       <cell>
         <div>共{{store.totalCount}}商品 小计{{store.totalAmount}}</div>
       </cell>
-      <divider class="divider-bg"></divider>
+
+      <divider class="divider-bg "></divider>
+    </group>
+    <group>
+      <popup-radio title="请选择 " :options="showDeliverys " v-model="showDelivery "></popup-radio>
+      <x-textarea title="卖家留言 " placeholder="选填：填写内容已和卖家协商确认 " :show-counter="false " :rows="1 " autosize></x-textarea>
+      <cell>
+        <div>共{{store.totalCount}}商品 小计{{store.totalAmount}}</div>
+      </cell>
     </group>
     <tabbar>
       <tabbar-item>
-        <div slot="label" class="total">
+        <div slot="label " class="total ">
           <span>总计</span>
-          <span class="money">￥{{modelView.totalAmount}}</span>
-          <span class="amount">共{{modelView.totalCount}}件商品</span>
+          <span class="money ">￥{{modelView.totalAmount}}</span>
+          <span class="amount ">共{{modelView.totalCount}}件商品</span>
         </div>
-        <x-button slot="customer" type="primary" @click.native="buy">提交订单</x-button>
+        <x-button slot="customer " type="primary " @click.native="buy ">提交订单</x-button>
       </tabbar-item>
     </tabbar>
-    <zk-pay ref="show_pay"></zk-pay>
+    <zk-pay ref="show_pay "></zk-pay>
   </section>
 
 </template>
@@ -306,14 +316,25 @@
   .vux-form-preview {
     .weui-form-preview__hd {
       label {
-        font-size: 1.2rem;
+        font-size: @h4-font-size;
         color: @black;
       }
     }
     .address_particulars {
-      font-size: 1rem;
+      font-size: @h4-font-size;
       color: @black;
       text-align: left;
     }
+  }
+  .icon {
+    position: absolute;
+    top: 2.1rem;
+    left: 0.4rem;
+  }
+  .address_name {
+    padding-left: 1.8rem;
+  }
+  .spec {
+    margin-top: 0.5rem;
   }
 </style>

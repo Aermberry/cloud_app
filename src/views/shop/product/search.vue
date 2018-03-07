@@ -1,5 +1,6 @@
 <template>
   <section class="zkui-shop-product-search">
+    <x-button class="return"></x-button>
     <search placeholder="搜索您想要的商品" cancel-text="取消" :auto-fixed="false"></search>
     <div class="zkui-product_search-item">
       <ul>
@@ -16,12 +17,13 @@
 
 
 <script>
-  import { Search, Tab, TabItem } from 'zkui'
+  import { Search, Tab, TabItem, XButton } from 'zkui'
   export default {
     components: {
       Search,
       Tab,
-      TabItem
+      TabItem,
+      XButton
     },
     data () {
       return {
@@ -47,13 +49,6 @@
     width: 95%;
     float: right;
   }
-  .weui-search-bar__box {
-    position: relative;
-    padding-left: 7.5rem;
-  }
-  .weui-search-bar__box .weui-search-bar__input {
-    padding: 4px 5rem;
-  }
   .zkui-product_search-item {
     width: 100%;
     margin-left: 1rem;
@@ -74,5 +69,14 @@
         }
       }
     }
+  }
+  .weui-search-bar__box {
+    position: relative;
+    padding-left: 7.5rem;
+  }
+  button.weui-btn,
+  input.weui-btn {
+    width: 5%;
+    float: left;
   }
 </style>
