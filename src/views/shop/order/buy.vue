@@ -145,7 +145,7 @@
           userId: store.state.userStore.loginUser.id // 下单用户ID
         }
         this.payAmount = '1250.23' // 设置实际需支付的金额
-        // this.$refs.show_pay.$emit('payMethod', this.payAmount) // 唤起支付窗口
+        this.$refs.show_pay.$emit('payMethod', this.payAmount) // 唤起支付窗口
         var response = await apiService.Buy(orderBuyInput)
         console.dir(response)
       },

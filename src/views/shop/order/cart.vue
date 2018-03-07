@@ -1,7 +1,38 @@
 <template>
   <section class="zkui-order-cart">
     <zk-head title='购物车' class="zkui-order-cart-head"></zk-head>
-
+    <div data-v-f9013b68="" class="">
+      <div class="weui-cells__title">Set random order</div>
+      <div class="weui-cells weui-cells_checkbox">
+        <label for="checkbox_yqyep_0" class="weui-cell weui-check_label">
+          <div class="weui-cell__hd"><input type="checkbox" name="vux-checkbox-yqyep" id="checkbox_yqyep_0" class="weui-check" value="03">
+            <i class="weui-icon-checked vux-checklist-icon-checked"></i>
+          </div>
+          <div class="weui-cell__bd">
+            <p>03</p>
+            <!---->
+          </div>
+        </label>
+        <label for="checkbox_yqyep_1" class="weui-cell weui-check_label">
+          <div class="weui-cell__hd"><input type="checkbox" name="vux-checkbox-yqyep" id="checkbox_yqyep_1" class="weui-check" value="01">
+            <i class="weui-icon-checked vux-checklist-icon-checked"></i>
+          </div>
+          <div class="weui-cell__bd">
+            <p>01</p>
+            <!---->
+          </div>
+        </label>
+        <label for="checkbox_yqyep_2" class="weui-cell weui-check_label">
+          <div class="weui-cell__hd"><input type="checkbox" name="vux-checkbox-yqyep" id="checkbox_yqyep_2" class="weui-check" value="02">
+            <i class="weui-icon-checked vux-checklist-icon-checked"></i>
+          </div>
+          <div class="weui-cell__bd">
+            <p>02</p>
+            <!---->
+          </div>
+        </label>
+      </div>
+    </div>
     <checklist ref="carCheckList" required :options="stores" v-model="selectModel" @on-change="change">
       <div slot="content">
         <checklist ref="carCheckList" :options="storeProducts" @on-change="change">

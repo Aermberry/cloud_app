@@ -57,7 +57,7 @@
         let parament = {
           id: id
         }
-        var deleteResult = await apiUser.DeleteAddress(addressId)
+        var deleteResult = await apiUser.DeleteAddress(parament)
         console.log(id)
         if (deleteResult.data.status === 1) {
           this.$vux.toast.success('删除成功')
