@@ -33,8 +33,8 @@
         </div>
       </div>
     </group>
+    <divider class="divider-bg"></divider>
     <group class="zkui-order-buy-parameter-amount" v-for="store in modelView.storeProducts" :key="store.storeId">
-      <div class="weui-cells-top"></div>
       <div class="weui-panel weui-panel_access">
         <div class="weui-panel__hd">{{store.storeName}}</div>
         <div class="weui-panel__bd" v-for="product in store.productItems" :key="product.productSku.id">
@@ -64,7 +64,7 @@
       <cell>
         <div>共{{store.totalCount}}商品 小计{{store.totalAmount}}</div>
       </cell>
-      <div class="weui-cells-bottom"></div>
+      <divider class="divider-bg"></divider>
     </group>
     <tabbar>
       <tabbar-item>
@@ -82,7 +82,7 @@
 </template>
 
 <script>
-  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, XAddress, InlineXNumber, XTextarea, Picker, Popup, TransferDom, PopupRadio } from 'zkui'
+  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, XAddress, InlineXNumber, XTextarea, Picker, Popup, TransferDom, PopupRadio, Divider } from 'zkui'
   import { ZkPay } from 'widgets'
   import apiService from 'src/service/api/order.api'
   import apiUser from 'src/service/api/user.api'
@@ -105,6 +105,7 @@
       PopupRadio,
       Picker,
       Popup,
+      Divider,
       TransferDom,
       ZkPay
     },
@@ -136,11 +137,15 @@
     methods: {
       async buy () {
         var orderBuyInput = {
-          RegionId: '2112',
-          PaymentId: '2323'
+          // addressId: '72be65e6-3a64-414d-972e-1a3d4a36f88', // 选择地址Id
+          payType: 3, // 支付方式
+          totalAmount: 1256.26, // 订单总金额
+          paymentAmount: 1250.99, // 订单总金额
+          orderType: 1,
+          userId: store.state.userStore.loginUser.id // 下单用户ID
         }
         this.payAmount = '1250.23' // 设置实际需支付的金额
-        this.$refs.show_pay.$emit('payMethod', this.payAmount) // 唤起支付窗口
+        // this.$refs.show_pay.$emit('payMethod', this.payAmount) // 唤起支付窗口
         var response = await apiService.Buy(orderBuyInput)
         console.dir(response)
       },
