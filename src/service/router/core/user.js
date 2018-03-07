@@ -1,5 +1,4 @@
-export default [
-  {
+export default [{
     path: '/user/index',
     meta: {
       title: '会员中心',

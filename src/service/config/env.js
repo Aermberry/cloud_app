@@ -23,4 +23,9 @@ if (process.env.NODE_ENV === 'development') {
 } else {
   baseUrl = 'http://139.159.243.8:8001'
 }
-export { baseUrl, routerMode, key, projectId }
+export {
+  baseUrl,
+  routerMode,
+  key,
+  projectId
+}

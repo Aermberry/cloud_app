@@ -155,7 +155,7 @@
           userId: store.state.userStore.loginUser.id // 下单用户ID
         }
         this.payAmount = '1250.23' // 设置实际需支付的金额
-        // this.$refs.show_pay.$emit('payMethod', this.payAmount) // 唤起支付窗口
+        this.$refs.show_pay.$emit('payMethod', this.payAmount) // 唤起支付窗口
         var response = await apiService.Buy(orderBuyInput)
         console.dir(response)
       },
@@ -207,11 +207,6 @@
         }
         this.modelView = response.data.result
         this.asyncFlag = true
-        // var selectId = this.$route.params.selectId
-        // if (typeof (selectId) === 'undefined') {
-        //   console.log('空')
-        // }
-        // console.log(selectId, 123123132132)
       },
       async Single () {
         this.par = {
@@ -227,7 +222,6 @@
         } else if (address.data.status !== 1) {
           this.addressBox = true
         }
-
         if (typeof (this.selectId) !== 'undefined') {
           this.par.id = this.selectId
           console.log(this.selectId)

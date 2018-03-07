@@ -1,7 +1,9 @@
 import http from 'src/service/common/http'
 // import helper from 'src/service/common/helper'
 import local from 'src/service/common/local'
-import { md5 } from 'zkui' // md5 函数
+import {
+  md5
+} from 'zkui' // md5 函数
 
 export default {
   //  用户登录
@@ -119,7 +121,8 @@ export default {
   },
   // 修改地址
   async UpdateAddress (data) {
-    var response = await http.postLogin('/UserAddress/update', data)
+    var response = await http.putLogin('/UserAddress/update', data)
+
     return response
   },
   // 获取单个地址
