@@ -47,6 +47,13 @@
     width: 95%;
     float: right;
   }
+  .weui-search-bar__box {
+    position: relative;
+    padding-left: 7.5rem;
+  }
+  .weui-search-bar__box .weui-search-bar__input {
+    padding: 4px 5rem;
+  }
   .zkui-product_search-item {
     width: 100%;
     margin-left: 1rem;
