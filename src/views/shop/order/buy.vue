@@ -18,27 +18,7 @@
         </div>
       </div>
     </router-link>
-<<<<<<< HEAD
-    <group v-show=" !showAddress ">
-      <div class="vux-form-preview weui-form-preview ">
-        <div class="weui-form-preview__hd ">
-          <label class="weui-form-preview__label address_name ">承恩</label>
-          <em class="weui-form-preview__value ">13763166594</em>
-        </div>
-        <div class="weui-form-preview__bd ">
-          <div class="weui-form-preview__item ">
-            <span class="weui-form-preview__value address_particulars ">承恩哥的家
-            </span>
-          </div>
-        </div>
-        <div class="weui-form-preview__ft ">
-        </div>
-      </div>
-    </group>
-    <divider class="divider-bg"></divider>
-=======
     <divider class="divider-bg "></divider>
->>>>>>> 171fab45bcbe4776f102811a6f1337f5c1e8f9ed
     <group class="order_buy_product " v-for="store in modelView.storeProducts " :key="store.storeId ">
       <div class="weui-panel weui-panel_access ">
         <div class="weui-panel__hd ">{{store.storeName}}</div>
@@ -54,16 +34,8 @@
                 <router-link :to=" '/product/show/'+product.product.id ">{{product.product.name}}</router-link>
               </h4>
               <p class="weui-media-box__desc spec">
-<<<<<<< HEAD
-                <span> {{product.productSku.bn}} {{product.productSku.propertyValueDesc}}</span>
-                <span style="float:right">
-                  <em>￥</em>{{product.productSku.price}}
-                </span>
-                <inline-x-number :min="1 " :v-model="product.count " button-style="round " class="buy-account "></inline-x-number>
-=======
                 <span> {{product.productSku.bn}} {{product.productSku.propertyValueDesc}}</span><br>
                 <inline-x-number :min="1 " :v-model="product.count" :value="product.count" button-style="round " class="buy-account "></inline-x-number>
->>>>>>> 2e4493f596fc40fded936c4cc68ce61bb1adc236
               </p>
             </div>
           </div>
