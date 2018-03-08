@@ -16,7 +16,6 @@
         </div>
       </div>
     </router-link>
-<<<<<<< HEAD
     <group v-show=" !showAddress ">
       <div class="vux-form-preview weui-form-preview ">
         <div class="weui-form-preview__hd ">
@@ -34,9 +33,6 @@
       </div>
     </group>
     <divider class="divider-bg"></divider>
-=======
-    <divider class="divider-bg "></divider>
->>>>>>> 171fab45bcbe4776f102811a6f1337f5c1e8f9ed
     <group class="order_buy_product " v-for="store in modelView.storeProducts " :key="store.storeId ">
       <div class="weui-panel weui-panel_access ">
         <div class="weui-panel__hd ">{{store.storeName}}</div>
@@ -132,7 +128,7 @@
       }
     },
     mounted () {
-      // this.GetData()
+      this.GetData()
       this.GetUserAddress()
     },
     methods: {
