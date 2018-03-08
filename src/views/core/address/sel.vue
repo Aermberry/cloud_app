@@ -1,5 +1,5 @@
 <template>
-  <section class="zkui-user-buyeraddress-index">
+  <section class="zkui-user-address-index">
     <zk-head title='选择收货地址' goBack='会员中心'></zk-head>
     <checker v-model="checkerbox" default-item-class="demo2-item" selected-item-class="demo2-item-selected">
       <div class="vux-form-preview weui-form-preview" v-for="(item,index) in viewModel" :key="index" @click="selectId(item.id)">
@@ -62,7 +62,7 @@
 </script>
 
 <style lang="less">
-  .zkui-user-buyeraddress-index {
+  .zkui-user-address-index {
     body {
       background: @gray-100;
       padding-bottom: 50*@rem;

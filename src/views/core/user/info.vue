@@ -65,11 +65,11 @@
               {
                 name: '我的地址',
                 url: '/order/list',
-                icon: 'zk-buyeraddress'
+                icon: 'zk-address'
               },
               {
                 name: '性别',
-                url: '/user/buyeraddress/index',
+                url: '/user/address/index',
                 icon: 'zk-sex'
               },
               {

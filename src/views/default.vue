@@ -96,6 +96,7 @@
     .scroller {
       .mescroll-upwarp {
         padding: 0;
+        height: 0rem;
       }
     }
     .weui-cells__title {

@@ -1,5 +1,5 @@
 <template>
-  <section class="zkui-user-buyeraddress-index">
+  <section class="zkui-user-address-index">
     <zk-head title='选择收货地址' goBack=''></zk-head>
     <div class="vux-form-preview weui-form-preview" v-for="(item,index) in viewModel" :key="index" @click="selectId(item.id)">
       <div class="weui-form-preview__hd">

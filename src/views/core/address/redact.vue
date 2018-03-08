@@ -1,5 +1,5 @@
 <template>
-  <section class="zkui-user-buyeraddress-edit">
+  <section class="zkui-user-address-edit">
     <zk-head title='地址编辑' goBack='收货地址'></zk-head>
     <group>
       <x-input title="收件人" type="text" placeholder="请输入联系人" v-model="recipients"></x-input>

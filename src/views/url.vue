@@ -256,7 +256,7 @@
         </div>
       </router-link>
 
-      <router-link to="/User/BuyerAddress/Index">
+      <router-link to="/User/address/Index">
         <div class="weui-cell weui-cell_access">
           <div class="cell-icon">
             <svg>
@@ -354,7 +354,7 @@
         </div>
       </router-link>
 
-      <router-link to="/User/BuyerAddress/Edit">
+      <router-link to="/User/address/Edit">
         <div class="weui-cell weui-cell_access">
           <div class="cell-icon">
             <svg>

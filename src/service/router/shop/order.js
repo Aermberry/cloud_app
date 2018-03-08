@@ -10,39 +10,6 @@ export default [
     }
   },
   {
-    path: '/user/favorite/index',
-    meta: {
-      title: '我的收藏',
-      login: true
-    },
-    name: 'user_favorite',
-    component: function (resolve) {
-      require(['src/views/shop/favorite/index'], resolve)
-    }
-  },
-  {
-    path: '/user/buyeraddress/index',
-    meta: {
-      title: '收货地址',
-      login: true
-    },
-    name: 'buyeraddress_index',
-    component: function (resolve) {
-      require(['src/views/shop/buyeraddress/index'], resolve)
-    }
-  },
-  {
-    path: '/user/buyeraddress/select',
-    meta: {
-      title: '选择收货地址',
-      login: true
-    },
-    name: 'buyeraddress_select',
-    component: function (resolve) {
-      require(['src/views/shop/buyeraddress/sel'], resolve)
-    }
-  },
-  {
     path: '/order/buy',
     params: {
       buyInfo: '',
@@ -55,28 +22,6 @@ export default [
     name: 'order_buy',
     component: function (resolve) {
       require(['src/views/shop/order/buy'], resolve)
-    }
-  },
-  {
-    path: '/user/buyeraddress/edit',
-    meta: {
-      title: '添加地址',
-      login: true
-    },
-    name: 'buyeraddress_edit',
-    component: function (resolve) {
-      require(['src/views/shop/buyeraddress/edit'], resolve)
-    }
-  },
-  {
-    path: '/user/buyeraddress/redact',
-    meta: {
-      title: '编辑地址',
-      login: true
-    },
-    name: 'buyeraddress_redact',
-    component: function (resolve) {
-      require(['src/views/shop/buyeraddress/redact'], resolve)
     }
   }
 ]

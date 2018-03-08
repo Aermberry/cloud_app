@@ -1,4 +1,5 @@
-export default [{
+export default [
+  {
     path: '/user/index',
     meta: {
       title: '会员中心',
@@ -168,6 +169,39 @@ export default [{
     name: 'user_identity',
     component: function (resolve) {
       require(['src/views/core/identity/index'], resolve)
+    }
+  },
+  {
+    path: '/user/address/edit',
+    meta: {
+      title: '添加地址',
+      login: true
+    },
+    name: 'address_edit',
+    component: function (resolve) {
+      require(['src/views/core/address/edit'], resolve)
+    }
+  },
+  {
+    path: '/user/address/index',
+    meta: {
+      title: '收货地址',
+      login: true
+    },
+    name: 'address_index',
+    component: function (resolve) {
+      require(['src/views/core/address/edit'], resolve)
+    }
+  },
+  {
+    path: '/user/favorite/index',
+    meta: {
+      title: '我的收藏',
+      login: true
+    },
+    name: 'user_favorite',
+    component: function (resolve) {
+      require(['src/views/core/favorite/index'], resolve)
     }
   }
 ]

@@ -1,5 +1,5 @@
 <template>
-  <section class="zkui-user-buyeraddress-index">
+  <section class="user_address">
     <zk-head title='收货地址' goBack='会员中心'></zk-head>
     <checker v-model="checkerbox" default-item-class="demo2-item" selected-item-class="demo2-item-selected">
       <div class="vux-form-preview weui-form-preview" v-for="(item,index) in viewModel" :key="index">
@@ -8,7 +8,7 @@
           <em class="weui-form-preview__value">{{item.mobile}}</em>
           <div class="weui-form-preview__item">
             <span class="weui-form-preview__value address_particulars ">
-              {{item.address}}承恩哥的家
+              {{item.address}}
             </span>
           </div>
         </div>
@@ -28,13 +28,16 @@
         <divider class="divider-bg "></divider>
       </div>
     </checker>
+    <div class="add_addressBtn">
+      <x-button type="warn" @click.native="add">添加地址</x-button>
+    </div>
     <zk-foot></zk-foot>
   </section>
 </template>
 
 <script>
   import apiUser from 'src/service/api/user.api'
-  import { Checker, CheckerItem, Divider, Group, Cell, Popup, TransferDom, FormPreview, CheckIcon } from 'zkui'
+  import { Checker, CheckerItem, Divider, Group, Cell, Popup, TransferDom, FormPreview, CheckIcon, XButton } from 'zkui'
   export default {
     directives: {
       TransferDom
@@ -47,7 +50,8 @@
       Group,
       Cell,
       Popup,
-      CheckIcon
+      CheckIcon,
+      XButton
     },
     mounted () {
       this.GetData()
@@ -58,6 +62,7 @@
         this.viewModel = response.data.result
         console.log(this.viewModel)
       },
+      // 添加默认地址
       async AddressDelete (id) {
         console.log(id)
         let parament = {
@@ -66,11 +71,13 @@
         var deleteResult = await apiUser.DeleteAddress(parament)
         console.log(id)
         if (deleteResult.data.status === 1) {
+          this.GetData()
           this.$vux.toast.success('删除成功')
         } else {
           this.$vux.toast.warn('删除失败')
         }
       },
+      // 设置默认地址
       async cutDefault (item, id) {
         console.log(item)
         let par = {
@@ -83,13 +90,11 @@
         } else {
           this.$vux.toast.warn('设置失败')
         }
-        // this.$nextTick(function () {
-        //   this.viewModel.forEach(function () {
-        //     vue.set(item, 'active', true)
-        //   })
-        //   vue.set(item, 'active', false)
-        //   console.log(this.viewModel)
-        // })
+      },
+      add () {
+        this.$router.push({
+          name: 'address_edit'
+        })
       }
     },
     data () {
@@ -104,7 +109,7 @@
 </script>
 
 <style lang="less">
-  .zkui-user-buyeraddress-index {
+  .user_address {
     body {
       background: @gray-100;
       padding-bottom: 50*@rem;
@@ -204,6 +209,19 @@
     }
     .adress-default {
       font-size: @h6-font-size;
+    }
+    .add_addressBtn {
+      position: fixed;
+      width: 100%;
+      height: 2.5rem;
+      overflow-y: auto;
+      z-index: 5;
+      background-color: white;
+      bottom: 3.33333333rem;
+      .weui-btn {
+        border-radius: 0;
+        height: 2.5rem;
+      }
     }
   }
 </style>
