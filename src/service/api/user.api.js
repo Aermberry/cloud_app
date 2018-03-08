@@ -91,7 +91,7 @@ export default {
   },
   // 删除购物车
   async RemoveCart (data) {
-    var response = await http.postLogin('/Cart/RemoveCart', data)
+    var response = await http.deleteLogin('/Cart/RemoveCart', data)
     return response
   },
   // 二维码

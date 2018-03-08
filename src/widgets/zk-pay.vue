@@ -60,11 +60,11 @@
     mounted: function () {
       this.$nextTick(function () {
         this.$on('payMethod', function (amount) {
+          this.init() //  点击以后，才请求支付
           this.showPupop = true
           this.amount = amount
         })
       })
-      this.init()
     },
     methods: {
       async init () {

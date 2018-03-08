@@ -34,6 +34,7 @@
                 <router-link :to=" '/product/show/'+product.product.id ">{{product.product.name}}</router-link>
               </h4>
               <p class="weui-media-box__desc spec">
+<<<<<<< HEAD
 
                 <span> {{product.productSku.bn}} {{product.productSku.propertyValueDesc}}</span>
                 <span style="float:right">
@@ -41,6 +42,8 @@
                 </span>
                 <inline-x-number :min="1 " :v-model="product.count " button-style="round " class="buy-account "></inline-x-number>
 
+=======
+>>>>>>> 29946864cb814aaee6720b528597c947ea106667
                 <span> {{product.productSku.bn}} {{product.productSku.propertyValueDesc}}</span><br>
                 <inline-x-number :min="1 " :v-model="product.count" :value="product.count" button-style="round " class="buy-account "></inline-x-number>
               </p>
