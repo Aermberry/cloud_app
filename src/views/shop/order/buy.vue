@@ -33,7 +33,7 @@
               </h4>
               <p class="weui-media-box__desc spec">
                 <span> {{product.productSku.bn}} {{product.productSku.propertyValueDesc}}</span><br>
-                <inline-x-number :min="1 " :v-model="product.count " button-style="round " class="buy-account "></inline-x-number>
+                <inline-x-number :min="1 " :v-model="product.count" :value="product.count" button-style="round " class="buy-account "></inline-x-number>
               </p>
               <span style="float:right ">
                 <em>￥</em>{{product.productSku.price}}
