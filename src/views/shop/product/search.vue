@@ -80,5 +80,28 @@
       width: 5%;
       float: left;
     }
+    .vux-search-box {
+      width: 90%;
+      float: right;
+    }
+     .sale-info-close {
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      -moz-border-radius: 50%;
+      -webkit-border-radius: 50%;
+      display: inline-block;
+      position: absolute;
+      padding: 0.32rem;
+      background-color: @brand;
+      padding-top: 0px;
+    }
+    .sale-info-close::after {
+      content: '\2716'; //特殊字符或形状，一个勾
+      color: @light;
+      font-size: @h2-font-size;
+      position: absolute;
+      right: 0.3rem;
+    }
   }
 </style>

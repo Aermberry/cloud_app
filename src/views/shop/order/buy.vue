@@ -1,8 +1,8 @@
 <template>
   <section class="zkui_order_buy">
     <zk-head title='确认下单' goBack='商品详情'></zk-head>
+    <m-icon name="zk-orderaddress" size="2.5rem" class="no-icon"></m-icon>
     <cell title="地址" value="请选择地址" is-link link="/user/buyeraddress/select" v-if="addressBox">
-      <m-icon name="zk-orderaddress" size="2.5rem" class="icon"></m-icon>
     </cell>
     <router-link to="/user/buyeraddress/select">
       <div class="vux-form-preview weui-form-preview" v-if="!addressBox">
@@ -34,16 +34,15 @@
                 <router-link :to=" '/product/show/'+product.product.id ">{{product.product.name}}</router-link>
               </h4>
               <p class="weui-media-box__desc spec">
-<<<<<<< HEAD
+
                 <span> {{product.productSku.bn}} {{product.productSku.propertyValueDesc}}</span>
                 <span style="float:right">
                   <em>￥</em>{{product.productSku.price}}
                 </span>
                 <inline-x-number :min="1 " :v-model="product.count " button-style="round " class="buy-account "></inline-x-number>
-=======
+
                 <span> {{product.productSku.bn}} {{product.productSku.propertyValueDesc}}</span><br>
                 <inline-x-number :min="1 " :v-model="product.count" :value="product.count" button-style="round " class="buy-account "></inline-x-number>
->>>>>>> 2e4493f596fc40fded936c4cc68ce61bb1adc236
               </p>
             </div>
           </div>
@@ -336,6 +335,11 @@
         color: @black;
         text-align: left;
       }
+    }
+    .no-icon {
+      position: absolute;
+      top: 1.5rem;
+      left: 0.4rem;
     }
     .icon {
       position: absolute;
