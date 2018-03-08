@@ -298,8 +298,10 @@
         font-size: @h3-font-size;
       }
       .amount {
-        margin-left: 55*@rem;
-        color: @gray-500;
+        margin-left: 105*@rem;
+        position: absolute;
+        color: #adb5bd;
+        top: 20*@rem;
       }
     }
 
