@@ -33,7 +33,7 @@
         </div>
       </div>
     </group>
-    <divider class="divider-bg "></divider>
+    <divider class="divider-bg"></divider>
     <group class="order_buy_product " v-for="store in modelView.storeProducts " :key="store.storeId ">
       <div class="weui-panel weui-panel_access ">
         <div class="weui-panel__hd ">{{store.storeName}}</div>
