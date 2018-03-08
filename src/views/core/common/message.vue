@@ -13,7 +13,7 @@
         </div>
         <div class="weui-msg__opr-area">
           <p class="weui-btn-area">
-            <a href="javascript:history.back();" class="weui-btn weui-btn_primary">后退</a>
+            <a href="javascript:history.back();" class="weui-btn weui-btn_primary" v-if="type==='success'">后退</a>
             <a href="/default" class="weui-btn weui-btn_default">返回首页</a>
           </p>
         </div>
