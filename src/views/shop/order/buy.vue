@@ -12,27 +12,10 @@
               <m-icon name="zk-orderaddress" size="2.5rem" class="icon"></m-icon>
               收货地址：{{addressMessage.address}}
             </span>
-
           </div>
         </div>
       </div>
     </router-link>
-    <group v-show=" !showAddress ">
-      <div class="vux-form-preview weui-form-preview ">
-        <div class="weui-form-preview__hd ">
-          <label class="weui-form-preview__label address_name ">承恩</label>
-          <em class="weui-form-preview__value ">13763166594</em>
-        </div>
-        <div class="weui-form-preview__bd ">
-          <div class="weui-form-preview__item ">
-            <span class="weui-form-preview__value address_particulars ">承恩哥的家
-            </span>
-          </div>
-        </div>
-        <div class="weui-form-preview__ft ">
-        </div>
-      </div>
-    </group>
     <divider class="divider-bg "></divider>
     <group class="order_buy_product " v-for="store in modelView.storeProducts " :key="store.storeId ">
       <div class="weui-panel weui-panel_access ">
@@ -52,7 +35,6 @@
                 <span> {{product.productSku.bn}} {{product.productSku.propertyValueDesc}}</span><br>
                 <inline-x-number :min="1 " :v-model="product.count " button-style="round " class="buy-account "></inline-x-number>
               </p>
-
               <span style="float:right ">
                 <em>￥</em>{{product.productSku.price}}
               </span>
@@ -60,15 +42,12 @@
           </div>
         </div>
       </div>
-
       <popup-radio title="请选择 " :options="showDeliverys " v-model="showDelivery "></popup-radio>
       <x-textarea title="卖家留言 " placeholder="选填：填写内容已和卖家协商确认 " :show-counter="false " :rows="1 " autosize></x-textarea>
       <cell>
         <div>共{{store.totalCount}}商品 小计{{store.totalAmount}}</div>
       </cell>
-
       <divider class="divider-bg "></divider>
-
     </group>
     <tabbar>
       <tabbar-item>
@@ -93,6 +72,7 @@
   import apiService from 'src/service/api/order.api'
   import apiUser from 'src/service/api/user.api'
   import store from 'src/store/index'
+  import local from 'src/service/common/local'
 
   export default {
     components: {
@@ -138,7 +118,7 @@
     },
     mounted () {
       this.GetData()
-      // this.Single()
+      this.Single()
     },
     methods: {
       async buy () {
@@ -156,53 +136,32 @@
         // console.dir(response)
       },
       async GetData () {
-        var buyProductInfo = this.$route.params.buyInfo
-        buyProductInfo =
-          [
-            {
-              ProductSkuId: 81,
-              Count: 1,
-              ProductId: 44,
-              LoginUserId: 1
-            },
-            {
-              ProductSkuId: 82,
-              Count: 5,
-              ProductId: 44,
-              LoginUserId: 1
-            },
-            {
-              ProductSkuId: 107,
-              Count: 1,
-              ProductId: 45,
-              LoginUserId: 1
-            },
-            {
-              ProductSkuId: 109,
-              Count: 1,
-              ProductId: 45,
-              LoginUserId: 1
-            },
-            {
-              ProductSkuId: 142,
-              Count: 1,
-              ProductId: 47,
-              LoginUserId: 1
-            }
-          ]
-        console.dir('商品参数', buyProductInfo)
-        let buyInfoInput = {
-          loginUserId: store.state.userStore.loginUser.id,
-          productJson: JSON.stringify(buyProductInfo)
-        }
-        var response = await apiService.buyProduct(buyInfoInput)
-        if (response.data.status !== 1) {
-          this.messageWarn(response.data.message)
+        var buyProductInfo = ''
+        if (this.$route.params.buyInfo !== undefined) {
+          buyProductInfo = this.$route.params.buyInfo
+          local.setStore('order_buy', buyProductInfo) // 将购买信息写到缓存中
         } else {
-          this.modelView = response.data.result
+          buyProductInfo = local.getStore('order_buy') // 刷新时从缓冲中读取数据
         }
-        this.modelView = response.data.result
-        this.asyncFlag = true
+        if (buyProductInfo === undefined) {
+          this.$vux.toast.warn('暂无商品，清先购买商品')
+          this.$router.push({
+            name: 'commont_index'
+          })
+        } else {
+          let buyInfoInput = {
+            loginUserId: store.state.userStore.loginUser.id,
+            productJson: JSON.stringify(buyProductInfo)
+          }
+          var response = await apiService.buyProduct(buyInfoInput)
+          if (response.data.status !== 1) {
+            this.messageWarn(response.data.message)
+          } else {
+            this.modelView = response.data.result
+          }
+          this.modelView = response.data.result
+          this.asyncFlag = true
+        }
       },
       async Single () {
         this.par = {
