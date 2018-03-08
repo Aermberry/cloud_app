@@ -1,17 +1,16 @@
 <template>
-  <section>
-    <div class="weui-cell weui-cell_vcode">
-      <div class="weui-cell__hd">
-        <label class="weui-label">验证码</label>
-      </div>
-      <div class="weui-cell__bd">
-        <input class="weui-input" type="number" required maxlength="6" minlength="6" v-model="currentValue" placeholder="输入六位数手机验证码">
-      </div>
-      <div class="weui-cell__ft">
-        <button class="weui-vcode-btn" @click="sendMessage()">{{word}}</button>
-      </div>
+  <div class="weui-cell weui-cell_vcode">
+    <div class="weui-cell__hd">
+      <label class="weui-label" style="width:4rem;">验证码</label>
     </div>
-  </section>
+    <div class="weui-cell__bd">
+      <input class="weui-input" type="number" required maxlength="6" minlength="6" v-model="currentValue" placeholder="输入六位数手机验证码">
+    </div>
+    <div class="weui-cell__ft">
+      <button v-show="sendAuthCode" class="weui-vcode-btn" @click="sendMessage()">获取验证码</button>
+      <button v-show="!sendAuthCode" class="weui-vcode-btn">{{auth_time}}重新获取</button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -21,8 +20,9 @@
     data () {
       return {
         word: '发送验证码',
-        isOvertime: false,
-        currentValue: ''
+        currentValue: '',
+        sendAuthCode: true,
+        auth_time: 0
       }
     },
     props: {
@@ -58,20 +58,13 @@
           } else {
             this.$vux.toast.warn('发送失败' + repsonse.data.message)
           }
-
-          if (this.isOvertime) {
-            return false
-          }
-          let that = this
-          let time = 60
-          var sendTimer = setInterval(function () {
-            that.isOvertime = true
-            time--
-            that.word = '重新发送' + time
-            if (time < 0) {
-              that.isOvertime = false
-              clearInterva(sendTimer)
-              this.word = '获取验证码'
+          this.sendAuthCode = false
+          this.auth_time = 60
+          var authTimetimer = setInterval(() => {
+            this.auth_time--
+            if (this.auth_time <= 0) {
+              this.sendAuthCode = true
+              clearInterval(authTimetimer)
             }
           }, 1000)
         }
@@ -79,4 +72,3 @@
     }
   }
 </script>
-

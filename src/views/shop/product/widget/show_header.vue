@@ -2,7 +2,7 @@
 <template>
   <section>
     <x-header :left-options="{backText: '' }" :right-options="{showMore: true}" @on-click-more="showMenus = true">
-      <div class="overwrite-title-demo" slot="overwrite-title">
+      <div class="overwrite-title-demo-bak" slot="overwrite-title">
         <button-tab>
           <button-tab-item selected>商品</button-tab-item>
           <button-tab-item>详情</button-tab-item>

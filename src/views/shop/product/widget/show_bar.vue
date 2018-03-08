@@ -9,7 +9,7 @@
         <m-icon slot="icon" name="zk-favorites" :class="hasFavorite === false ? 'metal' : 'brand' "></m-icon>
         <span slot="label">收藏</span>
       </tabbar-item>
-      <tabbar-item link="/cart" class="bar-cart">
+      <tabbar-item link="/order/cart" class="bar-cart">
         <m-icon slot="icon" name="zk-cart" class="metal"></m-icon>
         <span slot="label">购物车</span>
       </tabbar-item>
@@ -80,6 +80,7 @@
         if (this.hasFavorite === false) {
           var response = await userService.addAction(params)
           if (response.data.status === 1) {
+            console.log(response.data)
             this.hasFavorite = true
             this.$vux.toast.success('收藏成功')
           } else {
@@ -117,8 +118,6 @@
       bottom: 0;
       width: 100%;
       // height: 3.33333333rem;
-      background: rgba(255, 255, 255, 0.9);
-      border-top: 1px solid rgba(229, 229, 229, 0.4);
       height: 3.5rem;
       .bar-home {
         width: 15%;
@@ -155,7 +154,8 @@
         box-sizing: border-box;
         border-radius: 0;
       }
-      .bar-home {
+      .bar-home,
+      .bar-star {
         width: 15%;
         border-right: 1px solid #e5e5e5;
       }

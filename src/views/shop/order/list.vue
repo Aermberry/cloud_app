@@ -1,7 +1,8 @@
 <template>
   <section class="zkui-order-list">
+                </ul>
 
-    <zk-head :title='title' :goBack='goBack'></zk-head>
+    <zk-head title='我的订单' goBack='会员中心'></zk-head>
 
     <mt-navbar v-model="selected">
       <mt-tab-item id="1">全部</mt-tab-item>
@@ -121,37 +122,37 @@
             </li>
           </ul>
         </div>
-      </mt-tab-container-item>
-      <mt-tab-container-item id="2">
-        <mt-cell v-for="n in 4" :title="'测试 ' + n" :key="n" />
-      </mt-tab-container-item>
-      <mt-tab-container-item id="3">
-        <mt-cell v-for="n in 6" :title="'选项 ' + n" :key="n" />
-      </mt-tab-container-item>
-      <mt-tab-container-item id="4">
-        <mt-cell v-for="n in 6" :title="'选项 ' + n" :key="n" />
-      </mt-tab-container-item>
-      <mt-tab-container-item id="5">
-        <mt-cell v-for="n in 6" :title="'选项 ' + n" :key="n" />
-      </mt-tab-container-item>
-    </mt-tab-container>
-
-    <zk-foot></zk-foot>
+        </tabbar-item>
+        </tabbar>
+        <zk-foot></zk-foot>
   </section>
 </template>
 
 <script>
   // import apiUser from 'src/service/api/user.api'
+  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, XAddress, InlineXNumber, XTextarea } from 'zkui'
   export default {
+    components: {
+      Tabbar,
+      TabbarItem,
+      Group,
+      Cell,
+      MIcon,
+      XButton,
+      CellFormPreview,
+      CellBox,
+      Panel,
+      XAddress,
+      InlineXNumber,
+      XTextarea
+    },
     data () {
       return {
-        title: '我的订单',
-        goBack: '会员中心',
+
         selected: 1
       }
     }
   }
-
 </script>
 <style lang="less">
   // @import 'zkui/src/styles/zkui.less';

@@ -1,7 +1,7 @@
 <template>
   <section class="zkui-user-account-transferbillview">
 
-    <zk-head :title='title' :goBack='goBack'></zk-head>
+    <zk-head title='转账明细' goBack='转账记录'></zk-head>
     <div class="weui-cells zkui-reward-show-user">
       <div class="weui-form-preview">
         <div class="weui-form-preview__hd">
@@ -55,8 +55,7 @@
   export default {
     data () {
       return {
-        title: '转账详情',
-        goBack: '转账记录'
+
       }
     }
   }

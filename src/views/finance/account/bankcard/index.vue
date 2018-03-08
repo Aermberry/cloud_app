@@ -1,7 +1,7 @@
 <template>
   <section class="zkui-user-account-bankcard">
 
-    <zk-head :title='title' :goBack='goBack'></zk-head>
+    <zk-head title='我的银行卡' goBack='我的钱包'></zk-head>
 
     <zk-foot></zk-foot>
   </section>
@@ -12,8 +12,6 @@
   export default {
     data () {
       return {
-        title: '我的银行卡',
-        goBack: '我的钱包'
       }
     }
   }

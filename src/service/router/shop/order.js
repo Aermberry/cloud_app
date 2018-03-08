@@ -10,17 +10,6 @@ export default [
     }
   },
   {
-    path: '/order/list',
-    meta: {
-      title: '我的订单',
-      login: true
-    },
-    name: 'order_list',
-    component: function (resolve) {
-      require(['src/views/shop/order/list'], resolve)
-    }
-  },
-  {
     path: '/user/favorite/index',
     meta: {
       title: '我的收藏',
@@ -43,35 +32,51 @@ export default [
     }
   },
   {
-    path: '/order/buyfromproduct',
+    path: '/user/buyeraddress/select',
     meta: {
-      title: '提交订单'
+      title: '选择收货地址',
+      login: true
     },
-    name: 'order_buyfromproduct',
+    name: 'buyeraddress_select',
     component: function (resolve) {
-      require(['src/views/shop/order/buyfromproduct'], resolve)
+      require(['src/views/shop/buyeraddress/sel'], resolve)
     }
   },
   {
-    path: '/pay/index',
+    path: '/order/buy',
+    params: {
+      buyInfo: '',
+      selectId: ''
+    },
     meta: {
-      title: '支付订单',
+      title: '确认下单',
       login: true
     },
-    name: 'pay_index',
+    name: 'order_buy',
     component: function (resolve) {
-      require(['src/views/shop/pay/index'], resolve)
+      require(['src/views/shop/order/buy'], resolve)
     }
   },
   {
     path: '/user/buyeraddress/edit',
     meta: {
-      title: '地址编辑',
+      title: '添加地址',
       login: true
     },
     name: 'buyeraddress_edit',
     component: function (resolve) {
       require(['src/views/shop/buyeraddress/edit'], resolve)
+    }
+  },
+  {
+    path: '/user/buyeraddress/redact',
+    meta: {
+      title: '编辑地址',
+      login: true
+    },
+    name: 'buyeraddress_redact',
+    component: function (resolve) {
+      require(['src/views/shop/buyeraddress/redact'], resolve)
     }
   }
 ]

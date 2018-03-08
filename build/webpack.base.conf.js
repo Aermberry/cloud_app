@@ -61,7 +61,10 @@ const webpackConfig = {
           resolve('src'),
           resolve('test'),
           resolve('node_modules/webpack-dev-server/client')
-        ]
+        ],
+        options: {
+          presets: ['es2015']
+        }
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -102,19 +105,16 @@ const webpackConfig = {
     child_process: 'empty'
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('common.js'),
-    new webpack.ProvidePlugin({
-      jQuery: 'jquery',
-      $: 'jquery'
-    })
+    new webpack.optimize.CommonsChunkPlugin('common.js')
+    // new webpack.ProvidePlugin({
+    //   jQuery: 'jquery',
+    //   $: 'jquery'
+    // })
   ]
 }
 
 module.exports = vuxLoader.merge(webpackConfig, {
   plugins: [
-    'vux-ui',
-    'progress-bar',
-    'duplicate-style',
     {
       name: 'less-theme',
       path: 'src/assets/css/zkui/theme.less'

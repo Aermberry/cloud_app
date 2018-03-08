@@ -1,5 +1,5 @@
 <template>
-  <section class="market">
+  <section class="zkui-user-debt-show">
 
     <zk-head title='债事详情' goBack='我的债事'></zk-head>
     <div class="weui-cells">

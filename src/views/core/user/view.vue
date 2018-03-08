@@ -1,7 +1,7 @@
 <template>
-  <section class="market">
+  <section class="zkui-finance-view">
 
-    <zk-head :title='title' :goBack='goBack'></zk-head>
+    <zk-head title='财务详情' goBack='财务记录'></zk-head>
     <div class="weui-cells">
       <div class="weui-form-preview">
         <div class="weui-form-preview__hd">
@@ -39,8 +39,7 @@
   export default {
     data () {
       return {
-        title: '财务详情',
-        goBack: '财务记录',
+
         modelView: null
       }
     },

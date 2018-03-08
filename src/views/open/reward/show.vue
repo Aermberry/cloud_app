@@ -1,5 +1,5 @@
 <template>
-  <section class="market">
+  <section class="zkui-reward-show">
 
     <zk-head title='分润详情' goBack='我的分润'></zk-head>
     <div class="weui-cells">

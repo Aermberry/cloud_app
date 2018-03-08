@@ -1,28 +1,27 @@
 <template>
-<section>
-   <div class="zkui-product-show-Btitle floor ">
-      <b>
-        <div class="icon">
-          <m-icon name="zk-particulars" class="metal"></m-icon>
-        </div>
-      </b>商品详情
-    </div>
+  <section>
+    <divider>商品详情</divider>
     <div class="zkui-product-show-images">
       <div v-html='productView.detail.mobileIntro'></div>
     </div>
-</section>
+  </section>
 </template>
 
 <script>
-  import { Group, Cell } from 'zkui'
+  import { Group, Cell, Divider } from 'zkui'
   export default {
     components: {
       Group,
-      Cell
+      Cell,
+      Divider
     },
     props: ['productView']
   }
 </script>
+
 <style lang="less">
   @import 'product_show';
+  .zkui-product-show-images img {
+    width: 100%;
+  }
 </style>

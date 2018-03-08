@@ -32,6 +32,7 @@
   </section>
 </template>
 <script>
+  import userService from 'src/service/api/user.api'
   import { ZkCell, ZkGrid } from 'widgets'
   import { MIcon, Grid, GridItem, Cell, Group } from 'zkui'
   export default {
@@ -42,19 +43,31 @@
       Cell,
       Group,
       ZkGrid,
-      GridItem
+      GridItem,
+      data: ''
     },
     data () {
       return {
         userInfo: {
-          name: '马上登录',
+          name: '',
           info: '登陆后享受更多服务'
         }
+      }
+    },
+    mounted () {
+      this.GetData()
+    },
+    methods: {
+      async GetData () {
+        var reponse = await userService.view(this.data)
+        this.userInfo.name = reponse.data.result.userName
+        this.userInfo.info = reponse.data.result.mobile
       }
     }
   }
 </script>
 <style lang="less">
+  @import '../../../assets/css/zkui/theme';
   .zkui-core-user {
     background: #f8f8f8;
     img {
@@ -62,7 +75,7 @@
       height: 100%;
     }
     .zkui-core-user-head {
-      background: #e60044;
+      background: @brand;
       height: 85*@rem;
       .head-top {
         width: 100%;

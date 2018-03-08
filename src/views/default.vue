@@ -65,7 +65,11 @@
       height: 30*@rem;
       overflow: hidden;
     }
-
+    .weui-grid__icon {
+      width: 0;
+      height: 0;
+      margin: 0 auto;
+    }
     .zkui-default-search-box {
       display: block;
       -webkit-box-flex: 1;

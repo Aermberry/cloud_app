@@ -1,6 +1,7 @@
+
 <template>
-  <section class="zkui-login">
-    <zk-head :title='title'></zk-head>
+  <section class="zkui-message">
+    <zk-head title='操作成功'></zk-head>
     <div class="page msg_success js_show">
       <div class="weui-msg">
         <div class="weui-msg__icon-area">
@@ -28,7 +29,6 @@
   export default {
     data () {
       return {
-        title: '操作成功',
         type: 'success',
         message: '',
         iconClass: 'weui-icon-success weui-icon_msg'

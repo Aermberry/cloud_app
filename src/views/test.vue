@@ -1,19 +1,32 @@
 <template>
-  <div>
+  <section class="zkuiceshi">
 
-  </div>
+  </section>
 </template>
 
-
-
 <script>
-
-  import apiService from 'src/service/api/apistore.api'
   export default {
-    mounted: function () {
-      var response = apiService.miniProgramLogin()
-      console.dir(response)
+    directives: {
+
+    },
+    components: {
+
+    },
+    mounted () {
+
+    },
+    methods: {
+
+    },
+    data () {
+      return {
+
+      }
     }
   }
 </script>
+
+<style lang="less">
+
+</style>
 

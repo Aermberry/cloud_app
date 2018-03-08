@@ -9,6 +9,11 @@ export default {
     var response = await http.get('/diy/getlink', param)
     return response
   },
+  // 高级搜索
+  async SearchKeyWord (key) {
+    var response = await http.get('/diy/SearchKeyWord')/*  */
+    return response
+  },
   // zk-list 的数据都通过该方法获取
   async getList (data) {
     // 获取需要登录的数据
