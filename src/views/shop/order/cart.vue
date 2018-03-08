@@ -5,12 +5,6 @@
       <swipeout>
         <div class="zkui-order-cart-box">
           <div v-for="(items,indexs) in viewModel.storeProducts" :key="indexs" class="cart_item-box">
-            <!-- <div class="order-cart-store flex">
-              <div class="label">
-                <input type="checkbox" />
-              </div>
-              <h2 class="flex_one">{{items.storeName}} </h2>
-            </div> -->
             <div class="weui-cells weui-cells_checkbox">
               <label for="checkbox_yqyep_4" class="weui-cell weui-check_label cart_item-title">
                 <div class="weui-cell__hd"><input type="checkbox" name="vux-checkbox-yqyep" id="checkbox_yqyep_4" class="weui-check" value="04">
@@ -48,8 +42,8 @@
                               <p>{{item.product.name}}</p>
                               <span>{{item.productSku.propertyValueDesc}}</span>
                               <ul class="flex">
-                                <li class="price_now">￥{{item.product.price}}</li>
-                                <li class="price_old">￥{{item.product.displayPrice}}</li>
+                                <li class="price_now">￥{{item.productSku.price}}</li>
+                                <li class="price_old">￥{{item.productSku.displayPrice}}</li>
                                 <li class="flex_one price_num">
                                   <inline-x-number style="display:block;" :min="0" width="2rem" button-style="round" v-model="item.count"></inline-x-number>
                                 </li>

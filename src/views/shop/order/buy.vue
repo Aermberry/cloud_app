@@ -22,7 +22,7 @@
     <divider class="divider-bg "></divider>
     <group class="order_buy_product " v-for="store in modelView.storeProducts " :key="store.storeId ">
       <div class="item-contnet">
-        <div class="weui-cells weui-cells_checkbox">
+        <div class="weui-cells ">
           <cell :title="store.storeName"> </cell>
         </div>
         <ul>
@@ -53,7 +53,7 @@
           </li>
         </ul>
       </div>
-      <popup-radio title="请选择 " :options="showDeliverys " v-model="showDelivery "></popup-radio>
+      <popup-radio title="请选择 " :options="store.expressTemplates" v-model="showDelivery"></popup-radio>
       <x-textarea title="卖家留言 " placeholder="选填：填写内容已和卖家协商确认 " :show-counter="false " :rows="1 " autosize></x-textarea>
       <cell>
         <div>共{{store.totalCount}}商品 小计{{store.totalAmount}}</div>
@@ -114,13 +114,6 @@
         par: '', // 测试如果有默认地址情况的
         modelView: '', // 商品数据，从服务器上远程获取
         asyncFlag: false, // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
-        showDeliverys: [{
-          key: 'A',
-          value: 'label A'
-        }, {
-          key: 'B',
-          value: 'label B'
-        }],
         showAddress: true, // 显示地址
         showPay: false, // 显示支付方式
         payAmount: '', // 需要支付的金额，人民币支付
