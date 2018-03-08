@@ -130,10 +130,64 @@
         //   orderType: 1,
         //   userId: store.state.userStore.loginUser.id // 下单用户ID
         // }
-        this.payAmount = '1250.23' // 设置实际需支付的金额
-        this.$refs.show_pay.$emit('payMethod', this.payAmount) // 唤起支付窗口
-        // var response = await apiService.Buy(orderBuyInput)
-        // console.dir(response)
+
+        var storeProduct =
+          [
+            {
+              StoreId: 6,
+              DeliveryId: '72be65e6-3a64-414d-972e-1a3d4a36f701',
+              UserMessage: '我是一个好人对不对 不对是吗？',
+              ProductItems: [
+                {
+                  ProductId: 44,
+                  ProductSkuId: 17,
+                  Count: 12,
+                  Amount: 1234.0
+                },
+                {
+                  ProductId: 44,
+                  ProductSkuId: 18,
+                  Count: 28,
+                  Amount: 32814.0
+                }
+              ]
+            }
+          ]
+        var moneyitem =
+          [
+            {
+              MoneyTypeId: 'e97ccd1e-1478-49bd-bfc7-e73a5d699002',
+              Currency: 2,
+              Name: '积分账户',
+              ReduceAmount: 123.0
+            },
+            {
+              MoneyTypeId: 'e97ccd1e-1478-49bd-bfc7-e73a5d699000',
+              Currency: 0,
+              Name: '现金账户',
+              ReduceAmount: 123.0
+            }
+          ]
+
+        let buyInfo = {
+          MonenyItemJson: JSON.stringify(moneyitem),
+          StoreOrderJson: JSON.stringify(storeProduct),
+          AddressId: '72be65e6-3a64-414d-972e-1a3d4a36f123',
+          UserId: 1,
+          TotalAmount: 125656,
+          PaymentAmount: 154,
+          PayType: 4,
+          OrderType: 1
+        }
+
+        var response = await apiService.Buy(buyInfo)
+        console.dir(response)
+        if (response.data.status === 1) {
+          this.payAmount = '1250.23' // 设置实际需支付的金额
+          this.$refs.show_pay.$emit('payMethod', this.payAmount) // 唤起支付窗口
+        } else {
+          this.$vux.toast.warn(response.data.message)
+        }
       },
       async GetData () {
         var buyProductInfo = ''
