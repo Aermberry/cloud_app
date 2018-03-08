@@ -1,4 +1,5 @@
-export default [{
+export default [
+  {
     path: '/order/cart',
     meta: {
       title: '购物车'
@@ -54,17 +55,6 @@ export default [{
     name: 'order_buy',
     component: function (resolve) {
       require(['src/views/shop/order/buy'], resolve)
-    }
-  },
-  {
-    path: '/pay/index',
-    meta: {
-      title: '支付订单',
-      login: true
-    },
-    name: 'pay_index',
-    component: function (resolve) {
-      require(['src/views/shop/pay/index'], resolve)
     }
   },
   {

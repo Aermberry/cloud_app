@@ -1,5 +1,5 @@
 <template>
-  <section class="zkui-order-buyfromproduct">
+  <section class="zkui_order_buy">
     <zk-head title='确认下单' goBack='商品详情'></zk-head>
     <cell title="地址" value="请选择地址" is-link link="/user/buyeraddress/select" v-if="addressBox"></cell>
     <router-link to="/user/buyeraddress/select">
@@ -34,7 +34,7 @@
       </div>
     </group>
     <divider class="divider-bg "></divider>
-    <group class="zkui-order-buy-parameter-amount " v-for="store in modelView.storeProducts " :key="store.storeId ">
+    <group class="order_buy_product " v-for="store in modelView.storeProducts " :key="store.storeId ">
       <div class="weui-panel weui-panel_access ">
         <div class="weui-panel__hd ">{{store.storeName}}</div>
         <div class="weui-panel__bd " v-for="product in store.productItems " :key="product.productSku.id ">
@@ -68,22 +68,18 @@
       </cell>
 
       <divider class="divider-bg "></divider>
-    </group>
-    <group>
-      <popup-radio title="请选择 " :options="showDeliverys " v-model="showDelivery "></popup-radio>
-      <x-textarea title="卖家留言 " placeholder="选填：填写内容已和卖家协商确认 " :show-counter="false " :rows="1 " autosize></x-textarea>
-      <cell>
-        <div>共{{store.totalCount}}商品 小计{{store.totalAmount}}</div>
-      </cell>
+
     </group>
     <tabbar>
       <tabbar-item>
-        <div slot="label " class="total ">
+        <div slot="label" class="total">
           <span>总计</span>
-          <span class="money ">￥{{modelView.totalAmount}}</span>
-          <span class="amount ">共{{modelView.totalCount}}件商品</span>
+          <span class="money">￥{{modelView.totalAmount}}</span>
+          <span class="amount">共{{modelView.totalCount}}件商品</span>
         </div>
-        <x-button slot="customer " type="primary " @click.native="buy ">提交订单</x-button>
+      </tabbar-item>
+      <tabbar-item>
+        <x-button slot="customer" type="primary" @click.native="buy">提交订单</x-button>
       </tabbar-item>
     </tabbar>
     <zk-pay ref="show_pay "></zk-pay>
@@ -142,7 +138,7 @@
     },
     mounted () {
       this.GetData()
-      this.Single()
+      // this.Single()
     },
     methods: {
       async buy () {
@@ -194,7 +190,7 @@
               LoginUserId: 1
             }
           ]
-        // console.dir('商品参数', buyProductInfo)
+        console.dir('商品参数', buyProductInfo)
         let buyInfoInput = {
           loginUserId: store.state.userStore.loginUser.id,
           productJson: JSON.stringify(buyProductInfo)
@@ -234,7 +230,7 @@
 </script>
 
 <style lang="less">
-  .zkui-order-buyfromproduct {
+  .zkui_order_buy {
     margin-bottom: 2.5rem;
     .weui-tabbar {
       position: fixed;
@@ -290,45 +286,46 @@
         border-right: 1px solid #e5e5e5;
       }
     }
-  }
-  .total {
-    float: left;
-    margin-left: 8*@rem;
-    margin-top: 20*@rem;
-    font-weight: bold;
-    color: black;
-    .money {
-      color: @danger;
-      font-size: @h3-font-size;
-    }
-    .amount {
-      margin-left: 55*@rem;
-      color: @gray-500;
-    }
-  }
 
-  .vux-form-preview {
-    .weui-form-preview__hd {
-      label {
-        font-size: @h4-font-size;
-        color: @black;
+    .total {
+      float: left;
+      margin-left: 8*@rem;
+      margin-top: 20*@rem;
+      font-weight: bold;
+      color: black;
+      .money {
+        color: @danger;
+        font-size: @h3-font-size;
+      }
+      .amount {
+        margin-left: 55*@rem;
+        color: @gray-500;
       }
     }
-    .address_particulars {
-      font-size: @h4-font-size;
-      color: @black;
-      text-align: left;
+
+    .vux-form-preview {
+      .weui-form-preview__hd {
+        label {
+          font-size: @h4-font-size;
+          color: @black;
+        }
+      }
+      .address_particulars {
+        font-size: @h4-font-size;
+        color: @black;
+        text-align: left;
+      }
     }
-  }
-  .icon {
-    position: absolute;
-    top: 2.1rem;
-    left: 0.4rem;
-  }
-  .address_name {
-    padding-left: 1.8rem;
-  }
-  .spec {
-    margin-top: 0.5rem;
+    .icon {
+      position: absolute;
+      top: 2.1rem;
+      left: 0.4rem;
+    }
+    .address_name {
+      padding-left: 1.8rem;
+    }
+    .spec {
+      margin-top: 0.5rem;
+    }
   }
 </style>

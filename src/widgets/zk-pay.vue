@@ -23,7 +23,7 @@
         </radio>
       </group>
       <div class="pay-buttom base">
-        <x-button type="primary">立即付款</x-button>
+        <x-button type="primary" @click.native="pay">立即付款</x-button>
       </div>
     </div>
     <!-- <zk-password showPay="false"></zk-password> -->
@@ -85,6 +85,25 @@
           })
         } else {
           this.$vux.toast.warn('支付方式获取失败')
+        }
+      },
+      async pay () {
+        let paras = {
+          clientType: 'wapH5' // this.ClientType // 在gloal中获取支付方式列表
+        }
+        var response = await apiService.Pay(paras) // 获取支付方式列表
+        if (response.data.status === 1) {
+          var pays = response.data.result // 所有的支付方式
+          pays.forEach(element => {
+            var pay = {}
+            pay['key'] = element.payType
+            pay['value'] = element.name
+            pay['icon'] = element.icon
+            pay['desc'] = element.intro
+            this.payTypes.push(pay)
+          })
+        } else {
+          this.$vux.toast.warn(response.data.message)
         }
       },
       change (value, label) {
