@@ -1,38 +1,24 @@
 <template>
   <section class="zkui_order_buy">
     <zk-head title='确认下单' goBack='商品详情'></zk-head>
-    <cell title="地址" value="请选择地址" is-link link="/user/buyeraddress/select" svg="zk-orderaddress" v-if="!hasSelectAddress"></cell>
-    <router-link to="/user/buyeraddress/select" v-if="hasSelectAddress">
-      <div class="vux-form-preview weui-form-preview">
+    <m-icon name="zk-orderaddress" size="2.5rem" class="no-icon"></m-icon>
+    <cell title="地址" value="请选择地址" is-link link="/user/buyeraddress/select" v-if="addressBox">
+    </cell>
+    <router-link to="/user/buyeraddress/select">
+      <div class="vux-form-preview weui-form-preview" v-if="!addressBox">
         <div class="weui-form-preview__hd">
-          <label class="weui-form-preview__label address_name">收货人：{{hasSelectAddress.name}}</label>
-          <em class="weui-form-preview__value">{{hasSelectAddress.mobile}}</em>
+          <label class="weui-form-preview__label address_name">收货人：{{addressMessage.name}}</label>
+          <em class="weui-form-preview__value">{{addressMessage.mobile}}</em>
           <div class="weui-form-preview__item">
             <span class="weui-form-preview__value address_particulars address_name">
               <m-icon name="zk-orderaddress" size="2.5rem" class="icon"></m-icon>
-              收货地址：{{hasSelectAddress.address}}
+              收货地址：{{addressMessage.address}}
             </span>
           </div>
         </div>
       </div>
     </router-link>
-    <group v-show=" !showAddress ">
-      <div class="vux-form-preview weui-form-preview ">
-        <div class="weui-form-preview__hd ">
-          <label class="weui-form-preview__label address_name ">承恩</label>
-          <em class="weui-form-preview__value ">13763166594</em>
-        </div>
-        <div class="weui-form-preview__bd ">
-          <div class="weui-form-preview__item ">
-            <span class="weui-form-preview__value address_particulars ">承恩哥的家
-            </span>
-          </div>
-        </div>
-        <div class="weui-form-preview__ft ">
-        </div>
-      </div>
-    </group>
-    <divider class="divider-bg"></divider>
+    <divider class="divider-bg "></divider>
     <group class="order_buy_product " v-for="store in modelView.storeProducts " :key="store.storeId ">
       <div class="weui-panel weui-panel_access ">
         <div class="weui-panel__hd ">{{store.storeName}}</div>
@@ -48,6 +34,16 @@
                 <router-link :to=" '/product/show/'+product.product.id ">{{product.product.name}}</router-link>
               </h4>
               <p class="weui-media-box__desc spec">
+<<<<<<< HEAD
+
+                <span> {{product.productSku.bn}} {{product.productSku.propertyValueDesc}}</span>
+                <span style="float:right">
+                  <em>￥</em>{{product.productSku.price}}
+                </span>
+                <inline-x-number :min="1 " :v-model="product.count " button-style="round " class="buy-account "></inline-x-number>
+
+=======
+>>>>>>> 29946864cb814aaee6720b528597c947ea106667
                 <span> {{product.productSku.bn}} {{product.productSku.propertyValueDesc}}</span><br>
                 <inline-x-number :min="1 " :v-model="product.count" :value="product.count" button-style="round " class="buy-account "></inline-x-number>
               </p>
@@ -110,8 +106,9 @@
     },
     data () {
       return {
-        hasSelectAddress: false, // 是否选择了地址
-        viewAddressModle: '', // 地址选择模型，选择地址数据
+        selectId: '',
+        addressMessage: '',
+        addressBox: true,
         par: '',
         modelView: '', // 商品数据，从服务器上远程获取
         asyncFlag: false, // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
@@ -122,6 +119,7 @@
           key: 'B',
           value: 'label B'
         }],
+        showAddress: true, // 显示地址
         showPay: false, // 显示支付方式
         payAmount: '', // 需要支付的金额，人民币支付
         showDelivery: '' // 显示物流快递
@@ -129,7 +127,7 @@
     },
     mounted () {
       this.GetData()
-      this.GetUserAddress()
+      this.Single()
     },
     methods: {
       async buy () {
@@ -190,6 +188,7 @@
           PayType: 4,
           OrderType: 1
         }
+
         var response = await apiService.Buy(buyInfo)
         console.dir(response)
         if (response.data.status === 1) {
@@ -227,16 +226,26 @@
           this.asyncFlag = true
         }
       },
-      async GetUserAddress () {
+      async Single () {
         this.par = {
           id: '72BE65E6-3A64-414D-972E-1A3D4A36F123'
         }
-        var addressResponse = await apiUser.SingleAddress(this.par)
-        if (addressResponse.data.status === 1) {
-          this.viewAddressModle = addressResponse.data.result
-          this.hasSelectAddress = true
-        }
+        var address = await apiUser.SingleAddress(this.par)
         this.selectId = this.$route.params.selectId
+
+        // 判断有没获取到默认地址
+        if (address.data.status === 1) {
+          this.addressBox = false
+          this.addressMessage = address.data.result
+        } else if (address.data.status !== 1) {
+          this.addressBox = true
+        }
+        if (typeof (this.selectId) !== 'undefined') {
+          this.par.id = this.selectId
+          console.log(this.selectId)
+          var addressSelect = await apiUser.SingleAddress(this.par)
+          this.addressMessage = addressSelect.data.result
+        }
       }
     }
   }
@@ -329,6 +338,11 @@
         color: @black;
         text-align: left;
       }
+    }
+    .no-icon {
+      position: absolute;
+      top: 1.5rem;
+      left: 0.4rem;
     }
     .icon {
       position: absolute;

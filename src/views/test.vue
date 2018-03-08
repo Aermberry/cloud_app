@@ -1,17 +1,24 @@
 <template>
   <section class="zkuiceshi">
-    <divider>123</divider>
+    <div>
+      <agree>阅读并同意
+        <a href="javascript:void(0);">《相关条款》</a>
+      </agree>
+      <agree v-model="valueTrue">阅读并同意
+        <a href="javascript:void(0);">《相关条款》</a>
+      </agree>
+    </div>
   </section>
 </template>
 
 <script>
-  import { Divider } from 'zkui'
+  import { Agree } from 'zkui'
   export default {
     directives: {
 
     },
     components: {
-      Divider
+      Agree
     },
     mounted () {
 
@@ -21,7 +28,7 @@
     },
     data () {
       return {
-
+        valueTrue: true
       }
     }
   }

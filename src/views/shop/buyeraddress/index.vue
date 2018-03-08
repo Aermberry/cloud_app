@@ -6,8 +6,6 @@
         <div class="weui-form-preview__hd">
           <label class="weui-form-preview__label address_name">{{item.name}}</label>
           <em class="weui-form-preview__value">{{item.mobile}}</em>
-        </div>
-        <div class="weui-form-preview__bd">
           <div class="weui-form-preview__item">
             <span class="weui-form-preview__value address_particulars ">
               {{item.address}}承恩哥的家
@@ -16,11 +14,18 @@
         </div>
         <div class="weui-form-preview__ft">
           <a>
-            <check-icon :value.sync="demo1"> {{ demo1 }}</check-icon>
+            <check-icon :value.sync="demo1">
+              <span class="adress-default">默认地址</span>
+            </check-icon>
           </a>
-          <a>编辑</a>
-          <a @click="AddressDelete(item.id)">删除</a>
+          <a class="editor">
+            <m-icon name="zk-editor" size="1rem" class="editor-icon"></m-icon>编辑
+          </a>
+          <a class="delete" @click="AddressDelete(item.id)">
+            <m-icon name="zk-remove" size="1rem" class="delete-icon"></m-icon>删除
+          </a>
         </div>
+        <divider class="divider-bg "></divider>
       </div>
     </checker>
     <zk-foot></zk-foot>
@@ -92,64 +97,114 @@
         viewModel: '',
         defaultAddress: '2',
         checkerbox: '',
-        demo1: '设为默认',
-        demo2: '默认地址'
+        demo1: false
       }
     }
   }
 </script>
 
 <style lang="less">
-  body {
-    background: @gray-100;
-    padding-bottom: 50*@rem;
-  }
-  .address_name {
-    font-size: 1.2rem;
-    color: @black;
-    text-align-last: none;
-  }
-  .address_particulars {
-    font-size: 1rem;
-    color: @black;
-    text-align: left;
-  }
-  .weui-form-preview {
-    margin-bottom: 0.5rem;
-  }
-  .weui-form-preview__btn {
-    height: 3.33333333rem;
-    line-height: 3.33333333rem;
-  }
-  .vux-x-switch {
-    height: 3.33333333rem;
-    padding: 0;
-  }
-  .weui-cell__ft {
-    height: 3.33333333rem;
-    input {
-      margin-top: 0.35rem;
+  .zkui-user-buyeraddress-index {
+    body {
+      background: @gray-100;
+      padding-bottom: 50*@rem;
     }
-  }
-  .weui-switch:before,
-  .weui-switch-cp__box:before {
-    height: 2.66666667rem !important;
-  }
-  .weui-switch:after,
-  .weui-switch-cp__box:after {
-    height: 2.66666667rem !important;
-    width: 2.66666667rem !important;
-  }
-  .demo2-item {
-    width: 100%;
-    height: 100%;
-    border: 1px solid #ccc;
-    display: inline-block;
-    line-height: 40*@rem;
-    text-align: center;
-  }
-  .demo2-item-selected {
-    border-color: @brand;
+    .address_name {
+      font-size: 1.2rem;
+      color: @black;
+      text-align-last: none;
+    }
+    .address_particulars {
+      font-size: 1rem;
+      color: @black;
+      text-align: left;
+    }
+    .weui-form-preview:after {
+      border-bottom: 0;
+    }
+    .weui-form-preview__btn {
+      height: 3.33333333rem;
+      line-height: 3.33333333rem;
+    }
+    .weui-form-preview__hd {
+      padding: 0.2rem 1.25rem 0.2rem 1.25rem;
+      line-height: 2em;
+      .weui-form-preview__value {
+        font-size: @h5-font-size;
+      }
+    }
+    .weui-form-preview__hd:after {
+      border-bottom: 0;
+    }
+    .weui-form-preview__ft {
+      line-height: 2.2rem;
+    }
+    .weui-icon-circle {
+      font-size: @h4-font-size;
+      color: #c9c9c9;
+    }
+    .weui-icon-success {
+      font-size: @h4-font-size;
+    }
+    [class^='weui-icon-']:before,
+    [class*=' weui-icon-']:before {
+      margin-top: 0;
+      margin-left: 0.5em;
+      margin-right: 0;
+    }
+    .vux-x-switch {
+      height: 3.33333333rem;
+      padding: 0;
+    }
+    .weui-cell__ft {
+      height: 3.33333333rem;
+      input {
+        margin-top: 0.35rem;
+      }
+    }
+    .weui-switch:before,
+    .weui-switch-cp__box:before {
+      height: 2.66666667rem !important;
+    }
+    .weui-switch:after,
+    .weui-switch-cp__box:after {
+      height: 2.66666667rem !important;
+      width: 2.66666667rem !important;
+    }
+    .demo2-item {
+      width: 100%;
+      height: 100%;
+      border: 1px solid #ccc;
+      display: inline-block;
+      line-height: 40*@rem;
+      text-align: center;
+    }
+    .demo2-item-selected {
+      border-color: @brand;
+    }
+    .editor {
+      margin-left: 14.5rem;
+      font-size: @h6-font-size;
+    }
+    .delete {
+      margin-left: 2rem;
+      font-size: @h6-font-size;
+    }
+    .editor-icon {
+      position: absolute;
+      top: 0.4rem;
+      right: 6.9rem;
+      color: @gray-600;
+    }
+    .delete-icon {
+      position: absolute;
+      top: 0.4rem;
+      right: 2.9rem;
+      color: @gray-600;
+    }
+    .adress-default {
+      font-size: @h6-font-size;
+    }
   }
 </style>
 
