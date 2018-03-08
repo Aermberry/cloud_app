@@ -7,7 +7,6 @@
 //  *
 //  *
 //  */
-
 // 项目ID，秘钥，与项目当中的秘钥相同，千万不能泄露，否则会可能会导致数据泄露
 
 const key = '5C017EC7FF0045D1B8B00076067D3B3B'
@@ -23,4 +22,9 @@ if (process.env.NODE_ENV === 'development') {
 } else {
   baseUrl = 'http://139.159.243.8:8001'
 }
-export { baseUrl, routerMode, key, projectId }
+export {
+  baseUrl,
+  routerMode,
+  key,
+  projectId
+}
