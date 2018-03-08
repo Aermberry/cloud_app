@@ -93,6 +93,7 @@
   import apiService from 'src/service/api/order.api'
   import apiUser from 'src/service/api/user.api'
   import store from 'src/store/index'
+  import local from 'src/service/common/local'
 
   export default {
     components: {
@@ -138,58 +139,31 @@
     },
     mounted () {
       this.GetData()
-      // this.Single()
+      this.Single()
     },
     methods: {
       async buy () {
-        // var orderBuyInput = {
-        //   // addressId: '72be65e6-3a64-414d-972e-1a3d4a36f88', // 选择地址Id
-        //   payType: 3, // 支付方式
-        //   totalAmount: 1256.26, // 订单总金额
-        //   paymentAmount: 1250.99, // 订单总金额
-        //   orderType: 1,
-        //   userId: store.state.userStore.loginUser.id // 下单用户ID
-        // }
+        var orderBuyInput = {
+          // addressId: '72be65e6-3a64-414d-972e-1a3d4a36f88', // 选择地址Id
+          payType: 3, // 支付方式
+          totalAmount: 1256.26, // 订单总金额
+          paymentAmount: 1250.99, // 订单总金额
+          orderType: 1,
+          userId: store.state.userStore.loginUser.id // 下单用户ID
+        }
         this.payAmount = '1250.23' // 设置实际需支付的金额
         this.$refs.show_pay.$emit('payMethod', this.payAmount) // 唤起支付窗口
-        // var response = await apiService.Buy(orderBuyInput)
-        // console.dir(response)
+        var response = await apiService.Buy(orderBuyInput)
+        console.dir(response)
       },
       async GetData () {
-        var buyProductInfo = this.$route.params.buyInfo
-        buyProductInfo =
-          [
-            {
-              ProductSkuId: 81,
-              Count: 1,
-              ProductId: 44,
-              LoginUserId: 1
-            },
-            {
-              ProductSkuId: 82,
-              Count: 5,
-              ProductId: 44,
-              LoginUserId: 1
-            },
-            {
-              ProductSkuId: 107,
-              Count: 1,
-              ProductId: 45,
-              LoginUserId: 1
-            },
-            {
-              ProductSkuId: 109,
-              Count: 1,
-              ProductId: 45,
-              LoginUserId: 1
-            },
-            {
-              ProductSkuId: 142,
-              Count: 1,
-              ProductId: 47,
-              LoginUserId: 1
-            }
-          ]
+        if (this.$route.params.buyInfo !== undefined) {
+          var buyProductInfo = this.$route.params.buyInfo
+          local.setStore('order_buy', buyProductInfo)
+        } else {
+          buyProductInfo = local.getStore('order_buy')
+        }
+
         console.dir('商品参数', buyProductInfo)
         let buyInfoInput = {
           loginUserId: store.state.userStore.loginUser.id,
