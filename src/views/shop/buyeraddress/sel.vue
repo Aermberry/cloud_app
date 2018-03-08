@@ -6,8 +6,6 @@
         <div class="weui-form-preview__hd">
           <label class="weui-form-preview__label address_name">{{item.name}}</label>
           <em class="weui-form-preview__value">{{item.mobile}}</em>
-        </div>
-        <div class="weui-form-preview__bd">
           <div class="weui-form-preview__item">
             <span class="weui-form-preview__value address_particulars ">
               {{item.address}}承恩哥的家
@@ -64,56 +62,62 @@
 </script>
 
 <style lang="less">
-  body {
-    background: @gray-100;
-    padding-bottom: 50*@rem;
-  }
-  .address_name {
-    font-size: 1.2rem;
-    color: @black;
-    text-align-last: none;
-  }
-  .address_particulars {
-    font-size: 1rem;
-    color: @black;
-    text-align: left;
-  }
-  .weui-form-preview {
-    margin-bottom: 0.5rem;
-  }
-  .weui-form-preview__btn {
-    height: 3.33333333rem;
-    line-height: 3.33333333rem;
-  }
-  .vux-x-switch {
-    height: 3.33333333rem;
-    padding: 0;
-  }
-  .weui-cell__ft {
-    height: 3.33333333rem;
-    input {
-      margin-top: 0.35rem;
+  .zkui-user-buyeraddress-index {
+    body {
+      background: @gray-100;
+      padding-bottom: 50*@rem;
     }
-  }
-  .weui-switch:before,
-  .weui-switch-cp__box:before {
-    height: 2.66666667rem !important;
-  }
-  .weui-switch:after,
-  .weui-switch-cp__box:after {
-    height: 2.66666667rem !important;
-    width: 2.66666667rem !important;
-  }
-  .demo2-item {
-    width: 100%;
-    height: 100%;
-    border: 1px solid #ccc;
-    display: inline-block;
-    line-height: 40*@rem;
-    text-align: center;
-  }
-  .demo2-item-selected {
-    border-color: @brand;
+    .address_name {
+      font-size: 1.2rem;
+      color: @black;
+      text-align-last: none;
+    }
+    .address_particulars {
+      font-size: 1rem;
+      color: @black;
+      text-align: left;
+    }
+    .weui-form-preview:before {
+      border-top: 0;
+    }
+    .weui-form-preview__btn {
+      height: 3.33333333rem;
+      line-height: 3.33333333rem;
+    }
+    .vux-x-switch {
+      height: 3.33333333rem;
+      padding: 0;
+    }
+    .weui-cell__ft {
+      height: 3.33333333rem;
+      input {
+        margin-top: 0.35rem;
+      }
+    }
+    .weui-switch:before,
+    .weui-switch-cp__box:before {
+      height: 2.66666667rem !important;
+    }
+    .weui-switch:after,
+    .weui-switch-cp__box:after {
+      height: 2.66666667rem !important;
+      width: 2.66666667rem !important;
+    }
+    .demo2-item {
+      width: 100%;
+      height: 100%;
+      border: 1px solid #ccc;
+      display: inline-block;
+      line-height: 40*@rem;
+      text-align: center;
+    }
+    .demo2-item-selected {
+      border-color: @brand;
+    }
+    .weui-form-preview__hd .weui-form-preview__value {
+      font-style: normal;
+      font-size: @h5-font-size;
+    }
   }
 </style>
 

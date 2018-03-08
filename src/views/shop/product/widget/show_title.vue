@@ -70,7 +70,7 @@
   }
   .zkui-product-show-title-content {
     background: #fff;
-    padding: 0.5rem 10*@rem 1rem 10*@rem;
+    padding: 0 10px 0.2rem 10*@rem;
     border-bottom: 1px solid #e5e5e5;
     .sizeColor(@h4-font-size, @gray-600);
   }

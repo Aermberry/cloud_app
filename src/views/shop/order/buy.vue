@@ -1,7 +1,9 @@
 <template>
   <section class="zkui_order_buy">
     <zk-head title='确认下单' goBack='商品详情'></zk-head>
-    <cell title="地址" value="请选择地址" is-link link="/user/buyeraddress/select" v-if="addressBox"></cell>
+    <cell title="地址" value="请选择地址" is-link link="/user/buyeraddress/select" v-if="addressBox">
+      <m-icon name="zk-orderaddress" size="2.5rem" class="icon"></m-icon>
+    </cell>
     <router-link to="/user/buyeraddress/select">
       <div class="vux-form-preview weui-form-preview" v-if="!addressBox">
         <div class="weui-form-preview__hd">
@@ -12,11 +14,11 @@
               <m-icon name="zk-orderaddress" size="2.5rem" class="icon"></m-icon>
               收货地址：{{addressMessage.address}}
             </span>
-
           </div>
         </div>
       </div>
     </router-link>
+<<<<<<< HEAD
     <group v-show=" !showAddress ">
       <div class="vux-form-preview weui-form-preview ">
         <div class="weui-form-preview__hd ">
@@ -34,6 +36,9 @@
       </div>
     </group>
     <divider class="divider-bg"></divider>
+=======
+    <divider class="divider-bg "></divider>
+>>>>>>> 171fab45bcbe4776f102811a6f1337f5c1e8f9ed
     <group class="order_buy_product " v-for="store in modelView.storeProducts " :key="store.storeId ">
       <div class="weui-panel weui-panel_access ">
         <div class="weui-panel__hd ">{{store.storeName}}</div>
@@ -49,33 +54,34 @@
                 <router-link :to=" '/product/show/'+product.product.id ">{{product.product.name}}</router-link>
               </h4>
               <p class="weui-media-box__desc spec">
-                <span> {{product.productSku.bn}} {{product.productSku.propertyValueDesc}}</span><br>
+<<<<<<< HEAD
+                <span> {{product.productSku.bn}} {{product.productSku.propertyValueDesc}}</span>
+                <span style="float:right">
+                  <em>￥</em>{{product.productSku.price}}
+                </span>
                 <inline-x-number :min="1 " :v-model="product.count " button-style="round " class="buy-account "></inline-x-number>
+=======
+                <span> {{product.productSku.bn}} {{product.productSku.propertyValueDesc}}</span><br>
+                <inline-x-number :min="1 " :v-model="product.count" :value="product.count" button-style="round " class="buy-account "></inline-x-number>
+>>>>>>> 2e4493f596fc40fded936c4cc68ce61bb1adc236
               </p>
-
-              <span style="float:right ">
-                <em>￥</em>{{product.productSku.price}}
-              </span>
             </div>
           </div>
         </div>
       </div>
-
       <popup-radio title="请选择 " :options="showDeliverys " v-model="showDelivery "></popup-radio>
       <x-textarea title="卖家留言 " placeholder="选填：填写内容已和卖家协商确认 " :show-counter="false " :rows="1 " autosize></x-textarea>
       <cell>
         <div>共{{store.totalCount}}商品 小计{{store.totalAmount}}</div>
       </cell>
-
       <divider class="divider-bg "></divider>
-
     </group>
     <tabbar>
       <tabbar-item>
         <div slot="label" class="total">
           <span>总计</span>
           <span class="money">￥{{modelView.totalAmount}}</span>
-          <span class="amount">共{{modelView.totalCount}}件商品</span>
+          <span class="total-amount">共{{modelView.totalCount}}件商品</span>
         </div>
       </tabbar-item>
       <tabbar-item>
@@ -93,6 +99,7 @@
   import apiService from 'src/service/api/order.api'
   import apiUser from 'src/service/api/user.api'
   import store from 'src/store/index'
+  import local from 'src/service/common/local'
 
   export default {
     components: {
@@ -138,7 +145,7 @@
     },
     mounted () {
       this.GetData()
-      // this.Single()
+      this.Single()
     },
     methods: {
       async buy () {
@@ -150,59 +157,92 @@
         //   orderType: 1,
         //   userId: store.state.userStore.loginUser.id // 下单用户ID
         // }
-        this.payAmount = '1250.23' // 设置实际需支付的金额
-        this.$refs.show_pay.$emit('payMethod', this.payAmount) // 唤起支付窗口
-        // var response = await apiService.Buy(orderBuyInput)
-        // console.dir(response)
-      },
-      async GetData () {
-        var buyProductInfo = this.$route.params.buyInfo
-        buyProductInfo =
+
+        var storeProduct =
           [
             {
-              ProductSkuId: 81,
-              Count: 1,
-              ProductId: 44,
-              LoginUserId: 1
-            },
-            {
-              ProductSkuId: 82,
-              Count: 5,
-              ProductId: 44,
-              LoginUserId: 1
-            },
-            {
-              ProductSkuId: 107,
-              Count: 1,
-              ProductId: 45,
-              LoginUserId: 1
-            },
-            {
-              ProductSkuId: 109,
-              Count: 1,
-              ProductId: 45,
-              LoginUserId: 1
-            },
-            {
-              ProductSkuId: 142,
-              Count: 1,
-              ProductId: 47,
-              LoginUserId: 1
+              StoreId: 6,
+              DeliveryId: '72be65e6-3a64-414d-972e-1a3d4a36f701',
+              UserMessage: '我是一个好人对不对 不对是吗？',
+              ProductItems: [
+                {
+                  ProductId: 44,
+                  ProductSkuId: 17,
+                  Count: 12,
+                  Amount: 1234.0
+                },
+                {
+                  ProductId: 44,
+                  ProductSkuId: 18,
+                  Count: 28,
+                  Amount: 32814.0
+                }
+              ]
             }
           ]
-        console.dir('商品参数', buyProductInfo)
-        let buyInfoInput = {
-          loginUserId: store.state.userStore.loginUser.id,
-          productJson: JSON.stringify(buyProductInfo)
+        var moneyitem =
+          [
+            {
+              MoneyTypeId: 'e97ccd1e-1478-49bd-bfc7-e73a5d699002',
+              Currency: 2,
+              Name: '积分账户',
+              ReduceAmount: 123.0
+            },
+            {
+              MoneyTypeId: 'e97ccd1e-1478-49bd-bfc7-e73a5d699000',
+              Currency: 0,
+              Name: '现金账户',
+              ReduceAmount: 123.0
+            }
+          ]
+
+        let buyInfo = {
+          MonenyItemJson: JSON.stringify(moneyitem),
+          StoreOrderJson: JSON.stringify(storeProduct),
+          AddressId: '72be65e6-3a64-414d-972e-1a3d4a36f123',
+          UserId: 1,
+          TotalAmount: 125656,
+          PaymentAmount: 154,
+          PayType: 4,
+          OrderType: 1
         }
-        var response = await apiService.buyProduct(buyInfoInput)
-        if (response.data.status !== 1) {
-          this.messageWarn(response.data.message)
+
+        var response = await apiService.Buy(buyInfo)
+        console.dir(response)
+        if (response.data.status === 1) {
+          this.payAmount = '1250.23' // 设置实际需支付的金额
+          this.$refs.show_pay.$emit('payMethod', this.payAmount) // 唤起支付窗口
         } else {
-          this.modelView = response.data.result
+          this.$vux.toast.warn(response.data.message)
         }
-        this.modelView = response.data.result
-        this.asyncFlag = true
+      },
+      async GetData () {
+        var buyProductInfo = ''
+        if (this.$route.params.buyInfo !== undefined) {
+          buyProductInfo = this.$route.params.buyInfo
+          local.setStore('order_buy', buyProductInfo) // 将购买信息写到缓存中
+        } else {
+          buyProductInfo = local.getStore('order_buy') // 刷新时从缓冲中读取数据
+        }
+        if (buyProductInfo === undefined) {
+          this.$vux.toast.warn('暂无商品，清先购买商品')
+          this.$router.push({
+            name: 'commont_index'
+          })
+        } else {
+          let buyInfoInput = {
+            loginUserId: store.state.userStore.loginUser.id,
+            productJson: JSON.stringify(buyProductInfo)
+          }
+          var response = await apiService.buyProduct(buyInfoInput)
+          if (response.data.status !== 1) {
+            this.messageWarn(response.data.message)
+          } else {
+            this.modelView = response.data.result
+          }
+          this.modelView = response.data.result
+          this.asyncFlag = true
+        }
       },
       async Single () {
         this.par = {
@@ -297,28 +337,29 @@
         color: @danger;
         font-size: @h3-font-size;
       }
-      .amount {
-        margin-left: 55*@rem;
-        color: @gray-500;
+      .total-amount {
+        margin-left: 105*@rem;
+        position: absolute;
+        color: #adb5bd;
+        top: 20*@rem;
       }
     }
 
     .vux-form-preview {
       .weui-form-preview__hd {
+        line-height: 2em;
         label {
-          font-size: @h4-font-size;
           color: @black;
         }
       }
       .address_particulars {
-        font-size: @h4-font-size;
         color: @black;
         text-align: left;
       }
     }
     .icon {
       position: absolute;
-      top: 2.1rem;
+      top: 1.5rem;
       left: 0.4rem;
     }
     .address_name {
@@ -326,6 +367,24 @@
     }
     .spec {
       margin-top: 0.5rem;
+    }
+    .weui-form-preview__value {
+      font-size: @h4-font-size;
+    }
+    .vux-inline-x-number {
+      float: right;
+      margin-top: 1rem;
+    }
+    .vux-number-selector-plus {
+      padding: 0 0.66666667rem;
+      margin-right: 0;
+    }
+    .weui-media-box__title {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+      white-space: pre;
     }
   }
 </style>

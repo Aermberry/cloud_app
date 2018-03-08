@@ -15,11 +15,11 @@
           </div>
         </div>
         <div class="weui-form-preview__ft">
-          <a href="javascript:" class="weui-form-preview__btn weui-form-preview__btn_default">
-            <checker-item :value="item.id" @click.native="cutDefault(item,item.id)" :class="{'demo2-item-selected':item.active}">是否默认</checker-item>
+          <a>
+            <check-icon :value.sync="demo1"> {{ demo1 }}</check-icon>
           </a>
-          <a href="javascript:" class="weui-form-preview__btn weui-form-preview__btn_default">编辑</a>
-          <a href="javascript:" class="weui-form-preview__btn weui-form-preview__btn_primary" @click="AddressDelete(item.id)">删除</a>
+          <a>编辑</a>
+          <a @click="AddressDelete(item.id)">删除</a>
         </div>
       </div>
     </checker>
@@ -29,7 +29,7 @@
 
 <script>
   import apiUser from 'src/service/api/user.api'
-  import { Checker, CheckerItem, Divider, Group, Cell, Popup, TransferDom, FormPreview } from 'zkui'
+  import { Checker, CheckerItem, Divider, Group, Cell, Popup, TransferDom, FormPreview, CheckIcon } from 'zkui'
   export default {
     directives: {
       TransferDom
@@ -41,7 +41,8 @@
       Divider,
       Group,
       Cell,
-      Popup
+      Popup,
+      CheckIcon
     },
     mounted () {
       this.GetData()
@@ -90,7 +91,9 @@
       return {
         viewModel: '',
         defaultAddress: '2',
-        checkerbox: ''
+        checkerbox: '',
+        demo1: '设为默认',
+        demo2: '默认地址'
       }
     }
   }

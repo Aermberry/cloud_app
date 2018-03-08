@@ -44,39 +44,41 @@
 <style lang="less">
   // @import 'zkui/src/styles/zkui.less';
   //全局变量CSS，颜色，大小，边框，尺寸，尽量使用变量库里头的变量，请悉知所有变量
-  .zkui-product-search {
-    height: 60px !important;
-    width: 95%;
-    float: right;
-  }
-  .zkui-product_search-item {
-    width: 100%;
-    margin-left: 1rem;
-    ul {
+  .zkui-shop-product-search {
+    .zkui-product-search {
+      height: 60px !important;
+      width: 95%;
+      float: right;
+    }
+    .zkui-product_search-item {
       width: 100%;
-      list-style: none;
-      li {
-        text-align: center;
-        float: left;
-        margin-right: 3%;
-        margin-top: 0.6rem;
-        padding: 0.3rem 0.7rem 0.2rem 0.7rem;
-        border: 1px solid #e5e5e5;
-        background-color: #e5e5e5 !important;
-        border-radius: 4*@rem;
-        h3 {
-          color: #666;
+      margin-left: 1rem;
+      ul {
+        width: 100%;
+        list-style: none;
+        li {
+          text-align: center;
+          float: left;
+          margin-right: 3%;
+          margin-top: 0.6rem;
+          padding: 0.3rem 0.7rem 0.2rem 0.7rem;
+          border: 1px solid #e5e5e5;
+          background-color: #e5e5e5 !important;
+          border-radius: 4*@rem;
+          h3 {
+            color: #666;
+          }
         }
       }
     }
-  }
-  .weui-search-bar__box {
-    position: relative;
-    padding-left: 7.5rem;
-  }
-  button.weui-btn,
-  input.weui-btn {
-    width: 5%;
-    float: left;
+    .weui-search-bar__box {
+      position: relative;
+      padding-left: 7.5rem;
+    }
+    button.weui-btn,
+    input.weui-btn {
+      width: 5%;
+      float: left;
+    }
   }
 </style>
