@@ -20612,32 +20612,3 @@
   }
 
 </script>
-
-<style lang="less">
-  .reward-list-buttom {
-    padding: 3rem 1rem;
-    button {
-      padding: 0.8rem 0;
-      font-size: @h4-font-size;
-    }
-  }
-  .weui-switch:before,
-  .weui-switch-cp__box:before {
-    height: 2.66666667rem !important;
-  }
-  .weui-switch:after,
-  .weui-switch-cp__box:after {
-    height: 2.66666667rem !important;
-    width: 2.66666667rem !important;
-  }
-  .weui-cells:after {
-    content: none !important;
-  }
-  .vux-popup-picker-value {
-    display: none !important;
-  }
-  .weui-cells {
-    margin-top: 0 !important;
-  }
-</style>
-
