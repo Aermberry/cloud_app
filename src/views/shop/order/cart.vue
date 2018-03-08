@@ -31,10 +31,6 @@
                     <div slot="content" class="demo-content " style="height:7.8rem">
                       <ul class="flex order-cart-commodity-box">
                         <li class="order-cart-commodity-left">
-                          <!-- <div class="label">
-                            <input type="checkbox" />
-                          </div> -->
-
                           <div class="weui-cells weui-cells_checkbox">
                             <label :for="index" class="weui-cell weui-check_label car_item-left">
                               <div class="weui-cell__hd"><input type="checkbox" name="vux-checkbox-yqyep" :id="index" class="weui-check" value="04">
@@ -55,8 +51,7 @@
                                 <li class="price_now">￥{{item.product.price}}</li>
                                 <li class="price_old">￥{{item.product.displayPrice}}</li>
                                 <li class="flex_one price_num">
-                                  <!-- ×{{item.count}} -->
-                                  <inline-x-number style="display:block;" :min="0" width="25px" button-style="round" v-model="item.count"></inline-x-number>
+                                  <inline-x-number style="display:block;" :min="0" width="2rem" button-style="round" v-model="item.count"></inline-x-number>
                                 </li>
                               </ul>
                             </div>
@@ -126,8 +121,8 @@
       Cell,
       MIcon,
       XButton,
-      GroupTitle,
       Checklist,
+      GroupTitle,
       Swipeout,
       SwipeoutItem,
       SwipeoutButton,
@@ -307,14 +302,18 @@
                       position: relative;
                     }
                     .vux-number-selector-sub > svg {
+                      width: 1.3rem;
+                      height: 1.3rem;
                       position: absolute;
-                      top: 0;
-                      left: -0.08rem;
+                      top: -0.07rem;
+                      left: -0.05rem;
                     }
                     .vux-number-selector-plus > svg {
+                      width: 1.3rem;
+                      height: 1.3rem;
                       position: absolute;
-                      top: -0.15rem;
-                      left: -0.15rem;
+                      top: -0.07rem;
+                      left: -0.07rem;
                     }
                     .vux-number-input {
                       font-size: 1.3rem;

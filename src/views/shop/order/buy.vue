@@ -1,9 +1,10 @@
 <template>
   <section class="zkui_order_buy">
     <zk-head title='确认下单' goBack='商品详情'></zk-head>
-    <cell title="地址" value="请选择地址" is-link link="/user/buyeraddress/select" v-if="addressBox">
+    <div class="zkui_order_buy-address">
       <m-icon name="zk-orderaddress" size="2.5rem" class="icon"></m-icon>
-    </cell>
+      <cell title="地址" value="请选择地址" is-link link="/user/buyeraddress/select" v-if="addressBox"> </cell>
+    </div>
     <router-link to="/user/buyeraddress/select">
       <div class="vux-form-preview weui-form-preview" v-if="!addressBox">
         <div class="weui-form-preview__hd">
@@ -19,28 +20,40 @@
       </div>
     </router-link>
     <divider class="divider-bg "></divider>
+    <!-- ------------------------------------------------------ -->
     <group class="order_buy_product " v-for="store in modelView.storeProducts " :key="store.storeId ">
-      <div class="weui-panel weui-panel_access ">
-        <div class="weui-panel__hd ">{{store.storeName}}</div>
-        <div class="weui-panel__bd " v-for="product in store.productItems " :key="product.productSku.id ">
-          <div class="weui-media-box weui-media-box_appmsg ">
-            <div class="weui-media-box__hd ">
-              <router-link :to=" '/product/show/'+product.product.id ">
-                <img :src="product.product.thumbnailUrl " :alt="product.product.name " class="weui-media-box__thumb ">
-              </router-link>
-            </div>
-            <div class="weui-media-box__bd ">
-              <h4 class="weui-media-box__title ">
-                <router-link :to=" '/product/show/'+product.product.id ">{{product.product.name}}</router-link>
-              </h4>
-              <p class="weui-media-box__desc spec">
-                <span> {{product.productSku.bn}} {{product.productSku.propertyValueDesc}}</span><br>
-                <inline-x-number :min="1 " :v-model="product.count" :value="product.count" button-style="round " class="buy-account "></inline-x-number>
-              </p>
-            </div>
-          </div>
+      <div class="item-contnet">
+        <div class="weui-cells weui-cells_checkbox">
+          <cell :title="store.storeName"> </cell>
         </div>
+        <ul>
+          <li class="zkui-order-cart-item" v-for="product in store.productItems " :key="product.productSku.id ">
+            <div class="order-cart-commodity">
+              <div class="demo-content " style="height: 7.8rem;">
+                <ul class="flex order-cart-commodity-box">
+                  <li class="flex_one">
+                    <div class="order-cart-commodit-into flex">
+                      <div class="order-cart-commodity-into_left"><img :src="product.product.thumbnailUrl " alt=""></div>
+                      <div class="flex_one order-cart-commodity-into_right ">
+                        <p>{{product.product.name}}</p>
+                        <span>{{product.productSku.bn}} {{product.productSku.propertyValueDesc}} </span>
+                        <ul class="flex">
+                          <li class="price_now"> </li>
+                          <li class="price_old"> </li>
+                          <li class="flex_one price_num">
+                            <inline-x-number style="display:block;" :min="0" width="2rem" button-style="round" v-model="product.count" :value="product.count"></inline-x-number>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
+      <!-- --------------------------------------------------- -->
       <popup-radio title="请选择 " :options="showDeliverys " v-model="showDelivery "></popup-radio>
       <x-textarea title="卖家留言 " placeholder="选填：填写内容已和卖家协商确认 " :show-counter="false " :rows="1 " autosize></x-textarea>
       <cell>
@@ -96,10 +109,10 @@
     },
     data () {
       return {
-        selectId: '',
+        selectId: '', // 从选择地址页面获取的id
         addressMessage: '',
         addressBox: true,
-        par: '',
+        par: '', // 测试如果有默认地址情况的
         modelView: '', // 商品数据，从服务器上远程获取
         asyncFlag: false, // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
         showDeliverys: [{
@@ -329,11 +342,6 @@
         text-align: left;
       }
     }
-    .icon {
-      position: absolute;
-      top: 1.5rem;
-      left: 0.4rem;
-    }
     .address_name {
       padding-left: 1.8rem;
     }
@@ -357,6 +365,133 @@
       -webkit-line-clamp: 3;
       overflow: hidden;
       white-space: pre;
+    }
+    .zkui_order_buy-address {
+      .icon {
+        position: absolute;
+        top: 3rem;
+      }
+      .weui-cell {
+        .vux-cell-bd {
+          .vux-label {
+            padding-left: 1rem;
+          }
+        }
+      }
+    }
+    .item-contnet {
+      .weui-cells {
+        margin-top: 0;
+      }
+      .weui-cells_checkbox {
+        .cart_item-title {
+          padding: 0.3rem 0;
+          border-bottom: 1px solid rgba(229, 229, 229, 0.5);
+        }
+      }
+      ul {
+        .zkui-order-cart-item {
+          .order-cart-commodity {
+            height: 7.8rem;
+            .order-cart-commodit-into {
+              height: 100%;
+              .order-cart-commodity-into_left {
+                width: 6.5rem;
+                height: 6.5rem;
+                margin-top: 0.8rem;
+                margin-left: 10*@rem;
+                img {
+                  width: 100%;
+                  height: 100%;
+                }
+              }
+              .order-cart-commodity-into_right {
+                border-bottom: 1px solid rgba(229, 229, 229, 0.5);
+                margin-top: 0.8rem;
+                padding: 0 0.8rem;
+                position: relative;
+                height: 7rem;
+                p {
+                  font-size: @h6-font-size;
+                  color: @black;
+                }
+                span {
+                  font-size: 0.8rem;
+                  color: @gray-500;
+                }
+                ul {
+                  width: 95%;
+                  position: absolute;
+                  left: 10*@rem;
+                  bottom: 10*@rem;
+                  height: 2rem;
+                  vertical-align: bottom;
+                  align-items: flex-end;
+                  li.price_now {
+                    color: @danger;
+                    font-size: @h4-font-size;
+                    font-weight: bold;
+                  }
+                  li.price_old {
+                    padding-left: 5*@rem;
+                    text-decoration: line-through;
+                    color: @gray-500;
+                  }
+                  li.price_num {
+                    text-align: right;
+                    color: @gray-500;
+                    padding-right: 10*@rem;
+                    padding-left: 10*@rem;
+                    .vux-number-round {
+                      height: 1.3rem;
+                      .vux-number-selector {
+                        width: 1.3rem;
+                        height: 1.3rem;
+                        position: relative;
+                      }
+                      .vux-number-selector-sub > svg {
+                        width: 1.3rem;
+                        height: 1.3rem;
+                        position: absolute;
+                        top: -0.07rem;
+                        left: -0.05rem;
+                      }
+                      .vux-number-selector-plus > svg {
+                        width: 1.3rem;
+                        height: 1.3rem;
+                        position: absolute;
+                        top: -0.07rem;
+                        left: -0.07rem;
+                      }
+                      .vux-number-input {
+                        font-size: 1.3rem;
+                        height: 1.3rem;
+                      }
+                    }
+                    .vux-number-round > div {
+                      display: flex;
+                      justify-content: flex-end;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .flex {
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+    }
+    .flex_one {
+      -ms-flex: 1;
+      -moz-box-flex: 1;
+      -webkit-flex: 1;
+      flex: 1;
     }
   }
 </style>
