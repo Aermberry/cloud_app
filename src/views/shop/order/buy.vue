@@ -118,7 +118,7 @@
     },
     mounted () {
       this.GetData()
-      this.Single()
+      this.GetUserAddress()
     },
     methods: {
       async buy () {
@@ -217,7 +217,7 @@
           this.asyncFlag = true
         }
       },
-      async Single () {
+      async GetUserAddress () {
         this.par = {
           id: '72BE65E6-3A64-414D-972E-1A3D4A36F123'
         }
