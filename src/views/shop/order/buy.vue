@@ -82,7 +82,7 @@
         <x-button slot="customer" type="primary" @click.native="buy">提交订单</x-button>
       </tabbar-item>
     </tabbar>
-    <zk-pay ref="show_pay "></zk-pay>
+    <zk-pay ref="show_pay"></zk-pay>
   </section>
 
 </template>
@@ -142,18 +142,18 @@
     },
     methods: {
       async buy () {
-        var orderBuyInput = {
-          // addressId: '72be65e6-3a64-414d-972e-1a3d4a36f88', // 选择地址Id
-          payType: 3, // 支付方式
-          totalAmount: 1256.26, // 订单总金额
-          paymentAmount: 1250.99, // 订单总金额
-          orderType: 1,
-          userId: store.state.userStore.loginUser.id // 下单用户ID
-        }
+        // var orderBuyInput = {
+        //   // addressId: '72be65e6-3a64-414d-972e-1a3d4a36f88', // 选择地址Id
+        //   payType: 3, // 支付方式
+        //   totalAmount: 1256.26, // 订单总金额
+        //   paymentAmount: 1250.99, // 订单总金额
+        //   orderType: 1,
+        //   userId: store.state.userStore.loginUser.id // 下单用户ID
+        // }
         this.payAmount = '1250.23' // 设置实际需支付的金额
         this.$refs.show_pay.$emit('payMethod', this.payAmount) // 唤起支付窗口
-        var response = await apiService.Buy(orderBuyInput)
-        console.dir(response)
+        // var response = await apiService.Buy(orderBuyInput)
+        // console.dir(response)
       },
       async GetData () {
         var buyProductInfo = this.$route.params.buyInfo

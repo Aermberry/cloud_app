@@ -117,6 +117,11 @@
   @import '../assets/css/zkui/theme';
   .zk-pay {
     height: 60vh;
+    .pay-index {
+      .weui-cell {
+        padding: 0 1.25rem !important;
+      }
+    }
     .pay-pupop {
       background-color: #fff;
       height: 100%;
@@ -137,12 +142,12 @@
       }
     }
     .pay-index {
-      padding-top: 8rem;
+      padding-top: 3rem;
       margin-bottom: 3rem;
     }
     .sale-info-close {
-      width: 1.3rem;
-      height: 1.3rem;
+      width: 1.5rem;
+      height: 1.5rem;
       border-radius: 50%;
       -moz-border-radius: 50%;
       -webkit-border-radius: 50%;
@@ -150,6 +155,7 @@
       position: absolute;
       padding: 0.32rem;
       background-color: @brand;
+      padding-top: 0px;
     }
     .sale-info-close::after {
       content: '\2716'; //特殊字符或形状，一个勾
@@ -174,14 +180,15 @@
       margin-top: 8rem;
       position: fixed;
       width: 100%;
-      height: auto;
+      height: 2.5rem;
       overflow-y: auto;
       z-index: 5;
       background-color: white;
       bottom: 0px;
-    }
-    .weui-btn {
-      border-radius: 0;
+      .weui-btn {
+        border-radius: 0;
+        height: 2.5rem;
+      }
     }
   }
 </style>
