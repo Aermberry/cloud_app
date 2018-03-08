@@ -20,7 +20,6 @@
       </div>
     </router-link>
     <divider class="divider-bg "></divider>
-    <!-- ------------------------------------------------------ -->
     <group class="order_buy_product " v-for="store in modelView.storeProducts " :key="store.storeId ">
       <div class="item-contnet">
         <div class="weui-cells weui-cells_checkbox">
@@ -41,6 +40,7 @@
                           <li class="price_now"> </li>
                           <li class="price_old"> </li>
                           <li class="flex_one price_num">
+                            <!-- ×{{item.count}} -->
                             <inline-x-number style="display:block;" :min="0" width="2rem" button-style="round" v-model="product.count" :value="product.count"></inline-x-number>
                           </li>
                         </ul>
@@ -53,7 +53,6 @@
           </li>
         </ul>
       </div>
-      <!-- --------------------------------------------------- -->
       <popup-radio title="请选择 " :options="showDeliverys " v-model="showDelivery "></popup-radio>
       <x-textarea title="卖家留言 " placeholder="选填：填写内容已和卖家协商确认 " :show-counter="false " :rows="1 " autosize></x-textarea>
       <cell>

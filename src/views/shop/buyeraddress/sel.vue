@@ -77,6 +77,10 @@
       color: @black;
       text-align: left;
     }
+    .weui-form-preview__hd {
+      padding: 0.2rem 1.25rem 0.2rem 1.25rem;
+      line-height: 2em;
+    }
     .weui-form-preview:before {
       border-top: 0;
     }
