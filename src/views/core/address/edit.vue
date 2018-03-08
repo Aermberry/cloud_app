@@ -4,9 +4,8 @@
     <group>
       <x-input title="收件人姓名" required type="text" v-model="recipients"></x-input>
       <x-input title="手机号码" required type="text" mask="999 9999 9999" v-model="relationPhone" :max="13" is-type="mobile"></x-input>
-      <popup-picker title="选择地址" :data="list3" :columns="3" v-model="value3" ref="picker3"></popup-picker>
-      <cell title="你选择的地址" :value="$refs.picker3&&$refs.picker3.getNameValues()"></cell>
-      <x-textarea :max="200" placeholder="详细地址" autosize v-model="detailedAddress"></x-textarea>
+      <popup-picker title="选择地址" :data="list3" :columns="3" v-model="value3" ref="picker3" show-name></popup-picker>
+      <x-textarea :max="200" placeholder="输入详细地址" title="详细地址" :rows="2" v-model="detailedAddress" :show-counter="false"></x-textarea>
       <x-switch title="设置为默认地址" v-model="stringValue" class="border-bottom"></x-switch>
       <box gap="2rem 0.6rem">
         <x-button type="primary" @click.native="GetData()" action-type="button"> 保存</x-button>

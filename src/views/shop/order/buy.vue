@@ -53,7 +53,9 @@
           </li>
         </ul>
       </div>
-      <popup-radio title="请选择 " :options="store.expressTemplates" v-model="showDelivery"></popup-radio>
+      <popup-radio title="请选择 " :options="store.expressTemplates" v-model="showDelivery">
+        <p slot="popup-header" class="border-bottom popup-header">选择快递方式</p>
+      </popup-radio>
       <x-textarea title="卖家留言 " placeholder="选填：填写内容已和卖家协商确认 " :show-counter="false " :rows="1 " autosize></x-textarea>
       <cell>
         <div>共{{store.totalCount}}商品 小计{{store.totalAmount}}</div>
