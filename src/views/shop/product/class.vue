@@ -147,6 +147,9 @@
     -moz-box-flex: 1;
     -webkit-flex: 1;
     flex: 1;
+    .vux-swiper {
+      height: 70vh !important;
+    }
   }
 
   .weui-grids::after,

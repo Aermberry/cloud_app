@@ -4,12 +4,16 @@
       <router-link to="/product/search" class="zkui-default-search-box">
         <search placeholder="搜索您想要的商品"></search>
       </router-link>
-      <m-icon name="zk-qrcode1" class="icon-brand index-qrcode mr-1 mt-1" link="/user/qrcode" size="1rem"></m-icon>
+      <m-icon name="zk-qrcode1" class="icon-brand index-qrcode " link="/user/qrcode" size="1rem"></m-icon>
     </div>
     <zk-swiper diykey="swiper_index" height="210px"></zk-swiper>
     <zk-grid diykey="grid_index" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
 
-    <group-title>流行单品</group-title>
+    <group-title>
+      <div class="fashion-title">
+        流行单品
+      </div>
+    </group-title>
     <zk-product-item :pageSize=4 classIds='' tagsId='' diykey='index'></zk-product-item>
 
     <zk-foot></zk-foot>
@@ -45,7 +49,12 @@
       background-color: transparent !important;
       opacity: 0.7;
     }
-
+    .weui-search-bar:before {
+      content: none;
+    }
+    .weui-search-bar:after {
+      content: none;
+    }
     .index-search {
       display: -webkit-box;
       display: -moz-box;
@@ -64,6 +73,8 @@
       width: 30*@rem;
       height: 30*@rem;
       overflow: hidden;
+      margin-top: 0.5rem;
+      margin-right: 0.5rem;
     }
     .weui-grid__icon {
       width: 0;
@@ -80,6 +91,36 @@
     }
     .index-qrcode > div {
       margin: 10px 0 0 5*@rem;
+    }
+
+    .scroller {
+      .mescroll-upwarp {
+        padding: 0;
+      }
+    }
+    .weui-cells__title {
+      padding-left: 0;
+      .fashion-title {
+        height: 2rem;
+        line-height: 2rem;
+        width: 6.5rem;
+        color: @light;
+        background: @warning;
+        padding-left: 1.5rem;
+        font-weight: @font-weight-bold;
+        position: relative;
+      }
+      .fashion-title:before {
+        content: '';
+        display: block;
+        position: absolute;
+        right: -1rem;
+        top: 0;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        background: @warning;
+      }
     }
   }
 </style>
