@@ -1,7 +1,6 @@
 <template>
   <section class="zkui_order_buy__address">
-    <zk-head title='确认下单' goBack='商品详情'>
-    </zk-head>
+    <zk-head goBack='商品详情'></zk-head>
     <div @click="selectAddress" v-if="!hasSelectAddress">
       <group class="mt-0">
         <cell title="地址" value="请选择地址" is-link svg='zk-orderaddress'> </cell>

@@ -39,6 +39,7 @@
     },
     mounted () {
       this.GetData()
+      console.info('路由', this.$route)
     },
     methods: {
       async GetData () {

@@ -1,6 +1,6 @@
 
 <template>
-  <x-header :left-options="{backText: this.goBack }" class="zk-head-fixed">{{this.title}}
+  <x-header :left-options="{backText: this.goBack }" class="zk-head-fixed">{{headerTitle}}
     <slot name="right" slot="right"></slot>
   </x-header>
 </template>
@@ -9,6 +9,7 @@
   export default {
     data () {
       return {
+        headerTitle: '' // 头部标题
       }
     },
     components: {
@@ -16,6 +17,25 @@
     },
     directives: {
       TransferDom
+    },
+    mounted () {
+      this.setTitle()
+    },
+    methods: {
+      // 设置标题
+      setTitle () {
+        if (this.title === undefined) {
+          if (this.$route.meta !== undefined) {
+            let routerTitle = this.$route.meta.title
+            if (routerTitle !== undefined) {
+              this.headerTitle = routerTitle
+              // console.info('路由信息', this.$route.meta.title)
+            }
+          }
+        } else {
+          this.headerTitle = this.title
+        }
+      }
     },
     props: ['title', 'goBack']
   }

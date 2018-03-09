@@ -291,9 +291,7 @@
         text-align: left;
       }
     }
-    .address_name {
-      padding-left: 1.8rem;
-    }
+
     .spec {
       margin-top: 0.5rem;
     }
@@ -314,19 +312,6 @@
       -webkit-line-clamp: 3;
       overflow: hidden;
       white-space: pre;
-    }
-    .zkui_order_buy-address {
-      .icon {
-        position: absolute;
-        top: 3rem;
-      }
-      .weui-cell {
-        .vux-cell-bd {
-          .vux-label {
-            padding-left: 1rem;
-          }
-        }
-      }
     }
     .item-contnet {
       .weui-cells {
