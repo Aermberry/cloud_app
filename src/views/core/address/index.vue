@@ -1,7 +1,7 @@
 <template>
   <section class="user_address">
     <zk-head title='收货地址' goBack='会员中心'></zk-head>
-    <checker v-model="checkerbox" default-item-class="check-icon-item" type="radio" selected-item-class="check-icon-item-selected">
+    <checker v-model="defaultCheck" default-item-class="check-icon-item" type="radio" selected-item-class="check-icon-item-selected">
       <div class="vux-form-preview weui-form-preview" v-for="(item,index) in viewModel" :key="index">
         <div class="weui-form-preview__hd">
           <label class="weui-form-preview__label address_name">{{item.name}}</label>
@@ -14,10 +14,10 @@
         </div>
         <div class="weui-form-preview__ft">
           <div class="editor_default">
-            <checker-item :value="item.id" type="default"></checker-item>
+            <checker-item :value="item.id" type="default" @on-item-click="setDefault"></checker-item>
           </div>
           <div class="editor_delete">
-            <a class="editor">
+            <a class="editor" @click="edit(item.id)">
               <m-icon name="zk-editor" size="1rem" class="editor-icon metal"></m-icon>
               <span>编辑</span>
             </a>
@@ -39,6 +39,7 @@
 
 <script>
   import apiUser from 'src/service/api/user.api'
+  // import store from 'src/store/index'
   import { Checker, CheckerItem, Divider, Group, Cell, Popup, TransferDom, FormPreview, CheckIcon, XButton } from 'zkui'
   export default {
     directives: {
@@ -64,11 +65,16 @@
         var response = await apiUser.GetAddress()
         if (response.data.status === 1) {
           this.viewModel = response.data.result
+          this.viewModel.forEach(element => {
+            if (element.isDefault) {
+              this.defaultCheck = element.id
+            }
+          })
         } else {
           this.messageWarn(response.data.message)
         }
       },
-      // 添加默认地址
+      // 删除地址
       async AddressDelete (id) {
         console.log(id)
         let parament = {
@@ -83,20 +89,6 @@
           this.$vux.toast.warn('删除失败')
         }
       },
-      // 设置默认地址
-      async cutDefault (item, id) {
-        console.log(item)
-        let par = {
-          id: id,
-          isDefault: true
-        }
-        var isDefault = await apiUser.UpdateAddress(par)
-        if (isDefault.data.status === 1) {
-          this.$vux.toast.success('设置成功')
-        } else {
-          this.$vux.toast.warn('设置失败')
-        }
-      },
       // 添加地址
       add () {
         this.$router.push({
@@ -104,19 +96,33 @@
         })
       },
       // 设置为默认地址
-      setDefault (item, id) {
-        console.log('change', item, id)
+      async setDefault (item) {
+        let param = {
+          loginUserId: 1,
+          id: item
+        }
+        var isDefault = await apiUser.setDefault(param)
+        if (isDefault.data.status === 1) {
+          this.$vux.toast.success('设置成功')
+        } else {
+          this.$vux.toast.warn(isDefault.data.message)
+        }
       },
       // 编辑地址
-      edit () {
-
+      edit (item) {
+        console.dir(item)
+        this.$router.push({
+          name: 'address_edit',
+          params: {
+            id: item
+          }
+        })
       }
     },
     data () {
       return {
-        viewModel: '',
-        defaultAddress: '2',
-        checkerbox: ''
+        viewModel: '', // 数据模型
+        defaultCheck: '' // 选中地址
       }
     }
   }

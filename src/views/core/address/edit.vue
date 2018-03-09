@@ -36,6 +36,8 @@
       ZkAddress
     },
     mounted () {
+      var id = this.$route.params.id
+      alert(id)
       this.addressData = address.addressData
       if (this.addressInput.name === undefined) {
         this.addressInput.name = store.state.userStore.loginUser.name
@@ -51,7 +53,6 @@
         this.addressInput.country = this.addressValue[2]
         this.addressInput.mobile = this.addressInput.mobile.replace(/\s+/g, '')
         this.addressInput.loginUserId = store.state.userStore.loginUser.id
-
         console.info('address', this.addressInput)
         var response = await userService.AddAddress(this.addressInput)
         if (response.data.status === 1) {
