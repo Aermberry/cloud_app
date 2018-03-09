@@ -4,7 +4,7 @@
     <group>
       <x-input title="收件人姓名" required type="text" v-model="addressInput.name"></x-input>
       <x-input title="手机号码" required type="text" mask="999 9999 9999" v-model="addressInput.mobile" :max="13" is-type="mobile" class="border-bottom"></x-input>
-      <zk-address></zk-address>
+      <zk-address v-model="addressValue" ref="picker3"></zk-address>
       <x-textarea :max="100" placeholder="输入详细地址" title="详细地址" :rows="2" v-model="addressInput.address" :show-counter="false"></x-textarea>
       <x-switch title="设置为默认地址" v-model="addressInput.isDefault" class="border-bottom"></x-switch>
       <box gap="2rem 0.6rem">

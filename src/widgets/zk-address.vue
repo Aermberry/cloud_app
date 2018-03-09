@@ -5,11 +5,11 @@
 </template>
 
 <script>
-  import { PopupPicker, Group } from 'zkui'
+  import { PopupPicker } from 'zkui'
   export default {
     name: 'zk-address',
     components: {
-      PopupPicker, Group
+      PopupPicker
     },
     data () {
       return {
