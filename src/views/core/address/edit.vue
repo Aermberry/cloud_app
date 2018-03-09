@@ -38,12 +38,14 @@
     },
     methods: {
       async save () {
-        console.log(addressInput)
+
         this.addressInput.province = this.addressValue[0]
         this.addressInput.city = this.addressValue[1]
         this.addressInput.country = this.addressValue[2]
+        this.addressInput.mobile = this.addressInput.mobile.replace(/\s+/g, '')
 
-        var response = await userService.AddAddress(addressInput)
+        console.info('address', this.addressInput)
+        var response = await userService.AddAddress(this.addressInput)
         if (response.data.status === 1) {
           this.$vux.toast.success('添加成功')
           this.$router.push({
@@ -52,30 +54,20 @@
         } else {
           this.$vux.toast.warn(response.data.message)
         }
-      },
-      onClick (newVal, oldVal) {
-        console.log(newVal, oldVal)
-        this.$vux.loading.show({
-          text: 'in processing'
-        })
-        setTimeout(() => {
-          this.$vux.loading.hide()
-          this.value2 = newVal
-        }, 1000)
       }
     },
     data () {
       return {
         addressInput: {
-          isDefault: '',
-          mobile: '',
-          zipCode: '',
-          moblie: '',
+          // isDefault: '',
+          // mobile: '',
+          // zipCode: '',
+          // moblie: '',
           address: '',
-          name: '',
-          province: '',
-          city: '',
-          country: ''
+          name: ''
+          // province: '',
+          // city: '',
+          // country: ''
         },
         addressValue: ''
       }
