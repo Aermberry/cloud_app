@@ -8,7 +8,7 @@
     </group>
 
     <div v-transfer-dom>
-      <popup v-model="showSale" class="zk-product-showSale" max-height="70%" is-transparent>
+      <popup v-model="showSale" class="zk-product-showSale" max-height="80%" is-transparent>
         <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem;">
           <dl class="sale-info goods-information">
             <dt class="sale-info-img">
@@ -54,7 +54,7 @@
             <cell v-for="(item, index) in productView.productExtensions.productCategory.displayPropertys " :key="index " :title="item.name " :value="item.displayValue " v-if="item.isSale==false "></cell>
           </group>
           <div class="base">
-            <x-button type="primary " @click.native="showParameter=false" class="goods-title"></x-button>
+            <x-button type="primary " @click.native="showParameter=false" class="goods-title">确定</x-button>
           </div>
         </div>
       </popup>
@@ -166,6 +166,9 @@
   @import '../../../../assets/css/zkui/theme';
   @import '../../../../assets/css/zkui/mixin';
   .zkui-product-show-parameter {
+    .vux-label {
+      font-weight: @font-weight-normal;
+    }
     .weui-cell {
       padding: 1rem 1.5rem 1rem 1.5rem;
     }
@@ -187,6 +190,9 @@
     .weui-cells__content {
       min-height: 240*@rem;
     }
+    .weui-cell__ft {
+      font-weight: @font-weight-normal;
+    }
   }
 
   .zk-product-showSale {
@@ -197,12 +203,20 @@
         width: 65%;
         margin-right: 15*@rem;
         padding-top: 2*@rem;
+        font-weight: @font-weight-normal;
+      }
+      dd.sale-info-name {
+        color: @black;
+        font-family: Helvetica;
       }
       .sale-info-price {
-        font-weight: border;
+        font-weight: bold;
         span {
           text-decoration: line-through;
           font-weight: 100;
+          color: @black;
+          font-family: Helvetica;
+          font-weight: @font-weight-normal;
         }
       }
       .sale-info-close {
@@ -245,9 +259,17 @@
         min-height: 100*@rem;
         dt {
           width: 100%;
-          height: 20*@rem;
-          margin: 8*@rem 0 0 8*@rem;
-          font-weight: border;
+          height: 28*@rem;
+          padding: 8*@rem 0 0 1.25rem;
+          font-weight: bold;
+        }
+        dd:after {
+          content: '';
+          display: block;
+          visibility: hidden;
+          width: 0;
+          height: 0;
+          clear: both;
         }
         dd {
           width: 100%;
@@ -262,6 +284,7 @@
             margin: 5*@rem 5*@rem 5*@rem 5*@rem;
             border-radius: 4*@rem;
             line-height: 18*@rem;
+            font-weight: @font-weight-normal;
           }
           .sale-item-selected {
             background-color: @brand;
@@ -275,6 +298,12 @@
     }
   }
   .zkui-product-show-parameter-amount {
+    .vux-label {
+      font-weight: @font-weight-bold;
+    }
+    .vux-number-input {
+      font-weight: @font-weight-normal;
+    }
     .weui-cells {
       margin-top: 0;
     }
@@ -322,17 +351,29 @@
     justify-content: center;
     padding-right: 1.25rem;
     color: #999999;
-    position: fixed;
     min-height: 40px;
     z-index: 5;
     background-color: white;
+    position: relative;
+  }
+  .goods-information:after {
+    content: ' ';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 0.08333333rem;
+    border-bottom: 1px solid #c7c7c7;
+    color: #c7c7c7;
+    -webkit-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
   }
   .goods-select {
-    padding-top: 5.8rem;
     margin-bottom: 2.9rem;
   }
   .base {
-    margin-top: 8rem;
     position: fixed;
     width: 100%;
     height: auto;
@@ -341,5 +382,12 @@
     z-index: 5;
     background-color: white;
     bottom: 0px;
+  }
+  .weui-cell__ft {
+    font-weight: @font-weight-normal;
+  }
+  div.goods-title {
+    color: @black;
+    font-size: @h4-font-size;
   }
 </style>

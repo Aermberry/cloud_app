@@ -57,22 +57,28 @@
         color: @brand;
         height: 1.3rem;
         padding-top: 1*@rem;
+        font-weight: @font-weight-normal;
       }
       .zkui-product-show-title-price_old {
         padding-left: 5*@rem;
         text-decoration: line-through;
+        font-weight: @font-weight-normal;
       }
     }
     .zkui-product-show-title-right {
       margin-top: 0.2rem;
       padding-left: 85*@rem;
+      font-weight: @font-weight-normal;
     }
   }
   .zkui-product-show-title-content {
     background: #fff;
     padding: 0 10px 0.2rem 10*@rem;
     border-bottom: 1px solid #e5e5e5;
-    .sizeColor(@h4-font-size, @gray-600);
+    font-weight: @font-weight-normal;
+    font-weight: 400;
+    font-family: Helvetica;
+    .sizeColor(@h4-font-size, @black);
   }
 
   .zkui-product-show-serve-box {
@@ -86,6 +92,7 @@
       color: @gray-600;
       margin-left: 0.5rem;
       line-height: 2.9rem;
+      font-weight: @font-weight-normal;
     }
     li.zkui-product-show-serve-item-more {
       -ms-flex: 1;

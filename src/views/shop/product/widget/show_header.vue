@@ -35,12 +35,20 @@
     }
   }
 </script>
-<style>
+<style lang="less">
+  @import '../../../../assets/css/zkui/theme';
+  @import '../../../../assets/css/zkui/mixin';
   .zk-head-fixed {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 9950;
+  }
+  .vux-button-tab-item {
+    font-weight: @font-weight-normal;
+  }
+  .overwrite-title-demo-bak {
+    margin-top: 0.15rem;
   }
 </style>
