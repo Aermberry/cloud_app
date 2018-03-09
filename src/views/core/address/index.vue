@@ -1,7 +1,7 @@
 <template>
   <section class="user_address">
     <zk-head title='收货地址' goBack='会员中心'></zk-head>
-    <checker v-model="checkerbox" default-item-class="demo2-item" selected-item-class="demo2-item-selected">
+    <checker v-model="checkerbox" default-item-class="check-icon-item" type="radio" selected-item-class="check-icon-item-selected">
       <div class="vux-form-preview weui-form-preview" v-for="(item,index) in viewModel" :key="index">
         <div class="weui-form-preview__hd">
           <label class="weui-form-preview__label address_name">{{item.name}}</label>
@@ -13,17 +13,19 @@
           </div>
         </div>
         <div class="weui-form-preview__ft">
-          <a>
-            <check-icon :value.sync="demo1">
-              <span class="adress-default">默认地址</span>
-            </check-icon>
-          </a>
-          <a class="editor">
-            <m-icon name="zk-editor" size="1rem" class="editor-icon"></m-icon>编辑
-          </a>
-          <a class="delete" @click="AddressDelete(item.id)">
-            <m-icon name="zk-remove" size="1rem" class="delete-icon"></m-icon>删除
-          </a>
+          <div class="editor_default">
+            <checker-item :value="item.id" type="default"></checker-item>
+          </div>
+          <div class="editor_delete">
+            <a class="editor">
+              <m-icon name="zk-editor" size="1rem" class="editor-icon metal"></m-icon>
+              <span>编辑</span>
+            </a>
+            <a class="delete" @click="AddressDelete(item.id)">
+              <m-icon name="zk-remove" size="1rem" class="delete-icon brand"></m-icon>
+              <span>删除</span>
+            </a>
+          </div>
         </div>
         <divider class="divider-bg "></divider>
       </div>
@@ -57,10 +59,14 @@
       this.GetData()
     },
     methods: {
+      // 获取地址
       async GetData () {
         var response = await apiUser.GetAddress()
-        this.viewModel = response.data.result
-        console.log(this.viewModel)
+        if (response.data.status === 1) {
+          this.viewModel = response.data.result
+        } else {
+          this.messageWarn(response.data.message)
+        }
       },
       // 添加默认地址
       async AddressDelete (id) {
@@ -91,18 +97,26 @@
           this.$vux.toast.warn('设置失败')
         }
       },
+      // 添加地址
       add () {
         this.$router.push({
           name: 'address_edit'
         })
+      },
+      // 设置为默认地址
+      setDefault (item, id) {
+        console.log('change', item, id)
+      },
+      // 编辑地址
+      edit () {
+
       }
     },
     data () {
       return {
         viewModel: '',
         defaultAddress: '2',
-        checkerbox: '',
-        demo1: false
+        checkerbox: ''
       }
     }
   }
@@ -144,19 +158,6 @@
     .weui-form-preview__ft {
       line-height: 2.2rem;
     }
-    .weui-icon-circle {
-      font-size: @h4-font-size;
-      color: #c9c9c9;
-    }
-    .weui-icon-success {
-      font-size: @h4-font-size;
-    }
-    [class^='weui-icon-']:before,
-    [class*=' weui-icon-']:before {
-      margin-top: 0;
-      margin-left: 0.5em;
-      margin-right: 0;
-    }
     .vux-x-switch {
       height: 3.33333333rem;
       padding: 0;
@@ -176,36 +177,33 @@
       height: 2.66666667rem !important;
       width: 2.66666667rem !important;
     }
-    .demo2-item {
-      width: 100%;
-      height: 100%;
-      border: 1px solid #ccc;
-      display: inline-block;
-      line-height: 40*@rem;
-      text-align: center;
+    .editor_default {
+      width: 70%;
+      float: left;
     }
-    .demo2-item-selected {
-      border-color: @brand;
-    }
-    .editor {
-      margin-left: 14.5rem;
+    .editor_delete {
+      display: block;
+      width: 30%;
+      float: right;
       font-size: @h6-font-size;
-    }
-    .delete {
-      margin-left: 2rem;
-      font-size: @h6-font-size;
-    }
-    .editor-icon {
-      position: absolute;
-      top: 0.4rem;
-      right: 6.9rem;
-      color: @gray-600;
-    }
-    .delete-icon {
-      position: absolute;
-      top: 0.4rem;
-      right: 2.9rem;
-      color: @gray-600;
+      .editor {
+        span {
+          left: 1rem;
+        }
+        svg {
+          top: 0.4rem;
+          left: 0rem;
+        }
+      }
+      .delete {
+        span {
+          left: 3rem;
+        }
+        svg {
+          top: 0.4rem;
+          left: 2rem;
+        }
+      }
     }
     .adress-default {
       font-size: @h6-font-size;
