@@ -119,7 +119,6 @@ export default {
   },
   // 设置默认地址
   async setDefault (data) {
-    console.dir(data)
     var response = await http.postLogin('/UserAddress/SetDefault', data)
     return response
   },

@@ -14,7 +14,7 @@
         </div>
         <div class="weui-form-preview__ft">
           <div class="editor_default">
-            <checker-item :value="item.id" type="default" @on-item-click="setDefault"></checker-item>
+            <checker-item :value="item.id" type="default" @on-item-click="setDefault">默认地址</checker-item>
           </div>
           <div class="editor_delete">
             <a class="editor" @click="edit(item.id)">
@@ -39,7 +39,6 @@
 
 <script>
   import apiUser from 'src/service/api/user.api'
-  // import store from 'src/store/index'
   import { Checker, CheckerItem, Divider, Group, Cell, Popup, TransferDom, FormPreview, CheckIcon, XButton } from 'zkui'
   export default {
     directives: {
@@ -98,7 +97,7 @@
       // 设置为默认地址
       async setDefault (item) {
         let param = {
-          loginUserId: 1,
+          userId: this.LoginUser().id,
           id: item
         }
         var isDefault = await apiUser.setDefault(param)

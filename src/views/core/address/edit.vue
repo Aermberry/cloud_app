@@ -3,7 +3,7 @@
     <zk-head title='添加地址' goBack='收货地址'></zk-head>
     <group>
       <x-input title="收件人姓名" required type="text" v-model="addressInput.name"></x-input>
-      <x-input title="手机号码" required type="text" mask="999 9999 9999" v-model="addressInput.mobile" :max="13" is-type="mobile" class="border-bottom"></x-input>
+      <x-input title="手机号码" required type="text" mask="999 9999 9999" v-model="addressInput.mobile" :max="13" is-type="mobile" ></x-input>
       <popup-picker title="选择区域" :data="addressData" :columns="3" show-name v-model="addressValue" ref="addressRef"></popup-picker>
       <x-textarea :max="40" placeholder="输入详细地址" title="详细地址" :rows="2" v-model="addressInput.address"></x-textarea>
       <x-switch title="设置为默认地址" v-model="addressInput.isDefault" class="border-bottom"></x-switch>
