@@ -190,7 +190,7 @@ export default [
     },
     name: 'address_index',
     component: function (resolve) {
-      require(['src/views/core/address/edit'], resolve)
+      require(['src/views/core/address/index'], resolve)
     }
   },
   {

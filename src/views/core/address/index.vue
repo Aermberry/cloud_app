@@ -8,7 +8,7 @@
           <em class="weui-form-preview__value">{{item.mobile}}</em>
           <div class="weui-form-preview__item">
             <span class="weui-form-preview__value address_particulars ">
-              {{item.address}}
+              {{item.addressDescription}}
             </span>
           </div>
         </div>
