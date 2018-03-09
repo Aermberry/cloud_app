@@ -1,6 +1,8 @@
 <template>
   <section class="zkui-user-address-edit">
-    <zk-head :title='addressTitle' goBack='收货地址'></zk-head>
+    <zk-head :title='addressTitle' goBack='收货地址'>
+      <a slot="right" href="/user/address/index">管理</a>
+    </zk-head>
     <group>
       <x-input title="收件人姓名" required type="text" v-model="addressInput.name"></x-input>
       <x-input title="手机号码" required type="text" mask="999 9999 9999" v-model="addressInput.mobile" :max="13" is-type="mobile"></x-input>

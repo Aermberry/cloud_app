@@ -1,6 +1,8 @@
 <template>
   <section class="user_address">
-    <zk-head :title='addressTitle' goBack='会员中心'></zk-head>
+    <zk-head :title='addressTitle' goBack=''>
+      <a slot="right" v-if="selectType" href="/user/address/index">管理</a>
+    </zk-head>
     <checker v-model="defaultCheck" default-item-class="check-icon-item" type="radio" selected-item-class="check-icon-item-selected">
       <div class="vux-form-preview weui-form-preview" v-for="(item,index) in viewModel" :key="index" @click="selectAddress(item.id)">
         <div class="weui-form-preview__hd">
@@ -16,7 +18,7 @@
           <div class="editor_default">
             <checker-item :value="item.id" type="default" @on-item-click="setDefault">默认地址</checker-item>
           </div>
-          <div class="editor_delete">
+          <div class="editor_delete" v-if="!selectType">
             <a class="editor" @click="edit(item.id)">
               <m-icon name="zk-editor" size="1rem" class="editor-icon metal"></m-icon>
               <span>编辑</span>
@@ -39,6 +41,7 @@
 
 <script>
   import apiUser from 'src/service/api/user.api'
+  import local from 'src/service/common/local'
   import { Checker, CheckerItem, Divider, Group, Cell, Popup, TransferDom, FormPreview, CheckIcon, XButton } from 'zkui'
   export default {
     directives: {
@@ -127,11 +130,20 @@
           })
         }
       },
-      selectAddress (id) {
-        console.info('选择的地址Id', id)
-        this.$router.push({
-          name: 'order_buy'
-        })
+      // 选择地址，同时将地址写入缓存中
+      async selectAddress (id) {
+        if (this.selectType) {
+          let param = {
+            id: id
+          }
+          var response = await apiUser.SingleAddress(param)
+          if (response.data.status === 1) {
+            local.setStore('default_address', response.data.result) // 将地址信息写到缓存中
+          }
+          this.$router.push({
+            name: 'order_buy'
+          })
+        }
       }
     },
     data () {
