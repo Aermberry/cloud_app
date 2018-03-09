@@ -14,7 +14,7 @@
         <span slot="label">购物车</span>
       </tabbar-item>
       <tabbar-item>
-        <x-button slot="customer" type="default" @click.native="showSaleProperty">加入购物车</x-button>
+        <x-button slot="customer" type="warn" @click.native="showSaleProperty">加入购物车</x-button>
       </tabbar-item>
       <tabbar-item>
         <x-button slot="customer" type="primary" @click.native="showSaleProperty">立即购买</x-button>

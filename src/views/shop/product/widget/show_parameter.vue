@@ -39,8 +39,8 @@
 
           <div class="base">
             <button-tab>
-              <button-tab-item type="default " @click.native="addToCart ">加入购物车</button-tab-item>
-              <button-tab-item type="primary " @click.native="buyProduct ">立即购买</button-tab-item>
+              <button-tab-item type="warn" @click.native="addToCart ">加入购物车</button-tab-item>
+              <button-tab-item type="primary" @click.native="buyProduct ">立即购买</button-tab-item>
             </button-tab>
           </div>
         </div>
