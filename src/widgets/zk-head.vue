@@ -29,7 +29,7 @@
             let routerTitle = this.$route.meta.title
             if (routerTitle !== undefined) {
               this.headerTitle = routerTitle
-              console.info('路由信息', this.$router)
+              // console.info('路由信息', this.$router)
             }
           }
         } else {

@@ -1,6 +1,7 @@
 <template>
   <section>
     <zk-head></zk-head>
+    <router-link to="test">测试压面</router-link>
     <zk-foot></zk-foot>
 
   </section>
@@ -25,7 +26,7 @@
     methods: {
       // 设置标题
       setTitle () {
-         console.info('路由信息', this.$router)
+        console.info('路由信息', this.$router)
       }
     },
     props: ['title', 'goBack']
