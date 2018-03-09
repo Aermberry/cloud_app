@@ -47,7 +47,7 @@
     mounted () {
       this.addFootprint()
       this.getFavorite()
-      this.loginUser = this.loginUser()
+      this.loginUser = this.LoginUser()
     },
     methods: {
       addFootprint () { // 添加足迹

@@ -1,8 +1,8 @@
 <template>
   <section class="user_address">
-    <zk-head title='收货地址' goBack='会员中心'></zk-head>
+    <zk-head :title='addressTitle' goBack='会员中心'></zk-head>
     <checker v-model="defaultCheck" default-item-class="check-icon-item" type="radio" selected-item-class="check-icon-item-selected">
-      <div class="vux-form-preview weui-form-preview" v-for="(item,index) in viewModel" :key="index">
+      <div class="vux-form-preview weui-form-preview" v-for="(item,index) in viewModel" :key="index" @click="selectAddress(item.id)">
         <div class="weui-form-preview__hd">
           <label class="weui-form-preview__label address_name">{{item.name}}</label>
           <em class="weui-form-preview__value">{{item.mobile}}</em>
@@ -57,6 +57,9 @@
     },
     mounted () {
       this.GetData()
+      if (this.selectType) {
+        this.addressTitle = '选择地址'
+      }
     },
     methods: {
       // 获取地址
@@ -96,31 +99,39 @@
       },
       // 设置为默认地址
       async setDefault (item) {
-        let param = {
-          userId: this.LoginUser().id,
-          id: item
-        }
-        var isDefault = await apiUser.setDefault(param)
-        if (isDefault.data.status === 1) {
-          this.$vux.toast.success('设置成功')
-        } else {
-          this.$vux.toast.warn(isDefault.data.message)
+        if (!this.selectType) {
+          let param = {
+            userId: this.LoginUser().id,
+            id: item
+          }
+          var isDefault = await apiUser.setDefault(param)
+          if (isDefault.data.status === 1) {
+            this.$vux.toast.success('设置成功')
+          } else {
+            this.$vux.toast.warn(isDefault.data.message)
+          }
         }
       },
       // 编辑地址
       edit (item) {
-        console.dir(item)
-        this.$router.push({
-          name: 'address_edit',
-          params: {
-            id: item
-          }
-        })
+        if (!this.selectType) {
+          this.$router.push({
+            name: 'address_edit',
+            params: {
+              id: item
+            }
+          })
+        }
+      },
+      selectAddress (id) {
+        console.info('选择的地址Id', id)
       }
     },
     data () {
       return {
         viewModel: '', // 数据模型
+        selectType: false, // 地址选择默认，如果是选择地址的时为true
+        addressTitle: '地址管理',
         defaultCheck: '' // 选中地址
       }
     }

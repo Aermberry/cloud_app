@@ -3,7 +3,7 @@
     <zk-head :title='addressTitle' goBack='收货地址'></zk-head>
     <group>
       <x-input title="收件人姓名" required type="text" v-model="addressInput.name"></x-input>
-      <x-input title="手机号码" required type="text" mask="999 9999 9999" v-model="addressInput.mobile" :max="13" is-type="mobile" ></x-input>
+      <x-input title="手机号码" required type="text" mask="999 9999 9999" v-model="addressInput.mobile" :max="13" is-type="mobile"></x-input>
       <popup-picker title="选择区域" :data="addressData" :columns="3" show-name v-model="addressValue" ref="addressRef"></popup-picker>
       <x-textarea :max="40" placeholder="输入详细地址" title="详细地址" :rows="2" v-model="addressInput.address"></x-textarea>
       <x-switch title="设置为默认地址" v-model="addressInput.isDefault" class="border-bottom"></x-switch>
@@ -40,8 +40,8 @@
     },
     methods: {
       async GetData () {
+        this.addressData = address.addressData
         var id = this.$route.params.id
-        console.log(id)
         if (id !== undefined) {
           this.addressTitle = '编辑地址'
           // 编辑地址，重新赋值
@@ -49,24 +49,30 @@
             id: id
           }
           var response = await userService.SingleAddress(parament)
-          this.addressInput = response.data.result
+          if (response.data.status === 1) {
+            this.addressInput = response.data.result
+            this.addressValue = [this.addressInput.province.toString(), this.addressInput.city.toString(), this.addressInput.country.toString()]
+            console.info('点击地址时数组', this.addressValue)
+          } else {
+            this.$vux.toast.warn(response.data.message)
+          }
         } else {
           this.addressData = address.addressData
           if (this.addressInput.name === undefined) {
-            this.addressInput.name = this.loginUser().name
+            this.addressInput.name = this.LoginUser().name
           }
           if (this.addressInput.mobile === undefined) {
-            this.addressInput.mobile = this.loginUser().mobile
+            this.addressInput.mobile = this.LoginUser().mobile
           }
         }
       },
       async save () {
-        console.dir(this.addressValue)
+        console.info('区域Id数', this.addressValue)
         this.addressInput.province = this.addressValue[0]
         this.addressInput.city = this.addressValue[1]
         this.addressInput.country = this.addressValue[2]
         this.addressInput.mobile = this.addressInput.mobile.replace(/\s+/g, '')
-        this.addressInput.loginUserId = this.loginUser().id
+        this.addressInput.loginUserId = this.LoginUser().id
         console.info('address', this.addressInput)
         var response = await userService.AddAddress(this.addressInput)
         if (response.data.status === 1) {

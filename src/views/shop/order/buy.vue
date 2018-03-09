@@ -134,7 +134,7 @@
         //   totalAmount: 1256.26, // 订单总金额
         //   paymentAmount: 1250.99, // 订单总金额
         //   orderType: 1,
-        //   userId: this.loginUser().id // 下单用户ID
+        //   userId: this.LoginUser().id // 下单用户ID
         // }
 
         var storeProduct =
@@ -210,7 +210,7 @@
           })
         } else {
           let buyInfoInput = {
-            loginUserId: this.loginUser().id,
+            loginUserId: this.LoginUser().id,
             productJson: JSON.stringify(buyProductInfo)
           }
           var response = await apiService.buyProduct(buyInfoInput)

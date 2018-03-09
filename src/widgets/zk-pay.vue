@@ -67,7 +67,7 @@
     },
     methods: {
       async init () {
-        this.userName = this.loginUser().userName
+        this.userName = this.LoginUser().userName
         let paras = {
           clientType: 'wapH5' // this.ClientType // 在gloal中获取支付方式列表
         }

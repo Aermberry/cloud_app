@@ -127,7 +127,7 @@
           ProductSkuId: this.selectSku.id,
           Count: this.buyCount,
           ProductId: this.productView.id,
-          LoginUserId: this.loginUser().id
+          LoginUserId: this.LoginUser().id
         }]
         this.showSale = false
         this.$router.push({
