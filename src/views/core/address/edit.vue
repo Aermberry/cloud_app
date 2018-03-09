@@ -37,17 +37,23 @@
     },
     mounted () {
       var id = this.$route.params.id
-      alert(id)
-      this.addressData = address.addressData
-      if (this.addressInput.name === undefined) {
-        this.addressInput.name = store.state.userStore.loginUser.name
-      }
-      if (this.addressInput.mobile === undefined) {
-        this.addressInput.mobile = store.state.userStore.loginUser.mobile
+      if (id !== undefined) {
+        // 编辑地址，重新赋值
+        // var response = await userService.SingleAddress(id)
+        // this.addressInput = response.data.result
+      } else {
+        this.addressData = address.addressData
+        if (this.addressInput.name === undefined) {
+          this.addressInput.name = store.state.userStore.loginUser.name
+        }
+        if (this.addressInput.mobile === undefined) {
+          this.addressInput.mobile = store.state.userStore.loginUser.mobile
+        }
       }
     },
     methods: {
       async save () {
+        console.dir(this.addressValue)
         this.addressInput.province = this.addressValue[0]
         this.addressInput.city = this.addressValue[1]
         this.addressInput.country = this.addressValue[2]
@@ -63,9 +69,6 @@
         } else {
           this.$vux.toast.warn(response.data.message)
         }
-      },
-      onChange () {
-        alert('23232323')
       }
     },
     data () {
