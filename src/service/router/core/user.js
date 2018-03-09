@@ -177,6 +177,9 @@ export default [
       title: '添加地址',
       login: true
     },
+    params: {
+      id: ''
+    },
     name: 'address_edit',
     component: function (resolve) {
       require(['src/views/core/address/edit'], resolve)

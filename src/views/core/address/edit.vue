@@ -36,22 +36,29 @@
       ZkAddress
     },
     mounted () {
-      this.addressData = address.addressData
-      if (this.addressInput.name === undefined) {
-        this.addressInput.name = store.state.userStore.loginUser.name
-      }
-      if (this.addressInput.mobile === undefined) {
-        this.addressInput.mobile = store.state.userStore.loginUser.mobile
+      var id = this.$route.params.id
+      if (id !== undefined) {
+        // 编辑地址，重新赋值
+        // var response = await userService.SingleAddress(id)
+        // this.addressInput = response.data.result
+      } else {
+        this.addressData = address.addressData
+        if (this.addressInput.name === undefined) {
+          this.addressInput.name = store.state.userStore.loginUser.name
+        }
+        if (this.addressInput.mobile === undefined) {
+          this.addressInput.mobile = store.state.userStore.loginUser.mobile
+        }
       }
     },
     methods: {
       async save () {
+        console.dir(this.addressValue)
         this.addressInput.province = this.addressValue[0]
         this.addressInput.city = this.addressValue[1]
         this.addressInput.country = this.addressValue[2]
         this.addressInput.mobile = this.addressInput.mobile.replace(/\s+/g, '')
         this.addressInput.loginUserId = store.state.userStore.loginUser.id
-
         console.info('address', this.addressInput)
         var response = await userService.AddAddress(this.addressInput)
         if (response.data.status === 1) {
@@ -62,9 +69,6 @@
         } else {
           this.$vux.toast.warn(response.data.message)
         }
-      },
-      onChange () {
-        alert('23232323')
       }
     },
     data () {
