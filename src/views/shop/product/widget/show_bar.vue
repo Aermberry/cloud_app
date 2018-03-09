@@ -25,7 +25,7 @@
 
 <script>
   import userService from 'src/service/api/user.api'
-  import store from 'src/store/index'
+
   import helper from 'src/service/common/helper'
   import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton } from 'zkui'
   export default {
@@ -47,7 +47,7 @@
     mounted () {
       this.addFootprint()
       this.getFavorite()
-      this.loginUser = store.state.userStore.loginUser
+      this.loginUser = this.loginUser()
     },
     methods: {
       addFootprint () { // 添加足迹

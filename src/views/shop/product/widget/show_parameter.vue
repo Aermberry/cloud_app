@@ -64,7 +64,7 @@
 <script>
   import { Group, Checker, CheckerItem, Divider, GroupTitle, Cell, TransferDom, Popup, XButton, XSwitch, InlineXNumber, ButtonTab, ButtonTabItem } from 'zkui'
   import userService from 'src/service/api/user.api'
-  import store from 'src/store/index'
+
   export default {
     components: {
       Group, Cell, TransferDom, Popup, XButton, XSwitch, GroupTitle, InlineXNumber, ButtonTab, ButtonTabItem, Checker, CheckerItem, Divider
@@ -127,7 +127,7 @@
           ProductSkuId: this.selectSku.id,
           Count: this.buyCount,
           ProductId: this.productView.id,
-          LoginUserId: store.state.userStore.loginUser.id
+          LoginUserId: this.loginUser().id
         }]
         this.showSale = false
         this.$router.push({

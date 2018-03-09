@@ -16,7 +16,7 @@
 
 <script>
   import userService from 'src/service/api/user.api'
-  import store from 'src/store/index'
+
   import { Group, Box, XButton, Cell, Picker, Divider, XSwitch, XTextarea, PopupPicker, XInput } from 'zkui'
   import { ZkAddress } from 'widgets/address'
   import address from 'src/service/common/address'
@@ -53,10 +53,10 @@
         } else {
           this.addressData = address.addressData
           if (this.addressInput.name === undefined) {
-            this.addressInput.name = store.state.userStore.loginUser.name
+            this.addressInput.name = this.loginUser().name
           }
           if (this.addressInput.mobile === undefined) {
-            this.addressInput.mobile = store.state.userStore.loginUser.mobile
+            this.addressInput.mobile = this.loginUser().mobile
           }
         }
       },
@@ -66,7 +66,7 @@
         this.addressInput.city = this.addressValue[1]
         this.addressInput.country = this.addressValue[2]
         this.addressInput.mobile = this.addressInput.mobile.replace(/\s+/g, '')
-        this.addressInput.loginUserId = store.state.userStore.loginUser.id
+        this.addressInput.loginUserId = this.loginUser().id
         console.info('address', this.addressInput)
         var response = await userService.AddAddress(this.addressInput)
         if (response.data.status === 1) {

@@ -34,7 +34,6 @@
   import { Popup, Group, Cell, XButton, TransferDom, Radio, MIcon } from 'zkui'
   import apiService from 'src/service/api/pay.api'
   // import { ZkPassword } from 'widgets'
-  import store from 'src/store/index'
   export default {
     name: 'zk-pay',
     components: {
@@ -68,7 +67,7 @@
     },
     methods: {
       async init () {
-        this.userName = store.state.userStore.loginUser.userName
+        this.userName = this.loginUser().userName
         let paras = {
           clientType: 'wapH5' // this.ClientType // 在gloal中获取支付方式列表
         }
