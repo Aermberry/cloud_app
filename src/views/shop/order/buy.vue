@@ -5,7 +5,7 @@
       <m-icon name="zk-orderaddress" size="2.5rem" class="icon"></m-icon>
       <cell title="地址" value="请选择地址" is-link link="/user/address/select" v-if="addressBox"> </cell>
     </div>
-    <router-link to="/user/address/select">
+    <router-link to="{path: '/user/address/index',params:{selectType: 'true'}}">
       <div class="vux-form-preview weui-form-preview" v-if="!addressBox">
         <div class="weui-form-preview__hd">
           <label class="weui-form-preview__label address_name">收货人：{{addressMessage.name}}</label>

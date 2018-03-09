@@ -64,6 +64,10 @@
     methods: {
       // 获取地址
       async GetData () {
+        var selectStatus = this.$route.params.selectType
+        if (selectStatus !== undefined) {
+          this.selectType = true // 选择地址模式
+        }
         var response = await apiUser.GetAddress()
         if (response.data.status === 1) {
           this.viewModel = response.data.result
@@ -78,17 +82,17 @@
       },
       // 删除地址
       async AddressDelete (id) {
-        console.log(id)
-        let parament = {
-          id: id
-        }
-        var deleteResult = await apiUser.DeleteAddress(parament)
-        console.log(id)
-        if (deleteResult.data.status === 1) {
-          this.GetData()
-          this.$vux.toast.success('删除成功')
-        } else {
-          this.$vux.toast.warn('删除失败')
+        if (!this.selectType) {
+          let parament = {
+            id: id
+          }
+          var deleteResult = await apiUser.DeleteAddress(parament)
+          if (deleteResult.data.status === 1) {
+            this.GetData()
+            this.$vux.toast.success('删除成功')
+          } else {
+            this.$vux.toast.warn('删除失败')
+          }
         }
       },
       // 添加地址
@@ -125,6 +129,9 @@
       },
       selectAddress (id) {
         console.info('选择的地址Id', id)
+        this.$router.push({
+          name: 'order_buy'
+        })
       }
     },
     data () {

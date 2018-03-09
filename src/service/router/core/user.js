@@ -191,6 +191,9 @@ export default [
       title: '收货地址',
       login: true
     },
+    params: {
+      selectType: true
+    },
     name: 'address_index',
     component: function (resolve) {
       require(['src/views/core/address/index'], resolve)
