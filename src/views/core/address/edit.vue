@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-user-address-edit">
-    <zk-head title='添加地址' goBack='收货地址'></zk-head>
+    <zk-head :title='addressTitle' goBack='收货地址'></zk-head>
     <group>
       <x-input title="收件人姓名" required type="text" v-model="addressInput.name"></x-input>
       <x-input title="手机号码" required type="text" mask="999 9999 9999" v-model="addressInput.mobile" :max="13" is-type="mobile" class="border-bottom"></x-input>
@@ -36,22 +36,30 @@
       ZkAddress
     },
     mounted () {
-      var id = this.$route.params.id
-      if (id !== undefined) {
-        // 编辑地址，重新赋值
-        // var response = await userService.SingleAddress(id)
-        // this.addressInput = response.data.result
-      } else {
-        this.addressData = address.addressData
-        if (this.addressInput.name === undefined) {
-          this.addressInput.name = store.state.userStore.loginUser.name
-        }
-        if (this.addressInput.mobile === undefined) {
-          this.addressInput.mobile = store.state.userStore.loginUser.mobile
-        }
-      }
+      this.GetData()
     },
     methods: {
+      async GetData () {
+        var id = this.$route.params.id
+        console.log(id)
+        if (id !== undefined) {
+          this.addressTitle = '编辑地址'
+          // 编辑地址，重新赋值
+          let parament = {
+            id: id
+          }
+          var response = await userService.SingleAddress(parament)
+          this.addressInput = response.data.result
+        } else {
+          this.addressData = address.addressData
+          if (this.addressInput.name === undefined) {
+            this.addressInput.name = store.state.userStore.loginUser.name
+          }
+          if (this.addressInput.mobile === undefined) {
+            this.addressInput.mobile = store.state.userStore.loginUser.mobile
+          }
+        }
+      },
       async save () {
         console.dir(this.addressValue)
         this.addressInput.province = this.addressValue[0]
@@ -73,6 +81,7 @@
     },
     data () {
       return {
+        addressTitle: '添加地址', // 标题
         addressInput: {},
         addressValue: [],
         addressData: [] // 地址列表
