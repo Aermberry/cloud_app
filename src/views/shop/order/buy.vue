@@ -1,25 +1,8 @@
 <template>
   <section class="zkui_order_buy">
-    <zk-head title='确认下单' goBack='商品详情'></zk-head>
-    <div class="zkui_order_buy-address">
-      <m-icon name="zk-orderaddress" size="2.5rem" class="icon"></m-icon>
-      <cell title="地址" value="请选择地址" is-link link="/user/address/select" v-if="addressBox"> </cell>
-    </div>
-    <router-link to="{path: '/user/address/index',params:{selectType: 'true'}}">
-      <div class="vux-form-preview weui-form-preview" v-if="!addressBox">
-        <div class="weui-form-preview__hd">
-          <label class="weui-form-preview__label address_name">收货人：{{addressMessage.name}}</label>
-          <em class="weui-form-preview__value">{{addressMessage.mobile}}</em>
-          <div class="weui-form-preview__item">
-            <span class="weui-form-preview__value address_particulars address_name">
-              <m-icon name="zk-orderaddress" size="2.5rem" class="icon"></m-icon>
-              收货地址：{{addressMessage.address}}
-            </span>
-          </div>
-        </div>
-      </div>
-    </router-link>
-    <divider class="divider-bg "></divider>
+
+    <buy-address></buy-address>
+
     <group class="order_buy_product " v-for="store in modelView.storeProducts " :key="store.storeId ">
       <div class="item-contnet">
         <div class="weui-cells ">
@@ -80,16 +63,16 @@
 </template>
 
 <script>
-  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, XAddress, InlineXNumber, XTextarea, Picker, Popup, TransferDom, PopupRadio, Divider } from 'zkui'
+  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, InlineXNumber, XTextarea, Picker, Popup, TransferDom, PopupRadio, Divider } from 'zkui'
   import { ZkPay } from 'widgets'
   import apiService from 'src/service/api/order.api'
-  import apiUser from 'src/service/api/user.api'
-
+  import BuyAddress from './buy__address' // 地址
   import local from 'src/service/common/local'
 
   export default {
     components: {
       Tabbar,
+      BuyAddress,
       TabbarItem,
       Group,
       Cell,
@@ -98,7 +81,6 @@
       CellFormPreview,
       CellBox,
       Panel,
-      XAddress,
       InlineXNumber,
       XTextarea,
       PopupRadio,
@@ -110,13 +92,8 @@
     },
     data () {
       return {
-        selectId: '', // 从选择地址页面获取的id
-        addressMessage: '',
-        addressBox: true,
-        par: '', // 测试如果有默认地址情况的
         modelView: '', // 商品数据，从服务器上远程获取
         asyncFlag: false, // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
-        showAddress: true, // 显示地址
         showPay: false, // 显示支付方式
         payAmount: '', // 需要支付的金额，人民币支付
         showDelivery: '' // 显示物流快递
@@ -124,7 +101,6 @@
     },
     mounted () {
       this.GetData()
-      this.Single()
     },
     methods: {
       async buy () {
@@ -221,27 +197,6 @@
           }
           this.modelView = response.data.result
           this.asyncFlag = true
-        }
-      },
-      async Single () {
-        this.par = {
-          id: '72BE65E6-3A64-414D-972E-1A3D4A36F123'
-        }
-        var address = await apiUser.SingleAddress(this.par)
-        this.selectId = this.$route.params.selectId
-
-        // 判断有没获取到默认地址
-        if (address.data.status === 1) {
-          this.addressBox = false
-          this.addressMessage = address.data.result
-        } else if (address.data.status !== 1) {
-          this.addressBox = true
-        }
-        if (typeof (this.selectId) !== 'undefined') {
-          this.par.id = this.selectId
-          console.log(this.selectId)
-          var addressSelect = await apiUser.SingleAddress(this.par)
-          this.addressMessage = addressSelect.data.result
         }
       }
     }
