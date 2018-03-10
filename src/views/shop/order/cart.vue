@@ -1,78 +1,65 @@
 <template>
   <section class="zkui-order-cart">
     <zk-head title='购物车' class="zkui-order-cart-head"></zk-head>
-    <checker v-model="defaultCheck" default-item-class="check-icon-item" selected-item-class="check-icon-item-selected">
-      <checker-item :value="1" type="default" @on-item-click="storeProductCheck"></checker-item>
-      <checker-item :value="2" type="default" @on-item-click="storeProductCheck"></checker-item>
-      <checker-item :value="3" type="default" @on-item-click="storeProductCheck"></checker-item>
-    </checker>
-    <div v-if="hasData">
-      <swipeout>
-        <div class="zkui-order-cart-box">
-          <div v-for="store in viewModel.storeItems" :key="store.storeId" class="cart_item-box">
-            <div class="weui-cells weui-cells_checkbox">
-              <label for="checkbox_yqyep_4" class="weui-cell weui-check_label cart_item-title">
-                <div class="weui-cell__hd"><input type="checkbox" name="vux-checkbox-yqyep" id="checkbox_yqyep_4" class="weui-check" value="04">
-                  <i class="weui-icon-checked vux-checklist-icon-checked"></i>
-                </div>
-                <div class="weui-cell__bd">
-                  <p>{{store.storeName}}</p>
-                </div>
-              </label>
+
+    <div class="zkui-order-cart-box" v-if="hasData">
+      <div v-for="store in viewModel.storeItems" :key="store.storeId" class="cart_item-box">
+        <div class="weui-cells weui-cells_checkbox">
+          <label for="checkbox_yqyep_4" class="weui-cell weui-check_label cart_item-title">
+            <div class="weui-cell__hd"><input type="checkbox" name="vux-checkbox-yqyep" id="checkbox_yqyep_4" class="weui-check" value="04">
+              <i class="weui-icon-checked vux-checklist-icon-checked"></i>
             </div>
-            <checker v-model="defaultCheck" default-item-class="check-icon-item" selected-item-class="check-icon-item-selected">
-              <ul>
-                <li class="zkui-order-cart-item" v-for="productSku in store.productSkuItems" :key="productSku.productSkuId">
-                  <checker-item :value="productSku.productSkuId" type="default" @on-item-click="storeProductCheck">商品</checker-item>
-                  <div class="order-cart-commodity">
-                    <swipeout-item @on-close="handleEvents('on-close')" @on-open="handleEvents('on-open')" transition-mode="follow">
-                      <div slot="right-menu">
-                        <swipeout-button type="warn" @click.native="onButtonClick(productSku.productSkuId)">删除</swipeout-button>
-                      </div>
-                      <div slot="content" class="demo-content " style="height:7.8rem">
-                        <ul class="flex order-cart-commodity-box">
-                          <li class="order-cart-commodity-left">
-                            <div class="weui-cells weui-cells_checkbox">
-                              <label class="weui-cell weui-check_label car_item-left">
-                                <div class="weui-cell__hd">
-
-                                </div>
-                              </label>
-                            </div>
-                          </li>
-                          <li class="flex_one">
-                            <div class="order-cart-commodit-into flex">
-                              <div class="order-cart-commodity-into_left">
-                                <img :src="productSku.thumbnailUrl" alt="">
-                              </div>
-                              <div class="flex_one order-cart-commodity-into_right ">
-                                <p>{{productSku.name}}</p>
-                                <span>{{productSku.propertyValueDesc}}</span>
-                                <ul class="flex">
-                                  <li class="price_now">￥{{productSku.price}}</li>
-                                  <li class="price_old">￥{{productSku.displayPrice}}</li>
-                                  <li class="flex_one price_num">
-                                    <inline-x-number style="display:block;" :min="0" width="2rem" button-style="round" v-model="productSku.count"></inline-x-number>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                    </swipeout-item>
-                  </div>
-                </li>
-              </ul>
-            </checker>
-
-          </div>
-
+            <div class="weui-cell__bd">
+              <p>{{store.storeName}}</p>
+            </div>
+          </label>
         </div>
-      </swipeout>
+        <checker v-model="defaultCheck" default-item-class="check-icon-item" selected-item-class="check-icon-item-selected">
+          <ul>
+            <li class="zkui-order-cart-item" v-for="productSku in store.productSkuItems" :key="productSku.productSkuId">
+              <div class="order-cart-commodity">
+                <div slot="content" class="demo-content " style="height:7.8rem">
+                  <ul class="flex order-cart-commodity-box">
+                    <li class="order-cart-commodity-left">
+                      <div class="weui-cells weui-cells_checkbox">
+                        <label class="weui-cell weui-check_label car_item-left">
+                          <div class="weui-cell__hd">
+                            <checker-item :value="productSku.productSkuId" type="default" @on-item-click="storeProductCheck"></checker-item>
+                          </div>
+                        </label>
+                      </div>
+                    </li>
+                    <li class="flex_one">
+                      <div class="order-cart-commodit-into flex">
+                        <div class="order-cart-commodity-into_left">
+                          <img :src="productSku.thumbnailUrl" alt="">
+                        </div>
+                        <div class="flex_one order-cart-commodity-into_right ">
+                          <p>{{productSku.name}}</p>
+                          <span>{{productSku.propertyValueDesc}}</span>
+                          <ul class="flex">
+                            <li class="price_now">￥{{productSku.price}}</li>
+                            <li class="price_old">￥{{productSku.displayPrice}}</li>
+                            <li class="flex_one price_num">
+                              <inline-x-number style="display:block;" :min="0" width="2rem" button-style="round" v-model="productSku.count"></inline-x-number>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
+            </li>
+          </ul>
+        </checker>
+
+      </div>
+
     </div>
 
-    <div class="empty-cart">
+    <div class="empty-cart" v-if="!hasData">
 
     </div>
     <div class="zkui-order-cart-bar">
