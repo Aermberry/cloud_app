@@ -1,7 +1,12 @@
 <template>
   <section class="zkui-shop-product-search">
-    <x-button class="return"></x-button>
-    <search placeholder="搜索您想要的商品" cancel-text="取消" :auto-fixed="false"></search>
+    <div class="header-search">
+      <div class="return">
+        <m-icon slot="icon" name="zk-return" class="metal"></m-icon>
+      </div>
+      <search placeholder="搜索您想要的商品" cancel-text="取消" :auto-fixed="false"></search>
+    </div>
+
     <div class="zkui-product_search-item">
       <ul>
         <li v-for="(list, index) in lists" :key="index">
@@ -17,13 +22,15 @@
 
 
 <script>
-  import { Search, Tab, TabItem, XButton } from 'zkui'
+  // import productApi from 'src/service/api/product.api'
+  import { Search, Tab, TabItem, XButton, MIcon } from 'zkui'
   export default {
     components: {
       Search,
       Tab,
       TabItem,
-      XButton
+      XButton,
+      MIcon
     },
     data () {
       return {
@@ -36,7 +43,17 @@
           { id: '羽绒衣羽绒裤' }
         ]
       }
+    },
+    mounted () {
+      this.GetData()
+    },
+    methods: {
+      // async GetData () {
+      //   var reponse = await productApi.search()
+      //   console.log(reponse)
+      // }
     }
+
   }
 
 
@@ -49,6 +66,28 @@
       height: 60px !important;
       width: 95%;
       float: right;
+    }
+    .header-search {
+      .return {
+        width: 10%;
+        float: left;
+        height: 3.2rem;
+        background-color: @search-bg-color;
+        position: relative;
+        svg {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          height: 2.6rem;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+    .header-search::after,
+    .zkui-product_search-item::after {
+      content: '';
+      display: block;
+      clear: both;
     }
     .zkui-product_search-item {
       width: 100%;
@@ -75,16 +114,18 @@
       position: relative;
       padding-left: 7.5rem;
     }
-    button.weui-btn,
-    input.weui-btn {
-      width: 5%;
-      float: left;
-    }
     .vux-search-box {
       width: 90%;
       float: right;
+      height: 3.2rem;
+      .weui-search-bar {
+        height: 3.2rem;
+        .weui-search-bar__cancel-btn {
+          color: @white;
+        }
+      }
     }
-     .sale-info-close {
+    .sale-info-close {
       width: 1.5rem;
       height: 1.5rem;
       border-radius: 50%;

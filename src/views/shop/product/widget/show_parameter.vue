@@ -9,6 +9,7 @@
 
     <div v-transfer-dom>
       <popup v-model="showSale" class="zk-product-showSale" max-height="80%" is-transparent>
+        <div class="close" @click=" showSale = false "></div>
         <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem;">
           <dl class="sale-info goods-information">
             <dt class="sale-info-img">
@@ -19,14 +20,13 @@
               <span class="metal">￥{{selectSku.marketPrice}}</span>
             </dd>
             <dd class="sale-info-stock metal">库存：{{selectSku.stock}} 货号：{{selectSku.bn}}</dd>
-            <x-button type="default" class="sale-info-close" @click.native=" showSale = false "></x-button>
           </dl>
           <div class="sale-info-property goods-select">
             <dl class="border-bottom " v-for="(item, index) in productView.productExtensions.productCategory.salePropertys " :key="index ">
               <dt>{{item.name}}</dt>
               <dd>
                 <checker v-model="saleItems[index] " default-item-class="sale-item " @on-change="changSku " selected-item-class="sale-item-selected " disabled-item-class="sale-item-disabled " :radio-required="true ">
-                  <checker-item :value="sale " v-for="sale in item.propertyValues " :key="sale.id "> {{sale.valueAlias}} </checker-item>
+                  <checker-item :value="sale " v-for="(sale,index) in item.propertyValues " :key="sale.id " :class="{'sale-item-selected':index===0}"> {{sale.valueAlias}} </checker-item>
                 </checker>
               </dd>
             </dl>
@@ -281,10 +281,11 @@
             background-color: #ddd;
             color: #222;
             padding: 4*@rem 8*@rem;
-            margin: 5*@rem 5*@rem 5*@rem 5*@rem;
+            margin: 0 5*@rem 5*@rem 0;
             border-radius: 4*@rem;
             line-height: 18*@rem;
             font-weight: @font-weight-normal;
+            font-size: @h6-font-size;
           }
           .sale-item-selected {
             background-color: @brand;
@@ -370,18 +371,13 @@
     -webkit-transform: scaleY(0.5);
     transform: scaleY(0.5);
   }
-  .goods-select {
-    margin-bottom: 2.9rem;
-  }
   .base {
-    position: fixed;
     width: 100%;
     height: auto;
     overflow-y: auto;
     min-height: 40px;
     z-index: 5;
     background-color: white;
-    bottom: 0px;
   }
   .weui-cell__ft {
     font-weight: @font-weight-normal;
@@ -389,5 +385,51 @@
   div.goods-title {
     color: @black;
     font-size: @h4-font-size;
+  }
+  .close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 25px;
+    height: 25px;
+    background: @brand;
+    border-radius: 25px;
+    box-shadow: 2px 2px 5px 0px @black;
+    cursor: pointer;
+    z-index: 9999;
+  }
+
+  .close:hover {
+    background: red;
+  }
+  .close:before {
+    position: absolute;
+    content: '';
+    width: 15px;
+    height: 5px;
+    background: white;
+    transform: rotate(45deg);
+    top: 10px;
+    left: 5px;
+  }
+  .close:after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 5px;
+    background: white;
+    transform: rotate(-45deg);
+    top: 10px;
+    left: 5px;
+  }
+  .base {
+    .vux-button-tab-item-first {
+      background: @actionsheet-label-warn-color !important;
+      color: @white !important;
+    }
+    .vux-button-tab-item-last {
+      color: @white !important;
+      background: @number-button-font-color !important;
+    }
   }
 </style>
