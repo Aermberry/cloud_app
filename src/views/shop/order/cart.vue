@@ -6,7 +6,7 @@
         <div class="weui-cells weui-cells_checkbox">
           <label class="weui-cell weui-check_label cart_item-title">
             <div class="weui-cell__hd">
-              <input type="checkbox" :checked="productSkuChecks[index].length === storeTotalSkuIds[index]" class="weui-check" @click='storeCheck(store.storeId,index)'>
+              <input type="checkbox" v-model="storeCheckModel[index]" class="weui-check" @click='storeCheck(store.storeId,index)'>
               <i class="weui-icon-checked vux-checklist-icon-checked"></i>
             </div>
             <div class="weui-cell__bd">
@@ -24,7 +24,7 @@
                       <div class="weui-cells weui-cells_checkbox">
                         <label class="weui-cell weui-check_label car_item-left">
                           <div class="weui-cell__hd">
-                            <checker-item :value="productSku.productSkuId" :key="productSku.productSkuId" type="default" @on-item-click="storeProductCheck(productSku.productSkuId,skuIndex)">{{productSku.productSkuId}}</checker-item>
+                            <checker-item :value="productSku.productSkuId" :key="productSku.productSkuId" type="default" @on-item-click="storeProductCheck(productSku.productSkuId,index,skuIndex)"></checker-item>
                           </div>
                         </label>
                       </div>
@@ -39,7 +39,7 @@
                           <span>{{productSku.propertyValueDesc}}</span>
                           <ul class="flex">
                             <li class="price_now">￥{{productSku.price}}</li>
-                            <li class="price_old">￥{{productSku.markerPrice}}</li>
+                            <li class="price_old">￥{{productSku.marketPrice}}</li>
                             <li class="flex_one price_num" @click="changeCount(productSku.productSkuId)">
                               <inline-x-number style="display:block;" :min="0" width="2rem" button-style="round" v-model="productSkuCount[index][skuIndex]"></inline-x-number>
                             </li>
@@ -60,7 +60,10 @@
     </div>
 
     <div class="empty-cart" v-if="!hasData">
-
+      <p class="upwarp-nodata">
+        <i class="weui-icon weui_icon_waiting weui-icon-waiting weui-icon_msg"></i><br>
+        <span>暂无数据</span>
+      </p>
     </div>
     <div class="zkui-order-cart-bar">
       <tabbar>
@@ -101,8 +104,8 @@
         viewModel: '', // 数据对象
         productSkuCount: [], // 商品sku 选择数量
         productSkuChecks: [], // 店铺选择商品
-        storeTotalSkuIds: [], // 计算店铺skuId数量，实现全选事件
-        storeChecks: [] // 店铺选择
+        storeCheckModel: [],
+        storeTotalSkuIds: [] // 计算店铺skuId总数量，实现全选事件
       }
     },
     components: {
@@ -133,6 +136,7 @@
           for (var i = 0; i < this.viewModel.storeItems.length; i++) {
             var storeItem = this.viewModel.storeItems[i]
             this.storeTotalSkuIds[i] = []
+            this.storeCheckModel[i] = true
             this.storeTotalSkuIds[i].push(storeItem.productSkuItems.length)
             this.productSkuChecks[i] = [] // 店铺skuIds数量
             //  console.info('数量', this.storeTotalSkuIds[i], i)
@@ -152,12 +156,27 @@
         }
       },
       // 店铺商品选择事件
-      storeProductCheck (skuId, index) {
-        console.info('skuId', skuId, '店铺sku索引', index)
+      storeProductCheck (skuId, stroeIndex, skuIndex) {
+        console.info('skuId', skuId, '店铺索引', stroeIndex, 'sku索引', skuIndex, '店铺商品总数', this.storeTotalSkuIds[stroeIndex][0], '店铺已选skuId', this.productSkuChecks[stroeIndex].length, this.productSkuChecks[stroeIndex])
+        if (this.productSkuChecks[stroeIndex].length === this.storeTotalSkuIds[stroeIndex][0]) {
+          this.storeCheckModel[stroeIndex] = true
+        } else {
+          this.storeCheckModel[stroeIndex] = false
+        }
+        console.info(this.storeCheckModel[stroeIndex])
+        console.info(this.productSkuChecks[stroeIndex].length)
+        console.info(this.storeTotalSkuIds[stroeIndex][0])
       },
       // 店铺选择事件
       storeCheck (storeId, index) {
         console.info('店铺ID', storeId, '店铺索引', index, '店铺商品总数', this.storeTotalSkuIds[index], '店铺已选skuId', this.productSkuChecks[index])
+        this.productSkuChecks[index] = []
+        for (var j = 0; j < this.viewModel.storeItems[index].productSkuItems.length; j++) {
+          if (!this.storeCheckModel[index]) {
+            var productSkuItem = this.viewModel.storeItems[index].productSkuItems[j]
+            this.productSkuChecks[index].push(productSkuItem.productSkuId)
+          }
+        }
       },
       // 计算选择价格和数量
       countPrice () {
@@ -400,8 +419,17 @@
     .empty-cart {
       width: 100%;
       position: fixed;
-      top: 50%;
+      top: 20%;
       transform: translateY(-50%);
+      .upwarp-nodata {
+        min-height: 8rem;
+        padding-top: 0.1rem;
+        margin-left: 40%;
+      }
+      .upwarp-nodata .weui-icon-waiting {
+        color: #b2b2b2;
+        font-size: 3.5rem;
+      }
     }
   }
 </style>
