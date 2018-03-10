@@ -70,8 +70,8 @@
         <tabbar-item class="bar-left">
           <span slot="label" class="label">
             <div class="weui-cells weui-cells_checkbox">
-              <label for="checkbox_yqyep_8" class="weui-cell weui-check_label car_item-all">
-                <div class="weui-cell__hd"><input type="checkbox" name="vux-checkbox-yqyep" id="checkbox_yqyep_8" class="weui-check" value="04">
+              <label class="weui-cell weui-check_label car_item-all">
+                <div class="weui-cell__hd"><input type="checkbox" v-model="allCheck" class="weui-check">
                   <i class="weui-icon-checked vux-checklist-icon-checked"></i>
                 </div>
               </label>
@@ -104,7 +104,8 @@
         viewModel: '', // 数据对象
         productSkuCount: [], // 商品sku 选择数量
         productSkuChecks: [], // 店铺选择商品
-        storeCheckModel: [],
+        storeCheckModel: [], // 店铺选择数组，实现全选和取消全选事件
+        allCheck: true, // 整个购物车全选
         storeTotalSkuIds: [] // 计算店铺skuId总数量，实现全选事件
       }
     },
