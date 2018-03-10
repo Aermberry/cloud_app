@@ -1,9 +1,12 @@
 <template>
   <section class="zkui-order-cart">
     <zk-head title='购物车' class="zkui-order-cart-head"></zk-head>
+    <checker v-model="demo6" default-item-class="check-icon-item" type="checkbox" selected-item-class="check-icon-item-selected">
+      <checker-item v-for="i in [1, 2, 3]" :key="i" :value="i" type="default">{{[i - 1]}}</checker-item>
+    </checker>
 
     <div class="zkui-order-cart-box" v-if="hasData">
-      <div v-for="store in viewModel.storeItems" :key="store.storeId" class="cart_item-box">
+      <div v-for="(store,index) in viewModel.storeItems" :key="index" class="cart_item-box">
         <div class="weui-cells weui-cells_checkbox">
           <label class="weui-cell weui-check_label cart_item-title">
             <div class="weui-cell__hd">
@@ -15,7 +18,7 @@
             </div>
           </label>
         </div>
-        <checker default-item-class="check-icon-item" type="checkbox" selected-item-class="check-icon-item-selected" v-model="storeCheckboxModel">
+        <checker default-item-class="check-icon-item" type="checkbox" selected-item-class="check-icon-item-selected" v-model="storeItems[index]">
           <ul>
             <li class="zkui-order-cart-item" v-for="productSku in store.productSkuItems" :key="productSku.productSkuId">
               <div class="order-cart-commodity">
@@ -97,10 +100,10 @@
     data () {
       return {
         count: '',
+        demo6: [2, 3],
         hasData: false, // 判断购物车数据
         viewModel: '', // 数据对象
-        storeCheckboxModel: '',
-        storeProducts: [] // 店铺商品数据
+        storeItems: [] // 店铺选择商品
       }
     },
     components: {
@@ -125,7 +128,7 @@
         this.viewModel = reponse.data.result
         if (reponse.data.status === 1) {
           this.hasData = true
-          this.storeCheckboxModel = 110
+          this.storeCheckboxModel[1] = [110, 128, 133]
           // console.info('店铺数据', this.viewModel)
         } else {
           this.hasData = false
