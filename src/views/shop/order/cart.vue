@@ -18,7 +18,7 @@
             </div>
           </label>
         </div>
-        <checker default-item-class="check-icon-item" type="checkbox" selected-item-class="check-icon-item-selected" v-model="storeItems[index]">
+        <checker default-item-class="check-icon-item" type="checkbox" selected-item-class="check-icon-item-selected" v-model="productSkuChecks[index]">
           <ul>
             <li class="zkui-order-cart-item" v-for="productSku in store.productSkuItems" :key="productSku.productSkuId">
               <div class="order-cart-commodity">
@@ -103,7 +103,8 @@
         demo6: [2, 3],
         hasData: false, // 判断购物车数据
         viewModel: '', // 数据对象
-        storeItems: [] // 店铺选择商品
+        productSkuChecks: [], // 店铺选择商品
+        storeChecks: [] // 店铺选择
       }
     },
     components: {
@@ -128,7 +129,15 @@
         this.viewModel = reponse.data.result
         if (reponse.data.status === 1) {
           this.hasData = true
-          this.storeCheckboxModel[1] = [110, 128, 133]
+          for (var i = 0; i < this.viewModel.storeItems.length; i++) {
+            var storeItem = this.viewModel.storeItems[i]
+            this.productSkuChecks[i] = []
+            storeItem.productSkuItems.forEach(element => {
+              this.productSkuChecks[i].push(element.productSkuId)
+            })
+          }
+
+
           // console.info('店铺数据', this.viewModel)
         } else {
           this.hasData = false
