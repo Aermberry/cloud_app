@@ -1,7 +1,7 @@
 <template>
   <section class="zkui-order-cart">
     <zk-head title='购物车' class="zkui-order-cart-head"></zk-head>
-    <div data-v-f9013b68="" class="" v-if="showModel">
+    <div class="" v-if="showModel">
       <swipeout>
         <div class="zkui-order-cart-box">
           <div v-for="(items,indexs) in viewModel.storeProducts" :key="indexs" class="cart_item-box">
@@ -15,48 +15,51 @@
                 </div>
               </label>
             </div>
-            <ul>
-              <li class="zkui-order-cart-item" v-for="(item,index) in items.productItems" :key="index">
-                <div class="order-cart-commodity">
-                  <swipeout-item @on-close="handleEvents('on-close')" @on-open="handleEvents('on-open')" transition-mode="follow">
-                    <div slot="right-menu">
-                      <swipeout-button type="warn" @click.native="onButtonClick(item.productSku.id)">删除</swipeout-button>
-                    </div>
-                    <div slot="content" class="demo-content " style="height:7.8rem">
-                      <ul class="flex order-cart-commodity-box">
-                        <li class="order-cart-commodity-left">
-                          <div class="weui-cells weui-cells_checkbox">
-                            <label :for="index" class="weui-cell weui-check_label car_item-left">
-                              <div class="weui-cell__hd"><input type="checkbox" name="vux-checkbox-yqyep" :id="index" class="weui-check" value="04">
-                                <i class="weui-icon-checked vux-checklist-icon-checked"></i>
+
+            <checker v-model="defaultCheck" default-item-class="check-icon-item" selected-item-class="check-icon-item-selected">
+              <ul>
+                <li class="zkui-order-cart-item" v-for="(item,index) in items.productItems" :key="index">
+                  <div class="order-cart-commodity">
+                    <swipeout-item @on-close="handleEvents('on-close')" @on-open="handleEvents('on-open')" transition-mode="follow">
+                      <div slot="right-menu">
+                        <swipeout-button type="warn" @click.native="onButtonClick(item.productSku.id)">删除</swipeout-button>
+                      </div>
+                      <div slot="content" class="demo-content " style="height:7.8rem">
+                        <ul class="flex order-cart-commodity-box">
+                          <li class="order-cart-commodity-left">
+                            <div class="weui-cells weui-cells_checkbox">
+                              <label :for="index" class="weui-cell weui-check_label car_item-left">
+                                <div class="weui-cell__hd">
+                                  <checker-item :value="index" type="default" @on-item-click="storeProductCheck">商品</checker-item>
+                                </div>
+                              </label>
+                            </div>
+                          </li>
+                          <li class="flex_one">
+                            <div class="order-cart-commodit-into flex">
+                              <div class="order-cart-commodity-into_left">
+                                <img :src="item.product.thumbnailUrl" alt="">
                               </div>
-                            </label>
-                          </div>
-                        </li>
-                        <li class="flex_one">
-                          <div class="order-cart-commodit-into flex">
-                            <div class="order-cart-commodity-into_left">
-                              <img :src="item.product.thumbnailUrl" alt="">
+                              <div class="flex_one order-cart-commodity-into_right ">
+                                <p>{{item.product.name}}</p>
+                                <span>{{item.productSku.propertyValueDesc}}</span>
+                                <ul class="flex">
+                                  <li class="price_now">￥{{item.productSku.price}}</li>
+                                  <li class="price_old">￥{{item.productSku.displayPrice}}</li>
+                                  <li class="flex_one price_num">
+                                    <inline-x-number style="display:block;" :min="0" width="2rem" button-style="round" v-model="item.count"></inline-x-number>
+                                  </li>
+                                </ul>
+                              </div>
                             </div>
-                            <div class="flex_one order-cart-commodity-into_right ">
-                              <p>{{item.product.name}}</p>
-                              <span>{{item.productSku.propertyValueDesc}}</span>
-                              <ul class="flex">
-                                <li class="price_now">￥{{item.productSku.price}}</li>
-                                <li class="price_old">￥{{item.productSku.displayPrice}}</li>
-                                <li class="flex_one price_num">
-                                  <inline-x-number style="display:block;" :min="0" width="2rem" button-style="round" v-model="item.count"></inline-x-number>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </swipeout-item>
-                </div>
-              </li>
-            </ul>
+                          </li>
+                        </ul>
+                      </div>
+                    </swipeout-item>
+                  </div>
+                </li>
+              </ul>
+            </checker>
           </div>
 
         </div>
@@ -95,15 +98,14 @@
 
 <script>
   import userService from 'src/service/api/user.api'
-  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, GroupTitle, Swipeout, SwipeoutItem, SwipeoutButton, Checklist, InlineXNumber } from 'zkui'
+  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, GroupTitle, Swipeout, SwipeoutItem, SwipeoutButton, Checklist, InlineXNumber, Checker, CheckerItem } from 'zkui'
   export default {
     data () {
       return {
         count: '',
+        defaultCheck: '',
         showModel: false, // 判断购物车数据
         viewModel: '', // 数据对象
-        disabled: false,
-        selectModel: '',
         stores: [], // 店铺数据
         storeProducts: [] // 店铺商品数据
       }
@@ -120,6 +122,8 @@
       Swipeout,
       SwipeoutItem,
       SwipeoutButton,
+      Checker,
+      CheckerItem,
       InlineXNumber
     },
     mounted () {
@@ -161,6 +165,10 @@
         }
       },
       handleEvents (type) {
+      },
+      // 店铺商品选择事件
+      storeProductCheck () {
+
       },
       //  选择事件
       change () {
