@@ -40,8 +40,8 @@
                           <ul class="flex">
                             <li class="price_now">￥{{productSku.price}}</li>
                             <li class="price_old">￥{{productSku.markerPrice}}</li>
-                            <li class="flex_one price_num">
-                              <inline-x-number style="display:block;" :min="0" width="2rem" button-style="round" v-model="productSku.count"></inline-x-number>
+                            <li class="flex_one price_num" @click="changeCount(productSku.productSkuId)">
+                              <inline-x-number style="display:block;" :min="0" width="2rem" button-style="round" v-model="productSkuCount[index][skuIndex]"></inline-x-number>
                             </li>
                           </ul>
                         </div>
@@ -99,6 +99,7 @@
         taotalAmount: 0, // 店铺选择商品总价格
         hasData: false, // 判断购物车数据
         viewModel: '', // 数据对象
+        productSkuCount: [], // 商品sku 选择数量
         productSkuChecks: [], // 店铺选择商品
         storeTotalSkuIds: [], // 计算店铺skuId数量，实现全选事件
         storeChecks: [] // 店铺选择
@@ -133,9 +134,16 @@
             this.storeTotalSkuIds[i].push(storeItem.productSkuItems.length)
             this.productSkuChecks[i] = [] // 店铺skuIds数量
             //  console.info('数量', this.storeTotalSkuIds[i], i)
-            storeItem.productSkuItems.forEach(element => {
-              this.productSkuChecks[i].push(element.productSkuId)
-            })
+            // 计算商品sku 的选择数量
+            this.productSkuCount[i] = []
+            for (var j = 0; j < storeItem.productSkuItems.length; j++) {
+              var productSkuItem = storeItem.productSkuItems[j]
+              this.productSkuChecks[i].push(productSkuItem.productSkuId)
+
+              // 设置商品sku数量
+              this.productSkuCount[i][j] = []
+              this.productSkuCount[i][j] = productSkuItem.buyCount
+            }
           }
         } else {
           this.hasData = false
@@ -159,6 +167,9 @@
             this.productSkuChecks[i].push(element.productSkuId)
           })
         }
+      },
+      // 修改数量
+      changeCount () {
       }
     }
   }
