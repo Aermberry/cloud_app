@@ -1,9 +1,8 @@
 <template>
-  <section class="zkui_order_buy">
+  <section>
 
     <buy-address></buy-address>
-
-    <group class="order_buy_product " v-for="store in modelView.storeProducts " :key="store.storeId ">
+    <group class="zkui_order_buy order_buy_product " v-for="store in modelView.storeProducts " :key="store.storeId ">
       <div class="item-contnet">
         <div class="weui-cells ">
           <cell :title="store.storeName"> </cell>
@@ -45,7 +44,7 @@
       </cell>
       <divider class="divider-bg "></divider>
     </group>
-    <tabbar>
+    <tabbar class="zkui_order_buy">
       <tabbar-item>
         <div slot="label" class="total">
           <span>总计</span>
@@ -269,7 +268,7 @@
       margin-left: 8*@rem;
       margin-top: 20*@rem;
       font-weight: bold;
-      color: black;
+      color: @metal;
       .money {
         color: @danger;
         font-size: @h3-font-size;
@@ -286,7 +285,7 @@
       .weui-form-preview__hd {
         line-height: 2em;
         label {
-          color: @black;
+          color: @metal;
         }
       }
       .address_particulars {
@@ -299,7 +298,7 @@
       margin-top: 0.5rem;
     }
     .weui-form-preview__value {
-      font-size: @h4-font-size;
+      font-size: @h5-font-size;
     }
     .vux-inline-x-number {
       float: right;
@@ -401,7 +400,7 @@
                         left: -0.07rem;
                       }
                       .vux-number-input {
-                        font-size: 1.3rem;
+                        font-size: @h6-font-size;
                         height: 1.3rem;
                       }
                     }
