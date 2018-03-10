@@ -76,10 +76,10 @@
           </span>
         </tabbar-item>
         <tabbar-item class="bar-center">
-          <span slot="label">全选({{taotalCount}})</span>
+          <span slot="label">全选({{totalCount}})</span>
         </tabbar-item>
         <tabbar-item class="bar-right">
-          <span slot="label" class="zkui-order-cart-bar-price">{{taotalAmount}}</span>
+          <span slot="label" class="zkui-order-cart-bar-price">{{totalAmount}}</span>
         </tabbar-item>
         <tabbar-item class="bar-right">
           <span slot="label" class="zkui-order-cart-bar-close">结算</span>
@@ -95,8 +95,8 @@
   export default {
     data () {
       return {
-        taotalCount: 0, // 店铺选择商品总数量
-        taotalAmount: 0, // 店铺选择商品总价格
+        totalCount: 0, // 店铺选择商品总数量
+        totalAmount: 0, // 店铺选择商品总价格
         hasData: false, // 判断购物车数据
         viewModel: '', // 数据对象
         productSkuCount: [], // 商品sku 选择数量
@@ -127,6 +127,8 @@
         this.viewModel = reponse.data.result
         if (reponse.data.status === 1) {
           this.hasData = true
+          this.totalCount = this.viewModel.totalCount
+          this.totalAmount = this.viewModel.totalAmount
           // 默认选中所有的元素
           for (var i = 0; i < this.viewModel.storeItems.length; i++) {
             var storeItem = this.viewModel.storeItems[i]
