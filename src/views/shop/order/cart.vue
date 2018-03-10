@@ -38,7 +38,7 @@
                           <p>{{productSku.name}}</p>
                           <span>{{productSku.propertyValueDesc}}</span>
                           <ul class="flex">
-                            <li class="price_now">￥{{productSku.displayPrice}}</li>
+                            <li class="price_now">￥{{productSku.price}}</li>
                             <li class="price_old">￥{{productSku.markerPrice}}</li>
                             <li class="flex_one price_num">
                               <inline-x-number style="display:block;" :min="0" width="2rem" button-style="round" v-model="productSku.count"></inline-x-number>
@@ -76,10 +76,10 @@
           </span>
         </tabbar-item>
         <tabbar-item class="bar-center">
-          <span slot="label">全选(0)</span>
+          <span slot="label">全选({{taotalCount}})</span>
         </tabbar-item>
         <tabbar-item class="bar-right">
-          <span slot="label" class="zkui-order-cart-bar-price">￥0.00</span>
+          <span slot="label" class="zkui-order-cart-bar-price">{{taotalAmount}}</span>
         </tabbar-item>
         <tabbar-item class="bar-right">
           <span slot="label" class="zkui-order-cart-bar-close">结算</span>
@@ -95,8 +95,8 @@
   export default {
     data () {
       return {
-        count: '',
-        demo6: [2, 3],
+        taotalCount: 0, // 店铺选择商品总数量
+        taotalAmount: 0, // 店铺选择商品总价格
         hasData: false, // 判断购物车数据
         viewModel: '', // 数据对象
         productSkuChecks: [], // 店铺选择商品
@@ -132,7 +132,7 @@
             this.storeTotalSkuIds[i] = []
             this.storeTotalSkuIds[i].push(storeItem.productSkuItems.length)
             this.productSkuChecks[i] = [] // 店铺skuIds数量
-            console.info('数量', this.storeTotalSkuIds[i], i)
+            //  console.info('数量', this.storeTotalSkuIds[i], i)
             storeItem.productSkuItems.forEach(element => {
               this.productSkuChecks[i].push(element.productSkuId)
             })
@@ -141,15 +141,6 @@
           this.hasData = false
         }
       },
-      async onButtonClick (id) {
-        var result = await userService.RemoveCart(id)
-        if (result.data.status === 1) {
-          this.$vux.toast.success('删除成功')
-        } else {
-          this.$vux.toast.warn('删除失败')
-        }
-      },
-
       // 店铺商品选择事件
       storeProductCheck (skuId, index) {
         console.info('skuId', skuId, '店铺sku索引', index)
@@ -157,6 +148,17 @@
       // 店铺选择事件
       storeCheck (storeId, index) {
         console.info('店铺ID', storeId, '店铺索引', index, '店铺商品总数', this.storeTotalSkuIds[index], '店铺已选skuId', this.productSkuChecks[index])
+      },
+      // 计算选择价格和数量
+      countPrice () {
+        for (var i = 0; i < this.viewModel.storeItems.length; i++) {
+          var storeItem = this.viewModel.storeItems[i]
+          this.productSkuChecks[i] = [] // 店铺skuIds数量
+          //  console.info('数量', this.storeTotalSkuIds[i], i)
+          storeItem.productSkuItems.forEach(element => {
+            this.productSkuChecks[i].push(element.productSkuId)
+          })
+        }
       }
     }
   }
