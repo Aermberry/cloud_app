@@ -5,8 +5,9 @@
     <div class="zkui-order-cart-box" v-if="hasData">
       <div v-for="store in viewModel.storeItems" :key="store.storeId" class="cart_item-box">
         <div class="weui-cells weui-cells_checkbox">
-          <label for="checkbox_yqyep_4" class="weui-cell weui-check_label cart_item-title">
-            <div class="weui-cell__hd"><input type="checkbox" name="vux-checkbox-yqyep" id="checkbox_yqyep_4" class="weui-check" value="04">
+          <label class="weui-cell weui-check_label cart_item-title">
+            <div class="weui-cell__hd">
+              <input type="checkbox" :id="'store'+store.storeId" class="weui-check" :value="store.storeId" @click='storeProductCheck'>
               <i class="weui-icon-checked vux-checklist-icon-checked"></i>
             </div>
             <div class="weui-cell__bd">
@@ -14,7 +15,7 @@
             </div>
           </label>
         </div>
-        <checker v-model="defaultCheck" default-item-class="check-icon-item" selected-item-class="check-icon-item-selected">
+        <checker default-item-class="check-icon-item" type="checkbox" selected-item-class="check-icon-item-selected" v-model="storeCheckboxModel">
           <ul>
             <li class="zkui-order-cart-item" v-for="productSku in store.productSkuItems" :key="productSku.productSkuId">
               <div class="order-cart-commodity">
@@ -24,7 +25,7 @@
                       <div class="weui-cells weui-cells_checkbox">
                         <label class="weui-cell weui-check_label car_item-left">
                           <div class="weui-cell__hd">
-                            <checker-item :value="productSku.productSkuId" type="default" @on-item-click="storeProductCheck"></checker-item>
+                            <checker-item :value="productSku.productSkuId" :key="productSku.productSkuId" type="default" @on-item-click="storeProductCheck">{{productSku.productSkuId}}</checker-item>
                           </div>
                         </label>
                       </div>
@@ -38,8 +39,8 @@
                           <p>{{productSku.name}}</p>
                           <span>{{productSku.propertyValueDesc}}</span>
                           <ul class="flex">
-                            <li class="price_now">￥{{productSku.price}}</li>
-                            <li class="price_old">￥{{productSku.displayPrice}}</li>
+                            <li class="price_now">￥{{productSku.displayPrice}}</li>
+                            <li class="price_old">￥{{productSku.markerPrice}}</li>
                             <li class="flex_one price_num">
                               <inline-x-number style="display:block;" :min="0" width="2rem" button-style="round" v-model="productSku.count"></inline-x-number>
                             </li>
@@ -91,14 +92,14 @@
 
 <script>
   import userService from 'src/service/api/user.api'
-  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, GroupTitle, Swipeout, SwipeoutItem, SwipeoutButton, Checklist, InlineXNumber, Checker, CheckerItem } from 'zkui'
+  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, GroupTitle, Checklist, InlineXNumber, Checker, CheckerItem } from 'zkui'
   export default {
     data () {
       return {
         count: '',
-        defaultCheck: '',
         hasData: false, // 判断购物车数据
         viewModel: '', // 数据对象
+        storeCheckboxModel: '',
         storeProducts: [] // 店铺商品数据
       }
     },
@@ -111,9 +112,6 @@
       XButton,
       Checklist,
       GroupTitle,
-      Swipeout,
-      SwipeoutItem,
-      SwipeoutButton,
       Checker,
       CheckerItem,
       InlineXNumber
@@ -127,7 +125,8 @@
         this.viewModel = reponse.data.result
         if (reponse.data.status === 1) {
           this.hasData = true
-          console.info('店铺数据', this.viewModel)
+          this.storeCheckboxModel = 110
+          // console.info('店铺数据', this.viewModel)
         } else {
           this.hasData = false
         }
@@ -140,20 +139,15 @@
           this.$vux.toast.warn('删除失败')
         }
       },
-      handleEvents (type) {
-      },
+
       // 店铺商品选择事件
-      storeProductCheck () {
-
-      },
-      //  选择事件
-      change () {
-
+      storeProductCheck (item, id) {
+        console.info(item, id)
       }
     }
   }
 </script>
-<style lang="less">
+<style scoped lang="less">
   .zkui-order-cart {
     padding-bottom: 50*@rem;
     .flex {
