@@ -129,30 +129,34 @@
         var reponse = await userService.GetCart()
         this.viewModel = reponse.data.result
         if (reponse.data.status === 1) {
-          this.hasData = true
-          this.totalCount = this.viewModel.totalCount
-          this.totalAmount = this.viewModel.totalAmount
-          // 默认选中所有的元素
-          for (var i = 0; i < this.viewModel.storeItems.length; i++) {
-            var storeItem = this.viewModel.storeItems[i]
-            this.storeTotalSkuIds[i] = []
-            this.storeCheckModel[i] = true
-            this.storeTotalSkuIds[i].push(storeItem.productSkuItems.length)
-            this.productSkuChecks[i] = [] // 店铺skuIds数量
-            //  console.info('数量', this.storeTotalSkuIds[i], i)
-            // 计算商品sku 的选择数量
-            this.productSkuCount[i] = []
-            for (var j = 0; j < storeItem.productSkuItems.length; j++) {
-              var productSkuItem = storeItem.productSkuItems[j]
-              this.productSkuChecks[i].push(productSkuItem.productSkuId)
-
-              // 设置商品sku数量
-              this.productSkuCount[i][j] = []
-              this.productSkuCount[i][j] = productSkuItem.buyCount
-            }
-          }
+          this.initCart(reponse.data.result) // 初始化购物车
         } else {
           this.hasData = false
+        }
+      },
+      // 初始化购物车
+      initCart (data) {
+        this.hasData = true
+        this.totalCount = this.viewModel.totalCount
+        this.totalAmount = this.viewModel.totalAmount
+        // 默认选中所有的元素
+        for (var i = 0; i < this.viewModel.storeItems.length; i++) {
+          var storeItem = this.viewModel.storeItems[i]
+          this.storeTotalSkuIds[i] = []
+          this.storeCheckModel[i] = true
+          this.storeTotalSkuIds[i].push(storeItem.productSkuItems.length)
+          this.productSkuChecks[i] = [] // 店铺skuIds数量
+          //  console.info('数量', this.storeTotalSkuIds[i], i)
+          // 计算商品sku 的选择数量
+          this.productSkuCount[i] = []
+          for (var j = 0; j < storeItem.productSkuItems.length; j++) {
+            var productSkuItem = storeItem.productSkuItems[j]
+            this.productSkuChecks[i].push(productSkuItem.productSkuId)
+
+            // 设置商品sku数量
+            this.productSkuCount[i][j] = []
+            this.productSkuCount[i][j] = productSkuItem.buyCount
+          }
         }
       },
       // 店铺商品选择事件
@@ -170,6 +174,7 @@
       // 店铺选择事件
       storeCheck (storeId, index) {
         console.info('店铺ID', storeId, '店铺索引', index, '店铺商品总数', this.storeTotalSkuIds[index], '店铺已选skuId', this.productSkuChecks[index])
+        // 实现店铺全选，和取消全选
         this.productSkuChecks[index] = []
         for (var j = 0; j < this.viewModel.storeItems[index].productSkuItems.length; j++) {
           if (!this.storeCheckModel[index]) {
