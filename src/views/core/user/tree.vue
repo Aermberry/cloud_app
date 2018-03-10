@@ -2,27 +2,129 @@
   <section class="zkui-user-tree">
 
     <zk-head title='组织架构图' goBack='会员中心'></zk-head>
+    <!-- <div style='display:flex flex:3'>
+      <div style='flex:1'>
+        <div v-if='Plist.length>0'>
+          <vue-ztree :list.sync='Plist' :func='nodeClick' :is-open='false'></vue-ztree>
+        </div>
+      </div>
 
+    </div> -->
     <zk-foot></zk-foot>
   </section>
 </template>
 
-<script>
-  import userService from 'src/service/api/user.api'
-  export default {
-    data () {
-      return {
+// <script>
+//   import apiService from 'src/service/api/user.api'
+//   import vueZtree from 'src/widgets/zk-tree'
+//   export default {
+//     data () {
+//       return {
+//         msg: 'Hello Vue-Ztree-2.0!',
+//         Datalist: '', // 组织架构图数据
+//         Plist: [], // 编译后的数据
+//         ztreeDataSource: [],
+//         dataList: [],
+//         treeDeepCopy: [],
+//         parentNodeModel: [],//当前点击节点父亲对象
+//         nodeModel: null // 当前点击节点对象
+//       }
+//     },
+//     methods: {
+//       async GetData () {
+//         var res = await apiService.Tree();
+//         console.log(res.data.result);
+//         this.Datalist = res.data.result;
+//         this.Datalist.forEach(element => {
+//           var parent = {}
+//           parent['id'] = element.id
+//           parent['parentId'] = element.pId
+//           parent['name'] = element.name
+//           this.Plist.push(parent)
+//         })
+//         console.log(this.Plist)
+//       },
+//       navigateClick: function (index, item) {
+//         // 递归
+//         var recurFunc = (data, list) => {
+//           data.forEach((i) => {
+//             if (i.id == item.id) {
+//               i.clickNode = true
+//               this.nodeModel = i
+//               this.parentNodeModel = data
+//             } else {
+//               i.clickNode = false
+//             }
 
-      }
-    },
-    mounted () {
-      this.GetData()
-    },
-    methods: {
-      async GetData () {
-        var respone = await userService.Tree()
-        console.log(respone)
-      }
-    }
-  }
-</script>
+//             if (i.children) {
+//               recurFunc(i.children, i)
+//             }
+//           })
+//         }
+//         recurFunc(this.treeDeepCopy, this.treeDeepCopy)
+
+
+//         // 导航
+//         var self = this
+//         for (var i = 0; i < self.dataList.length; i++) {
+//           if (index == i) {
+//             self.dataList[i].clickNode = true
+//           } else {
+//             self.dataList[i].clickNode = false
+//           }
+//         }
+//         self.dataList.splice(index + 1, self.dataList.length - (index + 1))
+
+//         this.ztreeDataSource = this.treeDeepCopy
+//       },
+//       findById: function (data, parentId) {
+//         var vm = this
+
+//         for (var i = 0; i < data.length; i++) {
+//           if (parentId == data[i].id) {
+//             console.log(data[i])
+//             vm.dataList.push(data[i])
+//             vm.findById(vm.ztreeDataSource, data[i].parentId)
+//             return data[i]
+//           }
+
+//           if (data[i].hasOwnProperty('children')) {
+//             vm.findById(data[i].children, parentId)
+//           }
+
+//         }
+//       },
+//       // 点击节点
+//       nodeClick: function (m, parent, trees) {
+//         this.treeDeepCopy = trees
+//         this.nodeModel = m   // 当前点击节点对象
+//         this.parentNodeModel = parent  //当前点击节点父亲对象
+
+//         // console.log(m)
+//         // console.log(parent)
+
+//         // 导航菜单
+//         this.dataList = []
+//         this.findById(this.ztreeDataSource, m.parentId)
+//         this.dataList = this.dataList.reverse()
+//         this.dataList.push(m)
+//       },
+//       // 右击事件
+//       contextmenuClick: function (m) {
+//         console.log(m)
+//         console.log(event.target)
+//         console.log('触发了自定义的contextmenuClick事件 ')
+//         alert('触发了自定义 ')
+//       },
+//       // 点击展开收起
+//     },
+//     components: {
+//       vueZtree
+//     },
+//     mounted () {
+//       // 异步获取数据操作
+//       this.GetData()
+//     }
+//   }
+// </script>
+

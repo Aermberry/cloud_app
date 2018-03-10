@@ -138,6 +138,7 @@
     height: 82vh !important;
     display: block !important;
     overflow-y: auto;
+    border-right: 1px solid #e5e5e5;
   }
   .zk-class-tab-left::-webkit-scrollbar {
     display: none;
@@ -148,10 +149,13 @@
     -webkit-flex: 1;
     flex: 1;
     .vux-swiper {
-      height: 70vh !important;
+      height: 82vh !important;
     }
   }
-
+  .weui-grids {
+    height: 100%;
+    overflow-y: auto;
+  }
   .weui-grids::after,
   .weui-grids::before {
     content: none;
