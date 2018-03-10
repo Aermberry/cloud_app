@@ -7,12 +7,17 @@
       </group>
     </div>
     <div class="vux-form-preview weui-form-preview zkui_order_buy-address" v-if="hasSelectAddress" @click="selectAddress">
+      <div class="address-left-icon">
+        <m-icon name="zk-orderaddress" class="icon"></m-icon>
+      </div>
+      <div class="address-right-icon">
+        <m-icon name="zk-right" class="icon"></m-icon>
+      </div>
       <div class="weui-form-preview__hd">
         <label class="weui-form-preview__label address_name">收货人：{{viewModel.name}}</label>
         <em class="weui-form-preview__value">{{viewModel.mobile}}</em>
         <div class="weui-form-preview__item">
           <span class="weui-form-preview__value address_particulars address_name">
-            <m-icon name="zk-orderaddress" size="2.5rem" class="icon"></m-icon>
             收货地址：{{viewModel.addressDescription}}
           </span>
         </div>
@@ -76,7 +81,6 @@
 
 <style lang="less">
   .zkui_order_buy__address {
-    margin-bottom: 2.5rem;
     .weui-tabbar {
       position: fixed;
       z-index: 500;
@@ -164,12 +168,20 @@
     }
     .address_name {
       padding-left: 1.8rem;
+      padding-right: 1.8rem;
+      word-break: break-all;
+      text-overflow: ellipsif;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      overflow: hidden;
     }
     .spec {
       margin-top: 0.5rem;
     }
     .weui-form-preview__value {
       font-size: @h4-font-size;
+      padding-right: 1.8rem;
     }
     .vux-inline-x-number {
       float: right;
@@ -187,9 +199,23 @@
       white-space: pre;
     }
     .zkui_order_buy-address {
-      .icon {
+      position: relative;
+      .address-left-icon {
         position: absolute;
-        top: 3rem;
+        top: 50%;
+        left: 0;
+        width: 40*@rem;
+        height: 40*@rem;
+        transform: translatey(-50%);
+        svg {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .address-right-icon {
+        position: absolute;
+        bottom: 0.5rem;
+        right: 0;
       }
       .weui-cell {
         .vux-cell-bd {

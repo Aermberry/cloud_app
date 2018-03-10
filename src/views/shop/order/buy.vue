@@ -249,9 +249,12 @@
         box-sizing: border-box;
         border-radius: 0;
       }
-      .weui-cells .vux-no-group-title {
-        :after {
-          border-bottom: 0;
+      .weui-cells {
+        .vux-no-group-title {
+          margin-top: 0.77em;
+          :after {
+            border-bottom: 0;
+          }
         }
       }
       .bar-home,
