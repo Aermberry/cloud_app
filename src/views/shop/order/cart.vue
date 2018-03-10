@@ -2,11 +2,11 @@
   <section class="zkui-order-cart">
     <zk-head title='购物车' class="zkui-order-cart-head"></zk-head>
     <div class="zkui-order-cart-box" v-if="hasData">
-      <div v-for="(store,index) in viewModel.storeItems" :key="index" class="cart_item-box">
+      <div v-for="(store,storeIndex) in viewModel.storeItems" :key="storeIndex" class="cart_item-box">
         <div class="weui-cells weui-cells_checkbox">
           <label class="weui-cell weui-check_label cart_item-title">
             <div class="weui-cell__hd">
-              <input type="checkbox" v-model="storeCheckModel[index]" class="weui-check" @click='storeCheck(store.storeId,index)'>
+              <input type="checkbox" v-model="storeCheckModel[storeIndex]" class="weui-check" @click='storeCheck(store.storeId,storeIndex)'>
               <i class="weui-icon-checked vux-checklist-icon-checked"></i>
             </div>
             <div class="weui-cell__bd">
@@ -14,7 +14,7 @@
             </div>
           </label>
         </div>
-        <checker default-item-class="check-icon-item" type="checkbox" selected-item-class="check-icon-item-selected" v-model="productSkuChecks[index]">
+        <checker default-item-class="check-icon-item" type="checkbox" selected-item-class="check-icon-item-selected" v-model="productSkuChecks[storeIndex]">
           <ul>
             <li class="zkui-order-cart-item" v-for="(productSku,skuIndex) in store.productSkuItems" :key="skuIndex">
               <div class="order-cart-commodity">
@@ -24,7 +24,7 @@
                       <div class="weui-cells weui-cells_checkbox">
                         <label class="weui-cell weui-check_label car_item-left">
                           <div class="weui-cell__hd">
-                            <checker-item :value="productSku.productSkuId" :key="productSku.productSkuId" type="default" @on-item-click="storeProductCheck(productSku.productSkuId,index,skuIndex)"></checker-item>
+                            <checker-item :value="productSku.productSkuId" :key="productSku.productSkuId" type="default" @on-item-click="storeProductCheck(productSku.productSkuId,storeIndex,skuIndex)"></checker-item>
                           </div>
                         </label>
                       </div>
@@ -40,8 +40,8 @@
                           <ul class="flex">
                             <li class="price_now">￥{{productSku.price}}</li>
                             <li class="price_old">￥{{productSku.marketPrice}}</li>
-                            <li class="flex_one price_num" @click="changeCount(productSku.productSkuId)">
-                              <inline-x-number style="display:block;" :min="0" width="2rem" button-style="round" v-model="productSkuCount[index][skuIndex]"></inline-x-number>
+                            <li class="flex_one price_num">
+                              <inline-x-number style="display:block;" @click.native="changeCount(storeIndex,skuIndex,productSku.productSkuId)" :min="0" width="2rem" button-style="round" v-model="productSkuCount[storeIndex][skuIndex]"></inline-x-number>
                             </li>
                           </ul>
                         </div>
@@ -195,8 +195,10 @@
           })
         }
       },
-      // 修改数量
-      changeCount () {
+      // 修改数量,到0的时候，删除商品，增加的时候，判断库存
+      changeCount (storeIndex, skuIndex, skuId) {
+        console.info(storeIndex, skuIndex, skuId)
+        console.info(this.productSkuCount[storeIndex][skuIndex])
       }
     }
   }
