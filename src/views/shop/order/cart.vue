@@ -6,7 +6,7 @@
         <div class="weui-cells weui-cells_checkbox">
           <label class="weui-cell weui-check_label cart_item-title">
             <div class="weui-cell__hd">
-              <input type="checkbox" checked class="weui-check" @click='storeCheck(store.storeId,index)'>
+              <input type="checkbox" :checked="productSkuChecks[index].length === storeTotalSkuIds[index]" class="weui-check" @click='storeCheck(store.storeId,index)'>
               <i class="weui-icon-checked vux-checklist-icon-checked"></i>
             </div>
             <div class="weui-cell__bd">
@@ -16,7 +16,7 @@
         </div>
         <checker default-item-class="check-icon-item" type="checkbox" selected-item-class="check-icon-item-selected" v-model="productSkuChecks[index]">
           <ul>
-            <li class="zkui-order-cart-item" v-for="productSku in store.productSkuItems" :key="productSku.productSkuId">
+            <li class="zkui-order-cart-item" v-for="(productSku,skuIndex) in store.productSkuItems" :key="skuIndex">
               <div class="order-cart-commodity">
                 <div slot="content" class="demo-content " style="height:7.8rem">
                   <ul class="flex order-cart-commodity-box">
@@ -24,7 +24,7 @@
                       <div class="weui-cells weui-cells_checkbox">
                         <label class="weui-cell weui-check_label car_item-left">
                           <div class="weui-cell__hd">
-                            <checker-item :value="productSku.productSkuId" :key="productSku.productSkuId" type="default" @on-item-click="storeProductCheck">{{productSku.productSkuId}}</checker-item>
+                            <checker-item :value="productSku.productSkuId" :key="productSku.productSkuId" type="default" @on-item-click="storeProductCheck(productSku.productSkuId,skuIndex)">{{productSku.productSkuId}}</checker-item>
                           </div>
                         </label>
                       </div>
@@ -100,6 +100,7 @@
         hasData: false, // 判断购物车数据
         viewModel: '', // 数据对象
         productSkuChecks: [], // 店铺选择商品
+        storeTotalSkuIds: [], // 计算店铺skuId数量，实现全选事件
         storeChecks: [] // 店铺选择
       }
     },
@@ -128,7 +129,10 @@
           // 默认选中所有的元素
           for (var i = 0; i < this.viewModel.storeItems.length; i++) {
             var storeItem = this.viewModel.storeItems[i]
-            this.productSkuChecks[i] = []
+            this.storeTotalSkuIds[i] = []
+            this.storeTotalSkuIds[i].push(storeItem.productSkuItems.length)
+            this.productSkuChecks[i] = [] // 店铺skuIds数量
+            console.info('数量', this.storeTotalSkuIds[i], i)
             storeItem.productSkuItems.forEach(element => {
               this.productSkuChecks[i].push(element.productSkuId)
             })
@@ -147,12 +151,12 @@
       },
 
       // 店铺商品选择事件
-      storeProductCheck (item, id) {
-        console.info(item, id)
+      storeProductCheck (skuId, index) {
+        console.info('skuId', skuId, '店铺sku索引', index)
       },
       // 店铺选择事件
       storeCheck (storeId, index) {
-        console.info(storeId, index)
+        console.info('店铺ID', storeId, '店铺索引', index, '店铺商品总数', this.storeTotalSkuIds[index], '店铺已选skuId', this.productSkuChecks[index])
       }
     }
   }
