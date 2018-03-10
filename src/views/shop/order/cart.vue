@@ -1,16 +1,12 @@
 <template>
   <section class="zkui-order-cart">
     <zk-head title='购物车' class="zkui-order-cart-head"></zk-head>
-    <checker v-model="demo6" default-item-class="check-icon-item" type="checkbox" selected-item-class="check-icon-item-selected">
-      <checker-item v-for="i in [1, 2, 3]" :key="i" :value="i" type="default">{{[i - 1]}}</checker-item>
-    </checker>
-
     <div class="zkui-order-cart-box" v-if="hasData">
       <div v-for="(store,index) in viewModel.storeItems" :key="index" class="cart_item-box">
         <div class="weui-cells weui-cells_checkbox">
           <label class="weui-cell weui-check_label cart_item-title">
             <div class="weui-cell__hd">
-              <input type="checkbox" :id="'store'+store.storeId" class="weui-check" :value="store.storeId" @click='storeProductCheck'>
+              <input type="checkbox" checked class="weui-check" @click='storeCheck(store.storeId,index)'>
               <i class="weui-icon-checked vux-checklist-icon-checked"></i>
             </div>
             <div class="weui-cell__bd">
@@ -129,6 +125,7 @@
         this.viewModel = reponse.data.result
         if (reponse.data.status === 1) {
           this.hasData = true
+          // 默认选中所有的元素
           for (var i = 0; i < this.viewModel.storeItems.length; i++) {
             var storeItem = this.viewModel.storeItems[i]
             this.productSkuChecks[i] = []
@@ -136,9 +133,6 @@
               this.productSkuChecks[i].push(element.productSkuId)
             })
           }
-
-
-          // console.info('店铺数据', this.viewModel)
         } else {
           this.hasData = false
         }
@@ -155,6 +149,10 @@
       // 店铺商品选择事件
       storeProductCheck (item, id) {
         console.info(item, id)
+      },
+      // 店铺选择事件
+      storeCheck (storeId, index) {
+        console.info(storeId, index)
       }
     }
   }
