@@ -31,7 +31,7 @@
           </li>
         </ul>
       </div>
-      <popup-radio title="请选择 " :options="store.expressTemplates" v-model="showDelivery">
+      <popup-radio title="请选择 " :options="store.expressTemplates" v-model="showDelivery[storeIndex]">
         <p slot="popup-header" class="border-bottom popup-header">选择快递方式</p>
       </popup-radio>
       <x-textarea title="卖家留言 " placeholder="选填：填写内容已和卖家协商确认 " :show-counter="false " :rows="1 " autosize></x-textarea>
@@ -88,10 +88,11 @@
     data () {
       return {
         modelView: '', // 商品数据，从服务器上远程获取
+        priceView: '', // 价格显示模型
         asyncFlag: false, // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
         showPay: false, // 显示支付方式
         payAmount: '', // 需要支付的金额，人民币支付
-        showDelivery: '' // 显示物流快递
+        showDelivery: [] // 显示物流快递
       }
     },
     mounted () {
@@ -180,7 +181,7 @@
             name: 'commont_index'
           })
         } else {
-          let buyInfoInput = {
+          var buyInfoInput = {
             loginUserId: this.LoginUser().id,
             productJson: JSON.stringify(buyProductInfo)
           }
@@ -189,9 +190,26 @@
             this.messageWarn(response.data.message)
           } else {
             this.modelView = response.data.result
+            // 获取价格
+            var defaultAddress = local.getStore('default_address') // 刷新时从缓冲中读取地址
+            var priceInput = {
+              sign: this.modelView.sign, // 传递签名
+              loginUserId: this.LoginUser().id, // 用户Id
+              addressId: defaultAddress.id
+            }
+            var priceResponse = await apiService.getPrice(priceInput)
+            if (priceResponse.data.status !== 1) {
+              // this.messageWarn(priceResponse.data.message)
+            } else {
+              this.priceView = priceResponse.data.result
+              this.asyncFlag = true
+            }
+
+            for (var i = 0; i < this.modelView.storeItems.length; i++) {
+              this.showDelivery[i] = this.modelView.storeItems[i].expressTemplates[0].value
+              console.info('店铺运费', this.showDelivery[i])
+            }
           }
-          this.modelView = response.data.result
-          this.asyncFlag = true
         }
       }
     }

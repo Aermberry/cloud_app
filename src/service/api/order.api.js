@@ -11,6 +11,11 @@ export default {
     var response = http.postLogin('/order/buy', data)
     return response
   },
+  //  提交订单，购物商品
+  getPrice (data) {
+    var response = http.postLogin('/order/getPrice', data)
+    return response
+  },
   //  我的订单
   list (data) {
     var response = http.getLogin('/order/list', data)
