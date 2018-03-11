@@ -31,7 +31,7 @@
           </li>
         </ul>
       </div>
-      <popup-radio title="请选择 " :options="store.expressTemplates" v-model="showDelivery[storeIndex]">
+      <popup-radio title="请选择 " :options="store.expressTemplates" v-model="showDelivery[storeIndex]" @on-change="changeDelivery()">
         <p slot="popup-header" class="border-bottom popup-header">选择快递方式</p>
       </popup-radio>
       <x-textarea title="卖家留言 " placeholder="选填：填写内容已和卖家协商确认 " :show-counter="false " :rows="1 " autosize></x-textarea>
@@ -206,11 +206,15 @@
             }
 
             for (var i = 0; i < this.modelView.storeItems.length; i++) {
-              this.showDelivery[i] = this.modelView.storeItems[i].expressTemplates[0].value
+              this.showDelivery[i] = this.modelView.storeItems[i].expressTemplates[0].key
               console.info('店铺运费', this.showDelivery[i])
             }
           }
         }
+      },
+      // 更改运费
+      changeDelivery (value) {
+        console.info(value)
       }
     }
   }
