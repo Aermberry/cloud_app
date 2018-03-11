@@ -1,8 +1,7 @@
 <template>
-  <section>
-
+  <section class="zkui_order_buy">
     <buy-address></buy-address>
-    <group class="zkui_order_buy order_buy_product " v-for="(store,storeIndex) in modelView.storeItems " :key="storeIndex">
+    <group class="order_buy_product " v-for="(store,storeIndex) in modelView.storeItems " :key="storeIndex">
       <cell :title="store.storeName" class="border-bottom"> </cell>
       <div class="item-contnet">
         <ul>
@@ -41,7 +40,7 @@
       </cell>
       <divider class="divider-bg "></divider>
     </group>
-    <tabbar class="zkui_order_buy">
+    <tabbar>
       <tabbar-item>
         <div slot="label" class="total">
           <span>总计</span>

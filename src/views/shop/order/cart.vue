@@ -85,7 +85,7 @@
           <span slot="label" class="zkui-order-cart-bar-price">{{totalAmount}}</span>
         </tabbar-item>
         <tabbar-item class="bar-right">
-          <span slot="label" class="zkui-order-cart-bar-close">结算</span>
+          <x-button slot="customer" type="primary" class="zkui-order-cart-bar-close" @click.native="buy">结算</x-button>
         </tabbar-item>
       </tabbar>
     </div>
@@ -132,6 +132,7 @@
         if (reponse.data.status === 1) {
           this.initCart(reponse.data.result) // 初始化购物车
         } else {
+          // this.$vux.toast.warn(reponse.data.message)
           this.hasData = false
         }
       },
@@ -152,7 +153,7 @@
           this.productSkuCount[i] = []
           for (var j = 0; j < storeItem.productSkuItems.length; j++) {
             var productSkuItem = storeItem.productSkuItems[j]
-            this.productSkuChecks[i].push(productSkuItem.productSkuId)
+            this.productSkuChecks[i].push(productSkuItem)
 
             // 设置商品sku数量
             this.productSkuCount[i][j] = []
@@ -199,6 +200,32 @@
       changeCount (storeIndex, skuIndex, skuId) {
         console.info(storeIndex, skuIndex, skuId)
         console.info(this.productSkuCount[storeIndex][skuIndex])
+      },
+      // 结算购买
+      buy () {
+        var buyProductInfo = []
+        for (var i = 0; i < this.viewModel.storeItems.length; i++) {
+          var storeItem = this.viewModel.storeItems[i]
+          this.productSkuChecks[i].forEach(element => {
+            this.productSkuChecks[i].push(element.productSkuId)
+            var buyItem = [{
+              ProductSkuId: 1,
+              Count: 1,
+              ProductId: 1,
+              storeId: 1,
+              LoginUserId: 1
+            }]
+            buyProductInfo.push(buyItem)
+          })
+          console.info('店铺最终购买数据', storeItem.storeName, this.productSkuChecks[i])
+        }
+        console.info('格式', buyProductInfo)
+        // this.$router.push({
+        //   name: 'order_buy',
+        //   params: {
+        //     buyInfo: buyProductInfo
+        //   }
+        // })
       }
     }
   }
