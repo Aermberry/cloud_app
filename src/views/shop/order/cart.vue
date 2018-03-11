@@ -14,7 +14,7 @@
             </div>
           </label>
         </div>
-        <checker default-item-class="check-icon-item" type="checkbox" selected-item-class="check-icon-item-selected" v-model="productSkuChecks[storeIndex]">
+        <checker default-item-class="check-icon-item" type="checkbox" selected-item-class="check-icon-item-selected" v-model="productSkuIdChecks[storeIndex]">
           <ul>
             <li class="zkui-order-cart-item" v-for="(productSku,skuIndex) in store.productSkuItems" :key="skuIndex">
               <div class="order-cart-commodity">
@@ -104,6 +104,7 @@
         viewModel: '', // 数据对象
         productSkuCount: [], // 商品sku 选择数量
         productSkuChecks: [], // 店铺选择商品
+        productSkuIdChecks: [], // 店铺选择商品，绑定checker
         storeCheckModel: [], // 店铺选择数组，实现全选和取消全选事件
         allCheck: true, // 整个购物车全选
         storeTotalSkuIds: [] // 计算店铺skuId总数量，实现全选事件
@@ -148,12 +149,14 @@
           this.storeCheckModel[i] = true
           this.storeTotalSkuIds[i].push(storeItem.productSkuItems.length)
           this.productSkuChecks[i] = [] // 店铺skuIds数量
+          this.productSkuIdChecks[i] = []
           //  console.info('数量', this.storeTotalSkuIds[i], i)
           // 计算商品sku 的选择数量
           this.productSkuCount[i] = []
           for (var j = 0; j < storeItem.productSkuItems.length; j++) {
             var productSkuItem = storeItem.productSkuItems[j]
             this.productSkuChecks[i].push(productSkuItem)
+            this.productSkuIdChecks[i].push(productSkuItem.productSkuId)
 
             // 设置商品sku数量
             this.productSkuCount[i][j] = []
