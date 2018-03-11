@@ -18,9 +18,7 @@
         </p>
       </div>
       <group class="pay-index">
-        <radio :options="payTypes" fill-label="Other" @on-change="change">
-
-        </radio>
+        <radio :options="payTypes" fill-label="Other" @on-change="change"> </radio>
       </group>
       <div class="pay-buttom base">
         <x-button type="primary" @click.native="pay">立即付款</x-button>

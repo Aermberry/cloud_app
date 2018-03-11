@@ -31,12 +31,12 @@
           </li>
         </ul>
       </div>
-      <popup-radio title="请选择 " :options="store.expressTemplates" v-model="showDelivery[storeIndex]" :value="showDelivery[storeIndex]" @on-change="changeDelivery()">
+      <popup-radio title="请选择 " :options="store.expressTemplates" v-model="showDelivery[storeIndex]" @on-change="changeDelivery(storeIndex)">
         <p slot="popup-header" class="border-bottom popup-header">选择快递方式</p>
       </popup-radio>
       <x-textarea title="卖家留言 " placeholder="选填：填写内容已和卖家协商确认 " :show-counter="false " :rows="1 " autosize></x-textarea>
       <cell>
-        <div>共{{store.totalCount}}商品 小计{{store.totalAmount}}</div>
+        <div>共{{store.totalCount}}商品 运费：{{store.totalAmount }} 小计{{store.totalAmount}}</div>
       </cell>
       <divider class="divider-bg "></divider>
     </group>
@@ -190,31 +190,51 @@
             this.messageWarn(response.data.message)
           } else {
             this.modelView = response.data.result
-            // 获取价格
-            var defaultAddress = local.getStore('default_address') // 刷新时从缓冲中读取地址
-            var priceInput = {
-              sign: this.modelView.sign, // 传递签名
-              loginUserId: this.LoginUser().id, // 用户Id
-              addressId: defaultAddress.id
-            }
-            var priceResponse = await apiService.getPrice(priceInput)
-            if (priceResponse.data.status !== 1) {
-              // this.messageWarn(priceResponse.data.message)
-            } else {
-              this.priceView = priceResponse.data.result
-              this.asyncFlag = true
-            }
-
+            this.asyncFlag = true
+            // 初始运费模板
             for (var i = 0; i < this.modelView.storeItems.length; i++) {
-              this.showDelivery[i] = this.modelView.storeItems[i].expressTemplates[0]
-              console.info('店铺运费', this.showDelivery[i])
+              this.showDelivery[i] = this.modelView.storeItems[i].expressTemplates[0].key
             }
+            // 获取价格
+            this.getPrice()
           }
         }
       },
-      // 更改运费
-      changeDelivery (value) {
-        console.info(value)
+      // 更改运费方式，重新获取价格
+      changeDelivery (storeIndex) {
+        // console.info('当前值', this.showDelivery[storeIndex])
+        this.getPrice()
+      },
+      // 获取价格,更改店铺运费方式，修改地址时候，会修改价格
+      async getPrice () {
+        var defaultAddress = local.getStore('default_address') // 刷新时从缓冲中读取地址
+        var storeDelivery = []
+        for (var i = 0; i < this.modelView.storeItems.length; i++) {
+          var storeItem = this.modelView.storeItems[i]
+          var deliveryItem = {
+            key: storeItem.storeId,
+            value: this.showDelivery[i]
+          }
+          storeDelivery.push(deliveryItem)
+        }
+        var priceInput = {
+          sign: this.modelView.sign, // 传递签名
+          loginUserId: this.LoginUser().id, // 用户Id
+          addressId: defaultAddress.id,
+          storeExpressJson: JSON.stringify(storeDelivery)
+        }
+
+        var priceResponse = await apiService.getPrice(priceInput)
+        if (priceResponse.data.status !== 1) {
+          if (priceResponse.data.messagecode === 100) {
+            console.warn(priceResponse.data.message)
+            this.GetData() // 缓存对象不存在，重新请求一次数据库
+          }
+          // this.messageWarn(priceResponse.data.message)
+        } else {
+          this.priceView = priceResponse.data.result
+          this.asyncFlag = true
+        }
       }
     }
   }
