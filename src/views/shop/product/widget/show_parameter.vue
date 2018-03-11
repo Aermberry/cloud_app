@@ -106,7 +106,8 @@
           let params = {
             ProductSkuId: this.selectSku.id,
             productId: this.productView.id,
-            Count: this.buyCount
+            storeId: this.productView.storeId,
+            count: this.buyCount
           }
           var response = await userService.AddCart(params)
           if (response.data.status === 1) {
@@ -127,6 +128,7 @@
           ProductSkuId: this.selectSku.id,
           Count: this.buyCount,
           ProductId: this.productView.id,
+          storeId: this.productView.storeId,
           LoginUserId: this.LoginUser().id
         }]
         this.showSale = false

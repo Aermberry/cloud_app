@@ -2,28 +2,25 @@
   <section>
 
     <buy-address></buy-address>
-    <group class="zkui_order_buy order_buy_product " v-for="store in modelView.storeProducts " :key="store.storeId ">
+    <group class="zkui_order_buy order_buy_product " v-for="(store,storeIndex) in modelView.storeItems " :key="storeIndex">
+      <cell :title="store.storeName" class="border-bottom"> </cell>
       <div class="item-contnet">
-        <div class="weui-cells ">
-          <cell :title="store.storeName"> </cell>
-        </div>
         <ul>
-          <li class="zkui-order-cart-item" v-for="product in store.productItems " :key="product.productSku.id ">
+          <li class="zkui-order-cart-item" v-for="(productSku,productSkuIndex) in store.productSkuItems " :key="productSkuIndex">
             <div class="order-cart-commodity">
               <div class="demo-content " style="height: 7.8rem;">
                 <ul class="flex order-cart-commodity-box">
                   <li class="flex_one">
                     <div class="order-cart-commodit-into flex">
-                      <div class="order-cart-commodity-into_left"><img :src="product.product.thumbnailUrl " alt=""></div>
+                      <div class="order-cart-commodity-into_left"><img :src="productSku.thumbnailUrl " alt=""></div>
                       <div class="flex_one order-cart-commodity-into_right ">
-                        <p>{{product.product.name}}</p>
-                        <span>{{product.productSku.bn}} {{product.productSku.propertyValueDesc}} </span>
+                        <p>{{productSku.name}}</p>
+                        <span>{{productSku.bn}} {{productSku.propertyValueDesc}} </span>
                         <ul class="flex">
-                          <li class="price_now"> </li>
-                          <li class="price_old"> </li>
+                          <li class="price_now">￥{{productSku.price}}</li>
+                          <li class="price_old"> ￥{{productSku.marketPrice}}</li>
                           <li class="flex_one price_num">
-                            <!-- ×{{item.count}} -->
-                            <inline-x-number style="display:block;" :min="0" width="2rem" button-style="round" v-model="product.count" :value="product.count"></inline-x-number>
+                            X {{productSku.buyCount}}
                           </li>
                         </ul>
                       </div>
@@ -322,7 +319,6 @@
       .weui-cells_checkbox {
         .cart_item-title {
           padding: 0.3rem 0;
-          border-bottom: 1px solid rgba(229, 229, 229, 0.5);
         }
       }
       ul {
@@ -342,7 +338,6 @@
                 }
               }
               .order-cart-commodity-into_right {
-                border-bottom: 1px solid rgba(229, 229, 229, 0.5);
                 margin-top: 0.8rem;
                 padding: 0 0.8rem;
                 position: relative;
@@ -415,19 +410,6 @@
           }
         }
       }
-    }
-    .flex {
-      display: -moz-box;
-      display: -ms-flexbox;
-      display: -webkit-box;
-      display: -webkit-flex;
-      display: flex;
-    }
-    .flex_one {
-      -ms-flex: 1;
-      -moz-box-flex: 1;
-      -webkit-flex: 1;
-      flex: 1;
     }
   }
 </style>
