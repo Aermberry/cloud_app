@@ -41,7 +41,7 @@
                             <li class="price_now">￥{{productSku.price}}</li>
                             <li class="price_old">￥{{productSku.marketPrice}}</li>
                             <li class="flex_one price_num">
-                              <inline-x-number style="display:block;" @click.native="changeCount(storeIndex,skuIndex,productSku.productSkuId)" :min="0" width="2rem" button-style="round" v-model="productSkuCount[storeIndex][skuIndex]"></inline-x-number>
+                              <inline-x-number style="display:block;" @click.native="changeCount(storeIndex,skuIndex,productSku.productSkuId)" :min="0" width="2rem" button-style="round" v-model="buySkuCount[storeIndex][skuIndex]"></inline-x-number>
                             </li>
                           </ul>
                         </div>
@@ -102,7 +102,7 @@
         totalAmount: 0, // 店铺选择商品总价格
         hasData: false, // 判断购物车数据
         viewModel: '', // 数据对象
-        productSkuCount: [], // 商品sku 选择数量
+        buySkuCount: [], // 商品sku 选择数量
         productSkuChecks: [], // 店铺选择商品
         productSkuIdChecks: [], // 店铺选择商品，绑定checker
         storeCheckModel: [], // 店铺选择数组，实现全选和取消全选事件
@@ -152,15 +152,15 @@
           this.productSkuIdChecks[i] = []
           //  console.info('数量', this.storeTotalSkuIds[i], i)
           // 计算商品sku 的选择数量
-          this.productSkuCount[i] = []
+          this.buySkuCount[i] = []
           for (var j = 0; j < storeItem.productSkuItems.length; j++) {
             var productSkuItem = storeItem.productSkuItems[j]
             this.productSkuChecks[i].push(productSkuItem)
             this.productSkuIdChecks[i].push(productSkuItem.productSkuId)
 
             // 设置商品sku数量
-            this.productSkuCount[i][j] = []
-            this.productSkuCount[i][j] = productSkuItem.buyCount
+            this.buySkuCount[i][j] = []
+            this.buySkuCount[i][j] = productSkuItem.buyCount
           }
         }
       },
@@ -202,33 +202,33 @@
       // 修改数量,到0的时候，删除商品，增加的时候，判断库存
       changeCount (storeIndex, skuIndex, skuId) {
         console.info(storeIndex, skuIndex, skuId)
-        console.info(this.productSkuCount[storeIndex][skuIndex])
+        console.info(this.buySkuCount[storeIndex][skuIndex])
       },
       // 结算购买
       buy () {
         var buyProductInfo = []
         for (var i = 0; i < this.viewModel.storeItems.length; i++) {
           var storeItem = this.viewModel.storeItems[i]
-          this.productSkuChecks[i].forEach(element => {
-            this.productSkuChecks[i].push(element.productSkuId)
-            var buyItem = [{
-              ProductSkuId: 1,
-              Count: 1,
-              ProductId: 1,
-              storeId: 1,
-              LoginUserId: 1
-            }]
+          for (var j = 0; j < this.productSkuChecks[i].length; j++) {
+            var element = this.productSkuChecks[i][j]
+            var buyItem = {
+              ProductSkuId: element.productSkuId,
+              Count: this.buySkuCount[i][j],
+              ProductId: element.productId,
+              storeId: storeItem.storeId,
+              LoginUserId: this.LoginUser().id
+            }
             buyProductInfo.push(buyItem)
-          })
+          }
           console.info('店铺最终购买数据', storeItem.storeName, this.productSkuChecks[i])
         }
         console.info('格式', buyProductInfo)
-        // this.$router.push({
-        //   name: 'order_buy',
-        //   params: {
-        //     buyInfo: buyProductInfo
-        //   }
-        // })
+        this.$router.push({
+          name: 'order_buy',
+          params: {
+            buyInfo: buyProductInfo
+          }
+        })
       }
     }
   }
