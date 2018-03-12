@@ -35,7 +35,7 @@
                           <img :src="productSku.thumbnailUrl" alt="">
                         </div>
                         <div class="flex_one order-cart-commodity-into_right ">
-                          <p>{{productSku.name}}</p>
+                          <p>{{productSku.name}} {{productSku.productSkuId}}</p>
                           <span>{{productSku.propertyValueDesc}}</span>
                           <ul class="flex">
                             <li class="price_now">￥{{productSku.price}}</li>
@@ -71,7 +71,7 @@
           <span slot="label" class="label">
             <div class="weui-cells weui-cells_checkbox">
               <label class="weui-cell weui-check_label car_item-all">
-                <div class="weui-cell__hd"><input type="checkbox" v-model="allCheck" class="weui-check">
+                <div class="weui-cell__hd"><input type="checkbox" v-model="allCheck" class="weui-check" @click="allChecker">
                   <i class="weui-icon-checked vux-checklist-icon-checked"></i>
                 </div>
               </label>
@@ -132,9 +132,36 @@
         this.viewModel = reponse.data.result
         if (reponse.data.status === 1) {
           this.initCart(reponse.data.result) // 初始化购物车
+          console.log(this.viewModel)
         } else {
           // this.$vux.toast.warn(reponse.data.message)
           this.hasData = false
+        }
+      },
+      // 全选、
+      allChecker () {
+        if (this.allCheck === true) {
+          for (var r = 0; r < this.storeCheckModel.length; r++) {
+            this.storeCheckModel[r] = false
+          }
+          for (var e = 0; e < this.productSkuIdChecks.length; e++) {
+            this.productSkuIdChecks[e] = []
+          }
+        } else {
+          for (var u = 0; u < this.storeCheckModel.length; u++) {
+            this.storeCheckModel[u] = true
+          }
+          var allList = {}
+          for (var n = 0; n < this.viewModel.storeItems.length; n++) {
+            allList[n] = []
+            for (var m = 0; m < this.viewModel.storeItems[n].productSkuItems.length; m++) {
+              console.log(m)
+              allList[n].push(this.viewModel.storeItems[n].productSkuItems[m].productSkuId)
+            }
+          }
+          for (var k = 0; k < this.viewModel.storeItems.length; k++) {
+            this.productSkuIdChecks[k] = allList[k]
+          }
         }
       },
       // 初始化购物车
@@ -146,7 +173,7 @@
         for (var i = 0; i < this.viewModel.storeItems.length; i++) {
           var storeItem = this.viewModel.storeItems[i]
           this.storeTotalSkuIds[i] = []
-          this.storeCheckModel[i] = true
+          this.storeCheckModel[i] = true // 设置所有默认被选择
           this.storeTotalSkuIds[i].push(storeItem.productSkuItems.length)
           this.productSkuChecks[i] = [] // 店铺skuIds数量
           this.productSkuIdChecks[i] = []
@@ -162,30 +189,61 @@
             this.buySkuCount[i][j] = []
             this.buySkuCount[i][j] = productSkuItem.buyCount
           }
+          console.log(this.productSkuChecks, this.productSkuChecks.length)
+          console.log(this.productSkuIdChecks, this.productSkuIdChecks.length)
+          // console.log(this.buySkuCount)
         }
       },
       // 店铺商品选择事件
+      // 店铺商品ID， 商品所属店铺下标  店铺商品下标
       storeProductCheck (skuId, stroeIndex, skuIndex) {
-        console.info('skuId', skuId, '店铺索引', stroeIndex, 'sku索引', skuIndex, '店铺商品总数', this.storeTotalSkuIds[stroeIndex][0], '店铺已选skuId', this.productSkuChecks[stroeIndex].length, this.productSkuChecks[stroeIndex])
-        if (this.productSkuChecks[stroeIndex].length === this.storeTotalSkuIds[stroeIndex][0]) {
+        // console.info('skuId', skuId, '店铺索引', stroeIndex, 'sku索引', skuIndex, '店铺商品总数', this.storeTotalSkuIds[stroeIndex][0], '店铺已选skuId', this.productSkuChecks[stroeIndex].length, this.productSkuChecks[stroeIndex])
+        // console.log(this.productSkuChecks[stroeIndex].length)
+        console.log(this.productSkuChecks[stroeIndex].length)// 店铺选择商品数量
+        console.log(this.storeTotalSkuIds)
+        console.log(this.productSkuIdChecks[stroeIndex].length)
+        if (this.productSkuIdChecks[stroeIndex].length === this.storeTotalSkuIds[stroeIndex][0]) {
           this.storeCheckModel[stroeIndex] = true
         } else {
           this.storeCheckModel[stroeIndex] = false
         }
-        console.info(this.storeCheckModel[stroeIndex])
-        console.info(this.productSkuChecks[stroeIndex].length)
-        console.info(this.storeTotalSkuIds[stroeIndex][0])
+        // console.info(this.storeCheckModel[stroeIndex])
+        // console.info(this.productSkuChecks[stroeIndex].length)
+        // console.info(this.storeTotalSkuIds[stroeIndex][0])
       },
       // 店铺选择事件
       storeCheck (storeId, index) {
         console.info('店铺ID', storeId, '店铺索引', index, '店铺商品总数', this.storeTotalSkuIds[index], '店铺已选skuId', this.productSkuChecks[index])
         // 实现店铺全选，和取消全选
-        this.productSkuChecks[index] = []
-        for (var j = 0; j < this.viewModel.storeItems[index].productSkuItems.length; j++) {
-          if (!this.storeCheckModel[index]) {
-            var productSkuItem = this.viewModel.storeItems[index].productSkuItems[j]
-            this.productSkuChecks[index].push(productSkuItem.productSkuId)
-          }
+        // this.productSkuChecks[index] = []// 店铺选择第[index]个商品
+        // for (var j = 0; j < this.viewModel.storeItems[index].productSkuItems.length; j++) {
+        //   if (!this.storeCheckModel[index]) {
+        //     var productSkuItem = this.viewModel.storeItems[index].productSkuItems[j]
+        //     this.productSkuChecks[index].push(productSkuItem.productSkuId)
+        //     console.log(this.productSkuChecks)
+        //   }
+        // }
+        console.log(this.storeCheckModel)
+        console.log(this.storeCheckModel.indexOf(false))
+        if (this.storeCheckModel.indexOf(false) === -1) {
+          console.log(-1)
+          this.allCheck = false
+        } else {
+          this.allCheck = true
+        }
+        var list = []
+        for (var s = 0; s < this.viewModel.storeItems[index].productSkuItems.length; s++) {
+          list.push(this.viewModel.storeItems[index].productSkuItems[s].productSkuId)
+        }
+        console.log(list)
+        if (this.storeCheckModel[index] === true) {
+          console.log('true')
+          this.productSkuIdChecks[index] = []
+        } else {
+          console.log('false')
+          this.productSkuIdChecks[index] = list
+          console.log(this.productSkuIdChecks[index])
+          console.log(this.productSkuIdChecks[index])
         }
       },
       // 计算选择价格和数量
