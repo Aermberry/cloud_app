@@ -36,7 +36,7 @@
       </popup-radio>
       <x-textarea title="卖家留言 " placeholder="选填：填写内容已和卖家协商确认 " :show-counter="false " :rows="1 " autosize></x-textarea>
       <cell>
-        <div v-if="asyncFlag">共{{store.totalCount}}商品 运费：{{priceView.storePrices[storeIndex].expressAmount }} 小计{{priceView.storePrices[storeIndex].totalAmount}}</div>
+        <div v-if="asyncFlag">共{{store.totalCount}}商品 运费：{{storePrices[storeIndex].expressAmount }} 小计{{storePrices[storeIndex].totalAmount}}</div>
       </cell>
       <divider class="divider-bg "></divider>
     </group>
@@ -234,15 +234,12 @@
           // this.messageWarn(priceResponse.data.message)
         } else {
           this.priceView = priceResponse.data.result
-          // for (var j = 0; j < this.priceView.storeItems.length; j++) {
-          //   var priceItem = {
-          //     expressAmount: this.modelView.storePrices[j].expressAmount,
-          //     productAmount: this.modelView.storePrices[j].productAmount
-          //   }
-          //   console.info('单元', priceItem)
-          //   this.storePrices[j].push(priceItem)
+          // for (var j = 0; j < this.priceView.storePrices.length; j++) {
+          //   this.storePrices[j][expressAmount] = this.priceView.storePrices[j].expressAmount
+          //   this.storePrices[j][]productAmount = this.priceView.storePrices[j].productAmount
           // }
-          // console.info(this.storePrices)
+          this.storePrices = this.priceView.storePrices
+          console.info('价格', this.storePrices)
           this.asyncFlag = true
         }
       }
