@@ -21,6 +21,7 @@ Vue.use(bootstrap)
 FastClick.attach(document.body)
 Vue.config.productionTip = false
 Vue.config.devtools = true
+console.info('主函数')
 
 new Vue({
   router,
