@@ -54,7 +54,6 @@
     </tabbar>
     <zk-pay ref="show_pay"></zk-pay>
   </section>
-
 </template>
 
 <script>
@@ -191,7 +190,7 @@
             this.messageWarn(response.data.message)
           } else {
             this.modelView = response.data.result
-            this.asyncFlag = true
+            // this.asyncFlag = true
             // 初始运费模板
             for (var i = 0; i < this.modelView.storeItems.length; i++) {
               this.showDelivery[i] = this.modelView.storeItems[i].expressTemplates[0].key
@@ -234,12 +233,7 @@
           // this.messageWarn(priceResponse.data.message)
         } else {
           this.priceView = priceResponse.data.result
-          // for (var j = 0; j < this.priceView.storePrices.length; j++) {
-          //   this.storePrices[j][expressAmount] = this.priceView.storePrices[j].expressAmount
-          //   this.storePrices[j][]productAmount = this.priceView.storePrices[j].productAmount
-          // }
           this.storePrices = this.priceView.storePrices
-          console.info('价格', this.storePrices)
           this.asyncFlag = true
         }
       }
@@ -249,215 +243,213 @@
 
 <style lang="less">
   .zkui_order_buy {
-    margin-bottom: 2.5rem;
-    .weui-tabbar {
-      position: fixed;
-      z-index: 500;
-      bottom: 0;
-      width: 100%;
-      // height: 3.33333333rem;
-      height: 3.5rem;
-      .bar-home {
-        width: 15%;
-      }
-      .weui-tabbar__label {
-        text-align: center;
-        color: #999999;
-        line-height: 0;
-      }
-      .weui-tabbar__icon {
-        display: inline-block;
-        width: 2.25rem;
-        height: 2.2rem;
-      }
-      .weui-btn {
-        width: 8rem;
-        height: 3.5rem;
-        white-space: nowrap;
-        border-radius: 0px;
-        float: right;
-      }
-      .weui-btn:after {
-        content: ' ';
-        width: 200%;
-        height: 200%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        border: 1px solid rgba(0, 0, 0, 0.2);
-        -webkit-transform: scale(0.5);
-        transform: scale(0.5);
-        -webkit-transform-origin: 0 0;
-        transform-origin: 0 0;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        border-radius: 0;
-      }
-      .weui-cells {
-        .vux-no-group-title {
-          margin-top: 0.77em;
-          :after {
-            border-bottom: 0;
+      margin-bottom: 2.5rem;
+      .weui-tabbar {
+          position: fixed;
+          z-index: 500;
+          bottom: 0;
+          width: 100%; // height: 3.33333333rem;
+          height: 3.5rem;
+          .bar-home {
+              width: 15%;
           }
-        }
+          .weui-tabbar__label {
+              text-align: center;
+              color: #999999;
+              line-height: 0;
+          }
+          .weui-tabbar__icon {
+              display: inline-block;
+              width: 2.25rem;
+              height: 2.2rem;
+          }
+          .weui-btn {
+              width: 8rem;
+              height: 3.5rem;
+              white-space: nowrap;
+              border-radius: 0px;
+              float: right;
+          }
+          .weui-btn:after {
+              content: ' ';
+              width: 200%;
+              height: 200%;
+              position: absolute;
+              top: 0;
+              left: 0;
+              border: 1px solid rgba(0, 0, 0, 0.2);
+              -webkit-transform: scale(0.5);
+              transform: scale(0.5);
+              -webkit-transform-origin: 0 0;
+              transform-origin: 0 0;
+              -webkit-box-sizing: border-box;
+              box-sizing: border-box;
+              border-radius: 0;
+          }
+          .weui-cells {
+              .vux-no-group-title {
+                  margin-top: 0.77em;
+                  :after {
+                      border-bottom: 0;
+                  }
+              }
+          }
+          .bar-home,
+          .bar-star {
+              width: 45%;
+              border-right: 1px solid #e5e5e5;
+          }
       }
-      .bar-home,
-      .bar-star {
-        width: 45%;
-        border-right: 1px solid #e5e5e5;
-      }
-    }
 
-    .total {
-      float: left;
-      margin-left: 8*@rem;
-      margin-top: 20*@rem;
-      font-weight: bold;
-      color: @metal;
-      .money {
-        color: @danger;
-        font-size: @h3-font-size;
-      }
-      .total-amount {
-        margin-left: 105*@rem;
-        position: absolute;
-        color: #adb5bd;
-        top: 20*@rem;
-      }
-    }
-
-    .vux-form-preview {
-      .weui-form-preview__hd {
-        line-height: 2em;
-        label {
+      .total {
+          float: left;
+          margin-left: 8*@rem;
+          margin-top: 20*@rem;
+          font-weight: bold;
           color: @metal;
-        }
-      }
-      .address_particulars {
-        color: @black;
-        text-align: left;
-      }
-    }
-
-    .spec {
-      margin-top: 0.5rem;
-    }
-    .weui-form-preview__value {
-      font-size: @h5-font-size;
-    }
-    .vux-inline-x-number {
-      float: right;
-      margin-top: 1rem;
-    }
-    .vux-number-selector-plus {
-      padding: 0 0.66666667rem;
-      margin-right: 0;
-    }
-    .weui-media-box__title {
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 3;
-      overflow: hidden;
-      white-space: pre;
-    }
-    .item-contnet {
-      .weui-cells {
-        margin-top: 0;
-      }
-      .weui-cells_checkbox {
-        .cart_item-title {
-          padding: 0.3rem 0;
-        }
-      }
-      ul {
-        .zkui-order-cart-item {
-          .order-cart-commodity {
-            height: 7.8rem;
-            .order-cart-commodit-into {
-              height: 100%;
-              .order-cart-commodity-into_left {
-                width: 6.5rem;
-                height: 6.5rem;
-                margin-top: 0.8rem;
-                margin-left: 10*@rem;
-                img {
-                  width: 100%;
-                  height: 100%;
-                }
-              }
-              .order-cart-commodity-into_right {
-                margin-top: 0.8rem;
-                padding: 0 0.8rem;
-                position: relative;
-                height: 7rem;
-                p {
-                  font-size: @h6-font-size;
-                  color: @black;
-                }
-                span {
-                  font-size: 0.8rem;
-                  color: @gray-500;
-                }
-                ul {
-                  width: 95%;
-                  position: absolute;
-                  left: 10*@rem;
-                  bottom: 10*@rem;
-                  height: 2rem;
-                  vertical-align: bottom;
-                  align-items: flex-end;
-                  li.price_now {
-                    color: @danger;
-                    font-size: @h4-font-size;
-                    font-weight: bold;
-                  }
-                  li.price_old {
-                    padding-left: 5*@rem;
-                    text-decoration: line-through;
-                    color: @gray-500;
-                  }
-                  li.price_num {
-                    text-align: right;
-                    color: @gray-500;
-                    padding-right: 10*@rem;
-                    padding-left: 10*@rem;
-                    .vux-number-round {
-                      height: 1.3rem;
-                      .vux-number-selector {
-                        width: 1.3rem;
-                        height: 1.3rem;
-                        position: relative;
-                      }
-                      .vux-number-selector-sub > svg {
-                        width: 1.3rem;
-                        height: 1.3rem;
-                        position: absolute;
-                        top: -0.07rem;
-                        left: -0.05rem;
-                      }
-                      .vux-number-selector-plus > svg {
-                        width: 1.3rem;
-                        height: 1.3rem;
-                        position: absolute;
-                        top: -0.07rem;
-                        left: -0.07rem;
-                      }
-                      .vux-number-input {
-                        font-size: @h6-font-size;
-                        height: 1.3rem;
-                      }
-                    }
-                    .vux-number-round > div {
-                      display: flex;
-                      justify-content: flex-end;
-                    }
-                  }
-                }
-              }
-            }
+          .money {
+              color: @danger;
+              font-size: @h3-font-size;
           }
-        }
+          .total-amount {
+              margin-left: 105*@rem;
+              position: absolute;
+              color: #adb5bd;
+              top: 20*@rem;
+          }
       }
-    }
+
+      .vux-form-preview {
+          .weui-form-preview__hd {
+              line-height: 2em;
+              label {
+                  color: @metal;
+              }
+          }
+          .address_particulars {
+              color: @black;
+              text-align: left;
+          }
+      }
+      .spec {
+          margin-top: 0.5rem;
+      }
+      .weui-form-preview__value {
+          font-size: @h5-font-size;
+      }
+      .vux-inline-x-number {
+          float: right;
+          margin-top: 1rem;
+      }
+      .vux-number-selector-plus {
+          padding: 0 0.66666667rem;
+          margin-right: 0;
+      }
+      .weui-media-box__title {
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 3;
+          overflow: hidden;
+          white-space: pre;
+      }
+      .item-contnet {
+          .weui-cells {
+              margin-top: 0;
+          }
+          .weui-cells_checkbox {
+              .cart_item-title {
+                  padding: 0.3rem 0;
+              }
+          }
+          ul {
+              .zkui-order-cart-item {
+                  .order-cart-commodity {
+                      height: 7.8rem;
+                      .order-cart-commodit-into {
+                          height: 100%;
+                          .order-cart-commodity-into_left {
+                              width: 6.5rem;
+                              height: 6.5rem;
+                              margin-top: 0.8rem;
+                              margin-left: 10*@rem;
+                              img {
+                                  width: 100%;
+                                  height: 100%;
+                              }
+                          }
+                          .order-cart-commodity-into_right {
+                              margin-top: 0.8rem;
+                              padding: 0 0.8rem;
+                              position: relative;
+                              height: 7rem;
+                              p {
+                                  font-size: @h6-font-size;
+                                  color: @black;
+                              }
+                              span {
+                                  font-size: 0.8rem;
+                                  color: @gray-500;
+                              }
+                              ul {
+                                  width: 95%;
+                                  position: absolute;
+                                  left: 10*@rem;
+                                  bottom: 10*@rem;
+                                  height: 2rem;
+                                  vertical-align: bottom;
+                                  align-items: flex-end;
+                                  li.price_now {
+                                      color: @danger;
+                                      font-size: @h4-font-size;
+                                      font-weight: bold;
+                                  }
+                                  li.price_old {
+                                      padding-left: 5*@rem;
+                                      text-decoration: line-through;
+                                      color: @gray-500;
+                                  }
+                                  li.price_num {
+                                      text-align: right;
+                                      color: @gray-500;
+                                      padding-right: 10*@rem;
+                                      padding-left: 10*@rem;
+                                      .vux-number-round {
+                                          height: 1.3rem;
+                                          .vux-number-selector {
+                                              width: 1.3rem;
+                                              height: 1.3rem;
+                                              position: relative;
+                                          }
+                                          .vux-number-selector-sub > svg {
+                                              width: 1.3rem;
+                                              height: 1.3rem;
+                                              position: absolute;
+                                              top: -0.07rem;
+                                              left: -0.05rem;
+                                          }
+                                          .vux-number-selector-plus > svg {
+                                              width: 1.3rem;
+                                              height: 1.3rem;
+                                              position: absolute;
+                                              top: -0.07rem;
+                                              left: -0.07rem;
+                                          }
+                                          .vux-number-input {
+                                              font-size: @h6-font-size;
+                                              height: 1.3rem;
+                                          }
+                                      }
+                                      .vux-number-round > div {
+                                          display: flex;
+                                          justify-content: flex-end;
+                                      }
+                                  }
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      }
   }
 </style>
