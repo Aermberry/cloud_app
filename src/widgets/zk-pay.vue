@@ -12,8 +12,7 @@
             <!---->
           </div>
         </div>
-        <p class="count">
-          ￥
+        <p class="count"> ￥
           <span>{{amount}}</span>
         </p>
       </div>

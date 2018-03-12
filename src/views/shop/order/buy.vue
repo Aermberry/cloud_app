@@ -36,7 +36,7 @@
       </popup-radio>
       <x-textarea title="卖家留言 " placeholder="选填：填写内容已和卖家协商确认 " :show-counter="false " :rows="1 " autosize></x-textarea>
       <cell>
-        <div>共{{store.totalCount}}商品 运费：{{store.totalAmount }} 小计{{store.totalAmount}}</div>
+        <div v-if="asyncFlag">共{{store.totalCount}}商品 运费：{{priceView.storePrices[storeIndex].expressAmount }} 小计{{priceView.storePrices[storeIndex].totalAmount}}</div>
       </cell>
       <divider class="divider-bg "></divider>
     </group>
@@ -44,7 +44,7 @@
       <tabbar-item>
         <div slot="label" class="total">
           <span>总计</span>
-          <span class="money">￥{{modelView.totalAmount}}</span>
+          <span class="money">￥{{priceView.totalAmount}}</span>
           <span class="total-amount">共{{modelView.totalCount}}件商品</span>
         </div>
       </tabbar-item>
@@ -90,7 +90,8 @@
         modelView: '', // 商品数据，从服务器上远程获取
         priceView: '', // 价格显示模型
         asyncFlag: false, // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
-        showPay: false, // 显示支付方式
+        showPay: false, // 显示支付方式\
+        storePrices: [], // 店铺价格显示
         payAmount: '', // 需要支付的金额，人民币支付
         showDelivery: [] // 显示物流快递
       }
@@ -233,6 +234,15 @@
           // this.messageWarn(priceResponse.data.message)
         } else {
           this.priceView = priceResponse.data.result
+          // for (var j = 0; j < this.priceView.storeItems.length; j++) {
+          //   var priceItem = {
+          //     expressAmount: this.modelView.storePrices[j].expressAmount,
+          //     productAmount: this.modelView.storePrices[j].productAmount
+          //   }
+          //   console.info('单元', priceItem)
+          //   this.storePrices[j].push(priceItem)
+          // }
+          // console.info(this.storePrices)
           this.asyncFlag = true
         }
       }
