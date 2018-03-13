@@ -13,6 +13,7 @@ export default [
     path: '/order/buy',
     params: {
       buyInfo: '',
+      isFromCart: false,
       selectId: ''
     },
     meta: {

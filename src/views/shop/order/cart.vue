@@ -295,12 +295,13 @@
           }
         }
         console.info('格式', buyProductInfo)
-        // this.$router.push({
-        //   name: 'order_buy',
-        //   params: {
-        //     buyInfo: buyProductInfo
-        //   }
-        // })
+        this.$router.push({
+          name: 'order_buy',
+          params: {
+            buyInfo: buyProductInfo,
+            isFromCart: true // 购买信息来自购物车
+          }
+        })
       }
     }
   }

@@ -97,6 +97,7 @@
         payAmount: '', // 需要支付的金额，人民币支付
         addressId: '00000000-0000-0000-0000-000000000000', // 地址选择，默认为空,
         userMessages: [], // 留言信息
+        isFromCart: false, // 购买信息是否来自购物车，如果是，则需要删除购物车中，相对应的商品数据
         showDelivery: [] // 显示物流快递
       }
     },
@@ -124,6 +125,7 @@
             storeId: storeBuyItem.storeId,
             deliveryId: this.showDelivery[i], // 运费
             userMessage: this.userMessages[i],
+            isFromCart: this.isFromCart,
             productSkuItems: productBuyItems
           }
           storeBuyItems.push(buyStoreItem)
@@ -174,6 +176,9 @@
           local.setStore('order_buy', buyProductInfo) // 将购买信息写到缓存中
         } else {
           buyProductInfo = local.getStore('order_buy') // 刷新时从缓冲中读取数据
+        }
+        if (this.$route.params.isFromCart !== undefined) {
+          this.isFromCart = this.$route.params.isFromCart // 记录购买信息是否来自购物车
         }
         if (buyProductInfo === undefined) {
           this.$vux.toast.warn('暂无商品，清先购买商品')
