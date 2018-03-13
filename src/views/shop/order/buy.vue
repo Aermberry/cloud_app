@@ -147,6 +147,7 @@
           addressId: this.addressId, // 选择地址Id
           payType: 3, // 支付方式
           totalAmount: this.priceView.totalAmount, // 订单总金额
+          TotalCount: this.modelView.totalCount, // 订单总商品
           paymentAmount: 1250.99, // 订单总金额
           orderType: 1, // 订单类型
           sign: this.modelView.sign, // 签名信息
