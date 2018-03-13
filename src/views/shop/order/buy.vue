@@ -92,6 +92,7 @@
         showPay: false, // 显示支付方式\
         storePrices: [], // 店铺价格显示
         payAmount: '', // 需要支付的金额，人民币支付
+        addressId: '00000000-0000-0000-0000-000000000000', // 地址选择，默认为空
         showDelivery: [] // 显示物流快递
       }
     },
@@ -100,15 +101,6 @@
     },
     methods: {
       async buy () {
-        // var orderBuyInput = {
-        //   // addressId: '72be65e6-3a64-414d-972e-1a3d4a36f88', // 选择地址Id
-        //   payType: 3, // 支付方式
-        //   totalAmount: 1256.26, // 订单总金额
-        //   paymentAmount: 1250.99, // 订单总金额
-        //   orderType: 1,
-        //   userId: this.LoginUser().id // 下单用户ID
-        // }
-
         var storeProduct =
           [
             {
@@ -147,18 +139,29 @@
             }
           ]
 
-        let buyInfo = {
+        // let buyInfo = {
+        //   MonenyItemJson: JSON.stringify(moneyitem),
+        //   StoreOrderJson: JSON.stringify(storeProduct),
+        //   AddressId: '72be65e6-3a64-414d-972e-1a3d4a36f123',
+        //   UserId: 1,
+        //   TotalAmount: 125656,
+        //   PaymentAmount: 154,
+        //   PayType: 4,
+        //   OrderType: 1
+        // }
+
+        var buyInput = {
           MonenyItemJson: JSON.stringify(moneyitem),
           StoreOrderJson: JSON.stringify(storeProduct),
-          AddressId: '72be65e6-3a64-414d-972e-1a3d4a36f123',
-          UserId: 1,
-          TotalAmount: 125656,
-          PaymentAmount: 154,
-          PayType: 4,
-          OrderType: 1
+          addressId: this.addressId, // 选择地址Id
+          payType: 3, // 支付方式
+          totalAmount: this.priceView.totalAmount, // 订单总金额
+          paymentAmount: 1250.99, // 订单总金额
+          orderType: 1,
+          userId: this.LoginUser().id // 下单用户ID
         }
 
-        var response = await apiService.Buy(buyInfo)
+        var response = await apiService.Buy(buyInput)
         console.dir(response)
         if (response.data.status === 1) {
           this.payAmount = '1250.23' // 设置实际需支付的金额
@@ -208,6 +211,9 @@
       // 获取价格,更改店铺运费方式，修改地址时候，会修改价格
       async getPrice () {
         var defaultAddress = local.getStore('default_address') // 刷新时从缓冲中读取地址
+        if (defaultAddress !== undefined) {
+          this.addressId = defaultAddress.id
+        }
         var storeDelivery = []
         for (var i = 0; i < this.modelView.storeItems.length; i++) {
           var storeItem = this.modelView.storeItems[i]
@@ -220,7 +226,7 @@
         var priceInput = {
           sign: this.modelView.sign, // 传递签名
           loginUserId: this.LoginUser().id, // 用户Id
-          addressId: defaultAddress.id,
+          addressId: this.addressId,
           storeExpressJson: JSON.stringify(storeDelivery)
         }
 
@@ -243,213 +249,213 @@
 
 <style lang="less">
   .zkui_order_buy {
-      margin-bottom: 2.5rem;
-      .weui-tabbar {
-          position: fixed;
-          z-index: 500;
-          bottom: 0;
-          width: 100%; // height: 3.33333333rem;
-          height: 3.5rem;
-          .bar-home {
-              width: 15%;
-          }
-          .weui-tabbar__label {
-              text-align: center;
-              color: #999999;
-              line-height: 0;
-          }
-          .weui-tabbar__icon {
-              display: inline-block;
-              width: 2.25rem;
-              height: 2.2rem;
-          }
-          .weui-btn {
-              width: 8rem;
-              height: 3.5rem;
-              white-space: nowrap;
-              border-radius: 0px;
-              float: right;
-          }
-          .weui-btn:after {
-              content: ' ';
-              width: 200%;
-              height: 200%;
-              position: absolute;
-              top: 0;
-              left: 0;
-              border: 1px solid rgba(0, 0, 0, 0.2);
-              -webkit-transform: scale(0.5);
-              transform: scale(0.5);
-              -webkit-transform-origin: 0 0;
-              transform-origin: 0 0;
-              -webkit-box-sizing: border-box;
-              box-sizing: border-box;
-              border-radius: 0;
-          }
-          .weui-cells {
-              .vux-no-group-title {
-                  margin-top: 0.77em;
-                  :after {
-                      border-bottom: 0;
-                  }
-              }
-          }
-          .bar-home,
-          .bar-star {
-              width: 45%;
-              border-right: 1px solid #e5e5e5;
-          }
+    margin-bottom: 2.5rem;
+    .weui-tabbar {
+      position: fixed;
+      z-index: 500;
+      bottom: 0;
+      width: 100%; // height: 3.33333333rem;
+      height: 3.5rem;
+      .bar-home {
+        width: 15%;
       }
+      .weui-tabbar__label {
+        text-align: center;
+        color: #999999;
+        line-height: 0;
+      }
+      .weui-tabbar__icon {
+        display: inline-block;
+        width: 2.25rem;
+        height: 2.2rem;
+      }
+      .weui-btn {
+        width: 8rem;
+        height: 3.5rem;
+        white-space: nowrap;
+        border-radius: 0px;
+        float: right;
+      }
+      .weui-btn:after {
+        content: ' ';
+        width: 200%;
+        height: 200%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        -webkit-transform: scale(0.5);
+        transform: scale(0.5);
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        border-radius: 0;
+      }
+      .weui-cells {
+        .vux-no-group-title {
+          margin-top: 0.77em;
+          :after {
+            border-bottom: 0;
+          }
+        }
+      }
+      .bar-home,
+      .bar-star {
+        width: 45%;
+        border-right: 1px solid #e5e5e5;
+      }
+    }
 
-      .total {
-          float: left;
-          margin-left: 8*@rem;
-          margin-top: 20*@rem;
-          font-weight: bold;
+    .total {
+      float: left;
+      margin-left: 8*@rem;
+      margin-top: 20*@rem;
+      font-weight: bold;
+      color: @metal;
+      .money {
+        color: @danger;
+        font-size: @h3-font-size;
+      }
+      .total-amount {
+        margin-left: 105*@rem;
+        position: absolute;
+        color: #adb5bd;
+        top: 20*@rem;
+      }
+    }
+
+    .vux-form-preview {
+      .weui-form-preview__hd {
+        line-height: 2em;
+        label {
           color: @metal;
-          .money {
-              color: @danger;
-              font-size: @h3-font-size;
-          }
-          .total-amount {
-              margin-left: 105*@rem;
-              position: absolute;
-              color: #adb5bd;
-              top: 20*@rem;
-          }
+        }
       }
-
-      .vux-form-preview {
-          .weui-form-preview__hd {
-              line-height: 2em;
-              label {
-                  color: @metal;
+      .address_particulars {
+        color: @black;
+        text-align: left;
+      }
+    }
+    .spec {
+      margin-top: 0.5rem;
+    }
+    .weui-form-preview__value {
+      font-size: @h5-font-size;
+    }
+    .vux-inline-x-number {
+      float: right;
+      margin-top: 1rem;
+    }
+    .vux-number-selector-plus {
+      padding: 0 0.66666667rem;
+      margin-right: 0;
+    }
+    .weui-media-box__title {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+      white-space: pre;
+    }
+    .item-contnet {
+      .weui-cells {
+        margin-top: 0;
+      }
+      .weui-cells_checkbox {
+        .cart_item-title {
+          padding: 0.3rem 0;
+        }
+      }
+      ul {
+        .zkui-order-cart-item {
+          .order-cart-commodity {
+            height: 7.8rem;
+            .order-cart-commodit-into {
+              height: 100%;
+              .order-cart-commodity-into_left {
+                width: 6.5rem;
+                height: 6.5rem;
+                margin-top: 0.8rem;
+                margin-left: 10*@rem;
+                img {
+                  width: 100%;
+                  height: 100%;
+                }
               }
-          }
-          .address_particulars {
-              color: @black;
-              text-align: left;
-          }
-      }
-      .spec {
-          margin-top: 0.5rem;
-      }
-      .weui-form-preview__value {
-          font-size: @h5-font-size;
-      }
-      .vux-inline-x-number {
-          float: right;
-          margin-top: 1rem;
-      }
-      .vux-number-selector-plus {
-          padding: 0 0.66666667rem;
-          margin-right: 0;
-      }
-      .weui-media-box__title {
-          display: -webkit-box;
-          -webkit-box-orient: vertical;
-          -webkit-line-clamp: 3;
-          overflow: hidden;
-          white-space: pre;
-      }
-      .item-contnet {
-          .weui-cells {
-              margin-top: 0;
-          }
-          .weui-cells_checkbox {
-              .cart_item-title {
-                  padding: 0.3rem 0;
-              }
-          }
-          ul {
-              .zkui-order-cart-item {
-                  .order-cart-commodity {
-                      height: 7.8rem;
-                      .order-cart-commodit-into {
-                          height: 100%;
-                          .order-cart-commodity-into_left {
-                              width: 6.5rem;
-                              height: 6.5rem;
-                              margin-top: 0.8rem;
-                              margin-left: 10*@rem;
-                              img {
-                                  width: 100%;
-                                  height: 100%;
-                              }
-                          }
-                          .order-cart-commodity-into_right {
-                              margin-top: 0.8rem;
-                              padding: 0 0.8rem;
-                              position: relative;
-                              height: 7rem;
-                              p {
-                                  font-size: @h6-font-size;
-                                  color: @black;
-                              }
-                              span {
-                                  font-size: 0.8rem;
-                                  color: @gray-500;
-                              }
-                              ul {
-                                  width: 95%;
-                                  position: absolute;
-                                  left: 10*@rem;
-                                  bottom: 10*@rem;
-                                  height: 2rem;
-                                  vertical-align: bottom;
-                                  align-items: flex-end;
-                                  li.price_now {
-                                      color: @danger;
-                                      font-size: @h4-font-size;
-                                      font-weight: bold;
-                                  }
-                                  li.price_old {
-                                      padding-left: 5*@rem;
-                                      text-decoration: line-through;
-                                      color: @gray-500;
-                                  }
-                                  li.price_num {
-                                      text-align: right;
-                                      color: @gray-500;
-                                      padding-right: 10*@rem;
-                                      padding-left: 10*@rem;
-                                      .vux-number-round {
-                                          height: 1.3rem;
-                                          .vux-number-selector {
-                                              width: 1.3rem;
-                                              height: 1.3rem;
-                                              position: relative;
-                                          }
-                                          .vux-number-selector-sub > svg {
-                                              width: 1.3rem;
-                                              height: 1.3rem;
-                                              position: absolute;
-                                              top: -0.07rem;
-                                              left: -0.05rem;
-                                          }
-                                          .vux-number-selector-plus > svg {
-                                              width: 1.3rem;
-                                              height: 1.3rem;
-                                              position: absolute;
-                                              top: -0.07rem;
-                                              left: -0.07rem;
-                                          }
-                                          .vux-number-input {
-                                              font-size: @h6-font-size;
-                                              height: 1.3rem;
-                                          }
-                                      }
-                                      .vux-number-round > div {
-                                          display: flex;
-                                          justify-content: flex-end;
-                                      }
-                                  }
-                              }
-                          }
-                      }
+              .order-cart-commodity-into_right {
+                margin-top: 0.8rem;
+                padding: 0 0.8rem;
+                position: relative;
+                height: 7rem;
+                p {
+                  font-size: @h6-font-size;
+                  color: @black;
+                }
+                span {
+                  font-size: 0.8rem;
+                  color: @gray-500;
+                }
+                ul {
+                  width: 95%;
+                  position: absolute;
+                  left: 10*@rem;
+                  bottom: 10*@rem;
+                  height: 2rem;
+                  vertical-align: bottom;
+                  align-items: flex-end;
+                  li.price_now {
+                    color: @danger;
+                    font-size: @h4-font-size;
+                    font-weight: bold;
                   }
+                  li.price_old {
+                    padding-left: 5*@rem;
+                    text-decoration: line-through;
+                    color: @gray-500;
+                  }
+                  li.price_num {
+                    text-align: right;
+                    color: @gray-500;
+                    padding-right: 10*@rem;
+                    padding-left: 10*@rem;
+                    .vux-number-round {
+                      height: 1.3rem;
+                      .vux-number-selector {
+                        width: 1.3rem;
+                        height: 1.3rem;
+                        position: relative;
+                      }
+                      .vux-number-selector-sub > svg {
+                        width: 1.3rem;
+                        height: 1.3rem;
+                        position: absolute;
+                        top: -0.07rem;
+                        left: -0.05rem;
+                      }
+                      .vux-number-selector-plus > svg {
+                        width: 1.3rem;
+                        height: 1.3rem;
+                        position: absolute;
+                        top: -0.07rem;
+                        left: -0.07rem;
+                      }
+                      .vux-number-input {
+                        font-size: @h6-font-size;
+                        height: 1.3rem;
+                      }
+                    }
+                    .vux-number-round > div {
+                      display: flex;
+                      justify-content: flex-end;
+                    }
+                  }
+                }
               }
+            }
           }
+        }
       }
+    }
   }
 </style>
