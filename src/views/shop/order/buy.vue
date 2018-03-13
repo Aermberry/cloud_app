@@ -92,7 +92,8 @@
         showPay: false, // 显示支付方式\
         storePrices: [], // 店铺价格显示
         payAmount: '', // 需要支付的金额，人民币支付
-        addressId: '00000000-0000-0000-0000-000000000000', // 地址选择，默认为空
+        addressId: '00000000-0000-0000-0000-000000000000', // 地址选择，默认为空,
+        userMessages: [], // 留言信息
         showDelivery: [] // 显示物流快递
       }
     },
@@ -101,28 +102,30 @@
     },
     methods: {
       async buy () {
-        var storeProduct =
-          [
-            {
-              StoreId: 6,
-              DeliveryId: '72be65e6-3a64-414d-972e-1a3d4a36f701',
-              UserMessage: '我是一个好人对不对 不对是吗？',
-              ProductItems: [
-                {
-                  ProductId: 44,
-                  ProductSkuId: 17,
-                  Count: 12,
-                  Amount: 1234.0
-                },
-                {
-                  ProductId: 44,
-                  ProductSkuId: 18,
-                  Count: 28,
-                  Amount: 32814.0
-                }
-              ]
+        var storeBuyItems = []
+        for (var i = 0; i < this.modelView.storeItems.length; i++) {
+          var storeBuyItem = this.modelView.storeItems[i]
+          var productBuyItems = []
+          for (var j = 0; j < storeBuyItem.productSkuItems.length; j++) {
+            var productSkuBuyItem = storeBuyItem.productSkuItems[j]
+            var buyproductItem = {
+              ProductSkuId: productSkuBuyItem.productSkuId,
+              Count: productSkuBuyItem.buyCount,
+              ProductId: productSkuBuyItem.productId,
+              Amount: 90,
+              storeId: storeBuyItem.storeId
             }
-          ]
+            productBuyItems.push(buyproductItem)
+          }
+          var buyStoreItem = {
+            storeId: storeBuyItem.storeId,
+            deliveryId: this.showDelivery[i], // 运费
+            userMessage: this.userMessages[i],
+            productItems: productBuyItems
+          }
+          storeBuyItems.push(buyStoreItem)
+        }
+        console.info('店铺信息', storeBuyItems)
         var moneyitem =
           [
             {
@@ -138,28 +141,18 @@
               ReduceAmount: 123.0
             }
           ]
-
-        // let buyInfo = {
-        //   MonenyItemJson: JSON.stringify(moneyitem),
-        //   StoreOrderJson: JSON.stringify(storeProduct),
-        //   AddressId: '72be65e6-3a64-414d-972e-1a3d4a36f123',
-        //   UserId: 1,
-        //   TotalAmount: 125656,
-        //   PaymentAmount: 154,
-        //   PayType: 4,
-        //   OrderType: 1
-        // }
-
         var buyInput = {
           MonenyItemJson: JSON.stringify(moneyitem),
-          StoreOrderJson: JSON.stringify(storeProduct),
+          StoreOrderJson: JSON.stringify(storeBuyItems),
           addressId: this.addressId, // 选择地址Id
           payType: 3, // 支付方式
           totalAmount: this.priceView.totalAmount, // 订单总金额
           paymentAmount: 1250.99, // 订单总金额
-          orderType: 1,
+          orderType: 1, // 订单类型
+          sign: this.modelView.sign, // 签名信息
           userId: this.LoginUser().id // 下单用户ID
         }
+        console.info('购买格式', buyInput)
 
         var response = await apiService.Buy(buyInput)
         console.dir(response)
@@ -197,6 +190,7 @@
             // 初始运费模板
             for (var i = 0; i < this.modelView.storeItems.length; i++) {
               this.showDelivery[i] = this.modelView.storeItems[i].expressTemplates[0].key
+              this.userMessages[i] = '' // 初始化留言信息
             }
             // 获取价格
             this.getPrice()
