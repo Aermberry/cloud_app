@@ -133,8 +133,9 @@
       }
       .address-right-icon {
         position: absolute;
-        bottom: 0.5rem;
+        top: 50%;
         right: 0;
+        transform: translateY(-50%);
       }
     }
   }

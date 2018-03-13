@@ -1,8 +1,11 @@
 
 <template>
-  <x-header :left-options="{backText: this.goBack }" class="zk-head-fixed">{{headerTitle}}
-    <slot name="right" slot="right"></slot>
-  </x-header>
+  <div>
+    <x-header :left-options="{backText: this.goBack }" class="zk-head-fixed">{{headerTitle}}
+      <slot name="right" slot="right"></slot>
+    </x-header>
+    <div class="pla"></div>
+  </div>
 </template>
 <script>
   import { XHeader, TransferDom } from 'zkui'
@@ -42,7 +45,7 @@
 </script>
 <style>
   .zk-head-fixed {
-    position: fixed;
+    position: fixed !important;
     top: 0;
     left: 0;
     width: 100%;

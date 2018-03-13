@@ -36,7 +36,10 @@
       </popup-radio>
       <x-textarea title="卖家留言 " placeholder="选填：填写内容已和卖家协商确认 " :show-counter="false " :rows="1 " autosize></x-textarea>
       <cell>
-        <div v-if="asyncFlag">共{{store.totalCount}}商品 运费：{{storePrices[storeIndex].expressAmount }} 小计{{storePrices[storeIndex].totalAmount}}</div>
+        <div v-if="asyncFlag">共{{store.totalCount}}商品 运费：
+          <span class="zkui_order_buy-freight">{{storePrices[storeIndex].expressAmount }} </span>小计
+          <span class="zkui_order_buy-freight">{{storePrices[storeIndex].totalAmount}}</span>
+        </div>
       </cell>
       <divider class="divider-bg "></divider>
     </group>
@@ -250,6 +253,27 @@
 <style lang="less">
   .zkui_order_buy {
     margin-bottom: 2.5rem;
+    .flex {
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+    }
+    .flex_one {
+      -ms-flex: 1;
+      -moz-box-flex: 1;
+      -webkit-flex: 1;
+      flex: 1;
+    }
+    .zkui_order_buy-freight {
+      color: @brand;
+    }
+    .order_buy_product {
+      .weui-cells {
+        margin-top: 0;
+      }
+    }
     .weui-tabbar {
       position: fixed;
       z-index: 500;
@@ -391,10 +415,12 @@
                 p {
                   font-size: @h6-font-size;
                   color: @black;
+                  font-family: Helvetica;
                 }
                 span {
                   font-size: 0.8rem;
                   color: @gray-500;
+                  font-family: Helvetica;
                 }
                 ul {
                   width: 95%;
@@ -408,46 +434,33 @@
                     color: @danger;
                     font-size: @h4-font-size;
                     font-weight: bold;
+                    font-family: Helvetica;
                   }
                   li.price_old {
                     padding-left: 5*@rem;
                     text-decoration: line-through;
                     color: @gray-500;
+                    font-family: Helvetica;
                   }
                   li.price_num {
                     text-align: right;
                     color: @gray-500;
                     padding-right: 10*@rem;
                     padding-left: 10*@rem;
+                    font-family: Helvetica;
                     .vux-number-round {
                       height: 1.3rem;
-                      .vux-number-selector {
-                        width: 1.3rem;
-                        height: 1.3rem;
-                        position: relative;
+                      div {
+                        display: block;
+                        .vux-number-selector-sub {
+                          position: relative;
+                          svg {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                          }
+                        }
                       }
-                      .vux-number-selector-sub > svg {
-                        width: 1.3rem;
-                        height: 1.3rem;
-                        position: absolute;
-                        top: -0.07rem;
-                        left: -0.05rem;
-                      }
-                      .vux-number-selector-plus > svg {
-                        width: 1.3rem;
-                        height: 1.3rem;
-                        position: absolute;
-                        top: -0.07rem;
-                        left: -0.07rem;
-                      }
-                      .vux-number-input {
-                        font-size: @h6-font-size;
-                        height: 1.3rem;
-                      }
-                    }
-                    .vux-number-round > div {
-                      display: flex;
-                      justify-content: flex-end;
                     }
                   }
                 }

@@ -32,16 +32,20 @@
                     <li class="flex_one">
                       <div class="order-cart-commodit-into flex">
                         <div class="order-cart-commodity-into_left">
-                          <img :src="productSku.thumbnailUrl" alt="">
+                          <router-link :to="'/product/show/'+productSku.productId">
+                            <img :src="productSku.thumbnailUrl" alt="">
+                          </router-link>
                         </div>
                         <div class="flex_one order-cart-commodity-into_right ">
-                          <p>{{productSku.name}} {{productSku.productSkuId}}</p>
+                          <router-link :to="'/product/show/'+productSku.productId">
+                            <p>{{productSku.name}}</p>
+                          </router-link>
                           <span>{{productSku.propertyValueDesc}}</span>
                           <ul class="flex">
                             <li class="price_now">￥{{productSku.price}}</li>
                             <li class="price_old">￥{{productSku.marketPrice}}</li>
                             <li class="flex_one price_num">
-                              <inline-x-number style="display:block;" @click.native="changeCount(storeIndex,skuIndex,productSku.productSkuId)" :min="0" width="2rem" button-style="round" v-model="buySkuCount[storeIndex][skuIndex]"></inline-x-number>
+                              <inline-x-number @click.native="changeCount(storeIndex,skuIndex,productSku.productSkuId)" :min="0" width="2rem" button-style="round" v-model="buySkuCount[storeIndex][skuIndex]"></inline-x-number>
                             </li>
                           </ul>
                         </div>
@@ -81,7 +85,7 @@
         <tabbar-item class="bar-center">
           <span slot="label">全选({{totalCount}})</span>
         </tabbar-item>
-        <tabbar-item class="bar-right">
+        <tabbar-item class="bar-num">
           <span slot="label" class="zkui-order-cart-bar-price">{{totalAmount}}</span>
         </tabbar-item>
         <tabbar-item class="bar-right">
@@ -100,7 +104,7 @@
       return {
         totalCount: 0, // 店铺选择商品总数量
         totalAmount: 0, // 店铺选择商品总价格
-        hasData: false, // 判断购物车数据
+        hasData: true, // 判断购物车数据
         viewModel: '', // 数据对象
         buySkuCount: [], // 商品sku 选择数量
         productSkuChecks: [], // 店铺选择商品
@@ -125,6 +129,12 @@
     },
     mounted () {
       this.GetData()
+      console.log(this.storeCheckModel)
+      if (this.storeCheckModel.indexOf(false) === -1) {
+        this.allCheck = true
+      } else {
+        this.allCheck = false
+      }
     },
     methods: {
       async GetData () {
@@ -155,7 +165,6 @@
           for (var n = 0; n < this.viewModel.storeItems.length; n++) {
             allList[n] = []
             for (var m = 0; m < this.viewModel.storeItems[n].productSkuItems.length; m++) {
-              console.log(m)
               allList[n].push(this.viewModel.storeItems[n].productSkuItems[m].productSkuId)
             }
           }
@@ -200,12 +209,22 @@
         // console.info('skuId', skuId, '店铺索引', stroeIndex, 'sku索引', skuIndex, '店铺商品总数', this.storeTotalSkuIds[stroeIndex][0], '店铺已选skuId', this.productSkuChecks[stroeIndex].length, this.productSkuChecks[stroeIndex])
         // console.log(this.productSkuChecks[stroeIndex].length)
         console.log(this.productSkuChecks[stroeIndex].length)// 店铺选择商品数量
-        console.log(this.storeTotalSkuIds)
-        console.log(this.productSkuIdChecks[stroeIndex].length)
+        console.log('店铺skuId总数量', this.storeTotalSkuIds[stroeIndex])
+        console.log('店铺已选择商品总数量', this.productSkuIdChecks[stroeIndex].length)
+        console.log('店铺商品数量：', this.productSkuIdChecks[stroeIndex])
+        console.log('店铺已选择商品ID', this.productSkuIdChecks[stroeIndex])
+        console.log('点击的商品ID', skuId)
+        // if (this.productSkuIdChecks[stroeIndex].indexOf(skuId) !== -1) {
+        //   this.productSkuIdChecks[stroeIndex].splice(this.productSkuIdChecks[stroeIndex].indexOf(skuId), 1)
+        // } else {
+        //   this.productSkuIdChecks[stroeIndex].push(skuId)
+        // }
         if (this.productSkuIdChecks[stroeIndex].length === this.storeTotalSkuIds[stroeIndex][0]) {
           this.storeCheckModel[stroeIndex] = true
+          this.allCheck = true
         } else {
           this.storeCheckModel[stroeIndex] = false
+          this.allCheck = false
         }
         // console.info(this.storeCheckModel[stroeIndex])
         // console.info(this.productSkuChecks[stroeIndex].length)
@@ -223,10 +242,7 @@
         //     console.log(this.productSkuChecks)
         //   }
         // }
-        console.log(this.storeCheckModel)
-        console.log(this.storeCheckModel.indexOf(false))
         if (this.storeCheckModel.indexOf(false) === -1) {
-          console.log(-1)
           this.allCheck = false
         } else {
           this.allCheck = true
@@ -237,13 +253,9 @@
         }
         console.log(list)
         if (this.storeCheckModel[index] === true) {
-          console.log('true')
           this.productSkuIdChecks[index] = []
         } else {
-          console.log('false')
           this.productSkuIdChecks[index] = list
-          console.log(this.productSkuIdChecks[index])
-          console.log(this.productSkuIdChecks[index])
         }
       },
       // 计算选择价格和数量
@@ -265,28 +277,30 @@
       // 结算购买
       buy () {
         var buyProductInfo = []
-        for (var i = 0; i < this.viewModel.storeItems.length; i++) {
-          var storeItem = this.viewModel.storeItems[i]
-          for (var j = 0; j < this.productSkuChecks[i].length; j++) {
-            var element = this.productSkuChecks[i][j]
-            var buyItem = {
-              ProductSkuId: element.productSkuId,
-              Count: this.buySkuCount[i][j],
-              ProductId: element.productId,
-              storeId: storeItem.storeId,
-              LoginUserId: this.LoginUser().id
+        if (this.allCheck) {
+          for (var i = 0; i < this.viewModel.storeItems.length; i++) {
+            var storeItem = this.viewModel.storeItems[i]
+            for (var j = 0; j < this.productSkuChecks[i].length; j++) {
+              var element = this.productSkuChecks[i][j]
+              var buyItem = {
+                ProductSkuId: element.productSkuId,
+                Count: this.buySkuCount[i][j],
+                ProductId: element.productId,
+                storeId: storeItem.storeId,
+                LoginUserId: this.LoginUser().id
+              }
+              buyProductInfo.push(buyItem)
             }
-            buyProductInfo.push(buyItem)
+            console.info('店铺最终购买数据', storeItem.storeName, this.productSkuChecks[i])
           }
-          console.info('店铺最终购买数据', storeItem.storeName, this.productSkuChecks[i])
         }
         console.info('格式', buyProductInfo)
-        this.$router.push({
-          name: 'order_buy',
-          params: {
-            buyInfo: buyProductInfo
-          }
-        })
+        // this.$router.push({
+        //   name: 'order_buy',
+        //   params: {
+        //     buyInfo: buyProductInfo
+        //   }
+        // })
       }
     }
   }
@@ -310,6 +324,13 @@
     .zkui-order-cart-box {
       .cart_item-box {
         border-bottom: 8*@rem solid rgba(229, 229, 229, 0.5);
+        .weui-cells_checkbox {
+          .vux-checklist-icon-checked::before {
+            margin-left: 0.5rem;
+            margin-right: 0;
+            font-size: 1.3rem;
+          }
+        }
         .weui-cells:after {
           content: none;
         }
@@ -412,33 +433,10 @@
                   padding-left: 10*@rem;
                   .vux-number-round {
                     height: 1.3rem;
-                    .vux-number-selector {
-                      width: 1.3rem;
-                      height: 1.3rem;
-                      position: relative;
+                    font-size: 10px;
+                    svg {
+                      font-size: 10px;
                     }
-                    .vux-number-selector-sub > svg {
-                      width: 1.3rem;
-                      height: 1.3rem;
-                      position: absolute;
-                      top: -0.07rem;
-                      left: -0.05rem;
-                    }
-                    .vux-number-selector-plus > svg {
-                      width: 1.3rem;
-                      height: 1.3rem;
-                      position: absolute;
-                      top: -0.07rem;
-                      left: -0.07rem;
-                    }
-                    .vux-number-input {
-                      font-size: 1.3rem;
-                      height: 1.3rem;
-                    }
-                  }
-                  .vux-number-round > div {
-                    display: flex;
-                    justify-content: flex-end;
                   }
                 }
               }
@@ -462,49 +460,47 @@
           }
         }
         .bar-left {
-          width: 3.5rem;
+          width: 2.5rem;
           height: 3.5rem;
           flex: none;
+          .weui-icon-checked:before {
+            font-size: 1.3rem;
+          }
           .weui-cells_checkbox {
-            width: 3.5rem;
+            width: 2.5rem;
             height: 3.5rem;
             .car_item-all {
               padding: 0.4rem 0;
+              position: relative;
+              height: 100%;
+              padding: 0;
+              .weui-cell__hd {
+                position: absolute;
+                top: 50%;
+                left: 0.5rem;
+                transform: translateY(-50%);
+              }
             }
           }
         }
         .bar-center {
-          .weui-tabbar__label {
+          span {
+            display: block;
+            line-height: 3.5rem;
             text-align: left;
-            line-height: 3.5rem !important;
-            .label {
-              display: inline-block;
-            }
           }
-          .weui-cells_checkbox {
-            width: 3.5rem;
-            height: 3.5rem;
-            .car_item-all {
-              padding: 0.8rem 0;
-            }
+        }
+        .bar-num {
+          span {
+            display: block;
+            line-height: 3.5rem;
+            text-align: right;
+            padding-right: 5*@rem;
           }
         }
         .bar-right {
-          .weui-tabbar__label {
-            line-height: 3.5rem !important;
-            .zkui-order-cart-bar-price {
-              color: @danger;
-              font-weight: bold;
-            }
-            .zkui-order-cart-bar-close {
-              display: inline-block;
-              width: 100%;
-              height: 100%;
-              color: @black;
-              background: @danger;
-              color: @white;
-              border-radius: 2px;
-            }
+          .weui-btn {
+            height: 100%;
           }
         }
       }
@@ -520,7 +516,7 @@
       .upwarp-nodata {
         min-height: 8rem;
         padding-top: 0.1rem;
-        margin-left: 40%;
+        text-align: center;
       }
       .upwarp-nodata .weui-icon-waiting {
         color: #b2b2b2;

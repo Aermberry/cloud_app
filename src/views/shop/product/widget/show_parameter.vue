@@ -26,16 +26,17 @@
               <dt>{{item.name}}</dt>
               <dd>
                 <checker v-model="saleItems[index] " default-item-class="sale-item " @on-change="changSku " selected-item-class="sale-item-selected " disabled-item-class="sale-item-disabled " :radio-required="true ">
-                  <checker-item :value="sale " v-for="(sale,index) in item.propertyValues " :key="sale.id " :class="{'sale-item-selected':index===0}"> {{sale.valueAlias}} </checker-item>
+                  <checker-item :value="sale " v-for="sale in item.propertyValues " :key="sale.id "> {{sale.valueAlias}} </checker-item>
                 </checker>
               </dd>
             </dl>
-            <group class="zkui-product-show-parameter-amount ">
-              <cell title="购买数量 ">
-                <inline-x-number style="display:block; " :min="1 " width="50px " v-model="buyCount" :max="selectSku.stock" button-style="round"></inline-x-number>
-              </cell>
-            </group>
+
           </div>
+          <group class="zkui-product-show-parameter-amount ">
+            <cell title="购买数量 ">
+              <inline-x-number style="display:block; " :min="1 " width="50px " v-model="buyCount" :max="selectSku.stock" button-style="round"></inline-x-number>
+            </cell>
+          </group>
 
           <div class="base">
             <button-tab>
@@ -90,6 +91,9 @@
         })
       })
       this.init()
+      for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
+        this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
+      }
     },
     methods: {
       init () {
@@ -198,8 +202,13 @@
   }
 
   .zk-product-showSale {
+    .sale-info:after {
+      content: none;
+      display: block;
+      clear: both;
+    }
     .sale-info {
-      height: 100*@rem;
+      min-height: 8rem;
       dd {
         float: right;
         width: 65%;
@@ -244,7 +253,8 @@
       }
       dt {
         float: left;
-        width: 25%;
+        width: 6.5rem;
+        height: 6.5rem;
         margin-left: 1rem;
         img {
           border-radius: 0.2rem;
@@ -255,10 +265,16 @@
     }
 
     .sale-info-property {
-      min-height: 200*@rem;
+      height: 12rem;
+      overflow-y: auto;
+      dl:after {
+        bottom: none;
+        top: 0;
+      }
       dl {
         width: 100%;
-        min-height: 100*@rem;
+        height: 8rem;
+        overflow-y: auto;
         dt {
           width: 100%;
           height: 28*@rem;
@@ -300,7 +316,23 @@
       }
     }
   }
+  .zkui-product-show-parameter-amount:after {
+    content: ' ';
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 0.08333333rem;
+    border-bottom: 1px solid #c7c7c7;
+    color: #c7c7c7;
+    -webkit-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+  }
   .zkui-product-show-parameter-amount {
+    position: relative;
+    height: 3.3rem;
     .vux-label {
       font-weight: @font-weight-bold;
     }
@@ -396,7 +428,7 @@
     height: 25px;
     background: @brand;
     border-radius: 25px;
-    box-shadow: 2px 2px 5px 0px @black;
+    // box-shadow: 2px 2px 5px 0px @black;
     cursor: pointer;
     z-index: 9999;
   }
