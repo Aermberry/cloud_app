@@ -121,7 +121,7 @@
             storeId: storeBuyItem.storeId,
             deliveryId: this.showDelivery[i], // 运费
             userMessage: this.userMessages[i],
-            productItems: productBuyItems
+            productSkuItems: productBuyItems
           }
           storeBuyItems.push(buyStoreItem)
         }
