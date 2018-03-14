@@ -202,6 +202,7 @@
             loginUserId: this.LoginUser().id,
             productJson: JSON.stringify(buyProductInfo)
           }
+          console.info('购物信息', buyInfoInput)
           var response = await apiService.buyProduct(buyInfoInput)
           if (response.data.status !== 1) {
             this.messageWarn(response.data.message)
