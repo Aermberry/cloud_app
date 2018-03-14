@@ -16,7 +16,7 @@
                         <p>{{productSku.name}}</p>
                         <span>{{productSku.bn}} {{productSku.propertyValueDesc}} </span>
                         <ul class="flex">
-                          <li class="price_now">￥{{productSku.price}}</li>
+                          <li class="price_now">￥{{productSku.displayPrice}}</li>
                           <li class="price_old"> ￥{{productSku.marketPrice}}</li>
                           <li class="flex_one price_num">
                             X {{productSku.buyCount}}
@@ -34,14 +34,17 @@
       <popup-radio title="请选择 " :options="store.expressTemplates" v-model="showDelivery[storeIndex]" @on-change="changeDelivery(storeIndex)">
         <p slot="popup-header" class="border-bottom popup-header">选择快递方式</p>
       </popup-radio>
-      <x-textarea title="卖家留言 " placeholder="选填：填写内容已和卖家协商确认 " :show-counter="false " :rows="1 " autosize></x-textarea>
+      <x-textarea title="卖家留言 " placeholder="填写内容已和卖家协商确认 " :show-counter="false " :rows="1" autosize v-model="userMessages[storeIndex]"></x-textarea>
       <cell>
-        <div v-if="asyncFlag">共{{store.totalCount}}商品 运费：
+        <div v-if="asyncFlag">共
+          <span class="zkui_order_buy-freight">{{store.totalCount}}</span>商品 运费：
           <span class="zkui_order_buy-freight">{{storePrices[storeIndex].expressAmount }} </span>小计
           <span class="zkui_order_buy-freight">{{storePrices[storeIndex].totalAmount}}</span>
         </div>
       </cell>
       <divider class="divider-bg "></divider>
+      <x-switch title="使用200积分支付" inline-desc="现金账户余额12455.29币"></x-switch>
+      <x-switch title="使用2000虚拟币支付" inline-desc="现金账户余额12455.29币"></x-switch>
     </group>
     <tabbar>
       <tabbar-item>
@@ -60,7 +63,7 @@
 </template>
 
 <script>
-  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, InlineXNumber, XTextarea, Picker, Popup, TransferDom, PopupRadio, Divider } from 'zkui'
+  import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, InlineXNumber, XTextarea, Picker, Popup, TransferDom, PopupRadio, Divider, XSwitch } from 'zkui'
   import { ZkPay } from 'widgets'
   import apiService from 'src/service/api/order.api'
   import BuyAddress from './buy__address' // 地址
@@ -71,6 +74,7 @@
       Tabbar,
       BuyAddress,
       TabbarItem,
+      XSwitch,
       Group,
       Cell,
       MIcon,
@@ -98,6 +102,7 @@
         addressId: '00000000-0000-0000-0000-000000000000', // 地址选择，默认为空,
         userMessages: [], // 留言信息
         isFromCart: false, // 购买信息是否来自购物车，如果是，则需要删除购物车中，相对应的商品数据
+        moneyItem: [], // 非人民币资产信息
         showDelivery: [] // 显示物流快递
       }
     },
@@ -134,7 +139,6 @@
           }
           storeBuyItems.push(buyStoreItem)
         }
-        console.info('店铺信息', storeBuyItems)
         var moneyitem =
           [
             {
@@ -272,6 +276,7 @@
     }
     .zkui_order_buy-freight {
       color: @brand;
+      font-weight: bold;
     }
     .order_buy_product {
       .weui-cells {
@@ -473,6 +478,9 @@
           }
         }
       }
+    }
+    .vux-label-desc {
+      font-size: @h6-font-size;
     }
   }
 </style>
