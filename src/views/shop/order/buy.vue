@@ -126,8 +126,10 @@
             deliveryId: this.showDelivery[i], // 运费
             userMessage: this.userMessages[i],
             isFromCart: this.isFromCart,
-            totalCount: this.modelView.totalCount, // 商品总数量
-            totalAmount: this.priceView.totalAmount, // 订单总价格
+            totalAmount: this.priceView.storePrices[i].totalAmount, // 店铺订单总价格
+            totalCount: this.modelView.storeItems[i].totalCount, // 店铺商品总数量
+            expressAmount: this.priceView.storePrices[i].expressAmount, // 店铺运费
+            productAmount: this.priceView.storePrices[i].productAmount, // 店铺总商品费用
             productSkuItems: productBuyItems
           }
           storeBuyItems.push(buyStoreItem)
