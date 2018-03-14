@@ -43,9 +43,13 @@
         </div>
       </cell>
       <divider class="divider-bg "></divider>
-      <x-switch title="使用200积分支付" inline-desc="现金账户余额12455.29币"></x-switch>
-      <x-switch title="使用2000虚拟币支付" inline-desc="现金账户余额12455.29币"></x-switch>
+
     </group>
+    <group class="mb-2">
+      <x-switch :title="money.title" :inline-desc="money.description" v-for="money in priceView.orderMoneys" :key="money.moneyId"></x-switch>
+      <divider class="divider-bg "></divider>
+    </group>
+
     <tabbar>
       <tabbar-item>
         <div slot="label" class="total">
