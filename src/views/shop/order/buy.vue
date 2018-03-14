@@ -34,7 +34,7 @@
       <popup-radio title="请选择 " :options="store.expressTemplates" v-model="showDelivery[storeIndex]" @on-change="changeDelivery(storeIndex)">
         <p slot="popup-header" class="border-bottom popup-header">选择快递方式</p>
       </popup-radio>
-      <x-textarea title="卖家留言 " placeholder="选填：填写内容已和卖家协商确认 " :show-counter="false " :rows="1 " autosize></x-textarea>
+      <x-textarea title="卖家留言 " placeholder="填写内容已和卖家协商确认 " :show-counter="false " :rows="1" autosize v-model="userMessages[storeIndex]"></x-textarea>
       <cell>
         <div v-if="asyncFlag">共{{store.totalCount}}商品 运费：
           <span class="zkui_order_buy-freight">{{storePrices[storeIndex].expressAmount }} </span>小计
@@ -134,7 +134,6 @@
           }
           storeBuyItems.push(buyStoreItem)
         }
-        console.info('店铺信息', storeBuyItems)
         var moneyitem =
           [
             {
