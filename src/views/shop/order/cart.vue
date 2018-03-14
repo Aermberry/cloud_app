@@ -45,7 +45,7 @@
                             <li class="price_now">￥{{productSku.price}}</li>
                             <li class="price_old">￥{{productSku.marketPrice}}</li>
                             <li class="flex_one price_num">
-                              <inline-x-number @click.native="changeCount(storeIndex,skuIndex,productSku.productSkuId)" :min="0" width="2rem" button-style="round" v-model="buySkuCount[storeIndex][skuIndex]"></inline-x-number>
+                              <inline-x-number @click.native="changeCount(storeIndex,skuIndex,productSku.productSkuId)" :min="0" width="3rem" :max="productSku.stock" button-style="round" v-model="buySkuCount[storeIndex][skuIndex]"></inline-x-number>
                             </li>
                           </ul>
                         </div>
@@ -129,12 +129,14 @@
     },
     mounted () {
       this.GetData()
-      console.log(this.storeCheckModel)
       if (this.storeCheckModel.indexOf(false) === -1) {
         this.allCheck = true
       } else {
         this.allCheck = false
       }
+    },
+    updated () {
+      this.ceshi()
     },
     methods: {
       async GetData () {
@@ -142,7 +144,6 @@
         this.viewModel = reponse.data.result
         if (reponse.data.status === 1) {
           this.initCart(reponse.data.result) // 初始化购物车
-          console.log(this.viewModel)
         } else {
           // this.$vux.toast.warn(reponse.data.message)
           this.hasData = false
@@ -193,13 +194,10 @@
             var productSkuItem = storeItem.productSkuItems[j]
             this.productSkuChecks[i].push(productSkuItem)
             this.productSkuIdChecks[i].push(productSkuItem.productSkuId)
-
             // 设置商品sku数量
             this.buySkuCount[i][j] = []
             this.buySkuCount[i][j] = productSkuItem.buyCount
           }
-          console.log(this.productSkuChecks, this.productSkuChecks.length)
-          console.log(this.productSkuIdChecks, this.productSkuIdChecks.length)
           // console.log(this.buySkuCount)
         }
       },
@@ -269,10 +267,44 @@
           })
         }
       },
+      // 测试
+      async ceshi () {
+        // for (var f = 0; f < this.viewModel.storeItems.length; f++) {
+        //   console.log(123)
+        //   for (var g = 0; g < this.buySkuCount[f].length; g++) {
+        //     console.log(this.buySkuCount[f])
+        //   }
+        // }
+        // for (var f = 0; f < this.viewModel.storeItems.length; f++) {
+        //   for (var g = 0; g < this.viewModel.storeItems[f].productSkuItems.length; g++) {
+        //     console.log(this.viewModel.storeItems[f].productSkuItems[g])
+        //     if (this.buySkuCount[f][g] === 0) {
+        //       console.table(this.viewModel.storeItems[f].productSkuItems[g].productSkuId)
+        //       let par = {
+        //         ProductSkuId: this.viewModel.storeItems[f].productSkuItems[g].productSkuId
+        //       }
+        //       var deleteMsg = await userService.GetCart(par)
+        //       console.table(deleteMsg)
+        //     } else {
+        //       console.log('都大于0')
+        //     }
+        //   }
+        // }
+      },
       // 修改数量,到0的时候，删除商品，增加的时候，判断库存
-      changeCount (storeIndex, skuIndex, skuId) {
+      async changeCount (storeIndex, skuIndex, skuId) {
+        // 店铺数量  商品排位 skuid
         console.info(storeIndex, skuIndex, skuId)
         console.info(this.buySkuCount[storeIndex][skuIndex])
+        if (this.buySkuCount[storeIndex][skuIndex] === 0) {
+          console.log('为0')
+          // console.log(this.viewModel.storeItems[storeIndex].productSkuItems[skuIndex].productSkuId)
+          let par = {
+            ProductSkuId: skuId
+          }
+          var qwe = await userService.RemoveCart(par)
+          console.table(qwe)
+        }
       },
       // 结算购买
       buy () {
@@ -435,9 +467,9 @@
                   .vux-number-round {
                     height: 1.3rem;
                     font-size: 10px;
-                    svg {
-                      font-size: 10px;
-                    }
+                  }
+                  .vux-number-round > div {
+                    height: 20px;
                   }
                 }
               }

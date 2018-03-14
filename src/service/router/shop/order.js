@@ -1,5 +1,4 @@
-export default [
-  {
+export default [{
     path: '/order/cart',
     meta: {
       title: '购物车'
@@ -23,6 +22,16 @@ export default [
     name: 'order_buy',
     component: function (resolve) {
       require(['src/views/shop/order/buy'], resolve)
+    }
+  },
+  {
+    path: '/order/list',
+    meta: {
+      title: '我的订单'
+    },
+    name: 'order_list',
+    component: function (resolve) {
+      require(['src/views/shop/order/list'], resolve)
     }
   }
 ]
