@@ -273,7 +273,7 @@
       }
       dl {
         width: 100%;
-        height: 8rem;
+        min-height: 5rem;
         overflow-y: auto;
         dt {
           width: 100%;
@@ -301,7 +301,6 @@
             padding: 4*@rem 8*@rem;
             margin: 0 5*@rem 5*@rem 0;
             border-radius: 4*@rem;
-            line-height: 18*@rem;
             font-weight: @font-weight-normal;
             font-size: @h6-font-size;
           }

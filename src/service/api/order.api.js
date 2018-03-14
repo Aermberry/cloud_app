@@ -18,7 +18,7 @@ export default {
   },
   //  我的订单
   list (data) {
-    var response = http.getLogin('/order/list', data)
+    var response = http.getLogin('/order/Index', data)
     return response
   },
   //  订单详情页
