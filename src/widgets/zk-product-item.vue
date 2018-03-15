@@ -16,7 +16,7 @@
                 </router-link>
               </dd>
               <dd class="itemPrice">
-                <em>{{item.displayPrice}}</em>
+                <p>{{item.displayPrice}}</p>
                 <span>￥{{item.marketPrice}}</span>
               </dd>
             </dl>
@@ -71,14 +71,15 @@
           pageIndex: this.pageIndex, // 当前第页,下拉一次增加一次
           pageSize: 10 // 每页显示的数量 建议20
         }
-
         let response = await apiService.list(params) // 通过异步方法获取数据
         let totalSize = response.data.result.totalSize // 获取总页数
         this.styleType = response.data.result.styleType // 选择何种风格
         if (this.pageIndex < 6) {
           this.$refs.mescroll.endSuccess(params, totalSize) // 调用widget xsroll 下拉刷新函数
         }
+
         this.dataList = this.dataList.concat(response.data.result.productItems)
+        console.log(this.dataList)
         if (this.pageIndex < totalSize) {
           this.pageIndex = this.pageIndex + 1 // 下拉时是自动增加一页
         }
@@ -88,7 +89,6 @@
 </script>
 
 <style lang="less" scoped>
-
   .zkui-product-item__1 {
     background: #ffffff;
     li {
@@ -125,7 +125,7 @@
         .itemPrice {
           padding-left: 10*@rem;
           min-height: 3rem;
-          em {
+          p {
             color: @brand;
             font-weight: bold;
             margin-left: -0.2rem;

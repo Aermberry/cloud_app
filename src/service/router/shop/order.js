@@ -33,5 +33,18 @@ export default [{
     component: function (resolve) {
       require(['src/views/shop/order/list'], resolve)
     }
+  },
+  {
+    path: '/order/show',
+    meta: {
+      title: '订单详情'
+    },
+    params: {
+      showId: ''
+    },
+    name: 'order_show',
+    component: function (resolve) {
+      require(['src/views/shop/order/show'], resolve)
+    }
   }
 ]

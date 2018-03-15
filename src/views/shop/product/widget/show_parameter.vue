@@ -346,7 +346,7 @@
     }
     .vux-number-round .vux-number-selector-sub svg {
       position: relative;
-      top: -0.3rem;
+      top: 0rem;
       right: 0.05rem;
     }
     .vux-number-round .vux-number-selector-plus {
