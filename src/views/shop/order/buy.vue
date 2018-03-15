@@ -46,7 +46,7 @@
 
     </group>
     <group class="mb-2">
-      <x-switch :title="money.title" :inline-desc="money.description" v-for="money in priceView.orderMoneys" :key="money.moneyId"></x-switch>
+      <x-switch :title="money.title" :inline-desc="money.description" v-for="(money,moneyIndex) in priceView.orderMoneys" :key="moneyIndex" v-model="orderMoneys[moneyIndex]"></x-switch>
       <divider class="divider-bg "></divider>
     </group>
 
@@ -106,7 +106,7 @@
         addressId: '00000000-0000-0000-0000-000000000000', // 地址选择，默认为空,
         userMessages: [], // 留言信息
         isFromCart: false, // 购买信息是否来自购物车，如果是，则需要删除购物车中，相对应的商品数据
-        moneyItem: [], // 非人民币资产信息
+        orderMoneys: [], // 非人民币资产信息
         showDelivery: [] // 显示物流快递
       }
     },
@@ -143,23 +143,20 @@
           }
           storeBuyItems.push(buyStoreItem)
         }
-        var moneyitem =
-          [
-            {
-              MoneyTypeId: 'e97ccd1e-1478-49bd-bfc7-e73a5d699002',
-              Currency: 2,
-              Name: '积分账户',
-              ReduceAmount: 123.0
-            },
-            {
-              MoneyTypeId: 'e97ccd1e-1478-49bd-bfc7-e73a5d699000',
-              Currency: 0,
-              Name: '现金账户',
-              ReduceAmount: 123.0
+        // 虚拟资产
+        var moneyItems = []
+        for (var k = 0; k < this.priceView.orderMoneys.length; k++) {
+          if (this.orderMoneys[k]) {
+            var orderMoney = this.priceView.orderMoneys[k]
+            var moneyItem = {
+              MoneyTypeId: orderMoney.moneyId,
+              ReduceAmount: orderMoney.maxPayPrice
             }
-          ]
+            moneyItems.push(moneyItem)
+          }
+        }
         var buyInput = {
-          MonenyItemJson: JSON.stringify(moneyitem),
+          moneyItemJson: JSON.stringify(moneyItems),
           StoreOrderJson: JSON.stringify(storeBuyItems),
           addressId: this.addressId, // 选择地址Id
           payType: 3, // 支付方式
@@ -256,6 +253,10 @@
         } else {
           this.priceView = priceResponse.data.result
           this.storePrices = this.priceView.storePrices
+          // 初始化币种
+          for (var k = 0; k < this.priceView.orderMoneys.length; k++) {
+            this.orderMoneys[k] = true
+          }
           this.asyncFlag = true
         }
       }
