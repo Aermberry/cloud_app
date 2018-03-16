@@ -2,17 +2,29 @@
 <template>
   <section class="zkui-product_list">
     <zk-head title='商品列表' goBack=''></zk-head>
-    <div style="width: 100%;overflow:scroll;-webkit-overflow-scrolling:touch;" class="list-fixed">
-      <tab style="width:800px;" bar-active-color="#668599" :line-width="2">
-        <tab-item selected @click.native="sortNum(0)">默认排序</tab-item>
-        <tab-item @click.native="sortNum(1)">价格</tab-item>
-        <tab-item @click.native="sortNum(2)">商品添加时间</tab-item>
-        <tab-item @click.native="sortNum(3)">查看次数</tab-item>
-        <tab-item @click.native="sortNum(4)">销售数量</tab-item>
-        <tab-item @click.native="sortNum(5)">喜欢数量</tab-item>
-        <tab-item @click.native="sortNum(6)">收藏数量</tab-item>
+    <div style="width: 100%;" class="list-fixed">
+      <!-- <tab-item  @click.native="sortNum(0)" selected>默认排序</tab-item> -->
+      <!-- <tab-item @click.native="sortNum(1)">价格</tab-item> -->
+      <!-- <tab-item @click.native="sortNum(2)">商品添加时间</tab-item> -->
+      <!-- <tab-item @click.native="sortNum(3)">人气</tab-item> -->
+      <!-- <tab-item @click.native="sortNum(4)">销售数量</tab-item> -->
+      <!-- <tab-item @click.native="sortNum(5)">喜欢数量</tab-item> -->
+      <!-- <tab-item @click.native="sortNum(6)">收藏数量</tab-item> -->
+      <tab :animate="false">
+        <tab-item active-class="active-6-1" selected @click.native="tabDown=!tabDown">默认排序
+          <m-icon name="zk-arrowsDown" class="icon"></m-icon>
+          <ul v-show="tabDown">
+            <li @click="sortNum(2)">商品添加时间</li>
+            <li @click="sortNum(5)">喜欢数量</li>
+            <li @click="sortNum(6)">收藏数量</li>
+          </ul>
+        </tab-item>
+        <tab-item active-class="active-6-2" @click.native="sortNum(1)">价格</tab-item>
+        <tab-item active-class="active-6-3" @click.native="sortNum(3)">人气</tab-item>
+        <tab-item active-class="active-6-4" @click.native="sortNum(4)">销售数量</tab-item>
       </tab>
     </div>
+
     <div class="placeholder"></div>
     <section class="ZKProductItem">
       <div class="zkui-product-item__1 ">
@@ -58,7 +70,8 @@
         dataList: [], // 组件zklist 的循环数据,使用zklist时，所有的服务端输出结构都一样
         styleType: '', // 风格类型, zklist支持多种样式，判断选择哪种样式
         pageIndex: 1, // 从第一页开始加载
-        sort: ''
+        sort: '',
+        tabDown: false
       }
     },
     mounted () {
@@ -66,6 +79,7 @@
     },
     methods: {
       async sortNum (id) {
+        console.log(id)
         let params = {
           SortOrder: id
         }
@@ -91,6 +105,26 @@
     position: fixed;
     top: 2.91666667rem;
     left: 0;
+    .vux-tab {
+      .vux-tab-item {
+        position: relative;
+        svg {
+          width: 1rem;
+          height: 1rem;
+        }
+        ul {
+          position: absolute;
+          top: 3.66666667rem;
+          left: 0;
+          width: 100%;
+          li {
+            background: @white;
+            border-bottom: 1px solid rgba(229, 229, 229, 1);
+            border-right: 1px solid rgba(229, 229, 229, 1);
+          }
+        }
+      }
+    }
   }
   #index_scroll {
     div:first-child {

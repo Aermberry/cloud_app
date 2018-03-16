@@ -51,14 +51,14 @@
     </group>
 
     <tabbar>
-      <tabbar-item>
+      <tabbar-item class="buy-aggregate ">
         <div slot="label" class="total">
           <span>总计</span>
           <span class="money">￥{{priceView.totalAmount}}</span>
           <span class="total-amount">共{{modelView.totalCount}}件商品</span>
         </div>
       </tabbar-item>
-      <tabbar-item>
+      <tabbar-item class="buy-submit ">
         <x-button slot="customer" type="primary" @click.native="buy">提交订单</x-button>
       </tabbar-item>
     </tabbar>
@@ -298,10 +298,21 @@
       .bar-home {
         width: 15%;
       }
+      .buy-aggregate {
+      }
+      .buy-submit {
+        flex: 0;
+      }
       .weui-tabbar__label {
         text-align: center;
         color: #999999;
         line-height: 0;
+        height: 100%;
+      }
+      .weui-tabbar__label:after {
+        content: '';
+        display: block;
+        clear: both;
       }
       .weui-tabbar__icon {
         display: inline-block;
@@ -347,20 +358,23 @@
     }
 
     .total {
-      float: left;
-      margin-left: 8*@rem;
-      margin-top: 20*@rem;
       font-weight: bold;
       color: @metal;
+      display: flex;
+      height: 100%;
+      align-items: center;
+      span {
+        padding-left: 10*@rem;
+        height: 100%;
+        line-height: 4.16666667rem;
+      }
       .money {
         color: @danger;
-        font-size: @h3-font-size;
+        font-size: @h4-font-size;
+        margin-right: 5*@rem;
       }
       .total-amount {
-        margin-left: 105*@rem;
-        position: absolute;
         color: #adb5bd;
-        top: 20*@rem;
       }
     }
 
@@ -447,7 +461,7 @@
                   align-items: flex-end;
                   li.price_now {
                     color: @danger;
-                    font-size: @h4-font-size;
+                    font-size: @h5-font-size;
                     font-weight: bold;
                     font-family: Helvetica;
                   }

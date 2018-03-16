@@ -1,7 +1,7 @@
 <template>
   <section class="zkui-shop-product-search">
     <div class="header-search">
-      <div class="return">
+      <div class="return" @click="ceshi()">
         <m-icon slot="icon" name="zk-return" class="metal"></m-icon>
       </div>
       <search placeholder="搜索您想要的商品" cancel-text="取消" :auto-fixed="false"></search>
@@ -22,7 +22,7 @@
 
 
 <script>
-  // import productApi from 'src/service/api/product.api'
+  import productApi from 'src/service/api/product.api'
   import { Search, Tab, TabItem, XButton, MIcon } from 'zkui'
   export default {
     components: {
@@ -48,10 +48,13 @@
       this.GetData()
     },
     methods: {
-      // async GetData () {
-      //   var reponse = await productApi.search()
-      //   console.log(reponse)
-      // }
+      async GetData () {
+        var reponse = await productApi.search()
+        console.log(reponse)
+      },
+      ceshi () {
+        this.$router ? this.$router.back() : window.history.back()
+      }
     }
 
   }

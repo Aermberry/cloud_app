@@ -53,16 +53,12 @@
                     </li>
                   </ul>
                 </div>
-
               </div>
             </li>
           </ul>
         </checker>
-
       </div>
-
     </div>
-
     <div class="empty-cart" v-if="!hasData">
       <p class="upwarp-nodata">
         <i class="weui-icon weui_icon_waiting weui-icon-waiting weui-icon_msg"></i><br>
@@ -292,19 +288,25 @@
         // }
       },
       // 修改数量,到0的时候，删除商品，增加的时候，判断库存
-      async changeCount (storeIndex, skuIndex, skuId) {
+      changeCount (storeIndex, skuIndex, skuId) {
         // 店铺数量  商品排位 skuid
-        console.info(storeIndex, skuIndex, skuId)
-        console.info(this.buySkuCount[storeIndex][skuIndex])
-        if (this.buySkuCount[storeIndex][skuIndex] === 0) {
-          console.log('为0')
-          // console.log(this.viewModel.storeItems[storeIndex].productSkuItems[skuIndex].productSkuId)
-          let par = {
-            ProductSkuId: skuId
-          }
-          var qwe = await userService.RemoveCart(par)
-          console.table(qwe)
-        }
+        // console.info('修改数量', storeIndex, skuIndex, skuId)
+        // console.info(this.buySkuCount[storeIndex][skuIndex])
+
+        var t
+        clearTimeout(t)
+        t = setTimeout(function () {
+          // for (var qa = 0; qa < this.buySkuCount.length; qa++) {
+          //   for (var qw = 0; qw < this.buySkuCount[qa].length; qw++) {
+          //     if (this.buySkuCount[qa][qw] === 0) {
+          //       console.log('为0')
+          //     } else {
+          //       console.log('不为0')
+          //     }
+          //   }
+          // }
+          console.log(1)
+        }, 1000)
       },
       // 结算购买
       buy () {
@@ -534,6 +536,9 @@
         .bar-right {
           .weui-btn {
             height: 100%;
+          }
+          .zkui-order-cart-bar-close {
+            border-radius: 0;
           }
         }
       }

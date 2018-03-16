@@ -10,9 +10,7 @@
       <div class="address-left-icon">
         <m-icon name="zk-orderaddress" class="icon"></m-icon>
       </div>
-      <div class="address-right-icon">
-        <m-icon name="zk-right" class="icon"></m-icon>
-      </div>
+
       <div class="weui-form-preview__hd">
         <label class="weui-form-preview__label address_name">收货人：{{viewModel.name}}</label>
         <em class="weui-form-preview__value">{{viewModel.mobile}}</em>
@@ -25,25 +23,25 @@
     </div>
     <divider class="divider-bg "></divider>
     <group class="order_show-title">
-      <cell title="店铺名称"></cell>
+      <cell :title="data.storeName"></cell>
     </group>
-    <div class="zkui-order-list-product">
+    <div class="zkui-order-list-product" v-for="(item,index) in data.productSkuItems" :key="index">
       <ul class="flex">
-        <li class="left-img"><img :src="data.productSkuItems[0].thumbnailUrl" alt=""></li>
+        <li class="left-img"><img :src="item.thumbnailUrl" alt=""></li>
         <li class="flex_one center-content">
           <p>
-            {{data.productSkuItems[0].name}}
+            {{item.name}}
           </p>
           <span>
-            {{data.productSkuItems[0].propertyValueDesc}}
+            {{item.propertyValueDesc}}
           </span>
         </li>
         <li class="left-price">
           <ul>
-            <li class="price_now">￥{{data.productSkuItems[0].price}}</li>
+            <li class="price_now">￥{{item.price}}</li>
             <li class="price_old">￥69.00</li>
             <li class="price_count">
-              X{{data.productSkuItems[0].buyCount}}
+              X{{item.buyCount}}
             </li>
           </ul>
         </li>
@@ -58,7 +56,7 @@
         <div class="weui-form-preview__bd">
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">运费</label>
-            <span class="weui-form-preview__value">￥{{data.productSkuItems[0].expressAmount}}</span>
+            <span class="weui-form-preview__value">￥{{data.expressAmount}}</span>
           </div>
           <!-- <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">冲冠促销</label>
@@ -338,12 +336,6 @@
           width: 100%;
           height: 100%;
         }
-      }
-      .address-right-icon {
-        position: absolute;
-        top: 50%;
-        right: 0;
-        transform: translateY(-50%);
       }
     }
   }
