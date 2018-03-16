@@ -14,10 +14,10 @@
                       <div class="order-cart-commodity-into_left"><img :src="productSku.thumbnailUrl " alt=""></div>
                       <div class="flex_one order-cart-commodity-into_right ">
                         <p>{{productSku.name}}</p>
-                        <span>{{productSku.bn}} {{productSku.propertyValueDesc}} </span>
+                        <span>{{productSku.bn}} {{productSku.propertyValueDesc}} <br/>重量：{{productSku.weight}}g</span>
                         <ul class="flex">
                           <li class="price_now">￥{{productSku.displayPrice}}</li>
-                          <li class="price_old"> ￥{{productSku.marketPrice}}</li>
+                          <li class="price_old"> ￥{{productSku.marketPrice}} </li>
                           <li class="flex_one price_num">
                             X {{productSku.buyCount}}
                           </li>
