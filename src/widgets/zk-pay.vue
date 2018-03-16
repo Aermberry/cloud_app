@@ -23,7 +23,7 @@
         <x-button type="primary" @click.native="pay">立即付款</x-button>
       </div>
     </div>
-    <zk-password showPay="false"></zk-password>
+    <!-- <zk-password showPay="false"></zk-password> -->
   </popup>
 </template>
 
