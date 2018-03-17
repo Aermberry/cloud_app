@@ -31,7 +31,7 @@
           </li>
         </ul>
       </div>
-      <popup-radio title="请选择 " :options="store.expressTemplates" v-model="showDelivery[storeIndex]" @on-change="changeDelivery(storeIndex)">
+      <popup-radio title="请选择 " :options="store.expressTemplates" v-model="showDelivery[storeIndex]" @on-change="countPrice()">
         <p slot="popup-header" class="border-bottom popup-header">选择快递方式</p>
       </popup-radio>
       <x-textarea title="卖家留言 " placeholder="填写内容已和卖家协商确认 " :show-counter="false " :rows="1" autosize v-model="userMessages[storeIndex]"></x-textarea>
@@ -46,7 +46,7 @@
 
     </group>
     <group class="mb-2">
-      <x-switch :title="money.title" :inline-desc="money.description" v-for="(money,moneyIndex) in modelView.allowMoneys" :key="moneyIndex" v-model="orderMoneys[moneyIndex]"></x-switch>
+      <x-switch :title="money.title" :inline-desc="money.description" v-for="(money,moneyIndex) in modelView.allowMoneys" :key="moneyIndex" @on-change="countPrice()" v-model="reduceMoneys[moneyIndex]"></x-switch>
       <divider class="divider-bg "></divider>
     </group>
 
@@ -106,7 +106,7 @@
         addressId: '00000000-0000-0000-0000-000000000000', // 地址选择，默认为空,
         userMessages: [], // 留言信息
         isFromCart: false, // 购买信息是否来自购物车，如果是，则需要删除购物车中，相对应的商品数据
-        orderMoneys: [], // 非人民币资产信息
+        reduceMoneys: [], // 非人民币资产信息
         showDelivery: [] // 显示物流快递
       }
     },
@@ -145,9 +145,9 @@
         }
         // 虚拟资产
         var moneyItems = []
-        for (var k = 0; k < this.priceView.orderMoneys.length; k++) {
-          if (this.orderMoneys[k]) {
-            var orderMoney = this.priceView.orderMoneys[k]
+        for (var k = 0; k < this.priceView.reduceMoneys.length; k++) {
+          if (this.reduceMoneys[k]) {
+            var orderMoney = this.priceView.reduceMoneys[k]
             var moneyItem = {
               MoneyTypeId: orderMoney.moneyId,
               ReduceAmount: orderMoney.maxPayPrice
@@ -213,7 +213,7 @@
             }
             // 初始化币种
             for (var k = 0; k < this.modelView.allowMoneys.length; k++) {
-              this.orderMoneys[k] = true
+              this.reduceMoneys[k] = true
             }
             // 获取价格
             this.getPrice()
@@ -221,8 +221,7 @@
         }
       },
       // 更改运费方式，重新获取价格
-      changeDelivery (storeIndex) {
-        // console.info('当前值', this.showDelivery[storeIndex])
+      countPrice () {
         this.getPrice()
       },
       // 获取价格,更改店铺运费方式，修改地址时候，会修改价格
@@ -240,10 +239,22 @@
           }
           storeDelivery.push(deliveryItem)
         }
+        var reduceMoneys = []
+        for (var k = 0; k < this.modelView.allowMoneys.length; k++) {
+          var allowMoneyItem = this.modelView.allowMoneys[k]
+          if (this.reduceMoneys[k]) {
+            var reduceMoneyItem = {
+              key: allowMoneyItem.moneyId,
+              value: allowMoneyItem.maxPayPrice
+            }
+            reduceMoneys.push(reduceMoneyItem)
+          }
+        }
         var priceInput = {
           sign: this.modelView.sign, // 传递签名
           loginUserId: this.LoginUser().id, // 用户Id
           addressId: this.addressId,
+          reduceMoneysJson: JSON.stringify(reduceMoneys),
           storeExpressJson: JSON.stringify(storeDelivery)
         }
         var priceResponse = await apiService.getPrice(priceInput)
