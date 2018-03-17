@@ -130,6 +130,7 @@
             }
             productBuyItems.push(buyproductItem)
           }
+
           var buyStoreItem = {
             storeId: storeBuyItem.storeId,
             deliveryId: this.showDelivery[i], // 运费
@@ -144,19 +145,19 @@
           storeBuyItems.push(buyStoreItem)
         }
         // 虚拟资产
-        var moneyItems = []
-        for (var k = 0; k < this.priceView.reduceMoneys.length; k++) {
-          if (this.reduceMoneys[k]) {
-            var orderMoney = this.priceView.reduceMoneys[k]
-            var moneyItem = {
-              MoneyTypeId: orderMoney.moneyId,
-              ReduceAmount: orderMoney.maxPayPrice
+        var reduceMoneys = []
+        for (var r = 0; r < this.modelView.allowMoneys.length; r++) {
+          var allowMoneyItem = this.modelView.allowMoneys[r]
+          if (this.reduceMoneys[r]) {
+            var reduceMoneyItem = {
+              key: allowMoneyItem.moneyId,
+              value: allowMoneyItem.maxPayPrice
             }
-            moneyItems.push(moneyItem)
+            reduceMoneys.push(reduceMoneyItem)
           }
         }
         var buyInput = {
-          moneyItemJson: JSON.stringify(moneyItems),
+          reduceMoneysJson: JSON.stringify(reduceMoneys),
           StoreOrderJson: JSON.stringify(storeBuyItems),
           addressId: this.addressId, // 选择地址Id
           payType: 3, // 支付方式
