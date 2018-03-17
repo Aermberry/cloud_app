@@ -246,7 +246,6 @@
           addressId: this.addressId,
           storeExpressJson: JSON.stringify(storeDelivery)
         }
-
         var priceResponse = await apiService.getPrice(priceInput)
         if (priceResponse.data.status !== 1) {
           if (priceResponse.data.messagecode === 100) {
@@ -257,7 +256,6 @@
         } else {
           this.priceView = priceResponse.data.result
           this.storePrices = this.priceView.storePrices
-
           this.asyncFlag = true
         }
       }
