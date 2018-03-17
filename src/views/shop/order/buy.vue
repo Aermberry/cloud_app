@@ -46,7 +46,7 @@
 
     </group>
     <group class="mb-2">
-      <x-switch :title="money.title" :inline-desc="money.description" v-for="(money,moneyIndex) in priceView.orderMoneys" :key="moneyIndex" v-model="orderMoneys[moneyIndex]"></x-switch>
+      <x-switch :title="money.title" :inline-desc="money.description" v-for="(money,moneyIndex) in modelView.allowMoneys" :key="moneyIndex" v-model="orderMoneys[moneyIndex]"></x-switch>
       <divider class="divider-bg "></divider>
     </group>
 
@@ -211,6 +211,10 @@
               this.showDelivery[i] = this.modelView.storeItems[i].expressTemplates[0].key
               this.userMessages[i] = '' // 初始化留言信息
             }
+            // 初始化币种
+            for (var k = 0; k < this.modelView.allowMoneys.length; k++) {
+              this.orderMoneys[k] = true
+            }
             // 获取价格
             this.getPrice()
           }
@@ -253,10 +257,7 @@
         } else {
           this.priceView = priceResponse.data.result
           this.storePrices = this.priceView.storePrices
-          // 初始化币种
-          for (var k = 0; k < this.priceView.orderMoneys.length; k++) {
-            this.orderMoneys[k] = true
-          }
+
           this.asyncFlag = true
         }
       }
