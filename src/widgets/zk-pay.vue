@@ -12,8 +12,8 @@
             <!---->
           </div>
         </div>
-        <p class="count"> ￥
-          <span>{{amount}}</span><br/>
+        <p class="count">
+          <span>￥{{amount}}元</span><br/>
           <em>{{note}}</em>
         </p>
       </div>
