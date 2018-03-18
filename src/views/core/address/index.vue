@@ -138,7 +138,7 @@
           }
           var response = await apiUser.SingleAddress(param)
           if (response.data.status === 1) {
-            local.setStore('default_address', response.data.result) // 将地址信息写到缓存中
+            local.setLoginStore('default_address', response.data.result) // 将地址信息写到缓存中
           }
           this.$router.push({
             name: 'order_buy'

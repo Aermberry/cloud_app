@@ -124,13 +124,13 @@
     },
     methods: {
       async GetData () {
-        var defaultAddress = local.getStore('default_address') // 刷新时从缓冲中读取地址
+        var defaultAddress = local.getLoginStore('default_address') // 刷新时从缓冲中读取地址
         if (defaultAddress === undefined) {
           // 缓存中不存在地址
           var response = await apiUser.SingleAddress()
           if (response.data.status === 1) {
             this.viewModel = response.data.result
-            local.setStore('default_address', this.viewModel) // 将购买信息写到缓存中
+            local.setLoginStore('default_address', this.viewModel) // 将购买信息写到缓存中
           }
         } else {
           this.viewModel = defaultAddress

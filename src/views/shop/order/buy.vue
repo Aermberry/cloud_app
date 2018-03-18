@@ -174,7 +174,7 @@
         var response = await apiService.Buy(buyInput)
         console.dir(response)
         if (response.data.status === 1) {
-          this.payAmount = '1250.23' // 设置实际需支付的金额
+          this.payAmount = this.priceView.totalAmount // 设置实际需支付的金额
           this.$refs.show_pay.$emit('payMethod', this.payAmount) // 唤起支付窗口
         } else {
           this.$vux.toast.warn(response.data.message)
@@ -228,7 +228,7 @@
       },
       // 获取价格,更改店铺运费方式，修改地址时候，会修改价格
       async getPrice () {
-        var defaultAddress = local.getStore('default_address') // 刷新时从缓冲中读取地址
+        var defaultAddress = local.getLoginStore('default_address') // 刷新时从缓冲中读取地址
         if (defaultAddress !== undefined) {
           this.addressId = defaultAddress.id
         }
