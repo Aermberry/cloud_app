@@ -92,7 +92,9 @@
       },
       async pay () {
         let paras = {
-          clientType: 'wapH5' // this.ClientType // 在gloal中获取支付方式列表
+          clientType: 'wapH5', // this.ClientType // 在gloal中获取支付方式列表
+          amount: this.amount,
+          payId: this.payId
         }
         var response = await apiService.Pay(paras) // 获取支付方式列表
         if (response.data.status === 1) {
