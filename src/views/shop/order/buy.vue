@@ -177,12 +177,12 @@
             sign: this.modelView.sign, // 签名信息
             userId: this.LoginUser().id // 下单用户ID
           }
-          console.info('购买格式', buyInput)
+          // console.info('购买格式', buyInput)
           var response = await apiService.Buy(buyInput)
           console.dir(response)
           if (response.data.status === 1) {
-            this.payAmount = this.priceView.totalAmount // 设置实际需支付的金额
-            this.$refs.show_pay.$emit('payMethod', this.payAmount) // 唤起支付窗口
+            var buyOutput = response.data.result
+            this.$refs.show_pay.$emit('payMethod', buyOutput.payId, buyOutput.payAmount) // 唤起支付窗口
           } else {
             this.$vux.toast.warn(response.data.message)
           }
@@ -212,7 +212,7 @@
             loginUserId: this.LoginUser().id,
             productJson: JSON.stringify(buyProductInfo)
           }
-          console.info('购物信息', buyInfoInput)
+         // console.info('购物信息', buyInfoInput)
           var response = await apiService.buyProduct(buyInfoInput)
           if (response.data.status !== 1) {
             this.messageWarn(response.data.message)

@@ -13,14 +13,15 @@
           </div>
         </div>
         <p class="count"> ￥
-          <span>{{amount}}</span>
+          <span>{{amount}}</span><br/>
+          <em>{{note}}</em>
         </p>
       </div>
       <group class="pay-index">
         <radio :options="payTypes" fill-label="Other" @on-change="change"> </radio>
       </group>
       <div class="pay-buttom base">
-        <x-button type="primary" @click.native="pay">立即付款</x-button>
+        <x-button type="primary" @click.native="pay">确认支付{{amount}}元</x-button>
       </div>
     </div>
     <!-- <zk-password showPay="false"></zk-password> -->
@@ -50,15 +51,18 @@
       return {
         showPupop: false, // 显示支付主窗体
         payTypes: [], // 支付方式
-        amount: 0.0 // 支付金额
+        payId: 0, // 支付账单Id
+        amount: 0.0, // 支付金额
+        note: '' // 显示标题
       }
     },
     mounted: function () {
       this.$nextTick(function () {
-        this.$on('payMethod', function (amount) {
+        this.$on('payMethod', function (payId, amount) {
+          this.payId = payId
+          this.amount = amount
           this.init() //  点击以后，才请求支付
           this.showPupop = true
-          this.amount = amount
         })
       })
     },
@@ -66,11 +70,14 @@
       async init () {
         this.userName = this.LoginUser().userName
         let paras = {
-          clientType: 'wapH5' // this.ClientType // 在gloal中获取支付方式列表
+          clientType: 'wapH5', // this.ClientType // 在gloal中获取支付方式列表
+          amount: this.amount,
+          payId: this.payId
         }
         var response = await apiService.GetList(paras) // 获取支付方式列表
         if (response.data.status === 1) {
-          var pays = response.data.result // 所有的支付方式
+          var pays = response.data.result.payTypeList // 所有的支付方式
+          this.note = response.data.result.note
           pays.forEach(element => {
             var pay = {}
             pay['key'] = element.payType
@@ -134,6 +141,10 @@
           font-size: @h3-font-size;
           font-weight: bold;
           color: @brand;
+        }
+        em {
+          font-size: @h6-font-size;
+          color: @metal;
         }
       }
     }

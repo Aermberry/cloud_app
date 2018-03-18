@@ -32,7 +32,7 @@
         asyncFlag: false // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
       }
     },
-    mounted () {
+    created () {
       this.GetData()
     },
     methods: {
@@ -44,6 +44,7 @@
         let params = {
           id: this.$route.params.id // 获取URL当中的Id参数
         }
+
         var response = await apiService.show(params)
         var product = response.data.result
         if (response.data.status !== 1) {
