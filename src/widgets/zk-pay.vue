@@ -53,6 +53,7 @@
         payTypes: [], // 支付方式
         payId: 0, // 支付账单Id
         amount: 0.0, // 支付金额
+        selectPayType: 0, // 选择的支付方式
         note: '' // 显示标题
       }
     },
@@ -94,25 +95,20 @@
         let paras = {
           clientType: 'wapH5', // this.ClientType // 在gloal中获取支付方式列表
           amount: this.amount,
+          payType: this.selectPayType,
           payId: this.payId
         }
-        var response = await apiService.Pay(paras) // 获取支付方式列表
+        console.dir(paras)
+        var response = await apiService.Pay(paras)
         if (response.data.status === 1) {
-          var pays = response.data.result // 所有的支付方式
-          pays.forEach(element => {
-            var pay = {}
-            pay['key'] = element.payType
-            pay['value'] = element.name
-            pay['icon'] = element.icon
-            pay['desc'] = element.intro
-            this.payTypes.push(pay)
-          })
+          // var pays = response.data.result // 所有的支付方式
         } else {
           this.$vux.toast.warn(response.data.message)
         }
       },
       change (value, label) {
         console.log('change:', value, label)
+        this.selectPayType = value
       }
     }
   }
@@ -178,11 +174,11 @@
     }
     .pay-head {
       font-size: 1rem;
-      position: fixed;
+      //position: fixed;
       width: 100%;
-      height: auto;
-      overflow-y: auto;
-      min-height: 2.5rem;
+      height: 8rem;
+      overflow-y: hidden;
+      min-height: 8rem;
       z-index: 5;
     }
     .base {
@@ -190,7 +186,7 @@
       position: fixed;
       width: 100%;
       height: 2.5rem;
-      overflow-y: auto;
+      overflow-y: hidden;
       z-index: 5;
       background-color: white;
       bottom: 0px;
