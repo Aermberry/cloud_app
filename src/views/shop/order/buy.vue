@@ -37,9 +37,9 @@
       <x-textarea title="卖家留言 " placeholder="填写内容已和卖家协商确认 " :show-counter="false " :rows="1" autosize v-model="userMessages[storeIndex]"></x-textarea>
       <cell>
         <div v-if="asyncFlag">共
-          <span class="zkui_order_buy-freight">{{store.totalCount}}</span>商品 运费：
-          <span class="zkui_order_buy-freight">{{storePrices[storeIndex].expressAmount }} </span>小计
-          <span class="zkui_order_buy-freight">{{storePrices[storeIndex].totalAmount}}</span>
+          <span class="zkui_order_buy-freight">{{store.totalCount}}</span>件 -运费
+          <span class="zkui_order_buy-freight">￥{{storePrices[storeIndex].expressAmount }} </span>-小计
+          <span class="zkui_order_buy-freight">￥{{storePrices[storeIndex].totalAmount}}</span>
         </div>
       </cell>
       <divider class="divider-bg "></divider>
@@ -125,7 +125,8 @@
               ProductSkuId: productSkuBuyItem.productSkuId,
               Count: productSkuBuyItem.buyCount,
               ProductId: productSkuBuyItem.productId,
-              Amount: 90,
+              priceStyleId: productSkuBuyItem.priceStyleId,
+              Amount: productSkuBuyItem.buyCount * productSkuBuyItem.price,
               storeId: storeBuyItem.storeId
             }
             productBuyItems.push(buyproductItem)
@@ -163,7 +164,7 @@
           payType: 3, // 支付方式
           totalAmount: this.priceView.totalAmount, // 订单总金额
           TotalCount: this.modelView.totalCount, // 订单总商品
-          paymentAmount: 1250.99, // 订单总金额
+          paymentAmount: this.priceView.totalAmount, // 订单总金额
           orderType: 1, // 订单类型
           sign: this.modelView.sign, // 签名信息
           userId: this.LoginUser().id // 下单用户ID
@@ -293,7 +294,6 @@
     }
     .zkui_order_buy-freight {
       color: @brand;
-      font-weight: bold;
     }
     .order_buy_product {
       .weui-cells {

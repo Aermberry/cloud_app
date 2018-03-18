@@ -46,9 +46,13 @@
         }
         var response = await apiService.show(params)
         var product = response.data.result
-        this.asyncFlag = true
-        this.modelView = product
-        console.dir(product)
+        if (response.data.status !== 1) {
+          this.messageWarn(response.data.message)
+        } else {
+          this.asyncFlag = true
+          this.modelView = product
+          // console.dir(product)
+        }
       }
     }
   }
