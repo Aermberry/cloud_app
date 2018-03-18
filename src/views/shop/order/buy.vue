@@ -115,69 +115,80 @@
     },
     methods: {
       async buy () {
-        var storeBuyItems = []
-        for (var i = 0; i < this.modelView.storeItems.length; i++) {
-          var storeBuyItem = this.modelView.storeItems[i]
-          var productBuyItems = []
-          for (var j = 0; j < storeBuyItem.productSkuItems.length; j++) {
-            var productSkuBuyItem = storeBuyItem.productSkuItems[j]
-            var buyproductItem = {
-              ProductSkuId: productSkuBuyItem.productSkuId,
-              Count: productSkuBuyItem.buyCount,
-              ProductId: productSkuBuyItem.productId,
-              priceStyleId: productSkuBuyItem.priceStyleId,
-              Amount: productSkuBuyItem.buyCount * productSkuBuyItem.price,
-              storeId: storeBuyItem.storeId
+        try {
+          var defaultAddress = local.getLoginStore('default_address') // 刷新时从缓冲中读取地址
+          if (defaultAddress !== undefined) {
+            this.addressId = defaultAddress.id
+          } else {
+            this.$vux.toast.warn('请先添加地址')
+            return
+          }
+          var storeBuyItems = []
+          for (var i = 0; i < this.modelView.storeItems.length; i++) {
+            var storeBuyItem = this.modelView.storeItems[i]
+            var productBuyItems = []
+            for (var j = 0; j < storeBuyItem.productSkuItems.length; j++) {
+              var productSkuBuyItem = storeBuyItem.productSkuItems[j]
+              var buyproductItem = {
+                ProductSkuId: productSkuBuyItem.productSkuId,
+                Count: productSkuBuyItem.buyCount,
+                ProductId: productSkuBuyItem.productId,
+                priceStyleId: productSkuBuyItem.priceStyleId,
+                Amount: productSkuBuyItem.buyCount * productSkuBuyItem.price,
+                storeId: storeBuyItem.storeId
+              }
+              productBuyItems.push(buyproductItem)
             }
-            productBuyItems.push(buyproductItem)
-          }
 
-          var buyStoreItem = {
-            storeId: storeBuyItem.storeId,
-            deliveryId: this.showDelivery[i], // 运费
-            userMessage: this.userMessages[i],
-            isFromCart: this.isFromCart,
-            totalAmount: this.priceView.storePrices[i].totalAmount, // 店铺订单总价格
-            totalCount: this.modelView.storeItems[i].totalCount, // 店铺商品总数量
-            expressAmount: this.priceView.storePrices[i].expressAmount, // 店铺运费
-            productAmount: this.priceView.storePrices[i].productAmount, // 店铺总商品费用
-            productSkuItems: productBuyItems
-          }
-          storeBuyItems.push(buyStoreItem)
-        }
-        // 虚拟资产
-        var reduceMoneys = []
-        for (var r = 0; r < this.modelView.allowMoneys.length; r++) {
-          var allowMoneyItem = this.modelView.allowMoneys[r]
-          if (this.reduceMoneys[r]) {
-            var reduceMoneyItem = {
-              key: allowMoneyItem.moneyId,
-              value: allowMoneyItem.maxPayPrice
+            var buyStoreItem = {
+              storeId: storeBuyItem.storeId,
+              deliveryId: this.showDelivery[i], // 运费
+              userMessage: this.userMessages[i],
+              isFromCart: this.isFromCart,
+              totalAmount: this.priceView.storePrices[i].totalAmount, // 店铺订单总价格
+              totalCount: this.modelView.storeItems[i].totalCount, // 店铺商品总数量
+              expressAmount: this.priceView.storePrices[i].expressAmount, // 店铺运费
+              productAmount: this.priceView.storePrices[i].productAmount, // 店铺总商品费用
+              productSkuItems: productBuyItems
             }
-            reduceMoneys.push(reduceMoneyItem)
+            storeBuyItems.push(buyStoreItem)
           }
-        }
-        var buyInput = {
-          reduceMoneysJson: JSON.stringify(reduceMoneys),
-          StoreOrderJson: JSON.stringify(storeBuyItems),
-          addressId: this.addressId, // 选择地址Id
-          payType: 3, // 支付方式
-          totalAmount: this.priceView.totalAmount, // 订单总金额
-          TotalCount: this.modelView.totalCount, // 订单总商品
-          paymentAmount: this.priceView.totalAmount, // 订单总金额
-          orderType: 1, // 订单类型
-          sign: this.modelView.sign, // 签名信息
-          userId: this.LoginUser().id // 下单用户ID
-        }
-        console.info('购买格式', buyInput)
-
-        var response = await apiService.Buy(buyInput)
-        console.dir(response)
-        if (response.data.status === 1) {
-          this.payAmount = this.priceView.totalAmount // 设置实际需支付的金额
-          this.$refs.show_pay.$emit('payMethod', this.payAmount) // 唤起支付窗口
-        } else {
-          this.$vux.toast.warn(response.data.message)
+          // 虚拟资产
+          var reduceMoneys = []
+          for (var r = 0; r < this.modelView.allowMoneys.length; r++) {
+            var allowMoneyItem = this.modelView.allowMoneys[r]
+            if (this.reduceMoneys[r]) {
+              var reduceMoneyItem = {
+                key: allowMoneyItem.moneyId,
+                value: allowMoneyItem.maxPayPrice
+              }
+              reduceMoneys.push(reduceMoneyItem)
+            }
+          }
+          var buyInput = {
+            reduceMoneysJson: JSON.stringify(reduceMoneys),
+            StoreOrderJson: JSON.stringify(storeBuyItems),
+            addressId: this.addressId, // 选择地址Id
+            payType: 3, // 支付方式
+            totalAmount: this.priceView.totalAmount, // 订单总金额
+            TotalCount: this.modelView.totalCount, // 订单总商品
+            paymentAmount: this.priceView.totalAmount, // 订单总金额
+            orderType: 1, // 订单类型
+            sign: this.modelView.sign, // 签名信息
+            userId: this.LoginUser().id // 下单用户ID
+          }
+          console.info('购买格式', buyInput)
+          var response = await apiService.Buy(buyInput)
+          console.dir(response)
+          if (response.data.status === 1) {
+            this.payAmount = this.priceView.totalAmount // 设置实际需支付的金额
+            this.$refs.show_pay.$emit('payMethod', this.payAmount) // 唤起支付窗口
+          } else {
+            this.$vux.toast.warn(response.data.message)
+          }
+        } catch (error) {
+          console.warn(error)
+          this.GetData() // 如果出错重新请求一次服务器
         }
       },
       async GetData () {
@@ -231,6 +242,9 @@
         var defaultAddress = local.getLoginStore('default_address') // 刷新时从缓冲中读取地址
         if (defaultAddress !== undefined) {
           this.addressId = defaultAddress.id
+        } else {
+          this.$vux.toast.warn('请先添加地址')
+          return
         }
         var storeDelivery = []
         for (var i = 0; i < this.modelView.storeItems.length; i++) {

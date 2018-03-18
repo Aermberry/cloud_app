@@ -140,6 +140,9 @@
         this.viewModel = reponse.data.result
         if (reponse.data.status === 1) {
           this.initCart(reponse.data.result) // 初始化购物车
+          if (reponse.data.result.storeItems.length === 0) {
+            this.hasData = false
+          }
         } else {
           // this.$vux.toast.warn(reponse.data.message)
           this.hasData = false
