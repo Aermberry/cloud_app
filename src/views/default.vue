@@ -39,20 +39,12 @@
   }
 </script>
 
-<style scoped lang="less">
+<style  lang="less">
   .zkui-default {
-    .weui-search-bar {
-      padding-top: 10*@rem;
-    }
-
-    .weui-search-bar {
-      background-color: transparent !important;
-      opacity: 0.7;
-    }
     .weui-search-bar:before {
       content: none;
     }
-    .weui-search-bar:after {
+    .weui-search-bar::after {
       content: none;
     }
     .index-search {
@@ -66,6 +58,13 @@
       left: 0;
       z-index: 9999;
       width: 100%;
+      .zkui-default-search-box {
+        .vux-search-box {
+          .weui-search-bar {
+            background: transparent;
+          }
+        }
+      }
     }
 
     .index-qrcode {

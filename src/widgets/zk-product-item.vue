@@ -89,6 +89,11 @@
 </script>
 
 <style lang="less" scoped>
+  #index_scroll {
+    .mescroll-upwarp {
+      display: none;
+    }
+  }
   .zkui-product-item__1 {
     background: #ffffff;
     li {
