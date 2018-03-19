@@ -308,28 +308,25 @@
           //     }
           //   }
           // }
-          console.log(1)
         }, 1000)
       },
       // 结算购买
       buy () {
         var buyProductInfo = []
-        if (this.allCheck) {
-          for (var i = 0; i < this.viewModel.storeItems.length; i++) {
-            var storeItem = this.viewModel.storeItems[i]
-            for (var j = 0; j < this.productSkuChecks[i].length; j++) {
-              var element = this.productSkuChecks[i][j]
-              var buyItem = {
-                ProductSkuId: element.productSkuId,
-                Count: this.buySkuCount[i][j],
-                ProductId: element.productId,
-                storeId: storeItem.storeId,
-                LoginUserId: this.LoginUser().id
-              }
-              buyProductInfo.push(buyItem)
+        for (var i = 0; i < this.viewModel.storeItems.length; i++) {
+          var storeItem = this.viewModel.storeItems[i]
+          for (var j = 0; j < this.productSkuChecks[i].length; j++) {
+            var element = this.productSkuChecks[i][j]
+            var buyItem = {
+              ProductSkuId: element.productSkuId,
+              Count: this.buySkuCount[i][j],
+              ProductId: element.productId,
+              storeId: storeItem.storeId,
+              LoginUserId: this.LoginUser().id
             }
-            console.info('店铺最终购买数据', storeItem.storeName, this.productSkuChecks[i])
+            buyProductInfo.push(buyItem)
           }
+          console.info('店铺最终购买数据', storeItem.storeName, this.productSkuChecks[i])
         }
         console.info('格式', buyProductInfo)
         this.$router.push({

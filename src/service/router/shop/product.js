@@ -1,5 +1,4 @@
-export default [
-  {
+export default [{
     path: '/product/class',
     //  分类页面
     meta: {
@@ -11,7 +10,10 @@ export default [
     }
   },
   {
-    path: '/product/list/:id', // 商品列表页
+    path: '/product/list', // 商品列表页
+    params: {
+      id: ''
+    },
     meta: {
       title: '商品列表页'
     },

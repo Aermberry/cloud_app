@@ -79,9 +79,9 @@
     },
     methods: {
       async sortNum (id) {
-        console.log(id)
         let params = {
-          SortOrder: id
+          SortOrder: id,
+          Keyword: this.$route.params.id
         }
         this.sort = id
         let response = await apiService.list(params) // 通过异步方法获取数据
@@ -89,7 +89,8 @@
       },
       async upCallback () {
         let params = {
-          SortOrder: 0
+          SortOrder: 0,
+          Keyword: this.$route.params.id
         }
         let response = await apiService.list(params) // 通过异步方法获取数据
         this.dataList = response.data.result.productItems

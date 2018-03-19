@@ -1,10 +1,12 @@
 <template>
   <section class="zkui-shop-product-search">
     <div class="header-search">
-      <div class="return" @click="ceshi()">
+      <div class="return" @click="goBack()">
         <m-icon slot="icon" name="zk-return" class="metal"></m-icon>
       </div>
-      <search placeholder="搜索您想要的商品" cancel-text="取消" :auto-fixed="false"></search>
+      <!-- <search placeholder="搜索您想要的商品" cancel-text="取消" :auto-fixed="false"></search> -->
+      <search  v-model="value" cancelText="取消" :auto-fixed="false" @on-focus="onFocus" @on-cancel="onCancel" @on-submit="onSubmit" ref="search"></search>
+
     </div>
 
     <div class="zkui-product_search-item">
@@ -22,7 +24,6 @@
 
 
 <script>
-  import productApi from 'src/service/api/product.api'
   import { Search, Tab, TabItem, XButton, MIcon } from 'zkui'
   export default {
     components: {
@@ -34,6 +35,7 @@
     },
     data () {
       return {
+        value: '',
         lists: [
           { id: '羽绒暖' },
           { id: '冲锋衣服' },
@@ -45,18 +47,31 @@
       }
     },
     mounted () {
-      this.GetData()
     },
     methods: {
-      async GetData () {
-        var reponse = await productApi.search()
-        console.log(reponse)
-      },
-      ceshi () {
+      goBack () {
         this.$router ? this.$router.back() : window.history.back()
+      },
+      onSubmit () {
+        this.$vux.toast.show({
+          type: 'text',
+          position: 'top',
+          text: 'on submit'
+        })
+        this.$router.push({
+          name: 'product_list',
+          params: {
+            id: this.value
+          }
+        })
+      },
+      onFocus () {
+        console.log('on focus')
+      },
+      onCancel () {
+        console.log('on cancel')
       }
     }
-
   }
 
 
@@ -124,7 +139,7 @@
       .weui-search-bar {
         height: 3.2rem;
         .weui-search-bar__cancel-btn {
-          color: @white;
+          color: @brand;
         }
       }
     }

@@ -1,5 +1,5 @@
 <template>
-  <popup v-model="showPupop" is-transparent class="zk-pay" max-height="70%">
+  <popup v-model="showPupop" is-transparent class="zk-pay" max-height="70vh">
     <div class="pay-pupop">
       <div class="pay-head">
         <div class="vux-header">
@@ -54,7 +54,9 @@
         payId: 0, // 支付账单Id
         amount: 0.0, // 支付金额
         selectPayType: 0, // 选择的支付方式
-        note: '' // 显示标题
+        note: '', // 显示标题
+        el: [{ desc: '123', icon: 'zk-amount', key: '1', value: '支付宝支付' },
+        { desc: '456', icon: 'http://dn-placeholder.qbox.me/110x110/FF2D55/000', key: '2', value: '微信支付' }] // 测试例子
       }
     },
     mounted: function () {
@@ -132,7 +134,7 @@
       }
       .count {
         text-align: center;
-        padding-top: 1rem;
+        padding-top: 0.5rem;
         background-color: @light;
         min-height: 5rem;
         span {
@@ -147,8 +149,10 @@
       }
     }
     .pay-index {
-      padding-top: 3rem;
+      padding-top: 1rem;
       margin-bottom: 3rem;
+      max-height: 20rem;
+      overflow-y: auto;
     }
     .sale-info-close {
       width: 1.5rem;
@@ -176,9 +180,8 @@
       font-size: 1rem;
       //position: fixed;
       width: 100%;
-      height: 8rem;
       overflow-y: hidden;
-      min-height: 8rem;
+      min-height: 2rem;
       z-index: 5;
     }
     .base {
