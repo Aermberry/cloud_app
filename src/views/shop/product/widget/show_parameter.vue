@@ -168,7 +168,7 @@
   }
 </script>
 
-<style lang="less">
+<style scoped  lang="less">
   @import '../../../../assets/css/zkui/theme';
   @import '../../../../assets/css/zkui/mixin';
   .zkui-product-show-parameter {

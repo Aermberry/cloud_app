@@ -49,7 +49,7 @@
 </script>
 
 
-<style lang="less">
+<style scoped  lang="less">
   .card-demo-flex {
     display: block;
     width: 100%;

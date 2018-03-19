@@ -157,7 +157,7 @@
   }
 </script>
 
-<style lang="less">
+<style scoped  lang="less">
   .user_address {
     body {
       background: @gray-100;

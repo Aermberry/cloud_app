@@ -69,7 +69,7 @@
   }
 </script>
 
-<style  lang="less">
+<style scoped  lang="less">
   .zkui-user-reg {
     .weui-btn {
       height: 3rem;

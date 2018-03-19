@@ -64,7 +64,7 @@
   }
 </script>
 
-<style lang="less">
+<style scoped  lang="less">
   .vux-slider {
     overflow: hidden;
     position: relative;

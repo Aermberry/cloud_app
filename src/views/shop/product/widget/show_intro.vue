@@ -19,7 +19,7 @@
   }
 </script>
 
-<style lang="less">
+<style scoped  lang="less">
   @import 'product_show';
   .zkui-product-show-images img {
     width: 100%;

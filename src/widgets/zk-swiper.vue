@@ -37,7 +37,7 @@
     }
   }
 </script>
-<style lang="less">
+<style scoped  lang="less">
   .zkcloud-body
     .vux-slider
     > .vux-swiper

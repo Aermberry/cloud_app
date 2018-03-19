@@ -16,6 +16,6 @@ import {workIndex, userList } from 'src/service/api'
   
   }
 </script>
-<style lang="less">
+<style scoped  lang="less">
  
 </style>

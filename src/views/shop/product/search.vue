@@ -76,7 +76,7 @@
 
 
 </script>
-<style lang="less">
+<style scoped  lang="less">
   // @import 'zkui/src/styles/zkui.less';
   //全局变量CSS，颜色，大小，边框，尺寸，尽量使用变量库里头的变量，请悉知所有变量
   .zkui-shop-product-search {

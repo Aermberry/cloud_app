@@ -29,7 +29,7 @@
     }
   }
 </script>
-<style lang="less">
+<style scoped  lang="less">
   body {
     height: 100vh;
   }

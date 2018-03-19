@@ -79,7 +79,7 @@
   }
 </script>
 
-<style lang="less">
+<style scoped  lang="less">
   .zkui_order_buy__address {
     .vux-form-preview {
       .weui-form-preview__hd {
