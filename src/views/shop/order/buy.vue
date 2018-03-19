@@ -290,7 +290,7 @@
   }
 </script>
 
-<style lang="less">
+<style scoped  lang="less">
   .zkui_order_buy {
     margin-bottom: 2.5rem;
     .flex {

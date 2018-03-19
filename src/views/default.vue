@@ -39,7 +39,7 @@
   }
 </script>
 
-<style lang="less">
+<style  scoped lang="less">
   .zkui-default {
     .weui-search-bar {
       padding-top: 10*@rem;

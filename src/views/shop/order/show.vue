@@ -148,7 +148,7 @@
     }
   }
 </script>
-<style lang="less">
+<style scoped  lang="less">
   .zkui-order-show {
     .flex {
       display: -moz-box;

@@ -66,7 +66,7 @@
     }
   }
 </script>
-<style lang="less">
+<style scoped  lang="less">
   @import '../../../assets/css/zkui/theme';
   .zkui-core-user {
     background: #f8f8f8;

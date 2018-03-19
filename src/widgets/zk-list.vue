@@ -87,7 +87,7 @@
 </script>
 
 
-<style lang="less">
+<style scoped  lang="less">
   @import '../assets/css/zkui/theme';
   .weui-media-box__hd {
     width: 45px !important;

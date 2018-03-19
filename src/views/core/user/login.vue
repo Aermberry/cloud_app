@@ -63,7 +63,7 @@
   }
 </script>
 
-<style lang="less">
+<style scoped  lang="less">
   .zkui-login {
     .weui-cells {
       margin-top: 0;

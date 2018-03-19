@@ -16,6 +16,6 @@
     props: ['productView']
   }
 </script>
-<style lang="less">
+<style scoped  lang="less">
   @import 'product_show';
 </style>
