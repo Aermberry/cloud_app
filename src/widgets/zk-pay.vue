@@ -4,7 +4,7 @@
       <div class="pay-head">
         <div class="vux-header">
           <div class="vux-header-left">
-            <x-button type="default" @click.native="showPupop=false" class="sale-info-close"></x-button>
+            <x-button type="default" @click.native="push" class="sale-info-close"></x-button>
           </div>
           <h1 class="vux-header-title">确认付款</h1>
           <!---->
@@ -119,6 +119,7 @@
       },
       // 支付成功后跳转
       push () {
+        this.showPupop = false
         // 如果是商城订单支付，则跳转到商城订单
         if (this.orderType === 'order') {
           if (this.orderIds.length === 1) {
