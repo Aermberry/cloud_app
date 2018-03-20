@@ -39,7 +39,7 @@
   }
 </script>
 
-<style  lang="less" scoped>
+<style  lang="less" >
   .zkui-default {
     .weui-search-bar:before {
       content: none;
