@@ -12,6 +12,9 @@
     components: {
 
     },
+    mounted () {
+
+    },
     methods: {
       pop (mmm) {
         var cover = document.getElementById('cover')

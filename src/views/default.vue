@@ -41,6 +41,11 @@
 
 <style  lang="less" >
   .zkui-default {
+    #index_scroll {
+      .mescroll-upwarp {
+        display: none;
+      }
+    }
     .weui-search-bar:before {
       content: none;
     }
@@ -72,7 +77,7 @@
       width: 30*@rem;
       height: 30*@rem;
       overflow: hidden;
-      margin-top: 0.5rem;
+      margin-top: 0.2rem;
       margin-right: 0.5rem;
     }
 
