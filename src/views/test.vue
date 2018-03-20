@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="pop(qwe)">这是一个按钮</button>
+    <button @click="pop(mmm)">这是一个按钮</button>
     <div id="cover">
       登陆成功
     </div>
@@ -13,7 +13,7 @@
 
     },
     methods: {
-      pop (qwe) {
+      pop (mmm) {
         var cover = document.getElementById('cover')
         cover.style.opacity = '1'
         var t
@@ -21,10 +21,13 @@
         t = setTimeout(function () {
           cover.style.opacity = '0'
         }, 1000)
+        cover.innerHTML = mmm
       }
     },
     data () {
       return {
+        mmm: '登陆成功',
+        nnn: '登陆失败'
       }
     }
   }

@@ -88,6 +88,7 @@
         this.dataList = response.data.result.productItems
       },
       async upCallback () {
+        console.log(this.$route.params.id)
         let params = {
           SortOrder: 0,
           Keyword: this.$route.params.id

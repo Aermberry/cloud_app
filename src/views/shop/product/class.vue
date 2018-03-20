@@ -117,7 +117,7 @@
     }
   }
 </script>
-<style scoped  lang="less">
+<style   lang="less">
   .zkui-shop-product-class {
     height: 100vh;
   }
