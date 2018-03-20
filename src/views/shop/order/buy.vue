@@ -184,7 +184,7 @@
           if (response.data.status === 1) {
             var buyOutput = response.data.result
             console.log(buyOutput)
-            this.$refs.show_pay.$emit('payMethod', buyOutput.payId, buyOutput.payAmount) // 唤起支付窗口
+            this.$refs.show_pay.$emit('payMethod', buyOutput.payId, buyOutput.payAmount, 'order', response.data.result.orderIds) // 唤起支付窗口
           } else {
             this.$vux.toast.warn(response.data.message)
           }

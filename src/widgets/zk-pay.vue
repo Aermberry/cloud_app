@@ -4,7 +4,7 @@
       <div class="pay-head">
         <div class="vux-header">
           <div class="vux-header-left">
-            <x-button type="default" @click.native="showPupop=false" class="sale-info-close"></x-button>
+            <x-button type="default" @click.native="push" class="sale-info-close"></x-button>
           </div>
           <h1 class="vux-header-title">确认付款</h1>
           <!---->
@@ -51,19 +51,21 @@
       return {
         showPupop: false, // 显示支付主窗体
         payTypes: [], // 支付方式
+        orderType: '', // 订单方式
+        orderIds: [],
         payId: 0, // 支付账单Id
         amount: 0.0, // 支付金额
         selectPayType: 0, // 选择的支付方式
-        note: '', // 显示标题
-        el: [{ desc: '123', icon: 'zk-amount', key: '1', value: '支付宝支付' },
-        { desc: '456', icon: 'http://dn-placeholder.qbox.me/110x110/FF2D55/000', key: '2', value: '微信支付' }] // 测试例子
+        note: '' // 显示标题
       }
     },
     mounted: function () {
       this.$nextTick(function () {
-        this.$on('payMethod', function (payId, amount) {
+        this.$on('payMethod', function (payId, amount, orderType, orderIds) {
           this.payId = payId
           this.amount = amount
+          this.orderType = orderType
+          this.orderIds = orderIds
           this.init() //  点击以后，才请求支付
           this.showPupop = true
         })
@@ -100,10 +102,13 @@
           payType: this.selectPayType,
           payId: this.payId
         }
-        console.dir(paras)
+
         var response = await apiService.Pay(paras)
         if (response.data.status === 1) {
-          // var pays = response.data.result // 所有的支付方式
+          // 如果支付订单类型为商城订单，支付成功以后跳转到我的订单或者订单详情
+          if (this.orderType === 'order') {
+            this.push()
+          }
         } else {
           this.$vux.toast.warn(response.data.message)
         }
@@ -111,6 +116,27 @@
       change (value, label) {
         console.log('change:', value, label)
         this.selectPayType = value
+      },
+      // 支付成功后跳转
+      push () {
+        this.showPupop = false
+        // 如果是商城订单支付，则跳转到商城订单
+        if (this.orderType === 'order') {
+          if (this.orderIds.length === 1) {
+            // 一个订单跳转到详情页
+            this.$router.push({
+              name: 'order_show',
+              params: {
+                showId: this.orderIds[0]
+              }
+            })
+          } else {
+            // 多个订单跳转到列表页
+            this.$router.push({
+              name: 'order_list'
+            })
+          }
+        }
       }
     }
   }
