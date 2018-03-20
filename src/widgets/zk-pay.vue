@@ -91,6 +91,7 @@
             pay['desc'] = element.intro
             this.payTypes.push(pay)
           })
+          console.log(this.payTypes)
         } else {
           this.$vux.toast.warn('支付方式获取失败')
         }
@@ -162,7 +163,7 @@
         text-align: center;
         padding-top: 0.5rem;
         background-color: @light;
-        min-height: 5rem;
+        min-height: 2rem;
         span {
           font-size: @h3-font-size;
           font-weight: bold;

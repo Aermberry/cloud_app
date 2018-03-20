@@ -63,6 +63,7 @@
     },
     mounted () {
       this.getData()
+      console.log(this.$route.params.id)
     },
     methods: {
       async  getData () {
@@ -135,7 +136,7 @@
   }
   .zk-class-tab-left {
     width: 5.3571rem;
-    height: 82vh !important;
+    height: 79vh !important;
     display: block !important;
     overflow-y: auto;
     border-right: 1px solid #e5e5e5;
@@ -149,7 +150,7 @@
     -webkit-flex: 1;
     flex: 1;
     .vux-swiper {
-      height: 82vh !important;
+      height: 79vh !important;
     }
   }
   .weui-grids {

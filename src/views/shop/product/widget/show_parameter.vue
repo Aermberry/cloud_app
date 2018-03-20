@@ -51,6 +51,7 @@
       <popup v-model="showParameter " class="showParameter " max-height="70%" is-transparent>
         <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem; ">
           <div class="goods-title">商品参数</div>
+          <div class="goods-title-pla"></div>
           <group class="goods-item">
             <cell v-for="(item, index) in productView.productExtensions.productCategory.displayPropertys " :key="index " :title="item.name " :value="item.displayValue " v-if="item.isSale==false "></cell>
           </group>
@@ -168,7 +169,7 @@
   }
 </script>
 
-<style scoped  lang="less">
+<style   lang="less">
   @import '../../../../assets/css/zkui/theme';
   @import '../../../../assets/css/zkui/mixin';
   .zkui-product-show-parameter {
@@ -360,25 +361,28 @@
     }
   }
   .goods-title {
-    display: flex;
-    padding-top: 0.5rem;
-    justify-content: center;
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-    color: #999999;
-    font-size: 1rem;
     position: fixed;
     width: 100%;
-    height: auto;
     overflow-y: auto;
-    min-height: 40px;
+    height: 40*@rem;
+    line-height: 40*@rem;
+    text-align: center;
     z-index: 5;
     background-color: white;
     border-bottom: 1px solid #e5e5e5;
+    color: @black;
+    font-size: @h4-font-size;
+  }
+  .goods-title-pla {
+    height: 40*@rem;
   }
   .goods-item {
-    padding-top: 1.8rem;
-    margin-bottom: 2.9rem;
+    padding-bottom: 20*@rem;
+    height: 16.5rem;
+    overflow-y: auto;
+    .weui-cells {
+      margin-top: 0;
+    }
   }
   .goods-information {
     padding-top: 1rem;
@@ -414,10 +418,6 @@
   }
   .weui-cell__ft {
     font-weight: @font-weight-normal;
-  }
-  div.goods-title {
-    color: @black;
-    font-size: @h4-font-size;
   }
   .close {
     position: absolute;

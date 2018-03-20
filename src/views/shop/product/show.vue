@@ -29,11 +29,14 @@
     data () {
       return {
         modelView: '', // 商品数据，从服务器上远程获取
-        asyncFlag: false // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
+        asyncFlag: false, // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
+        scroll: ''
       }
     },
     created () {
       this.GetData()
+    },
+    mounted () {
     },
     methods: {
       showSaleModel (data) {

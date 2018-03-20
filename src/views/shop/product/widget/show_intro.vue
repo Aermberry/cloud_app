@@ -1,6 +1,6 @@
 <template>
   <section>
-    <divider>商品详情</divider>
+    <divider class="zkui-product-particulars">商品详情</divider>
     <div class="zkui-product-show-images">
       <div v-html='productView.detail.mobileIntro'></div>
     </div>
@@ -19,7 +19,7 @@
   }
 </script>
 
-<style scoped  lang="less">
+<style   lang="less">
   @import 'product_show';
   .zkui-product-show-images img {
     width: 100%;

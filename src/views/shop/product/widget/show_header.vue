@@ -4,9 +4,12 @@
     <x-header :left-options="{backText: '' }">
       <div class="overwrite-title-demo-bak" slot="overwrite-title">
         <button-tab>
-          <button-tab-item selected>商品</button-tab-item>
+          <button-tab-item :class="{ 'vux-button-group-current':product}" @click.native="button0Click()"> 商品</button-tab-item>
+          <button-tab-item :class="{ 'vux-button-group-current':particulars}" @click.native="button1Click()">详情</button-tab-item>
+          <button-tab-item :class="{ 'vux-button-group-current':recommend}" @click.native="button2Click()">推荐</button-tab-item>
+          <!-- <button-tab-item>商品</button-tab-item>
           <button-tab-item>详情</button-tab-item>
-          <button-tab-item>推荐</button-tab-item>
+          <button-tab-item>推荐</button-tab-item> -->
         </button-tab>
       </div>
     </x-header>
@@ -30,7 +33,63 @@
           menu1: 'Take Photo',
           menu2: 'Choose from photos'
         },
-        showMenus: false
+        showMenus: false,
+        product: true,
+        particulars: false,
+        recommend: false
+      }
+    },
+    mounted () {
+      window.addEventListener('scroll', this.handleScroll)
+    },
+    methods: {
+      button0Click () {
+        window.scrollTo(0, 0)
+        this.particulars = true
+        this.product = false
+        this.recommend = false
+      },
+      button1Click () {
+        var particulars = document.getElementsByClassName('zkui-product-particulars')[0].offsetTop
+        window.scrollTo(0, particulars)
+        this.particulars = false
+        this.product = true
+        this.recommend = false
+      },
+      button2Click () {
+        var recommend = document.getElementsByClassName('zk-product-recommend')[0].offsetTop
+        window.scrollTo(0, recommend)
+        this.particulars = false
+        this.product = false
+        this.recommend = true
+      },
+      handleScroll () {
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+        var buttonTop = document.getElementsByClassName('vux-button-tab-item')
+        var particulars = document.getElementsByClassName('zkui-product-particulars')[0].offsetTop
+        var recommend = document.getElementsByClassName('zk-product-recommend')[0].offsetTop
+        console.log(particulars, recommend)
+        if (scrollTop >= 0) {
+          this.particulars = false
+          this.product = true
+          this.recommend = false
+        } else {
+          buttonTop[0].classList.remove('vux-button-group-current')
+        }
+        if (scrollTop >= particulars && scrollTop <= recommend) {
+          this.particulars = true
+          this.product = false
+          this.recommend = false
+        } else {
+          buttonTop[1].classList.remove('vux-button-group-current')
+        }
+        if (scrollTop >= recommend) {
+          this.particulars = false
+          this.product = false
+          this.recommend = true
+        } else {
+          buttonTop[2].classList.remove('vux-button-group-current')
+        }
       }
     }
   }

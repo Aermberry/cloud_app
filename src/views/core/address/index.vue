@@ -159,6 +159,7 @@
 
 <style scoped  lang="less">
   .user_address {
+    padding-bottom: 35*@rem;
     body {
       background: @gray-100;
       padding-bottom: 50*@rem;

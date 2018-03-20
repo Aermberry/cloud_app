@@ -86,7 +86,7 @@
   }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
   #index_scroll {
     .mescroll-upwarp {
       display: none;
@@ -94,6 +94,14 @@
   }
   .zkui-product-item__1 {
     background: #ffffff;
+    ul::after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+    ul {
+      padding-bottom: 35*@rem;
+    }
     li {
       display: block;
       float: left;

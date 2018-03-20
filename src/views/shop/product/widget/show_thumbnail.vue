@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="product-show-thum">
     <swiper :aspect-ratio="520/520" loop dots-position="center" auto>
       <swiper-item class="swiper-demo-img" v-for="(item, index) in productView.productExtensions.productThums" :key="index">
         <!-- <img  class="previewer-demo-img" :src="item.showCaseUrl" @click="show(index)"> -->
@@ -64,11 +64,13 @@
   }
 </script>
 
-<style scoped  lang="less">
-  .vux-slider {
-    overflow: hidden;
-    position: relative;
-    padding-top: 34*@rem;
+<style   lang="less">
+  .product-show-thum {
+    .vux-slider {
+      overflow: hidden;
+      position: relative;
+      padding-top: 34*@rem;
+    }
   }
 </style>
 

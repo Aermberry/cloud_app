@@ -103,7 +103,7 @@
   }
 </script>
 
-<style scoped  lang="less">
+<style   lang="less">
   @import '../../../../assets/css/zkui/theme';
   @import '../../../../assets/css/zkui/mixin';
   .vux-header {

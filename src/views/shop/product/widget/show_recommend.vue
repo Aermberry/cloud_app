@@ -1,6 +1,6 @@
 <template>
   <section>
-    <divider>推荐商品</divider>
+    <divider class="zk-product-recommend">推荐商品</divider>
     <zk-product-item :pageSize=4 classIds='' tagsId='' diykey='index'></zk-product-item>
 
   </section>

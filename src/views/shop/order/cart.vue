@@ -107,7 +107,8 @@
         productSkuIdChecks: [], // 店铺选择商品，绑定checker
         storeCheckModel: [], // 店铺选择数组，实现全选和取消全选事件
         allCheck: true, // 整个购物车全选
-        storeTotalSkuIds: [] // 计算店铺skuId总数量，实现全选事件
+        storeTotalSkuIds: [], // 计算店铺skuId总数量，实现全选事件
+        scroll: ''
       }
     },
     components: {
