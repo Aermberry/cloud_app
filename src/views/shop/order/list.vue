@@ -7,32 +7,32 @@
         <tab-item class="vux-center" :selected="demo2 === item" v-for="(item, index) in list2" @click="demo2 = item" :key="index">{{item}}</tab-item>
       </tab>
       <swiper v-model="index" :show-dots="false">
-        <swiper-item v-for="(item, indexe) in list2" :key="indexe">
+        <swiper-item v-for="(t,i) in list2" :key="i">
           <div class="tab-swiper vux-center">
-            <div v-if="indexe===0" class="zkui-order-list-box">
+            <div class="zkui-order-list-box" v-if="i===0">
               <div class="zkui-order-list-content">
-                <div class="zkui-order-list-box-item" v-for="(store,indexs) in data" :key="indexs">
+                <div class="zkui-order-list-box-item" v-for="(items,indexs) in data" :key="indexs">
                   <group class="box-title">
-                    <cell :title="store.storeItems[0].storeName" value="状态"></cell>
+                    <cell :title="items.storeName" value="状态"></cell>
                   </group>
-                  <div class="zkui-order-list-product" v-for="(product,index) in store.storeItems[0].productSkuItems" :key="index" @click="show(store.id)">
+                  <div class="zkui-order-list-product" @click="show()" v-for="(itemss,indexss) in items.outOrderProducts" :key="indexss">
                     <ul class="flex">
                       <li class="left-img">
-                        <img :src="product.thumbnailUrl" alt="">
+                        <img :src="itemss.thumbnailUrl" alt="">
                       </li>
                       <li class="flex_one center-content">
                         <p>
-                          {{product.name}}
+                          {{itemss.name}}
                         </p>
-                        <span>{{product.propertyValueDesc}}</span>
+                        <span>
+                          {{itemss.propertyValueDesc}}
+                        </span>
                       </li>
                       <li class="left-price">
                         <ul>
-                          <li class="price_now">￥{{product.price}}</li>
+                          <li class="price_now">￥{{itemss.price}}</li>
                           <li class="price_old">￥69.00</li>
-                          <li class="price_count">
-                            X{{product.buyCount}}
-                          </li>
+                          <li class="price_count">X {{itemss.buyCount}}</li>
                         </ul>
                       </li>
                     </ul>
@@ -41,9 +41,9 @@
                   <group>
                     <cell>
                       共
-                      <span class="num">{{dataCount[indexs]}}</span> 件商品 合计：￥
-                      <span class="num">{{store.storeItems[0].totalAmount}}</span>(含运费￥
-                      <span class="num">{{store.storeItems[0].expressAmount}}</span>)
+                      <span class="num">{{items.totalCount}}</span> 件商品 合计：￥
+                      <span class="num">{{items.paymentAmount}}</span>(含运费￥
+                      <span class="num">{{items.expressAmount}}</span>)
                     </cell>
                   </group>
                   <group class="product-option">
@@ -56,30 +56,30 @@
                 </div>
               </div>
             </div>
-            <div v-if="indexe===1" class="zkui-order-list-box">
+            <div class="zkui-order-list-box" v-if="i===1">
               <div class="zkui-order-list-content">
-                <div class="zkui-order-list-box-item" v-for="(store,indexs) in stayPayment" :key="indexs">
+                <div class="zkui-order-list-box-item" v-for="(items,indexs) in stayPayment" :key="indexs">
                   <group class="box-title">
-                    <cell :title="store.storeItems[0].storeName" value="待付款"></cell>
+                    <cell :title="items.storeName" value="状态"></cell>
                   </group>
-                  <div class="zkui-order-list-product" v-for="(product,index) in store.storeItems[0].productSkuItems" :key="index">
+                  <div class="zkui-order-list-product" @click="show()" v-for="(itemss,indexss) in items.outOrderProducts" :key="indexss">
                     <ul class="flex">
                       <li class="left-img">
-                        <img :src="product.thumbnailUrl" alt="">
+                        <img :src="itemss.thumbnailUrl" alt="">
                       </li>
                       <li class="flex_one center-content">
                         <p>
-                          {{product.name}}
+                          {{itemss.name}}
                         </p>
-                        <span>{{product.propertyValueDesc}}</span>
+                        <span>
+                          {{itemss.propertyValueDesc}}
+                        </span>
                       </li>
                       <li class="left-price">
                         <ul>
-                          <li class="price_now">￥{{product.price}}</li>
+                          <li class="price_now">￥{{itemss.price}}</li>
                           <li class="price_old">￥69.00</li>
-                          <li class="price_count">
-                            X{{product.buyCount}}
-                          </li>
+                          <li class="price_count">X {{itemss.buyCount}}</li>
                         </ul>
                       </li>
                     </ul>
@@ -88,9 +88,9 @@
                   <group>
                     <cell>
                       共
-                      <span class="num">{{dataCount[indexs]}}</span> 件商品 合计：￥
-                      <span class="num">{{store.storeItems[0].totalAmount}}</span>(含运费￥
-                      <span class="num">{{store.storeItems[0].expressAmount}}</span>)
+                      <span class="num">{{items.totalCount}}</span> 件商品 合计：￥
+                      <span class="num">{{items.paymentAmount}}</span>(含运费￥
+                      <span class="num">{{items.expressAmount}}</span>)
                     </cell>
                   </group>
                   <group class="product-option">
@@ -103,30 +103,30 @@
                 </div>
               </div>
             </div>
-            <div v-if="indexe===2" class="zkui-order-list-box">
+            <div class="zkui-order-list-box" v-if="i===2">
               <div class="zkui-order-list-content">
-                <div class="zkui-order-list-box-item" v-for="(store,indexs) in stayShipments" :key="indexs">
+                <div class="zkui-order-list-box-item" v-for="(items,indexs) in stayShipments" :key="indexs">
                   <group class="box-title">
-                    <cell :title="store.storeItems[0].storeName" value="待发货"></cell>
+                    <cell :title="items.storeName" value="状态"></cell>
                   </group>
-                  <div class="zkui-order-list-product" v-for="(product,index) in store.storeItems[0].productSkuItems" :key="index">
+                  <div class="zkui-order-list-product" @click="show()" v-for="(itemss,indexss) in items.outOrderProducts" :key="indexss">
                     <ul class="flex">
                       <li class="left-img">
-                        <img :src="product.thumbnailUrl" alt="">
+                        <img :src="itemss.thumbnailUrl" alt="">
                       </li>
                       <li class="flex_one center-content">
                         <p>
-                          {{product.name}}
+                          {{itemss.name}}
                         </p>
-                        <span>{{product.propertyValueDesc}}</span>
+                        <span>
+                          {{itemss.propertyValueDesc}}
+                        </span>
                       </li>
                       <li class="left-price">
                         <ul>
-                          <li class="price_now">￥{{product.price}}</li>
+                          <li class="price_now">￥{{itemss.price}}</li>
                           <li class="price_old">￥69.00</li>
-                          <li class="price_count">
-                            X{{product.buyCount}}
-                          </li>
+                          <li class="price_count">X {{itemss.buyCount}}</li>
                         </ul>
                       </li>
                     </ul>
@@ -135,9 +135,9 @@
                   <group>
                     <cell>
                       共
-                      <span class="num">{{dataCount[indexs]}}</span> 件商品 合计：￥
-                      <span class="num">{{store.storeItems[0].totalAmount}}</span>(含运费￥
-                      <span class="num">{{store.storeItems[0].expressAmount}}</span>)
+                      <span class="num">{{items.totalCount}}</span> 件商品 合计：￥
+                      <span class="num">{{items.paymentAmount}}</span>(含运费￥
+                      <span class="num">{{items.expressAmount}}</span>)
                     </cell>
                   </group>
                   <group class="product-option">
@@ -150,30 +150,30 @@
                 </div>
               </div>
             </div>
-            <div v-if="indexe===3" class="zkui-order-list-box">
+            <div class="zkui-order-list-box" v-if="i===3">
               <div class="zkui-order-list-content">
-                <div class="zkui-order-list-box-item" v-for="(store,indexs) in stayTake" :key="indexs">
+                <div class="zkui-order-list-box-item" v-for="(items,indexs) in stayTake" :key="indexs">
                   <group class="box-title">
-                    <cell :title="store.storeItems[0].storeName" value="待收货"></cell>
+                    <cell :title="items.storeName" value="状态"></cell>
                   </group>
-                  <div class="zkui-order-list-product" v-for="(product,index) in store.storeItems[0].productSkuItems" :key="index">
+                  <div class="zkui-order-list-product" @click="show()" v-for="(itemss,indexss) in items.outOrderProducts" :key="indexss">
                     <ul class="flex">
                       <li class="left-img">
-                        <img :src="product.thumbnailUrl" alt="">
+                        <img :src="itemss.thumbnailUrl" alt="">
                       </li>
                       <li class="flex_one center-content">
                         <p>
-                          {{product.name}}
+                          {{itemss.name}}
                         </p>
-                        <span>{{product.propertyValueDesc}}</span>
+                        <span>
+                          {{itemss.propertyValueDesc}}
+                        </span>
                       </li>
                       <li class="left-price">
                         <ul>
-                          <li class="price_now">￥{{product.price}}</li>
+                          <li class="price_now">￥{{itemss.price}}</li>
                           <li class="price_old">￥69.00</li>
-                          <li class="price_count">
-                            X{{product.buyCount}}
-                          </li>
+                          <li class="price_count">X {{itemss.buyCount}}</li>
                         </ul>
                       </li>
                     </ul>
@@ -182,9 +182,9 @@
                   <group>
                     <cell>
                       共
-                      <span class="num">{{dataCount[indexs]}}</span> 件商品 合计：￥
-                      <span class="num">{{store.storeItems[0].totalAmount}}</span>(含运费￥
-                      <span class="num">{{store.storeItems[0].expressAmount}}</span>)
+                      <span class="num">{{items.totalCount}}</span> 件商品 合计：￥
+                      <span class="num">{{items.paymentAmount}}</span>(含运费￥
+                      <span class="num">{{items.expressAmount}}</span>)
                     </cell>
                   </group>
                   <group class="product-option">
@@ -197,30 +197,30 @@
                 </div>
               </div>
             </div>
-            <div v-if="indexe===4" class="zkui-order-list-box">
+            <div class="zkui-order-list-box" v-if="i===4">
               <div class="zkui-order-list-content">
-                <div class="zkui-order-list-box-item" v-for="(store,indexs) in stayEvaluate" :key="indexs">
+                <div class="zkui-order-list-box-item" v-for="(items,indexs) in stayEvaluate" :key="indexs">
                   <group class="box-title">
-                    <cell :title="store.storeItems[0].storeName" value="待评价"></cell>
+                    <cell :title="items.storeName" value="状态"></cell>
                   </group>
-                  <div class="zkui-order-list-product" v-for="(product,index) in store.storeItems[0].productSkuItems" :key="index">
+                  <div class="zkui-order-list-product" @click="show()" v-for="(itemss,indexss) in items.outOrderProducts" :key="indexss">
                     <ul class="flex">
                       <li class="left-img">
-                        <img :src="product.thumbnailUrl" alt="">
+                        <img :src="itemss.thumbnailUrl" alt="">
                       </li>
                       <li class="flex_one center-content">
                         <p>
-                          {{product.name}}
+                          {{itemss.name}}
                         </p>
-                        <span>{{product.propertyValueDesc}}</span>
+                        <span>
+                          {{itemss.propertyValueDesc}}
+                        </span>
                       </li>
                       <li class="left-price">
                         <ul>
-                          <li class="price_now">￥{{product.price}}</li>
+                          <li class="price_now">￥{{itemss.price}}</li>
                           <li class="price_old">￥69.00</li>
-                          <li class="price_count">
-                            X{{product.buyCount}}
-                          </li>
+                          <li class="price_count">X {{itemss.buyCount}}</li>
                         </ul>
                       </li>
                     </ul>
@@ -229,9 +229,9 @@
                   <group>
                     <cell>
                       共
-                      <span class="num">{{dataCount[indexs]}}</span> 件商品 合计：￥
-                      <span class="num">{{store.storeItems[0].totalAmount}}</span>(含运费￥
-                      <span class="num">{{store.storeItems[0].expressAmount}}</span>)
+                      <span class="num">{{items.totalCount}}</span> 件商品 合计：￥
+                      <span class="num">{{items.paymentAmount}}</span>(含运费￥
+                      <span class="num">{{items.expressAmount}}</span>)
                     </cell>
                   </group>
                   <group class="product-option">
@@ -279,14 +279,10 @@
         demo2: '全部',
         index: 0,
         data: [], // 全部商品
-        stayPayment: [], // 待付款
-        stayShipments: [], // 待发货
-        stayTake: [], // 待收货
-        stayEvaluate: [], // 待评价
-        dataCount: [], // 每个店铺下商品总数量
-        dataPrice: [], // 每个店铺下商品价格总和
-        num: [], // 每个店铺下每个商品的数量
-        price: []// 每个店铺下每个商品的价格
+        stayPayment: [], // 待付款1
+        stayShipments: [], // 待发货2
+        stayTake: [], // 待收货3
+        stayEvaluate: [] // 待评价4
       }
     },
     mounted () {
@@ -304,47 +300,26 @@
       async GetData () {
         var reponse = await orderService.list()
         this.data = reponse.data.result
-        for (var e = 0; e < this.data.length; e++) {
-          if (this.data[e].order.orderStatus === 1) {
-            this.stayPayment.push(this.data[e])
-          } if (this.data[e].order.orderStatus === 2) {
-            this.stayShipments.push(this.data[e])
-          } if (this.data[e].order.orderStatus === 3) {
-            this.stayTake.push(this.data[e])
-          } if (this.data[e].order.orderStatus === 4) {
-            this.stayEvaluate.push(this.data[e])
-          }
-        }
         for (var i = 0; i < this.data.length; i++) {
-          this.num[i] = []
-          this.price[i] = []
-          for (var p = 0; p < this.data[i].storeItems[0].productSkuItems.length; p++) {
-            this.num[i][p] = this.data[i].storeItems[0].productSkuItems[p].buyCount
-            this.price[i][p] = this.data[i].storeItems[0].productSkuItems[p].price
+          console.log(this.data[i].orderStatus)
+          if (this.data[i].orderStatus === 1) {
+            this.stayPayment.push(this.data[i])
+          }
+          if (this.data[i].orderStatus === 2) {
+            this.stayShipments.push(this.data[i])
+          }
+          if (this.data[i].orderStatus === 3) {
+            this.stayTake.push(this.data[i])
+          }
+          if (this.data[i].orderStatus === 4) {
+            this.stayEvaluate.push(this.data[i])
           }
         }
-        // 循环出店铺下所有商品加起来的总数量
-        for (var k = 0; k < this.num.length; k++) {
-          var sum = 0
-          for (var l = 0; l < this.num[k].length; l++) {
-            // console.log('第' + k + '组第' + l + '个' + this.num[k][l])
-            sum += this.num[k][l]
-            this.dataCount[k] = sum
-          }
-        }
-        // // 循环出店铺下所有商品加起来的总价格
-        // for (var n = 0; n < this.price.length; n++) {
-        //   var pum = 0
-        //   for (var m = 0; m < this.num[n].length; m++) {
-        //     pum += this.price[n][m]
-        //     this.dataPrice[n] = pum
-        //   }
-        // }
       }
     }
   }
 </script>
-<style scoped  lang="less">
+<style   lang="less">
   .zkui-order-list {
     .flex {
       display: -moz-box;
@@ -362,6 +337,7 @@
     .vux-slider {
       .vux-swiper {
         min-height: 78vh !important;
+        padding-bottom: 20*@rem;
       }
     }
     .weui-cells {
@@ -374,6 +350,7 @@
       font-weight: @font-weight-normal;
     }
     .zkui-order-list-box {
+      width: 100%;
       height: 80vh;
       .zkui-order-list-content {
         height: 80vh;
