@@ -39,12 +39,11 @@
   }
 </script>
 
-<style scoped lang="less">
+<style  lang="less">
   .zkui-default {
     .weui-search-bar {
       padding-top: 10*@rem;
     }
-
     .weui-search-bar {
       background-color: transparent !important;
       opacity: 0.7;

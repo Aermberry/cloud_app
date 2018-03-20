@@ -77,9 +77,7 @@
         if (this.pageIndex < 6) {
           this.$refs.mescroll.endSuccess(params, totalSize) // 调用widget xsroll 下拉刷新函数
         }
-
         this.dataList = this.dataList.concat(response.data.result.productItems)
-        console.log(this.dataList)
         if (this.pageIndex < totalSize) {
           this.pageIndex = this.pageIndex + 1 // 下拉时是自动增加一页
         }
