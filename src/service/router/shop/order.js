@@ -1,4 +1,5 @@
-export default [{
+export default [
+  {
     path: '/order/cart',
     meta: {
       title: '购物车'
