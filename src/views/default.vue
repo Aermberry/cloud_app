@@ -46,6 +46,11 @@
         display: none;
       }
     }
+    .weui-grid__icon img {
+      display: block;
+      width: 100% !important;
+      height: 100% !important;
+    }
     .weui-search-bar:before {
       content: none;
     }

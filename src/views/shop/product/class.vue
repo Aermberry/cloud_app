@@ -69,6 +69,7 @@
       async  getData () {
         let response = await apiService.class()
         this.listDatas = response.data.result
+        console.log(this.listDatas)
         this.demo2 = this.listDatas[0].name
         console.dir(this.listDatas) // 通过这个来查看数据结构
         for (var i = 0; i < this.listDatas.length; i++) {
@@ -121,6 +122,53 @@
 <style   lang="less">
   .zkui-shop-product-class {
     height: 100vh;
+    .weui-grids {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .weui-grids::after,
+    .weui-grids::before {
+      content: none;
+    }
+    .weui-grid::after,
+    .weui-grid::before {
+      content: none;
+    }
+    .weui-grids > .weui-grid {
+      text-align: center;
+      padding: 0.7143rem 0.7143rem;
+    }
+    .weui-grids > .weui-grid img {
+      display: block;
+      width: 4.2857rem;
+      height: 4.2857rem;
+      margin: 0 auto;
+      border-radius: 50%;
+      border: 1px solid #e5e5e5;
+    }
+    .weui-grids > .weui-grid p {
+      font-size: 1.1429rem;
+      margin: 0.3571rem;
+      color: black;
+      word-break: break-all;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      overflow: hidden;
+      height: 2rem;
+    }
+    .weui-grids > h1 {
+      padding: 0 0.7143rem;
+      line-height: 3.66666667rem;
+      height: 3.2143rem;
+      color: black;
+      font-weight: bold;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    .vux-tab-ink-bar {
+      background-color: transparent !important;
+    }
   }
   .zk-class-tab {
     width: 100%;
@@ -133,6 +181,12 @@
   }
   .zk-class-tab-left .vux-tab-item {
     height: 3.2143rem !important;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
   }
   .zk-class-tab-left {
     width: 5.3571rem;
@@ -152,42 +206,5 @@
     .vux-swiper {
       height: 79vh !important;
     }
-  }
-  .weui-grids {
-    height: 100%;
-    overflow-y: auto;
-  }
-  .weui-grids::after,
-  .weui-grids::before {
-    content: none;
-  }
-  .weui-grid::after,
-  .weui-grid::before {
-    content: none;
-  }
-  .weui-grids > .weui-grid {
-    text-align: center;
-    padding: 0.7143rem 0.7143rem;
-  }
-  .weui-grids > .weui-grid img {
-    display: block;
-    width: 4.2857rem;
-    height: 4.2857rem;
-    margin: 0 auto;
-    border-radius: 50%;
-    border: 1px solid #e5e5e5;
-  }
-  .weui-grids > .weui-grid p {
-    font-size: 1.1429rem;
-    margin: 0.3571rem;
-    color: black;
-  }
-  .weui-grids > h1 {
-    padding: 0 0.7143rem;
-    line-height: 3.66666667rem;
-    height: 3.2143rem;
-    color: black;
-    font-weight: bold;
-    border-bottom: 1px solid #e5e5e5;
   }
 </style>

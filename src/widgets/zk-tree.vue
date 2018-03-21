@@ -142,7 +142,7 @@
     background-repeat: no-repeat;
     background-attachment: scroll;
     /* background-image: url('../images/ztree/zTreeStandard.png');
-                                                                                                  *background-image: url('../images/ztree/zTreeStandard.gif'); */
+                                                                                                          *background-image: url('../images/ztree/zTreeStandard.gif'); */
   }
 
   .ztree li span.button.chk {
@@ -311,7 +311,7 @@
     background-attachment: scroll;
     background-position: -110px -80px;
     /* background-image: url('../images/ztree/zTreeStandard.png');
-                                                                                                  *background-image: url('../images/ztree/zTreeStandard.gif'); */
+                                                                                                          *background-image: url('../images/ztree/zTreeStandard.gif'); */
   }
 
   ul.ztree.zTreeDragUL {
@@ -346,16 +346,16 @@
 
 <template>
   <!--（ztree－🌲）-->
-  <div class='ztree_content_wrap ' v-if='treeDataSource.length>0'>
+  <!-- <div class='ztree_content_wrap ' v-if='treeDataSource.length>0'>
     <div class='zTreeDemoBackground left '>
       <ul class='ztree '>
         <ztree-item v-for='(m,i) in treeDataSource' :key='i' :model.sync='m ' :num.sync='i' root='0' :nodes.sync='treeDataSource.length' :callback='func' :expandfunc='expand' :cxtmenufunc='contextmenu' :trees.sync='treeDataSource'></ztree-item>
       </ul>
     </div>
-  </div>
+  </div> -->
 </template>
 
-//  <script>
+//   <script>
 //   import Vue from 'vue'
 //   export default {
 //     data () {
@@ -538,7 +538,6 @@
 //                 returnChar = 'close'
 //               }
 //             }
-
 //             if (this.model.children.length === 0 && this.rootClass.indexOf('docu ') === -1) {
 //               returnChar = 'docu'
 //             }
@@ -581,4 +580,4 @@
 //       })
 //     }
 //   }
-// </script>
+</script>

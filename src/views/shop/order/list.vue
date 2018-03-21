@@ -13,9 +13,9 @@
               <div class="zkui-order-list-content">
                 <div class="zkui-order-list-box-item" v-for="(items,indexs) in data" :key="indexs">
                   <group class="box-title">
-                    <cell :title="items.storeName" value="状态"></cell>
+                    <cell :title="items.storeName" :value="items.orderStatuName"></cell>
                   </group>
-                  <div class="zkui-order-list-product" @click="show()" v-for="(itemss,indexss) in items.outOrderProducts" :key="indexss">
+                  <div class="zkui-order-list-product" @click="show(items.id)" v-for="(itemss,indexss) in items.outOrderProducts" :key="indexss">
                     <ul class="flex">
                       <li class="left-img">
                         <img :src="itemss.thumbnailUrl" alt="">
@@ -48,9 +48,11 @@
                   </group>
                   <group class="product-option">
                     <cell>
-                      <x-button mini plain>取消订单</x-button>
-                      <x-button mini plain>朋友代付</x-button>
-                      <x-button mini plain type="primary">付款</x-button>
+                      <x-button mini plain v-if="allState.Shipments[indexs]">退货</x-button>
+                      <x-button mini plain v-if="allState.Take[indexs]">确认收货</x-button>
+                      <x-button mini plain v-if="allState.Evaluate[indexs]">评价</x-button>
+                      <x-button mini plain v-if="allState.Payment[indexs]">取消订单</x-button>
+                      <x-button mini plain type="primary" v-if="allState.Payment[indexs]">付款</x-button>
                     </cell>
                   </group>
                 </div>
@@ -60,9 +62,9 @@
               <div class="zkui-order-list-content">
                 <div class="zkui-order-list-box-item" v-for="(items,indexs) in stayPayment" :key="indexs">
                   <group class="box-title">
-                    <cell :title="items.storeName" value="状态"></cell>
+                    <cell :title="items.storeName" :value="items.orderStatuName"></cell>
                   </group>
-                  <div class="zkui-order-list-product" @click="show()" v-for="(itemss,indexss) in items.outOrderProducts" :key="indexss">
+                  <div class="zkui-order-list-product" @click="show(items.id)" v-for="(itemss,indexss) in items.outOrderProducts" :key="indexss">
                     <ul class="flex">
                       <li class="left-img">
                         <img :src="itemss.thumbnailUrl" alt="">
@@ -96,7 +98,6 @@
                   <group class="product-option">
                     <cell>
                       <x-button mini plain>取消订单</x-button>
-                      <x-button mini plain>朋友代付</x-button>
                       <x-button mini plain type="primary">付款</x-button>
                     </cell>
                   </group>
@@ -107,9 +108,9 @@
               <div class="zkui-order-list-content">
                 <div class="zkui-order-list-box-item" v-for="(items,indexs) in stayShipments" :key="indexs">
                   <group class="box-title">
-                    <cell :title="items.storeName" value="状态"></cell>
+                    <cell :title="items.storeName" :value="items.orderStatuName"></cell>
                   </group>
-                  <div class="zkui-order-list-product" @click="show()" v-for="(itemss,indexss) in items.outOrderProducts" :key="indexss">
+                  <div class="zkui-order-list-product" @click="show(items.id)" v-for="(itemss,indexss) in items.outOrderProducts" :key="indexss">
                     <ul class="flex">
                       <li class="left-img">
                         <img :src="itemss.thumbnailUrl" alt="">
@@ -142,9 +143,7 @@
                   </group>
                   <group class="product-option">
                     <cell>
-                      <x-button mini plain>取消订单</x-button>
-                      <x-button mini plain>朋友代付</x-button>
-                      <x-button mini plain type="primary">付款</x-button>
+                      <x-button mini plain>退货</x-button>
                     </cell>
                   </group>
                 </div>
@@ -154,9 +153,9 @@
               <div class="zkui-order-list-content">
                 <div class="zkui-order-list-box-item" v-for="(items,indexs) in stayTake" :key="indexs">
                   <group class="box-title">
-                    <cell :title="items.storeName" value="状态"></cell>
+                    <cell :title="items.storeName" :value="items.orderStatuName"></cell>
                   </group>
-                  <div class="zkui-order-list-product" @click="show()" v-for="(itemss,indexss) in items.outOrderProducts" :key="indexss">
+                  <div class="zkui-order-list-product" @click="show(items.id)" v-for="(itemss,indexss) in items.outOrderProducts" :key="indexss">
                     <ul class="flex">
                       <li class="left-img">
                         <img :src="itemss.thumbnailUrl" alt="">
@@ -189,9 +188,7 @@
                   </group>
                   <group class="product-option">
                     <cell>
-                      <x-button mini plain>取消订单</x-button>
-                      <x-button mini plain>朋友代付</x-button>
-                      <x-button mini plain type="primary">付款</x-button>
+                      <x-button mini plain>确认收货</x-button>
                     </cell>
                   </group>
                 </div>
@@ -201,9 +198,9 @@
               <div class="zkui-order-list-content">
                 <div class="zkui-order-list-box-item" v-for="(items,indexs) in stayEvaluate" :key="indexs">
                   <group class="box-title">
-                    <cell :title="items.storeName" value="状态"></cell>
+                    <cell :title="items.storeName" :value="items.orderStatuName"></cell>
                   </group>
-                  <div class="zkui-order-list-product" @click="show()" v-for="(itemss,indexss) in items.outOrderProducts" :key="indexss">
+                  <div class="zkui-order-list-product" @click="show(items.id)" v-for="(itemss,indexss) in items.outOrderProducts" :key="indexss">
                     <ul class="flex">
                       <li class="left-img">
                         <img :src="itemss.thumbnailUrl" alt="">
@@ -236,9 +233,7 @@
                   </group>
                   <group class="product-option">
                     <cell>
-                      <x-button mini plain>取消订单</x-button>
-                      <x-button mini plain>朋友代付</x-button>
-                      <x-button mini plain type="primary">付款</x-button>
+                      <x-button mini plain>评价</x-button>
                     </cell>
                   </group>
                 </div>
@@ -282,7 +277,13 @@
         stayPayment: [], // 待付款1
         stayShipments: [], // 待发货2
         stayTake: [], // 待收货3
-        stayEvaluate: [] // 待评价4
+        stayEvaluate: [], // 待评价4
+        allState: {
+          Payment: [],
+          Shipments: [],
+          Take: [],
+          Evaluate: []
+        }// 记录是否需要付款
       }
     },
     mounted () {
@@ -290,6 +291,7 @@
     },
     methods: {
       show (id) {
+        console.log(id)
         this.$router.push({
           name: 'order_show',
           params: {
@@ -300,19 +302,31 @@
       async GetData () {
         var reponse = await orderService.list()
         this.data = reponse.data.result
+        console.log(this.data)
         for (var i = 0; i < this.data.length; i++) {
-          console.log(this.data[i].orderStatus)
           if (this.data[i].orderStatus === 1) {
             this.stayPayment.push(this.data[i])
+            this.allState.Payment[i] = true
+          } else {
+            this.allState.Payment[i] = false
           }
           if (this.data[i].orderStatus === 2) {
             this.stayShipments.push(this.data[i])
+            this.allState.Shipments[i] = true
+          } else {
+            this.allState.Shipments[i] = false
           }
           if (this.data[i].orderStatus === 3) {
             this.stayTake.push(this.data[i])
+            this.allState.Take[i] = true
+          } else {
+            this.allState.Take[i] = false
           }
           if (this.data[i].orderStatus === 4) {
             this.stayEvaluate.push(this.data[i])
+            this.allState.Evaluate[i] = true
+          } else {
+            this.allState.Evaluate[i] = false
           }
         }
       }

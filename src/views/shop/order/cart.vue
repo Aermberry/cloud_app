@@ -45,7 +45,7 @@
                             <li class="price_now">￥{{productSku.price}}</li>
                             <li class="price_old">￥{{productSku.marketPrice}}</li>
                             <li class="flex_one price_num">
-                              <inline-x-number @click.native="changeCount(storeIndex,skuIndex,productSku.productSkuId)" :min="0" width="3rem" :max="productSku.stock" button-style="round" v-model="buySkuCount[storeIndex][skuIndex]"></inline-x-number>
+                              <inline-x-number @click.native="changeCount(storeIndex,skuIndex,productSku.productSkuId) " :min="0" width="3rem" :max="productSku.stock" button-style="round" v-model="buySkuCount[storeIndex][skuIndex]"></inline-x-number>
                             </li>
                           </ul>
                         </div>
@@ -85,7 +85,7 @@
           <span slot="label" class="zkui-order-cart-bar-price">{{totalAmount}}</span>
         </tabbar-item>
         <tabbar-item class="bar-right">
-          <x-button slot="customer" type="primary" class="zkui-order-cart-bar-close" @click.native="buy">结算</x-button>
+          <x-button slot="customer" type="primary" class="zkui-order-cart-bar-close" @click.native="buy()">结算</x-button>
         </tabbar-item>
       </tabbar>
     </div>
@@ -125,6 +125,7 @@
       InlineXNumber
     },
     mounted () {
+      console.log(this.buySkuCount)
       this.GetData()
       if (this.storeCheckModel.indexOf(false) === -1) {
         this.allCheck = true
@@ -313,6 +314,7 @@
       },
       // 结算购买
       buy () {
+        console.log(this.productSkuChecks)
         var buyProductInfo = []
         for (var i = 0; i < this.viewModel.storeItems.length; i++) {
           var storeItem = this.viewModel.storeItems[i]
@@ -329,7 +331,7 @@
           }
           console.info('店铺最终购买数据', storeItem.storeName, this.productSkuChecks[i])
         }
-        console.info('格式', buyProductInfo)
+        console.info('总数据', this.viewModel, '格式', buyProductInfo)
         this.$router.push({
           name: 'order_buy',
           params: {
@@ -337,6 +339,14 @@
             isFromCart: true // 购买信息来自购物车
           }
         })
+      }
+    },
+    watch: {
+      buySkuCount: {
+        handler (newValue, oldValue) {
+          console.log(newValue, oldValue)
+        },
+        deep: true
       }
     }
   }

@@ -68,7 +68,6 @@
         var buttonTop = document.getElementsByClassName('vux-button-tab-item')
         var particulars = document.getElementsByClassName('zkui-product-particulars')[0].offsetTop
         var recommend = document.getElementsByClassName('zk-product-recommend')[0].offsetTop
-        console.log(particulars, recommend)
         if (scrollTop >= 0) {
           this.particulars = false
           this.product = true

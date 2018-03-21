@@ -23,7 +23,7 @@
     </div>
     <divider class="divider-bg "></divider>
     <group class="order_show-title">
-      <cell :title="data.storeName"></cell>
+      <cell :title="data.storeName" value="qwe"></cell>
     </group>
     <div class="zkui-order-list-product" v-for="(item,index) in data.productSkuItems" :key="index">
       <ul class="flex">

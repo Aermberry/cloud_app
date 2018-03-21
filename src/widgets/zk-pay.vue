@@ -56,23 +56,26 @@
         payId: 0, // 支付账单Id
         amount: 0.0, // 支付金额
         selectPayType: 0, // 选择的支付方式
-        note: '' // 显示标题
+        note: '', // 显示标题
+        goBack: {}
       }
     },
     mounted: function () {
       this.$nextTick(function () {
-        this.$on('payMethod', function (payId, amount, orderType, orderIds) {
+        this.$on('payMethod', function (payId, amount, orderType, orderIds, payBack) {
           this.payId = payId
           this.amount = amount
           this.orderType = orderType
           this.orderIds = orderIds
           this.init() //  点击以后，才请求支付
           this.showPupop = true
+          this.goBack = payBack
         })
       })
     },
     methods: {
       async init () {
+        console.log(this.goBack)
         this.userName = this.LoginUser().userName
         let paras = {
           clientType: 'wapH5', // this.ClientType // 在gloal中获取支付方式列表
