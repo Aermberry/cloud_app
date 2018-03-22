@@ -107,11 +107,7 @@
         userMessages: [], // 留言信息
         isFromCart: false, // 购买信息是否来自购物车，如果是，则需要删除购物车中，相对应的商品数据
         reduceMoneys: [], // 非人民币资产信息
-        showDelivery: [], // 显示物流快递
-        payBack: {
-          num: '',
-          id: ''
-        } // 用于做zk-pay 关闭判断
+        showDelivery: [] // 显示物流快递
       }
     },
     mounted () {
@@ -187,7 +183,7 @@
           if (response.data.status === 1) {
             var buyOutput = response.data.result
             console.log(buyOutput)
-            this.$refs.show_pay.$emit('payMethod', buyOutput.payId, buyOutput.payAmount, 'order', response.data.result.orderIds, this.payBack) // 唤起支付窗口
+            this.$refs.show_pay.$emit('payMethod', buyOutput.payId, buyOutput.payAmount, 'order', response.data.result.orderIds) // 唤起支付窗口
           } else {
             this.$vux.toast.warn(response.data.message)
           }
@@ -223,13 +219,6 @@
             this.messageWarn(response.data.message)
           } else {
             this.modelView = response.data.result
-            console.log(this.modelView)
-            if (this.modelView.storeItems.length >= 2) {
-              this.payBack.num = true
-              this.payBack.id = this.LoginUser().id
-            }
-            console.log(this.payBack)
-            // this.asyncFlag = true
             // 初始运费模板
             for (var i = 0; i < this.modelView.storeItems.length; i++) {
               this.showDelivery[i] = this.modelView.storeItems[i].expressTemplates[0].key

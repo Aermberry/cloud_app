@@ -72,6 +72,7 @@
           this.goBack = payBack
         })
       })
+      console.log(this.goBack)
     },
     methods: {
       async init () {
