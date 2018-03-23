@@ -156,7 +156,7 @@
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 1;
       overflow: hidden;
-      height: 2rem;
+      height: 1.5rem;
     }
     .weui-grids > h1 {
       padding: 0 0.7143rem;

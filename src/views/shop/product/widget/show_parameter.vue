@@ -37,7 +37,6 @@
               <inline-x-number style="display:block; " :min="1 " width="50px " v-model="buyCount" :max="selectSku.stock" button-style="round"></inline-x-number>
             </cell>
           </group>
-
           <div class="base">
             <button-tab>
               <button-tab-item type="warn" @click.native="addToCart ">加入购物车</button-tab-item>

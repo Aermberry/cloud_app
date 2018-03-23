@@ -49,7 +49,6 @@
       <x-switch :title="money.title" :inline-desc="money.description" v-for="(money,moneyIndex) in modelView.allowMoneys" :key="moneyIndex" @on-change="countPrice()" v-model="reduceMoneys[moneyIndex]"></x-switch>
       <divider class="divider-bg "></divider>
     </group>
-
     <tabbar>
       <tabbar-item class="buy-aggregate ">
         <div slot="label" class="total">
@@ -72,7 +71,6 @@
   import apiService from 'src/service/api/order.api'
   import BuyAddress from './buy__address' // 地址
   import local from 'src/service/common/local'
-
   export default {
     components: {
       Tabbar,
