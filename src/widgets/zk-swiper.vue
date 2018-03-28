@@ -33,6 +33,7 @@
       async GetData () {
         var repsonse = await apiService.getLink(this.diykey)
         this.swiperList = repsonse.data.result
+        console.log(this.swiperList)
       }
     }
   }

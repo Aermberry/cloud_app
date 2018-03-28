@@ -75,6 +75,7 @@
             <el-menu-item index="2">处理中心</el-menu-item>
             <el-menu-item index="3">处理中心</el-menu-item>
             <el-menu-item index="4">处理中心</el-menu-item> -->
+                        <el-menu-item index="3">首页</el-menu-item>
             <el-menu-item v-for="(item,index) in option" :key="index" :index="index">
               {{item.name}}
             </el-menu-item>
@@ -252,11 +253,11 @@
 </template>
 <script>
   import { } from 'zkui'
-  import { ZkPcFoot } from 'src/pages/widgets/zk-pc-foot'
+  // import pcHeader from './widget/zk-head'
   import apiService from 'src/service/api/product.api'
   export default {
     components: {
-      ZkPcFoot
+      // pcHeader
     },
     mounted () {
       this.Getdata()

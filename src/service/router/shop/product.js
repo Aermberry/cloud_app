@@ -51,5 +51,15 @@ export default [{
     component: function (resolve) {
       require(['src/views/shop/product/footprint.vue'], resolve)
     }
+  },
+  {
+    path: '/pc/index', // 商品搜索页
+    meta: {
+      title: 'PC首页',
+      login: true
+    },
+    component: function (resolve) {
+      require(['src/pages/index'], resolve)
+    }
   }
 ]
