@@ -143,11 +143,9 @@
       width: 4.2857rem;
       height: 4.2857rem;
       margin: 0 auto;
-      border-radius: 50%;
-      border: 1px solid #e5e5e5;
     }
     .weui-grids > .weui-grid p {
-      font-size: 1.1429rem;
+      font-size: @h6-font-size;
       margin: 0.3571rem;
       color: black;
       word-break: break-all;
@@ -156,7 +154,7 @@
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 1;
       overflow: hidden;
-      height: 1.5rem;
+      height: 1.3rem;
     }
     .weui-grids > h1 {
       padding: 0 0.7143rem;
@@ -165,6 +163,7 @@
       color: black;
       font-weight: bold;
       border-bottom: 1px solid #e5e5e5;
+      font-size: @h6-font-size;
     }
     .vux-tab-ink-bar {
       background-color: transparent !important;
@@ -187,13 +186,19 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
     overflow: hidden;
+    font-size: @h6-font-size;
   }
   .zk-class-tab-left {
     width: 5.3571rem;
     height: 79vh !important;
     display: block !important;
     overflow-y: auto;
-    border-right: 1px solid #e5e5e5;
+    // border-right: 1px solid #e5e5e5;
+    background: @gray-200 !important;
+    .vux-tab-selected {
+      background: @white !important;
+      border-bottom: 1px solid #e5e5e5 !important;
+    }
   }
   .zk-class-tab-left::-webkit-scrollbar {
     display: none;

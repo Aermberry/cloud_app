@@ -82,7 +82,7 @@
       width: 30*@rem;
       height: 30*@rem;
       overflow: hidden;
-      margin-top: 0.2rem;
+      margin-top: 0.3rem;
       margin-right: 0.5rem;
     }
 

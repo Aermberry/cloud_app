@@ -9,7 +9,6 @@
     <show-bar :productView="modelView" v-if="asyncFlag" v-on:changeSaleState="showSaleModel"></show-bar>
   </section>
 </template>
-
 <script>
   import apiService from 'src/service/api/product.api'
   import ShowHeader from './widget/show_header' // 头部
@@ -35,19 +34,38 @@
     },
     created () {
       this.GetData()
+      this.fetchData()
     },
     mounted () {
+    },
+    watch: {
+      // 监听路由的变化。
+      '$route': 'fetchData'
     },
     methods: {
       showSaleModel (data) {
         this.$refs.show_parameter.$emit('childMethod') // 监听销售属性事件
         // console.info('立即购买或加入购物车')
       },
+      // URL发生变化时操作的事件
+      async  fetchData () {
+        let params = {
+          id: this.$route.params.id // 获取URL当中的Id参数
+        }
+        var response = await apiService.show(params)
+        var product = response.data.result
+        if (response.data.status !== 1) {
+          this.messageWarn(response.data.message)
+        } else {
+          this.asyncFlag = true
+          this.modelView = product
+          // console.dir(product)
+        }
+      },
       async GetData () {
         let params = {
           id: this.$route.params.id // 获取URL当中的Id参数
         }
-
         var response = await apiService.show(params)
         var product = response.data.result
         if (response.data.status !== 1) {
