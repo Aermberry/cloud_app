@@ -46,11 +46,12 @@
         this.addressData = address.addressData
         var id = this.$route.params.id
         if (id !== undefined) {
-          this.addressTitle = '编辑地址'
           // 编辑地址，重新赋值
           let parament = {
             id: id
           }
+          this.addressTitle = '编辑地址'
+          console.log(this.addressTitle)
           var response = await userService.SingleAddress(parament)
           if (response.data.status === 1) {
             this.addressInput = response.data.result

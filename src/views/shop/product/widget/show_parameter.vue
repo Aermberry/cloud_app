@@ -219,16 +219,21 @@
       dd.sale-info-name {
         color: @black;
         font-family: Helvetica;
+        font-size: @h5-font-size;
       }
       .sale-info-price {
         font-weight: bold;
+        font-size: @h4-font-size;
         span {
           text-decoration: line-through;
           font-weight: 100;
-          color: @black;
+          color: @gray-600;
           font-family: Helvetica;
           font-weight: @font-weight-normal;
         }
+      }
+      .sale-info-stock {
+        color: @gray-600;
       }
       .sale-info-close {
         width: 20px;
@@ -267,6 +272,7 @@
     .sale-info-property {
       height: 12rem;
       overflow-y: auto;
+      width: 100%;
       dl:after {
         bottom: none;
         top: 0;
@@ -343,20 +349,6 @@
     }
     .weui-cells:before {
       border-top: 0;
-    }
-    .vux-number-round .vux-number-selector-sub svg {
-      position: relative;
-      top: 0rem;
-      right: 0.05rem;
-    }
-    .vux-number-round .vux-number-selector-plus {
-      border: 1px solid @actionsheet-label-disabled-color;
-      svg {
-        position: relative;
-        top: -0.2rem;
-        right: 2*@rem;
-        fill: @actionsheet-label-disabled-color;
-      }
     }
   }
   .goods-title {

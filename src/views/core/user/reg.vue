@@ -8,10 +8,10 @@
       <zk-phone-verifiy v-model="user.mobileVerifiyCode" :mobile="user.mobile"></zk-phone-verifiy>
       <x-input title="密码" required type="password" :min="6" :max="16" v-model="user.password"></x-input>
       <x-input title="确认密码" required type="password" :min="6" :max="16" class="border-bottom" v-model="user.confirmPassword"></x-input>
-      <agree v-model="user.agree">已阅读并同意
+      <el-checkbox v-model="checked">
+        已阅读并同意
         <router-link to="/user/agreement">《服务条款》</router-link>
-      </agree>
-
+      </el-checkbox>
     </group>
     <box gap="3rem 1rem">
       <x-button @click.native="reg" type="primary" action-type="button">注册会员</x-button>
@@ -47,7 +47,8 @@
           password: '',
           agree: true,
           confirmPassword: '',
-          mobileVerifiyCode: ''
+          mobileVerifiyCode: '',
+          checked: true
         }
       }
     },
@@ -69,8 +70,22 @@
   }
 </script>
 
-<style scoped  lang="less">
+<style   lang="less">
   .zkui-user-reg {
+    .el-checkbox {
+      padding: 0.5em 1.25rem;
+    }
+    .el-checkbox__input.is-checked .el-checkbox__inner,
+    .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+      background-color: @brand;
+      border-color: @brand;
+    }
+    .el-checkbox__input.is-checked + .el-checkbox__label {
+      color: @brand;
+    }
+    .el-checkbox__inner:hover {
+      border-color: @brand;
+    }
     .weui-btn {
       height: 3rem;
       font-size: @h4-font-size;

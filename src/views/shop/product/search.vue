@@ -5,24 +5,21 @@
         <m-icon slot="icon" name="zk-return" class="metal"></m-icon>
       </div>
       <!-- <search placeholder="搜索您想要的商品" cancel-text="取消" :auto-fixed="false"></search> -->
-      <search  v-model="value" cancelText="取消" :auto-fixed="false" @on-focus="onFocus" @on-cancel="onCancel" @on-submit="onSubmit" ref="search"></search>
-
+      <search v-model="value" cancelText="取消" :auto-fixed="false" @on-focus="onFocus" @on-cancel="onCancel" @on-submit="onSubmit" ref="search"></search>
     </div>
-
     <div class="zkui-product_search-item">
+      <h2>热门搜索</h2>
       <ul>
         <li v-for="(list, index) in lists" :key="index">
-          <a href="">
-            <h3>{{list.id}}</h3>
-          </a>
+          <router-link to="">
+            {{list.id}}
+          </router-link>
         </li>
       </ul>
     </div>
     <zk-foot></zk-foot>
   </section>
 </template>
-
-
 <script>
   import { Search, Tab, TabItem, XButton, MIcon } from 'zkui'
   export default {
@@ -76,7 +73,7 @@
 
 
 </script>
-<style scoped  lang="less">
+<style   lang="less">
   // @import 'zkui/src/styles/zkui.less';
   //全局变量CSS，颜色，大小，边框，尺寸，尽量使用变量库里头的变量，请悉知所有变量
   .zkui-shop-product-search {
@@ -109,20 +106,29 @@
     }
     .zkui-product_search-item {
       width: 100%;
-      margin-left: 1rem;
+      padding-left: 1rem;
+      padding-top: 1rem;
+      h2 {
+        color: @gray-500;
+      }
+      ul:after {
+        content: '';
+        display: block;
+        clear: both;
+      }
       ul {
         width: 100%;
         list-style: none;
+        padding-top: 1rem;
         li {
           text-align: center;
           float: left;
-          margin-right: 3%;
-          margin-top: 0.6rem;
-          padding: 0.3rem 0.7rem 0.2rem 0.7rem;
-          border: 1px solid #e5e5e5;
-          background-color: #e5e5e5 !important;
+          margin-right: 0.6rem;
+          margin-bottom: 0.6rem;
+          padding: 0.5rem 0.7rem 0.5rem 0.7rem;
+          background-color: @search-bg-color !important;
           border-radius: 4*@rem;
-          h3 {
+          a {
             color: #666;
           }
         }
@@ -130,7 +136,6 @@
     }
     .weui-search-bar__box {
       position: relative;
-      padding-left: 7.5rem;
     }
     .vux-search-box {
       width: 90%;
@@ -139,9 +144,13 @@
       .weui-search-bar {
         height: 3.2rem;
         .weui-search-bar__cancel-btn {
-          color: @brand;
+          color: @gray-600;
+          height: 100%;
         }
       }
+    }
+    .weui-search-bar__label .weui-icon-search {
+      margin-top: 5px;
     }
     .sale-info-close {
       width: 1.5rem;

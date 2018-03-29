@@ -144,6 +144,7 @@
           span {
             text-decoration: line-through;
             padding-top: 0.3rem;
+            color: @gray-600;
           }
         }
       }
