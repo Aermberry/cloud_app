@@ -18,15 +18,16 @@ let baseUrl
 let routerMode = 'history'
 
 if (process.env.NODE_ENV === 'development') {
-  baseUrl = 'http://zkgs.5ug.com'
-  // baseUrl = 'http://localhost:9011'
+    // baseUrl = 'http://zkgs.5ug.com'
+    baseUrl = 'http://localhost:9011'
 } else {
-  baseUrl = 'http://zkgs.5ug.com'
+    // baseUrl = 'http://zkgs.5ug.com'
+    baseUrl = 'http://localhost:9011'
 }
 export {
-  baseUrl,
-  routerMode,
-  key,
-  projectId,
-  clientType
+    baseUrl,
+    routerMode,
+    key,
+    projectId,
+    clientType
 }
