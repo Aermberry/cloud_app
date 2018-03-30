@@ -2,13 +2,15 @@
   <div class="zkui-product-show-title">
     <div class="zkui-product-show-title">
       <div class="zkui-product-show-title-left left">
+        <span class="zkui-product-show-title-storename left">自营</span>
+      </div>
+      <div class="zkui-product-show-title-left left">
         <span class="zkui-product-show-title-price_symbol left">{{productView.displayPrice}}</span>
         <span class="zkui-product-show-title-price_old left">￥{{productView.marketPrice}}</span>
         <span class="zkui-product-show-title-right right">
           {{productView.soldCount}}人已购
         </span>
       </div>
-
     </div>
 
     <div class="zkui-product-show-title-content">
@@ -53,6 +55,7 @@
     background: #fff;
     padding: 0.5rem 10px 0 10*@rem;
     .zkui-product-show-title-left {
+      position: relative;
       .zkui-product-show-title-price_symbol {
         color: @brand;
         font-size: @h3-font-size;
@@ -65,10 +68,16 @@
         font-weight: @font-weight-normal;
         color: @gray-600;
       }
+      .zkui-product-show-title-storename {
+        background: @brand;
+        color: @white;
+        padding: 1*@rem 5*@rem;
+      }
     }
     .zkui-product-show-title-right {
-      margin-top: 0.2rem;
-      padding-left: 85*@rem;
+      position: absolute;
+      right: 0;
+      bottom: 0;
       font-weight: @font-weight-normal;
       color: @gray-600;
     }

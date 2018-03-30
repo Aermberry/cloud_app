@@ -131,6 +131,7 @@
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 1;
             white-space: nowrap;
+            color: @black;
           }
         }
         .itemPrice {

@@ -65,7 +65,7 @@
 <script>
   import { Group, Checker, CheckerItem, Divider, GroupTitle, Cell, TransferDom, Popup, XButton, XSwitch, InlineXNumber, ButtonTab, ButtonTabItem } from 'zkui'
   import userService from 'src/service/api/user.api'
-
+  import helper from 'src/service/common/helper'
   export default {
     components: {
       Group, Cell, TransferDom, Popup, XButton, XSwitch, GroupTitle, InlineXNumber, ButtonTab, ButtonTabItem, Checker, CheckerItem, Divider
@@ -104,6 +104,7 @@
       },
       // 添加到购物车
       async addToCart () {
+        helper.checkLogin(true)
         if (this.selectSku.id === undefined) {
           this.$vux.toast.warn('请选择商品规格')
         } else {
@@ -122,6 +123,7 @@
       },
       // 购买商品
       buyProduct () {
+        helper.checkLogin(true)
         if (this.selectSku.id === undefined) {
           this.$vux.toast.warn('请选择商品规格')
         }

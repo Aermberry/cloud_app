@@ -1,7 +1,7 @@
 <template>
   <section class="user_address">
     <zk-head :title='addressTitle' goBack=''>
-      <a slot="right" v-if="selectType" href="/user/address/index">管理</a>
+      <a slot="right" href="/user/address/index">管理</a>
     </zk-head>
     <checker v-model="defaultCheck" default-item-class="check-icon-item" type="radio" selected-item-class="check-icon-item-selected">
       <div class="vux-form-preview weui-form-preview" v-for="(item,index) in viewModel" :key="index" @click="selectAddress(item.id)">
@@ -16,25 +16,12 @@
         </div>
         <div class="weui-form-preview__ft">
           <div class="editor_default">
-            <checker-item :value="item.id" type="default" @on-item-click="setDefault">默认地址</checker-item>
-          </div>
-          <div class="editor_delete" v-if="!selectType">
-            <a class="editor" @click="edit(item.id)">
-              <m-icon name="zk-editor" size="1rem" class="editor-icon metal"></m-icon>
-              <span>编辑</span>
-            </a>
-            <a class="delete" @click="AddressDelete(item.id)">
-              <m-icon name="zk-remove" size="1rem" class="delete-icon brand"></m-icon>
-              <span>删除</span>
-            </a>
+            <checker-item :value="item.id" type="default">默认地址</checker-item>
           </div>
         </div>
         <divider class="divider-bg "></divider>
       </div>
     </checker>
-    <div class="add_addressBtn">
-      <x-button type="warn" @click.native="add">添加地址</x-button>
-    </div>
     <zk-foot></zk-foot>
   </section>
 </template>
@@ -80,77 +67,25 @@
           this.messageWarn(response.data.message)
         }
       },
-      // 删除地址
-      async AddressDelete (id) {
-        if (!this.selectType) {
-          let parament = {
-            id: id
-          }
-          var deleteResult = await apiUser.DeleteAddress(parament)
-          if (deleteResult.data.status === 1) {
-            this.GetData()
-            this.$vux.toast.success('删除成功')
-          } else {
-            this.$vux.toast.warn('删除失败')
-          }
-        }
-      },
-      // 添加地址
-      add () {
-        this.$router.push({
-          name: 'address_edit',
-          params: {
-            type: true
-          }
-        })
-      },
-      // 设置为默认地址
-      async setDefault (item) {
-        if (!this.selectType) {
-          let param = {
-            userId: this.LoginUser().id,
-            id: item
-          }
-          var isDefault = await apiUser.setDefault(param)
-          if (isDefault.data.status === 1) {
-            this.$vux.toast.success('设置成功')
-          } else {
-            this.$vux.toast.warn(isDefault.data.message)
-          }
-        }
-      },
-      // 编辑地址
-      edit (item) {
-        if (!this.selectType) {
-          this.$router.push({
-            name: 'address_edit',
-            params: {
-              id: item
-            }
-          })
-        }
-      },
       // 选择地址，同时将地址写入缓存中
       async selectAddress (id) {
-        if (this.selectType) {
-          let param = {
-            id: id
-          }
-          var response = await apiUser.SingleAddress(param)
-          if (response.data.status === 1) {
-            local.setLoginStore('default_address', response.data.result) // 将地址信息写到缓存中
-          }
-          this.$router.push({
-            name: 'order_buy'
-          })
+        let param = {
+          id: id
         }
+        var response = await apiUser.SingleAddress(param)
+        if (response.data.status === 1) {
+          local.setLoginStore('default_address', response.data.result) // 将地址信息写到缓存中
+        }
+        this.$router.push({
+          name: 'order_buy'
+        })
       }
     },
     data () {
       return {
         viewModel: '', // 数据模型
         selectType: false, // 地址选择默认，如果是选择地址的时为true
-        addressTitle: '地址管理',
+        addressTitle: '选择地址',
         defaultCheck: '' // 选中地址
       }
     }

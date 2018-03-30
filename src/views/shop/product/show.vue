@@ -59,7 +59,6 @@
         } else {
           this.asyncFlag = true
           this.modelView = product
-          // console.dir(product)
         }
       },
       async GetData () {
@@ -73,7 +72,7 @@
         } else {
           this.asyncFlag = true
           this.modelView = product
-          // console.dir(product)
+          console.dir(product)
         }
       }
     }

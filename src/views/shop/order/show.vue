@@ -23,7 +23,7 @@
     </div>
     <divider class="divider-bg "></divider>
     <group class="order_show-title">
-      <cell :title="data.storeName" value="qwe"></cell>
+      <cell :title="data.storeName" :value="state"></cell>
     </group>
     <div class="zkui-order-list-product" v-for="(item,index) in data.productSkuItems" :key="index">
       <ul class="flex">
@@ -39,17 +39,17 @@
         <li class="left-price">
           <ul>
             <li class="price_now">￥{{item.price}}</li>
-            <li class="price_old">￥69.00</li>
+            <!-- <li class="price_old">￥69.00</li> -->
             <li class="price_count">
-              X{{item.buyCount}}
+              x {{item.buyCount}}
             </li>
           </ul>
         </li>
       </ul>
     </div>
-    <group>
+    <!-- <group>
       <cell title="公益宝贝" is-link></cell>
-    </group>
+    </group> -->
 
     <div class="zkui-order-show-price">
       <div class="vux-form-preview weui-form-preview">
@@ -68,10 +68,10 @@
           </div>
         </div>
         <divider class="divider-bg "></divider>
-        <div class="weui-form-preview__ft">
+        <!-- <div class="weui-form-preview__ft">
           <a href="javascript:" class="weui-form-preview__btn">联系卖家</a>
           <a href="javascript:" class="weui-form-preview__btn ">拨打电话</a>
-        </div>
+        </div> -->
       </div>
     </div>
     <divider class="divider-bg "></divider>
@@ -80,14 +80,7 @@
         <div class="weui-form-preview__bd">
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">订单编号:45662485624896214598</label>
-            <span class="weui-form-preview__value">
-              <button class="weui-btn weui-btn_mini weui-btn_default">
-                复制</button>
-            </span>
           </div>
-          <!-- <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">支付宝交易号:1546426156456165489456165489465</label>
-          </div> -->
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">创建时间: {{data.createTime}}</label>
           </div>
@@ -116,7 +109,8 @@
     data () {
       return {
         viewModel: '', // 数据模型
-        data: ''
+        data: '',
+        state: ''
       }
     },
     mounted () {
@@ -135,20 +129,28 @@
         } else {
           this.viewModel = defaultAddress
         }
-        console.log(this.$route.params.showId)
+        // console.log(this.$route.params.showId)
         var id = this.$route.params.showId
         let par = {
           id: id
         }
         var showData = await orderService.show(par)
         this.data = showData.data.result
-        console.log(this.data)
+        if (this.data.orderStatus === 1) {
+          this.state = '待付款'
+        } else if (this.data.orderStatus === 2) {
+          this.state = '待发货'
+        } else if (this.data.orderStatus === 3) {
+          this.state = '待收货'
+        } else if (this.data.orderStatus === 4) {
+          this.state = '待评价'
+        }
       }
 
     }
   }
 </script>
-<style scoped  lang="less">
+<style   lang="less">
   .zkui-order-show {
     .flex {
       display: -moz-box;
@@ -173,6 +175,7 @@
       .weui-cell {
         .vux-label {
           color: @brand;
+          font-weight: @font-weight-bold;
         }
       }
     }
@@ -189,7 +192,7 @@
             }
             .weui-form-preview__value {
               padding-right: 0;
-              color: @black;
+              color: @brand;
               font-size: @h6-font-size;
               font-weight: @font-weight-normal;
             }
@@ -275,6 +278,11 @@
             text-align: right;
             font-family: Helvetica;
             font-weight: @font-weight-normal;
+          }
+          li.price_now {
+            color: @brand;
+            font-size: @h4-font-size;
+            font-weight: @font-weight-bold;
           }
           li.price_old {
             color: @gray-500;
