@@ -45,7 +45,7 @@
                             <li class="price_now">￥{{productSku.price}}</li>
                             <li class="price_old">￥{{productSku.marketPrice}}</li>
                             <li class="flex_one price_num">
-                              <inline-x-number @click.native="changeCount(storeIndex,skuIndex,productSku.productSkuId) " :min="0" width="3rem" :max="productSku.stock" button-style="round" v-model="buySkuCount[storeIndex][skuIndex]"></inline-x-number>
+                              <inline-x-number @click.native="changeCount(storeIndex,skuIndex,productSku.productSkuId) " :min="0" width="3rem" :max="productSku.stock" button-style="round" v-model="buySkuCount[storeIndex][skuIndex]" @on-change="ceshi(storeIndex,skuIndex,productSku.productSkuId)"></inline-x-number>
                             </li>
                           </ul>
                         </div>
@@ -108,7 +108,8 @@
         storeCheckModel: [], // 店铺选择数组，实现全选和取消全选事件
         allCheck: true, // 整个购物车全选
         storeTotalSkuIds: [], // 计算店铺skuId总数量，实现全选事件
-        scroll: ''
+        scroll: '',
+        a: 0
       }
     },
     components: {
@@ -126,6 +127,7 @@
     },
     mounted () {
       console.log(this.buySkuCount)
+
       this.GetData()
       if (this.storeCheckModel.indexOf(false) === -1) {
         this.allCheck = true
@@ -133,13 +135,24 @@
         this.allCheck = false
       }
     },
-    updated () {
-      this.ceshi()
-    },
     methods: {
+      async ceshi (sId, kId, pid) {
+        console.log(pid)
+        if (this.buySkuCount[sId][kId] === 0) {
+          console.log('为0')
+          let par = {
+            productskuid: pid
+          }
+          var reponses = await userService.RemoveCart(par)
+          if (reponses.data.status === 1) {
+            console.log(reponses.data.status)
+          }
+        }
+      },
       async GetData () {
         var reponse = await userService.GetCart()
         this.viewModel = reponse.data.result
+        console.log(this.viewModel)
         if (reponse.data.status === 1) {
           this.initCart(reponse.data.result) // 初始化购物车
           if (reponse.data.result.storeItems.length === 0) {
@@ -268,30 +281,6 @@
           })
         }
       },
-      // 测试
-      async ceshi () {
-        // for (var f = 0; f < this.viewModel.storeItems.length; f++) {
-        //   console.log(123)
-        //   for (var g = 0; g < this.buySkuCount[f].length; g++) {
-        //     console.log(this.buySkuCount[f])
-        //   }
-        // }
-        // for (var f = 0; f < this.viewModel.storeItems.length; f++) {
-        //   for (var g = 0; g < this.viewModel.storeItems[f].productSkuItems.length; g++) {
-        //     console.log(this.viewModel.storeItems[f].productSkuItems[g])
-        //     if (this.buySkuCount[f][g] === 0) {
-        //       console.table(this.viewModel.storeItems[f].productSkuItems[g].productSkuId)
-        //       let par = {
-        //         ProductSkuId: this.viewModel.storeItems[f].productSkuItems[g].productSkuId
-        //       }
-        //       var deleteMsg = await userService.GetCart(par)
-        //       console.table(deleteMsg)
-        //     } else {
-        //       console.log('都大于0')
-        //     }
-        //   }
-        // }
-      },
       // 修改数量,到0的时候，删除商品，增加的时候，判断库存
       changeCount (storeIndex, skuIndex, skuId) {
         // 店铺数量  商品排位 skuid
@@ -343,8 +332,8 @@
     },
     watch: {
       buySkuCount: {
-        handler (newValue, oldValue) {
-          console.log(newValue, oldValue)
+        handler (val, oldVal) {
+          console.log(val, oldVal)
         },
         deep: true
       }
@@ -449,6 +438,12 @@
               p {
                 font-size: @h6-font-size;
                 color: @black;
+                word-break: break-all;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                overflow: hidden;
               }
               span {
                 font-size: 0.8rem;

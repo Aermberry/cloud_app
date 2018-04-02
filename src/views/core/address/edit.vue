@@ -56,7 +56,6 @@
           let parament = {
             id: id
           }
-          console.log(this.addressTitle)
           var response = await userService.SingleAddress(parament)
           if (response.data.status === 1) {
             this.addressInput = response.data.result
@@ -83,14 +82,28 @@
         this.addressInput.mobile = this.addressInput.mobile.replace(/\s+/g, '')
         this.addressInput.loginUserId = this.LoginUser().id
         console.info('address', this.addressInput)
-        var response = await userService.AddAddress(this.addressInput)
-        if (response.data.status === 1) {
-          this.$vux.toast.success('添加成功')
-          this.$router.push({
-            name: 'address_index'
-          })
+        var id = this.$route.params.id
+        if (id !== undefined) {
+          var response = await userService.UpdateAddress(this.addressInput)
+          if (response.data.status === 1) {
+            console.log('修改成功')
+            this.$router.push({
+              name: 'address_index'
+            })
+          } else {
+            this.$vux.toast.warn(response.data.message)
+          }
         } else {
-          this.$vux.toast.warn(response.data.message)
+          var responses = await userService.AddAddress(this.addressInput)
+          console.log(response)
+          if (responses.data.status === 1) {
+            this.$vux.toast.success('添加成功')
+            this.$router.push({
+              name: 'address_index'
+            })
+          } else {
+            this.$vux.toast.warn(responses.data.message)
+          }
         }
       }
     },

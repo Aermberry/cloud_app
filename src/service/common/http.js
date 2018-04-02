@@ -134,7 +134,7 @@ export default {
   getLogin (url, params) {
     var loginUser = store.state.userStore.loginUser
     if (loginUser === null) {
-      helper.alertError('您未登陆')
+      // helper.alertError('您未登陆')
       return
     }
     if (url.substring(0, 1) !== '/') {
@@ -204,7 +204,7 @@ export default {
   putLogin (url, data) {
     var loginUser = store.state.userStore.loginUser
     if (loginUser === null) {
-      helper.alertError('您未登陆')
+      // helper.alertError('您未登陆')
       return
     }
     var userId = loginUser.id
@@ -278,7 +278,7 @@ export default {
   deleteLogin (url, params) {
     var loginUser = store.state.userStore.loginUser
     if (loginUser === null) {
-      helper.alertError('您未登陆')
+      // helper.alertError('您未登陆')
       return
     }
     if (url.substring(0, 1) !== '/') {
