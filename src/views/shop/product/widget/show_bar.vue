@@ -25,7 +25,6 @@
 
 <script>
   import userService from 'src/service/api/user.api'
-
   import helper from 'src/service/common/helper'
   import { Tabbar, TabbarItem, Group, Cell, MIcon, XButton } from 'zkui'
   export default {

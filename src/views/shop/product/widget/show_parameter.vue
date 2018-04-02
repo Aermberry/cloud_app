@@ -65,7 +65,7 @@
 <script>
   import { Group, Checker, CheckerItem, Divider, GroupTitle, Cell, TransferDom, Popup, XButton, XSwitch, InlineXNumber, ButtonTab, ButtonTabItem } from 'zkui'
   import userService from 'src/service/api/user.api'
-
+  import helper from 'src/service/common/helper'
   export default {
     components: {
       Group, Cell, TransferDom, Popup, XButton, XSwitch, GroupTitle, InlineXNumber, ButtonTab, ButtonTabItem, Checker, CheckerItem, Divider
@@ -104,6 +104,7 @@
       },
       // 添加到购物车
       async addToCart () {
+        helper.checkLogin(true)
         if (this.selectSku.id === undefined) {
           this.$vux.toast.warn('请选择商品规格')
         } else {
@@ -122,6 +123,7 @@
       },
       // 购买商品
       buyProduct () {
+        helper.checkLogin(true)
         if (this.selectSku.id === undefined) {
           this.$vux.toast.warn('请选择商品规格')
         }
@@ -219,16 +221,21 @@
       dd.sale-info-name {
         color: @black;
         font-family: Helvetica;
+        font-size: @h5-font-size;
       }
       .sale-info-price {
         font-weight: bold;
+        font-size: @h4-font-size;
         span {
           text-decoration: line-through;
           font-weight: 100;
-          color: @black;
+          color: @gray-600;
           font-family: Helvetica;
           font-weight: @font-weight-normal;
         }
+      }
+      .sale-info-stock {
+        color: @gray-600;
       }
       .sale-info-close {
         width: 20px;
@@ -267,6 +274,7 @@
     .sale-info-property {
       height: 12rem;
       overflow-y: auto;
+      width: 100%;
       dl:after {
         bottom: none;
         top: 0;
@@ -343,20 +351,6 @@
     }
     .weui-cells:before {
       border-top: 0;
-    }
-    .vux-number-round .vux-number-selector-sub svg {
-      position: relative;
-      top: 0rem;
-      right: 0.05rem;
-    }
-    .vux-number-round .vux-number-selector-plus {
-      border: 1px solid @actionsheet-label-disabled-color;
-      svg {
-        position: relative;
-        top: -0.2rem;
-        right: 2*@rem;
-        fill: @actionsheet-label-disabled-color;
-      }
     }
   }
   .goods-title {

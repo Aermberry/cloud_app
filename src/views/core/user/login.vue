@@ -6,18 +6,10 @@
       <x-input title="帐号" ref="user_username" required placeholder="用户名/手机/邮箱登录" :min="2" :max="20" v-model="user.username"></x-input>
       <x-input title="密码" ref="user_password" required type="password" :min="6" :max="16" v-model="user.password" class="border-bottom"></x-input>
     </group>
-    <box gap="3rem 1rem">
+
+    <box gap=" 3rem 1rem">
       <x-button @click.native="login" type="primary" action-type="button">会员登录</x-button>
     </box>
-    <div class="weui-msg__extra-area">
-      <div class="weui-footer">
-        <p class="weui-footer__links">
-          <a href="/user/findpassword">找回密码</a>
-          <a href="/user/reg">会员注册</a>
-        </p>
-      </div>
-    </div>
-
     <div class="weui-msg__extra-area">
       <div class="weui-footer">
         <p class="weui-footer__links">
@@ -53,6 +45,8 @@
         UserLogin: 'UserLogin'
       })
     },
+    mounted () {
+    },
     methods: {
       login () {
         if (this.$refs.user_username.valid) {
@@ -80,14 +74,12 @@
       font-size: @h4-font-size;
     }
     .weui-msg__extra-area {
-      position: fixed;
-      bottom: 0;
-      left: 0;
       width: 100%;
       .weui-footer {
         margin: 0 auto;
         .weui-footer__links {
-          text-align: center;
+          margin: 15*@rem 10*@rem 0 0;
+          text-align: right;
         }
       }
     }

@@ -6,7 +6,6 @@
     </div>
   </section>
 </template>
-
 <script>
   import { Group, Cell, Divider } from 'zkui'
   export default {
@@ -18,6 +17,7 @@
     props: ['productView']
   }
 </script>
+
 
 <style   lang="less">
   @import 'product_show';

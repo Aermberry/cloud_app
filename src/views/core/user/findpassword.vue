@@ -1,7 +1,7 @@
 <template>
   <section class="zkui-user-apply">
 
-    <zk-head title='找回密码' goBack='首页'></zk-head>
+    <zk-head title='找回密码' goBack='返回'></zk-head>
     <div>
       <group gap="1rem 0rem">
 
@@ -20,7 +20,7 @@
         </box>
       </box>
     </div>
-    <zk-foot></zk-foot>
+    <!-- <zk-foot></zk-foot> -->
   </section>
 </template>
 

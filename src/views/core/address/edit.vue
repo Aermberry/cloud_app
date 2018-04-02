@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-user-address-edit">
-    <zk-head :title='addressTitle' goBack='收货地址'>
+    <zk-head :title="addressTitle">
       <a slot="right" href="/user/address/index">管理</a>
     </zk-head>
     <group>
@@ -41,16 +41,22 @@
       this.GetData()
       console.info('路由', this.$route)
     },
+    created () {
+      if (this.$route.params.id !== undefined) {
+        this.addressTitle = '编辑地址'
+      }
+    },
     methods: {
       async GetData () {
         this.addressData = address.addressData
         var id = this.$route.params.id
+        console.log(this.$route.params.type)
         if (id !== undefined) {
-          this.addressTitle = '编辑地址'
           // 编辑地址，重新赋值
           let parament = {
             id: id
           }
+          console.log(this.addressTitle)
           var response = await userService.SingleAddress(parament)
           if (response.data.status === 1) {
             this.addressInput = response.data.result
@@ -98,3 +104,12 @@
     }
   }
 </script>
+<style lang="less">
+  .zkui-user-address-edit {
+    .weui-btn {
+      height: 3rem;
+      font-size: @h4-font-size;
+    }
+  }
+</style>
+

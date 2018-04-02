@@ -1,35 +1,40 @@
 <template>
   <div>
-    <div>
-      <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
-      <div style="margin: 15px 0;"></div>
-      <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
-        <el-checkbox v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
-      </el-checkbox-group>
-    </div>
+    <div class="wqe" @click="clikcsss"></div>
+    <agree>阅读并同意
+      <a href="javascript:void(0);">《相关条款》</a>
+    </agree>
+    <agree v-model="valueTrue">阅读并同意
+      <a href="javascript:void(0);">《相关条款》</a>
+    </agree>
+    <el-checkbox v-model="checked">备选项</el-checkbox>
   </div>
 </template>
 <script>
-  const cityOptions = ['上海', '北京', '广州', '深圳']; 
+  import { Agree } from 'zkui'
+  import helper from 'src/service/common/helper'
   export default {
     data () {
       return {
-        checkAll: false,
-        checkedCities: ['上海', '北京'],
-        cities: cityOptions,
-        isIndeterminate: true
+        valueTrue: true,
+        checked: true
       }
     },
+    components: {
+      Agree
+    },
     methods: {
-      handleCheckAllChange (val) {
-        this.checkedCities = val ? cityOptions : []
-        this.isIndeterminate = false
-      },
-      handleCheckedCitiesChange (value) {
-        let checkedCount = value.length
-        this.checkAll = checkedCount === this.cities.length
-        this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length
+      clikcsss () {
+        helper.checkLogin(true)
       }
     }
   }
 </script>
+<style>
+  .wqe {
+    width: 200px;
+    height: 200px;
+    background: #000;
+  }
+</style>
+

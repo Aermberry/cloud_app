@@ -1,5 +1,4 @@
-export default [
-  {
+export default [{
     path: '/user/index',
     meta: {
       title: '会员中心',
@@ -178,7 +177,8 @@ export default [
       login: true
     },
     params: {
-      id: ''
+      id: '',
+      type: ''
     },
     name: 'address_edit',
     component: function (resolve) {
@@ -197,6 +197,18 @@ export default [
     name: 'address_index',
     component: function (resolve) {
       require(['src/views/core/address/index'], resolve)
+    }
+  },
+  {
+    path: '/user/address/select',
+    meta: {
+      title: '选择地址',
+      login: true
+    },
+    params: {},
+    name: 'address_select',
+    component: function (resolve) {
+      require(['src/views/core/address/select'], resolve)
     }
   },
   {

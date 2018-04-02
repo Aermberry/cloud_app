@@ -131,6 +131,7 @@
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 1;
             white-space: nowrap;
+            color: @black;
           }
         }
         .itemPrice {
@@ -144,6 +145,7 @@
           span {
             text-decoration: line-through;
             padding-top: 0.3rem;
+            color: @gray-600;
           }
         }
       }

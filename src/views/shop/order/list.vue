@@ -31,19 +31,19 @@
                       <li class="left-price">
                         <ul>
                           <li class="price_now">￥{{itemss.price}}</li>
-                          <li class="price_old">￥69.00</li>
-                          <li class="price_count">X {{itemss.buyCount}}</li>
+                          <!-- <li class="price_old">￥69.00</li> -->
+                          <li class="price_count">x {{itemss.buyCount}}</li>
                         </ul>
                       </li>
                     </ul>
 
                   </div>
-                  <group>
+                  <group class="list-aggregate">
                     <cell>
                       共
-                      <span class="num">{{items.totalCount}}</span> 件商品 合计：￥
-                      <span class="num">{{items.paymentAmount}}</span>(含运费￥
-                      <span class="num">{{items.expressAmount}}</span>)
+                      <span class="num">{{items.totalCount}}</span> 件商品 合计：
+                      <span class="num">￥{{items.paymentAmount}}</span>(含运费
+                      <span class="num">￥{{items.expressAmount}}</span>)
                     </cell>
                   </group>
                   <group class="product-option">
@@ -80,19 +80,19 @@
                       <li class="left-price">
                         <ul>
                           <li class="price_now">￥{{itemss.price}}</li>
-                          <li class="price_old">￥69.00</li>
-                          <li class="price_count">X {{itemss.buyCount}}</li>
+                          <!-- <li class="price_old">￥69.00</li> -->
+                          <li class="price_count">x {{itemss.buyCount}}</li>
                         </ul>
                       </li>
                     </ul>
 
                   </div>
-                  <group>
+                  <group class="list-aggregate">
                     <cell>
                       共
-                      <span class="num">{{items.totalCount}}</span> 件商品 合计：￥
-                      <span class="num">{{items.paymentAmount}}</span>(含运费￥
-                      <span class="num">{{items.expressAmount}}</span>)
+                      <span class="num">{{items.totalCount}}</span> 件商品 合计：
+                      <span class="num">￥{{items.paymentAmount}}</span>(含运费
+                      <span class="num">￥{{items.expressAmount}}</span>)
                     </cell>
                   </group>
                   <group class="product-option">
@@ -126,19 +126,19 @@
                       <li class="left-price">
                         <ul>
                           <li class="price_now">￥{{itemss.price}}</li>
-                          <li class="price_old">￥69.00</li>
-                          <li class="price_count">X {{itemss.buyCount}}</li>
+                          <!-- <li class="price_old">￥69.00</li> -->
+                          <li class="price_count">x {{itemss.buyCount}}</li>
                         </ul>
                       </li>
                     </ul>
 
                   </div>
-                  <group>
+                  <group class="list-aggregate">
                     <cell>
                       共
-                      <span class="num">{{items.totalCount}}</span> 件商品 合计：￥
-                      <span class="num">{{items.paymentAmount}}</span>(含运费￥
-                      <span class="num">{{items.expressAmount}}</span>)
+                      <span class="num">{{items.totalCount}}</span> 件商品 合计：
+                      <span class="num">￥{{items.paymentAmount}}</span>(含运费
+                      <span class="num">￥{{items.expressAmount}}</span>)
                     </cell>
                   </group>
                   <group class="product-option">
@@ -171,19 +171,19 @@
                       <li class="left-price">
                         <ul>
                           <li class="price_now">￥{{itemss.price}}</li>
-                          <li class="price_old">￥69.00</li>
-                          <li class="price_count">X {{itemss.buyCount}}</li>
+                          <!-- <li class="price_old">￥69.00</li> -->
+                          <li class="price_count">x {{itemss.buyCount}}</li>
                         </ul>
                       </li>
                     </ul>
 
                   </div>
-                  <group>
+                  <group class="list-aggregate">
                     <cell>
                       共
-                      <span class="num">{{items.totalCount}}</span> 件商品 合计：￥
-                      <span class="num">{{items.paymentAmount}}</span>(含运费￥
-                      <span class="num">{{items.expressAmount}}</span>)
+                      <span class="num">{{items.totalCount}}</span> 件商品 合计：
+                      <span class="num">￥{{items.paymentAmount}}</span>(含运费
+                      <span class="num">￥{{items.expressAmount}}</span>)
                     </cell>
                   </group>
                   <group class="product-option">
@@ -216,19 +216,19 @@
                       <li class="left-price">
                         <ul>
                           <li class="price_now">￥{{itemss.price}}</li>
-                          <li class="price_old">￥69.00</li>
-                          <li class="price_count">X {{itemss.buyCount}}</li>
+                          <!-- <li class="price_old">￥69.00</li> -->
+                          <li class="price_count">x {{itemss.buyCount}}</li>
                         </ul>
                       </li>
                     </ul>
 
                   </div>
-                  <group>
+                  <group class="list-aggregate">
                     <cell>
                       共
-                      <span class="num">{{items.totalCount}}</span> 件商品 合计：￥
-                      <span class="num">{{items.paymentAmount}}</span>(含运费￥
-                      <span class="num">{{items.expressAmount}}</span>)
+                      <span class="num">{{items.totalCount}}</span> 件商品 合计：
+                      <span class="num">￥{{items.paymentAmount}}</span>(含运费
+                      <span class="num">￥{{items.expressAmount}}</span>)
                     </cell>
                   </group>
                   <group class="product-option">
@@ -379,6 +379,7 @@
                 .vux-cell-bd {
                   .vux-label {
                     color: @brand;
+                    font-weight: @font-weight-bold;
                   }
                 }
                 .weui-cell__ft {
@@ -436,10 +437,11 @@
                   -webkit-line-clamp: 2;
                   overflow: hidden;
                   font-family: Helvetica;
+                  color: @black;
                 }
                 span {
                   font-size: @h6-font-size;
-                  color: @gray-500;
+                  color: @gray-600;
                 }
               }
             }
@@ -454,15 +456,25 @@
                   font-family: Helvetica;
                   font-weight: @font-weight-normal;
                 }
+                li.price_now {
+                  color: @brand;
+                  font-size: @h4-font-size;
+                  font-weight: @font-weight-bold;
+                }
                 li.price_old {
                   color: @gray-500;
                   text-decoration: line-through;
                 }
                 li.price_count {
                   color: @gray-500;
-                  font-size: 0.85rem;
+                  font-size: @h5-font-size;
                 }
               }
+            }
+          }
+          .list-aggregate {
+            span {
+              color: @brand;
             }
           }
         }

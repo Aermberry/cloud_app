@@ -36,12 +36,15 @@ const state = {
 
 // actions
 const actions = {
-  startListeningToAuth ({ commit }, user) {
+  startListeningToAuth ({
+    commit
+  }, user) {
     commit(types.USER_LOGIN, {
       user
     })
   }
 }
+
 
 // mutations
 const mutations = {
@@ -51,13 +54,15 @@ const mutations = {
         if (response.data.status === 1) {
           local.setStore('user', response.data.result)
           state.loginUser = user
-          helper.alertSucess('登录成功')
+          // helper.alertSucess('登录成功')
+          //  this.$message('登录成功')
           window.location = '/user/index'
         } else {
           helper.alertError(response.data.message)
         }
       } catch (ex) {
         helper.alertError('登录失败，服务器异常')
+        // this.$message('登录失败，服务器异常')
         state.loginUser = null
       }
     })

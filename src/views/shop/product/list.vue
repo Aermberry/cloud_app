@@ -14,14 +14,14 @@
         <tab-item active-class="active-6-1" selected @click.native="tabDown=!tabDown">默认排序
           <m-icon name="zk-arrowsDown" class="icon"></m-icon>
           <ul v-show="tabDown">
-            <li @click="sortNum(2)">商品添加时间</li>
-            <li @click="sortNum(5)">喜欢数量</li>
-            <li @click="sortNum(6)">收藏数量</li>
+            <li @click="sortNum(2)">最新</li>
+            <li @click="sortNum(5)">最热</li>
+            <li @click="sortNum(6)">关注</li>
           </ul>
         </tab-item>
         <tab-item active-class="active-6-2" @click.native="sortNum(1)">价格</tab-item>
         <tab-item active-class="active-6-3" @click.native="sortNum(3)">人气</tab-item>
-        <tab-item active-class="active-6-4" @click.native="sortNum(4)">销售数量</tab-item>
+        <tab-item active-class="active-6-4" @click.native="sortNum(4)">销量</tab-item>
       </tab>
     </div>
 

@@ -8,11 +8,16 @@
       <zk-phone-verifiy v-model="user.mobileVerifiyCode" :mobile="user.mobile"></zk-phone-verifiy>
       <x-input title="密码" required type="password" :min="6" :max="16" v-model="user.password"></x-input>
       <x-input title="确认密码" required type="password" :min="6" :max="16" class="border-bottom" v-model="user.confirmPassword"></x-input>
-      <agree v-model="user.agree">已阅读并同意
-        <router-link to="/user/agreement">《服务条款》</router-link>
-      </agree>
-
     </group>
+    <label role="checkbox" class="el-checkbox " :class="{'is-checked':checked}" @click="checker">
+      <span aria-checked="mixed" class="el-checkbox__input " :class="{'is-checked':checked}">
+        <span class="el-checkbox__inner"></span><input type="checkbox" class="el-checkbox__original" value=""></span>
+      <span class="el-checkbox__label">
+        已阅读并同意
+        <router-link to="/user/agreement" class="">《服务条款》</router-link>
+      </span>
+    </label>
+
     <box gap="3rem 1rem">
       <x-button @click.native="reg" type="primary" action-type="button">注册会员</x-button>
     </box>
@@ -48,10 +53,15 @@
           agree: true,
           confirmPassword: '',
           mobileVerifiyCode: ''
-        }
+        },
+        qwe: true,
+        checked: true
       }
     },
     methods: {
+      checker () {
+        this.checked = !this.checked
+      },
       async reg () {
         this.user.mobile = this.user.mobile.replace(/\s+/g, '')
         var response = await apiUser.reg(this.user)
@@ -69,21 +79,33 @@
   }
 </script>
 
-<style scoped  lang="less">
+<style   lang="less">
   .zkui-user-reg {
+    .el-checkbox {
+      padding: 0.5em 1.25rem;
+    }
+    .el-checkbox__input.is-checked .el-checkbox__inner,
+    .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+      background-color: @brand;
+      border-color: @brand;
+    }
+    .el-checkbox__input.is-checked + .el-checkbox__label {
+      color: @brand;
+    }
+    .el-checkbox__inner:hover {
+      border-color: @brand;
+    }
     .weui-btn {
       height: 3rem;
       font-size: @h4-font-size;
     }
     .weui-msg__extra-area {
-      position: fixed;
-      bottom: 0;
-      left: 0;
       width: 100%;
       .weui-footer {
         margin: 0 auto;
         .weui-footer__links {
-          text-align: center;
+          margin: 15*@rem 10*@rem 0 0;
+          text-align: right;
         }
       }
     }

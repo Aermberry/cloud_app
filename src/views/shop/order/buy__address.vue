@@ -26,7 +26,6 @@
     <divider class="divider-bg "></divider>
   </section>
 </template>
-
 <script>
   import apiUser from 'src/service/api/user.api'
   import { Divider, Group, Cell, TransferDom } from 'zkui'
@@ -46,10 +45,7 @@
     methods: {
       selectAddress () {
         this.$router.push({
-          name: 'address_index',
-          params: {
-            selectType: true
-          }
+          name: 'address_select'
         })
       },
       async GetData () {
