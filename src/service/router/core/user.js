@@ -160,7 +160,7 @@ export default [{
     }
   },
   {
-    path: '/user/identity/index',
+    path: '/identity/index',
     meta: {
       title: '实名认证',
       login: true

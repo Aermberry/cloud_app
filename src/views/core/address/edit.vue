@@ -57,6 +57,7 @@
             id: id
           }
           var response = await userService.SingleAddress(parament)
+          console.log(response)
           if (response.data.status === 1) {
             this.addressInput = response.data.result
             this.addressValue = [this.addressInput.province.toString(), this.addressInput.city.toString(), this.addressInput.country.toString()]
@@ -87,6 +88,7 @@
           var response = await userService.UpdateAddress(this.addressInput)
           if (response.data.status === 1) {
             console.log('修改成功')
+            this.$vux.toast.success('修改成功')
             this.$router.push({
               name: 'address_index'
             })

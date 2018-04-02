@@ -24,7 +24,7 @@
                       <div class="weui-cells weui-cells_checkbox">
                         <label class="weui-cell weui-check_label car_item-left">
                           <div class="weui-cell__hd">
-                            <checker-item :value="productSku.productSkuId" :key="productSku.productSkuId" type="default" @on-item-click="storeProductCheck(productSku.productSkuId,storeIndex,skuIndex)"></checker-item>
+                            <checker-item :value="productSku.productSkuId" :key="productSku.productSkuId" type="default" @on-item-click="storeProductCheck(productSku.productSkuId,storeIndex,skuIndex,store.storeId)"></checker-item>
                           </div>
                         </label>
                       </div>
@@ -45,7 +45,7 @@
                             <li class="price_now">￥{{productSku.price}}</li>
                             <li class="price_old">￥{{productSku.marketPrice}}</li>
                             <li class="flex_one price_num">
-                              <inline-x-number @click.native="changeCount(storeIndex,skuIndex,productSku.productSkuId) " :min="0" width="3rem" :max="productSku.stock" button-style="round" v-model="buySkuCount[storeIndex][skuIndex]" @on-change="ceshi(storeIndex,skuIndex,productSku.productSkuId)"></inline-x-number>
+                              <inline-x-number :min="0" width="3rem" :max="productSku.stock" button-style="round" v-model="buySkuCount[storeIndex][skuIndex]" @on-change="changeCount(storeIndex,skuIndex,productSku.productSkuId),ceshi(storeIndex,skuIndex,productSku.productSkuId,store.storeId) "></inline-x-number>
                             </li>
                           </ul>
                         </div>
@@ -126,24 +126,21 @@
       InlineXNumber
     },
     mounted () {
-      console.log(this.buySkuCount)
-
       this.GetData()
       if (this.storeCheckModel.indexOf(false) === -1) {
         this.allCheck = true
       } else {
         this.allCheck = false
       }
+      console.log(this.productSkuIdChecks)
     },
     methods: {
-      async ceshi (sId, kId, pid) {
-        console.log(pid)
+      async ceshi (sId, kId, pid, stId) {
         if (this.buySkuCount[sId][kId] === 0) {
           let orderProductInput = {
             productSkuId: pid,
-            storeId: 1
+            storeId: stId
           }
-          console.info('删除', orderProductInput)
           var reponses = await userService.RemoveCart(orderProductInput)
           if (reponses.data.status === 1) {
             console.log(reponses.data.status)
@@ -221,12 +218,12 @@
       storeProductCheck (skuId, stroeIndex, skuIndex) {
         // console.info('skuId', skuId, '店铺索引', stroeIndex, 'sku索引', skuIndex, '店铺商品总数', this.storeTotalSkuIds[stroeIndex][0], '店铺已选skuId', this.productSkuChecks[stroeIndex].length, this.productSkuChecks[stroeIndex])
         // console.log(this.productSkuChecks[stroeIndex].length)
-        console.log(this.productSkuChecks[stroeIndex].length)// 店铺选择商品数量
-        console.log('店铺skuId总数量', this.storeTotalSkuIds[stroeIndex])
-        console.log('店铺已选择商品总数量', this.productSkuIdChecks[stroeIndex].length)
-        console.log('店铺商品数量：', this.productSkuIdChecks[stroeIndex])
-        console.log('店铺已选择商品ID', this.productSkuIdChecks[stroeIndex])
-        console.log('点击的商品ID', skuId)
+        // console.log(this.productSkuChecks[stroeIndex].length)// 店铺选择商品数量
+        // console.log('店铺skuId总数量', this.storeTotalSkuIds[stroeIndex])
+        // console.log('店铺已选择商品总数量', this.productSkuIdChecks[stroeIndex].length)
+        // console.log('店铺商品数量：', this.productSkuIdChecks[stroeIndex])
+        // console.log('店铺已选择商品ID', this.productSkuIdChecks[stroeIndex])
+        // console.log('点击的商品ID', skuId)
         // if (this.productSkuIdChecks[stroeIndex].indexOf(skuId) !== -1) {
         //   this.productSkuIdChecks[stroeIndex].splice(this.productSkuIdChecks[stroeIndex].indexOf(skuId), 1)
         // } else {
@@ -242,6 +239,26 @@
         // console.info(this.storeCheckModel[stroeIndex])
         // console.info(this.productSkuChecks[stroeIndex].length)
         // console.info(this.storeTotalSkuIds[stroeIndex][0])
+        // ---------------------------------------------------------
+        // 总数量
+        var selectCount = 0
+        for (var ko = 0; ko < this.productSkuIdChecks.length; ko++) {
+          console.log(this.productSkuIdChecks, ko)
+          for (var ki = 0; ki < this.productSkuIdChecks[ko].length; ki++) {
+            console.log(this.productSkuIdChecks[ko][ki], this.buySkuCount[ko][ki])
+            selectCount = selectCount + this.buySkuCount[ko][ki]
+          }
+        }
+        this.totalCount = selectCount
+        // for (var ko = 0; ko < this.viewModel.storeItems.length; ko++) {
+        //   console.log(this.viewModel.storeItems[ko], ko)
+        //   for (var ki = 0; ki < this.viewModel.storeItems[ko].productSkuItems.length; ki++) {
+        //     // console.log(this.viewModel.storeItems[ko].productSkuItems[ki].productSkuId)
+        //     if (this.productSkuIdChecks.indexOf(this.viewModel.storeItems[ko].productSkuItems[ki].productSkuId) === -1) {
+        //       console.log('不存在', this.productSkuIdChecks)
+        //     }
+        //   }
+        // }
       },
       // 店铺选择事件
       storeCheck (storeId, index) {
@@ -287,20 +304,15 @@
         // 店铺数量  商品排位 skuid
         // console.info('修改数量', storeIndex, skuIndex, skuId)
         // console.info(this.buySkuCount[storeIndex][skuIndex])
-
-        var t
-        clearTimeout(t)
-        t = setTimeout(function () {
-          // for (var qa = 0; qa < this.buySkuCount.length; qa++) {
-          //   for (var qw = 0; qw < this.buySkuCount[qa].length; qw++) {
-          //     if (this.buySkuCount[qa][qw] === 0) {
-          //       console.log('为0')
-          //     } else {
-          //       console.log('不为0')
-          //     }
-          //   }
-          // }
-        }, 1000)
+        // 总数量
+        var selectCount = 0
+        for (var ko = 0; ko < this.productSkuIdChecks.length; ko++) {
+          for (var ki = 0; ki < this.productSkuIdChecks[ko].length; ki++) {
+            // console.log(this.productSkuIdChecks[ko][ki])
+            selectCount = selectCount + this.buySkuCount[ko][ki]
+          }
+          this.totalCount = selectCount
+        }
       },
       // 结算购买
       buy () {
