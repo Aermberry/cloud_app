@@ -139,11 +139,12 @@
       async ceshi (sId, kId, pid) {
         console.log(pid)
         if (this.buySkuCount[sId][kId] === 0) {
-          console.log('为0')
-          let par = {
-            productskuid: pid
+          let orderProductInput = {
+            productSkuId: pid,
+            storeId: 1
           }
-          var reponses = await userService.RemoveCart(par)
+          console.info('删除', orderProductInput)
+          var reponses = await userService.RemoveCart(orderProductInput)
           if (reponses.data.status === 1) {
             console.log(reponses.data.status)
           }

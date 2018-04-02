@@ -10,7 +10,7 @@
 // 项目ID，秘钥，与项目当中的秘钥相同，千万不能泄露，否则会可能会导致数据泄露
 
 const key = '5C017EC7FF0045D1B8B00076067D3B3B'
-const projectId = 'B93900E2-26AD-4AE0-BC3F-E639C2D482A0'
+const projectId = 'b93900e2-26ad-4ae0-bc3f-e639c2d482a0'
 const clientType = 'moblie'
 
 let baseUrl
@@ -18,18 +18,12 @@ let baseUrl
 let routerMode = 'history'
 
 if (process.env.NODE_ENV === 'development') {
-  baseUrl = 'http://zkgs.5ug.com'
+  // baseUrl = 'http://zkgs.5ug.com'
   // baseUrl = 'http://zkdebt.5ug.com'
-  // baseUrl = 'http://localhost:9011'
+  baseUrl = 'http://localhost:9011'
 } else {
   baseUrl = 'http://zkgs.5ug.com'
   // baseUrl = 'http://localhost:9011'
   // baseUrl = 'http://zkdebt.5ug.com'
 }
-export {
-  baseUrl,
-  routerMode,
-  key,
-  projectId,
-  clientType
-}
+export { baseUrl, routerMode, key, projectId, clientType }
