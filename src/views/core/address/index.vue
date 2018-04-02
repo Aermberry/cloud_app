@@ -90,6 +90,7 @@
           if (deleteResult.data.status === 1) {
             this.GetData()
             this.$vux.toast.success('删除成功')
+            local.setLoginStore('default_address', '')
           } else {
             this.$vux.toast.warn('删除失败')
           }
