@@ -1,8 +1,7 @@
 <template>
-  <div class="qwe">
-    <input type="text" v-model="a">
-    <input type="text" v-model="b[0][0]">
-  </div>
+  <section class="test">
+    <zk-head title='测试页面' class="zkui-order-cart-head"></zk-head>
+  </section>
 </template>
 <script>
   export default {
@@ -31,3 +30,6 @@
     }
   }
 </script>
+
+
+

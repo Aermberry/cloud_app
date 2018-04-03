@@ -24,7 +24,7 @@
                       <div class="weui-cells weui-cells_checkbox">
                         <label class="weui-cell weui-check_label car_item-left">
                           <div class="weui-cell__hd">
-                            <checker-item :value="productSku.productSkuId" :key="productSku.productSkuId" type="default" @on-item-click="storeProductCheck(productSku.productSkuId,storeIndex,skuIndex,store.storeId)"></checker-item>
+                            <checker-item :value="productSku.productSkuId" :key="productSku.productSkuId" type="default"></checker-item>
                           </div>
                         </label>
                       </div>
@@ -109,7 +109,8 @@
         allCheck: true, // 整个购物车全选
         storeTotalSkuIds: [], // 计算店铺skuId总数量，实现全选事件
         scroll: '',
-        a: 0
+        subscript: [],
+        buySkuId: []
       }
     },
     components: {
@@ -199,6 +200,7 @@
           this.storeTotalSkuIds[i].push(storeItem.productSkuItems.length)
           this.productSkuChecks[i] = [] // 店铺skuIds数量
           this.productSkuIdChecks[i] = []
+          this.buySkuId[i] = []
           //  console.info('数量', this.storeTotalSkuIds[i], i)
           // 计算商品sku 的选择数量
           this.buySkuCount[i] = []
@@ -209,8 +211,10 @@
             // 设置商品sku数量
             this.buySkuCount[i][j] = []
             this.buySkuCount[i][j] = productSkuItem.buyCount
+            this.buySkuId[i][j] = productSkuItem.productSkuId
           }
-          // console.log(this.buySkuCount)
+          this.subscript = this.productSkuIdChecks
+          console.log(this.buySkuId)
         }
       },
       // 店铺商品选择事件
@@ -224,11 +228,6 @@
         // console.log('店铺商品数量：', this.productSkuIdChecks[stroeIndex])
         // console.log('店铺已选择商品ID', this.productSkuIdChecks[stroeIndex])
         // console.log('点击的商品ID', skuId)
-        // if (this.productSkuIdChecks[stroeIndex].indexOf(skuId) !== -1) {
-        //   this.productSkuIdChecks[stroeIndex].splice(this.productSkuIdChecks[stroeIndex].indexOf(skuId), 1)
-        // } else {
-        //   this.productSkuIdChecks[stroeIndex].push(skuId)
-        // }
         if (this.productSkuIdChecks[stroeIndex].length === this.storeTotalSkuIds[stroeIndex][0]) {
           this.storeCheckModel[stroeIndex] = true
           this.allCheck = true
@@ -236,42 +235,16 @@
           this.storeCheckModel[stroeIndex] = false
           this.allCheck = false
         }
-        // console.info(this.storeCheckModel[stroeIndex])
-        // console.info(this.productSkuChecks[stroeIndex].length)
-        // console.info(this.storeTotalSkuIds[stroeIndex][0])
-        // ---------------------------------------------------------
-        // 总数量
-        var selectCount = 0
-        for (var ko = 0; ko < this.productSkuIdChecks.length; ko++) {
-          console.log(this.productSkuIdChecks, ko)
-          for (var ki = 0; ki < this.productSkuIdChecks[ko].length; ki++) {
-            console.log(this.productSkuIdChecks[ko][ki], this.buySkuCount[ko][ki])
-            selectCount = selectCount + this.buySkuCount[ko][ki]
-          }
-        }
-        this.totalCount = selectCount
-        // for (var ko = 0; ko < this.viewModel.storeItems.length; ko++) {
-        //   console.log(this.viewModel.storeItems[ko], ko)
-        //   for (var ki = 0; ki < this.viewModel.storeItems[ko].productSkuItems.length; ki++) {
-        //     // console.log(this.viewModel.storeItems[ko].productSkuItems[ki].productSkuId)
-        //     if (this.productSkuIdChecks.indexOf(this.viewModel.storeItems[ko].productSkuItems[ki].productSkuId) === -1) {
-        //       console.log('不存在', this.productSkuIdChecks)
-        //     }
-        //   }
+        // console.log(this.productSkuIdChecks, this.productSkuIdChecks[stroeIndex].length)
+        // console.log(this.subscript, this.subscript[stroeIndex].length)
+        // for (var ko = 0; ko < this.productSkuIdChecks[stroeIndex].length; ko++) {
+        //   // console.log('店铺下标', ko)
         // }
       },
       // 店铺选择事件
       storeCheck (storeId, index) {
         console.info('店铺ID', storeId, '店铺索引', index, '店铺商品总数', this.storeTotalSkuIds[index], '店铺已选skuId', this.productSkuChecks[index])
-        // 实现店铺全选，和取消全选
-        // this.productSkuChecks[index] = []// 店铺选择第[index]个商品
-        // for (var j = 0; j < this.viewModel.storeItems[index].productSkuItems.length; j++) {
-        //   if (!this.storeCheckModel[index]) {
-        //     var productSkuItem = this.viewModel.storeItems[index].productSkuItems[j]
-        //     this.productSkuChecks[index].push(productSkuItem.productSkuId)
-        //     console.log(this.productSkuChecks)
-        //   }
-        // }
+
         if (this.storeCheckModel.indexOf(false) === -1) {
           this.allCheck = false
         } else {
@@ -304,15 +277,7 @@
         // 店铺数量  商品排位 skuid
         // console.info('修改数量', storeIndex, skuIndex, skuId)
         // console.info(this.buySkuCount[storeIndex][skuIndex])
-        // 总数量
-        var selectCount = 0
-        for (var ko = 0; ko < this.productSkuIdChecks.length; ko++) {
-          for (var ki = 0; ki < this.productSkuIdChecks[ko].length; ki++) {
-            // console.log(this.productSkuIdChecks[ko][ki])
-            selectCount = selectCount + this.buySkuCount[ko][ki]
-          }
-          this.totalCount = selectCount
-        }
+
       },
       // 结算购买
       buy () {
@@ -344,9 +309,48 @@
       }
     },
     watch: {
-      buySkuCount: {
-        handler (val, oldVal) {
-          console.log(val, oldVal)
+      productSkuIdChecks: {
+        handler (val) {
+          // console.log(val)
+          this.subscript = val
+          var num = 0
+          // for (var ko = 0; ko < this.viewModel.storeItems.length; ko++) {
+          //   for (var ki = 0; ki < this.viewModel.storeItems[ko].productSkuItems.length; ki++) {
+          //     // console.log(this.viewModel.storeItems[ko].productSkuItems[ki].productSkuId)
+          //     for (var kl = 0; kl < this.productSkuIdChecks.length; kl++) {
+          //       console.log(this.buySkuId[ko], this.productSkuIdChecks[ko][ki])
+          //       if (this.buySkuId[ko].indexOf(this.productSkuIdChecks[ko][ki]) !== -1) {
+          //         console.log('存在')
+          //         console.log(this.viewModel.storeItems[ko].productSkuItems[ki].price, this.viewModel.storeItems[ko].productSkuItems[ki].buyCount)
+          //       } else {
+          //         console.log('不存在')
+          //       }
+          //     }
+          //   }
+          // }
+          // for (var kl = 0; kl < this.productSkuIdChecks.length; kl++) {
+          //   for (var ko = 0; ko < this.viewModel.storeItems.length; ko++) {
+          //     for (var ki = 0; ki < this.viewModel.storeItems[ko].productSkuItems.length; ki++) {
+          //       if (this.buySkuId[ko].indexOf(this.productSkuIdChecks[ko][ki]) !== -1) {
+          //         console.log('存在', this.buySkuId[ko], this.productSkuIdChecks[ko][ki])
+          //         console.log(this.viewModel.storeItems[ko].productSkuItems[ki].price)
+          //       } else {
+          //         console.log('不存在')
+          //       }
+          //     }
+          //   }
+          // }
+          for (var ki = 0; ki < this.buySkuId.length; ki++) {
+            for (var ko = 0; ko < this.buySkuId[ki].length; ko++) {
+              console.log(this.buySkuId[ki].indexOf(this.productSkuIdChecks[ki][ko]), ki, ko)
+              console.log(this.buySkuId[ki], this.productSkuIdChecks[ki][ko])
+              var a = this.buySkuId[ki].indexOf(this.productSkuIdChecks[ki][ko])
+              console.log(this.viewModel.storeItems[ki].productSkuItems[a].price)
+              console.log(this.viewModel.storeItems[ki].productSkuItems[a].buyCount)
+              // num = num + (this.viewModel.storeItems[ki].productSkuItems[a].price * this.viewModel.storeItems[ki].productSkuItems[a].buycount)
+            }
+          }
+          console.log(num)
         },
         deep: true
       }

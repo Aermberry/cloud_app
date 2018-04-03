@@ -11,15 +11,17 @@
         </div>
       </div>
     </card>
-
-    <p class="account-index-service">服务</p>
-    <zk-grid diykey="grid_user_account_index" class="weui-grid weui-grid__icon weui-grid__label metal"></zk-grid>
+    <group class="zkui-user-order-title">
+      <cell title="服务"></cell>
+    </group>
+    <zk-grid diykey="grid_user_account_index" class="icon-metal zkui-grid zkui-grid-border__none "></zk-grid>
     <zk-foot></zk-foot>
   </section>
 </template>
 <script>
   import apiService from 'src/service/api/account.api'
-  import { Card, Countup, MIcon, Grid, GridItem, Group, GroupTitle } from 'zkui'
+  import { ZkGrid } from 'widgets'
+  import { Card, Countup, MIcon, Grid, GridItem, Group, GroupTitle, Cell } from 'zkui'
   export default {
     components: {
       Card,
@@ -28,7 +30,9 @@
       Grid,
       GridItem,
       GroupTitle,
-      Group
+      Group,
+      ZkGrid,
+      Cell
     },
     data () {
       return {
