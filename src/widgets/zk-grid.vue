@@ -49,7 +49,7 @@
     }
   }
 </script>
-<style scoped  lang="less">
+<style   lang="less">
   .weui-grids {
     border-bottom: 8*@rem solid rgba(229, 229, 229, 0.5);
   }

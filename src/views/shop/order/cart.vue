@@ -24,7 +24,7 @@
                       <div class="weui-cells weui-cells_checkbox">
                         <label class="weui-cell weui-check_label car_item-left">
                           <div class="weui-cell__hd">
-                            <checker-item :value="productSku.productSkuId" :key="productSku.productSkuId" type="default"></checker-item>
+                            <checker-item :value="productSku.productSkuId" :key="productSku.productSkuId" type="default" @click.native="storeProductCheck(productSku.productSkuId,storeIndex,skuIndex)"></checker-item>
                           </div>
                         </label>
                       </div>
@@ -314,43 +314,22 @@
           // console.log(val)
           this.subscript = val
           var num = 0
-          // for (var ko = 0; ko < this.viewModel.storeItems.length; ko++) {
-          //   for (var ki = 0; ki < this.viewModel.storeItems[ko].productSkuItems.length; ki++) {
-          //     // console.log(this.viewModel.storeItems[ko].productSkuItems[ki].productSkuId)
-          //     for (var kl = 0; kl < this.productSkuIdChecks.length; kl++) {
-          //       console.log(this.buySkuId[ko], this.productSkuIdChecks[ko][ki])
-          //       if (this.buySkuId[ko].indexOf(this.productSkuIdChecks[ko][ki]) !== -1) {
-          //         console.log('存在')
-          //         console.log(this.viewModel.storeItems[ko].productSkuItems[ki].price, this.viewModel.storeItems[ko].productSkuItems[ki].buyCount)
-          //       } else {
-          //         console.log('不存在')
-          //       }
-          //     }
-          //   }
-          // }
-          // for (var kl = 0; kl < this.productSkuIdChecks.length; kl++) {
-          //   for (var ko = 0; ko < this.viewModel.storeItems.length; ko++) {
-          //     for (var ki = 0; ki < this.viewModel.storeItems[ko].productSkuItems.length; ki++) {
-          //       if (this.buySkuId[ko].indexOf(this.productSkuIdChecks[ko][ki]) !== -1) {
-          //         console.log('存在', this.buySkuId[ko], this.productSkuIdChecks[ko][ki])
-          //         console.log(this.viewModel.storeItems[ko].productSkuItems[ki].price)
-          //       } else {
-          //         console.log('不存在')
-          //       }
-          //     }
-          //   }
-          // }
           for (var ki = 0; ki < this.buySkuId.length; ki++) {
             for (var ko = 0; ko < this.buySkuId[ki].length; ko++) {
-              console.log(this.buySkuId[ki].indexOf(this.productSkuIdChecks[ki][ko]), ki, ko)
-              console.log(this.buySkuId[ki], this.productSkuIdChecks[ki][ko])
+              // console.log(this.buySkuId[ki].indexOf(this.productSkuIdChecks[ki][ko]), ki, ko)
+              // console.log(this.buySkuId[ki], this.productSkuIdChecks[ki][ko])
               var a = this.buySkuId[ki].indexOf(this.productSkuIdChecks[ki][ko])
-              console.log(this.viewModel.storeItems[ki].productSkuItems[a].price)
-              console.log(this.viewModel.storeItems[ki].productSkuItems[a].buyCount)
-              // num = num + (this.viewModel.storeItems[ki].productSkuItems[a].price * this.viewModel.storeItems[ki].productSkuItems[a].buycount)
+              // console.log(a)
+              // console.log(this.viewModel.storeItems[ki].productSkuItems[a].price)
+              // console.log(this.viewModel.storeItems[ki].productSkuItems[a].buyCount)
+              // console.log(parseInt(this.viewModel.storeItems[ki].productSkuItems[a].price) * parseInt(this.viewModel.storeItems[ki].productSkuItems[a].buyCount))
+              num = num + this.viewModel.storeItems[ki].productSkuItems[a].price * this.viewModel.storeItems[ki].productSkuItems[a].buyCount
+              console.log('第', ko, '个', num)
+              this.totalAmount = num
             }
           }
-          console.log(num)
+          console.log('总价', num)
+          console.log('发生变化')
         },
         deep: true
       }
