@@ -11,19 +11,23 @@
 
     <group-title>
       <div class="fashion-title">
-        流行单品
+        最新快报
+
+      </div>
+      <div class="fashion-icon">
+        <m-icon name="zk-trumpet"></m-icon>
       </div>
     </group-title>
     <zk-product-item :pageSize=4 classIds='' tagsId='' diykey='index'></zk-product-item>
 
-    <zk-foot></zk-foot>
-
+    <!-- <zk-foot></zk-foot> -->
+    <zkdebt-foot></zkdebt-foot>
   </section>
 </template>
 
 <script>
-  import { ZkSwiper, ZkGrid, ZkProductItem } from 'widgets'
-  import { Search, Grid, GridItem, Swiper, Box, GroupTitle } from 'zkui'
+  import { ZkSwiper, ZkGrid, ZkProductItem, ZkdebtFoot } from 'widgets'
+  import { Search, Grid, GridItem, Swiper, Box, GroupTitle, MIcon } from 'zkui'
   export default {
     components: {
       Search,
@@ -34,7 +38,9 @@
       GridItem,
       ZkSwiper,
       Box,
-      ZkProductItem
+      ZkProductItem,
+      ZkdebtFoot,
+      MIcon
     }
   }
 </script>
@@ -104,28 +110,36 @@
         height: 0rem;
       }
     }
+    .weui-grids {
+      border-bottom: none;
+    }
     .weui-cells__title {
       padding-left: 0;
+      margin-top: 0;
+      border-top: 1px solid @gray-500;
+      border-bottom: 1px solid @gray-500;
+      position: relative;
       .fashion-title {
-        height: 2rem;
-        line-height: 2rem;
+        height: 2.5rem;
+        line-height: 2.5rem;
         width: 6.5rem;
-        color: @light;
-        background: @warning;
+        color: @info;
         padding-left: 1.5rem;
+
         font-weight: @font-weight-bold;
         position: relative;
       }
-      .fashion-title:before {
-        content: '';
-        display: block;
+      .fashion-icon {
+        width: 1.5rem;
+        height: 1.5rem;
         position: absolute;
-        right: -1rem;
-        top: 0;
-        width: 2rem;
-        height: 2rem;
-        border-radius: 50%;
-        background: @warning;
+        top: 50%;
+        right: 2rem;
+        transform: translate(0, -50%);
+        svg {
+          width: 100%;
+          height: 100%;
+        }
       }
     }
   }
