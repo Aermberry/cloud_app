@@ -45,7 +45,7 @@
                             <li class="price_now">￥{{productSku.price}}</li>
                             <li class="price_old">￥{{productSku.marketPrice}}</li>
                             <li class="flex_one price_num">
-                              <inline-x-number :min="0" width="3rem" :max="productSku.stock" button-style="round" v-model="buySkuCount[storeIndex][skuIndex]" @on-change="changeCount(storeIndex,skuIndex,productSku.productSkuId),ceshi(storeIndex,skuIndex,productSku.productSkuId,store.storeId) "></inline-x-number>
+                              <inline-x-number :min="0" width="3rem" :max="productSku.stock" button-style="round" v-model="buySkuCount[storeIndex][skuIndex]" @on-change="changeCount(storeIndex,skuIndex,productSku.productSkuId) "></inline-x-number>
                             </li>
                           </ul>
                         </div>
@@ -136,7 +136,7 @@
       console.log(this.productSkuIdChecks)
     },
     methods: {
-      async ceshi (sId, kId, pid, stId) {
+      async deleteCart (sId, kId, pid, stId) {
         if (this.buySkuCount[sId][kId] === 0) {
           let orderProductInput = {
             productSkuId: pid,
@@ -273,11 +273,23 @@
         }
       },
       // 修改数量,到0的时候，删除商品，增加的时候，判断库存
-      changeCount (storeIndex, skuIndex, skuId) {
+      async changeCount (storeIndex, skuIndex, skuId) {
         // 店铺数量  商品排位 skuid
         // console.info('修改数量', storeIndex, skuIndex, skuId)
-        // console.info(this.buySkuCount[storeIndex][skuIndex])
-
+        if (this.buySkuCount[storeIndex][skuIndex] === 0) {
+          let orderProductInput = {
+            productSkuId: skuId,
+            storeId: storeIndex
+          }
+          var reponses = await userService.RemoveCart(orderProductInput)
+          if (reponses.data.status === 1) {
+            console.log(reponses.data.status)
+            this.buySkuCount[storeIndex].splice(skuIndex, 1)
+            this.viewModel.storeItems[storeIndex].productSkuItems.splice(skuIndex, 1)
+          }
+        }
+        console.info(this.buySkuCount[storeIndex])
+        console.log(this.buySkuCount[storeIndex][skuIndex])
       },
       // 结算购买
       buy () {
@@ -309,27 +321,33 @@
       }
     },
     watch: {
-      productSkuIdChecks: {
-        handler (val) {
-          // console.log(val)
-          this.subscript = val
-          var num = 0
-          for (var ki = 0; ki < this.buySkuId.length; ki++) {
-            for (var ko = 0; ko < this.buySkuId[ki].length; ko++) {
-              // console.log(this.buySkuId[ki].indexOf(this.productSkuIdChecks[ki][ko]), ki, ko)
-              // console.log(this.buySkuId[ki], this.productSkuIdChecks[ki][ko])
-              var a = this.buySkuId[ki].indexOf(this.productSkuIdChecks[ki][ko])
-              // console.log(a)
-              // console.log(this.viewModel.storeItems[ki].productSkuItems[a].price)
-              // console.log(this.viewModel.storeItems[ki].productSkuItems[a].buyCount)
-              // console.log(parseInt(this.viewModel.storeItems[ki].productSkuItems[a].price) * parseInt(this.viewModel.storeItems[ki].productSkuItems[a].buyCount))
-              num = num + this.viewModel.storeItems[ki].productSkuItems[a].price * this.viewModel.storeItems[ki].productSkuItems[a].buyCount
-              console.log('第', ko, '个', num)
-              this.totalAmount = num
-            }
-          }
-          console.log('总价', num)
-          console.log('发生变化')
+      // productSkuIdChecks: {
+      //   handler (val) {
+      //     // console.log(val)
+      //     this.subscript = val
+      //     var num = 0
+      //     for (var ki = 0; ki < this.buySkuId.length; ki++) {
+      //       for (var ko = 0; ko < this.buySkuId[ki].length; ko++) {
+      //         // console.log(this.buySkuId[ki].indexOf(this.productSkuIdChecks[ki][ko]), ki, ko)
+      //         // console.log(this.buySkuId[ki], this.productSkuIdChecks[ki][ko])
+      //         var a = this.buySkuId[ki].indexOf(this.productSkuIdChecks[ki][ko])
+      //         // console.log(a)
+      //         // console.log(this.viewModel.storeItems[ki].productSkuItems[a].price)
+      //         // console.log(this.viewModel.storeItems[ki].productSkuItems[a].buyCount)
+      //         // console.log(parseInt(this.viewModel.storeItems[ki].productSkuItems[a].price) * parseInt(this.viewModel.storeItems[ki].productSkuItems[a].buyCount))
+      //         num = num + this.viewModel.storeItems[ki].productSkuItems[a].price * this.viewModel.storeItems[ki].productSkuItems[a].buyCount
+      //         console.log('第', ko, '个', num)
+      //         this.totalAmount = num
+      //       }
+      //     }
+      //     console.log('总价', num)
+      //     console.log('发生变化')
+      //   },
+      //   deep: true
+      // }
+      buySkuCount: {
+        handler (val, oldval) {
+          console.log('新', val, '旧', oldval)
         },
         deep: true
       }

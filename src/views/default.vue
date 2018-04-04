@@ -1,5 +1,5 @@
 <template>
-  <section class="zkui-default">
+  <section class="zkui-czt-default">
     <div class="index-search weui-header ">
       <router-link to="/product/search" class="zkui-default-search-box">
         <search placeholder="搜索您想要的商品"></search>
@@ -46,7 +46,7 @@
 </script>
 
 <style  lang="less" >
-  .zkui-default {
+  .zkui-czt-default {
     #index_scroll {
       .mescroll-upwarp {
         display: none;

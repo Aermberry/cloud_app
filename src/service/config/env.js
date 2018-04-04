@@ -18,13 +18,13 @@ let baseUrl
 let routerMode = 'history'
 
 if (process.env.NODE_ENV === 'development') {
-  // baseUrl = 'http://zkgs.5ug.com'
-  baseUrl = 'http://zkdebt.5ug.com'
+  baseUrl = 'http://zkgs.5ug.com'
+  // baseUrl = 'http://zkdebt.5ug.com'
   // baseUrl = 'http://localhost:9011'
 } else {
-  // baseUrl = 'http://zkgs.5ug.com'
+  baseUrl = 'http://zkgs.5ug.com'
   // baseUrl = 'http://localhost:9011'
-  baseUrl = 'http://zkdebt.5ug.com'
+  // baseUrl = 'http://zkdebt.5ug.com'
 }
 export {
   baseUrl,
