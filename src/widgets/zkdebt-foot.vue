@@ -9,13 +9,13 @@
           </div>
           <section class="li_text" :class="$route.path.indexOf('default') !== -1 ? 'brand' : 'metal' ">首页</section>
         </router-link>
-        <div to="" tag="li" class="footer_li" @click="ceshi">
+        <router-link to="" tag="li" class="footer_li" @click="ceshi">
           <section class="li_img">
             <img src="../../static/images/foot/2.png" alt="">
           </section>
           <section class="li_text" :class="$route.path.indexOf('product') !== -1 ? 'brand' : 'metal' ">债事管理</section>
 
-        </div>
+        </router-link>
         <router-link to="" tag="li" class="footer_li footer_li-center" @click="ceshi">
           <div class="center-box">
             <section class="li_img">
@@ -24,18 +24,18 @@
             <section class="li_text" :class="$route.path.indexOf('order') !== -1 ? 'brand' : 'metal' ">债事公告</section>
           </div>
         </router-link>
-        <div to="" tag="li" class="footer_li" @click="ceshi">
+        <router-link to="" tag="li" class="footer_li" @click="ceshi">
           <section class="li_img">
             <img src="../../static/images/foot/4.png" alt="">
           </section>
           <section class="li_text" :class="$route.path.indexOf('order') !== -1 ? 'brand' : 'metal' ">咨询中心</section>
-        </div>
-        <div to="" tag="li" class="footer_li" @click="ceshi">
+        </router-link>
+        <router-link to="/user/index" tag="li" class="footer_li">
           <section class="li_img">
             <img src="../../static/images/foot/5.png" alt="">
           </section>
           <section class="li_text" :class="$route.path.indexOf('user') !== -1 ? 'brand' : 'metal' ">我</section>
-        </div>
+        </router-link>
       </ul>
     </div>
   </section>
