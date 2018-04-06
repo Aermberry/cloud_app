@@ -108,8 +108,7 @@
           this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
         }
         this.selectSku = this.productView.productExtensions.productSkus[0] // 根据specSn获取商品的规格
-      }
-      ,
+      },
       init () {
         this.productView.productExtensions.productCategory.salePropertys.forEach(element => {
           this.salePropertyTitle = this.salePropertyTitle + element.name + ' '
