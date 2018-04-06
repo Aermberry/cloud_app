@@ -81,8 +81,13 @@
         salePropertyTitle: '请选择：',
         selectSku: '', // 选择的商品Sku
         buyCount: 1, // 商品购买数量
-        saleItems: [] // 可能存在多个商品规格属性，默认填充四个
+        saleItems: [], // 可能存在多个商品规格属性，默认填充四个
+        content: ''
       }
+    },
+    watch: {
+      // 监听路由的变化。
+      '$route': 'in'
     },
     mounted: function () {
       this.$nextTick(function () {
@@ -97,6 +102,14 @@
       }
     },
     methods: {
+      in () {
+        console.log('show', this.productView)
+        for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
+          this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
+        }
+        this.selectSku = this.productView.productExtensions.productSkus[0] // 根据specSn获取商品的规格
+      }
+      ,
       init () {
         this.productView.productExtensions.productCategory.salePropertys.forEach(element => {
           this.salePropertyTitle = this.salePropertyTitle + element.name + ' '

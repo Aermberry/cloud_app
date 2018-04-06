@@ -1,5 +1,5 @@
 <template>
-  <section class="zkui-czt-default">
+  <section class="zkui-default">
     <div class="index-search weui-header ">
       <router-link to="/product/search" class="zkui-default-search-box">
         <search placeholder="搜索您想要的商品"></search>
@@ -11,23 +11,19 @@
 
     <group-title>
       <div class="fashion-title">
-        最新快报
-
-      </div>
-      <div class="fashion-icon">
-        <m-icon name="zk-trumpet"></m-icon>
+        流行单品
       </div>
     </group-title>
     <zk-product-item :pageSize=4 classIds='' tagsId='' diykey='index'></zk-product-item>
 
-    <!-- <zk-foot></zk-foot> -->
-    <zkdebt-foot></zkdebt-foot>
+    <zk-foot></zk-foot>
+
   </section>
 </template>
 
 <script>
-  import { ZkSwiper, ZkGrid, ZkProductItem, ZkdebtFoot } from 'widgets'
-  import { Search, Grid, GridItem, Swiper, Box, GroupTitle, MIcon } from 'zkui'
+  import { ZkSwiper, ZkGrid, ZkProductItem } from 'widgets'
+  import { Search, Grid, GridItem, Swiper, Box, GroupTitle } from 'zkui'
   export default {
     components: {
       Search,
@@ -38,15 +34,13 @@
       GridItem,
       ZkSwiper,
       Box,
-      ZkProductItem,
-      ZkdebtFoot,
-      MIcon
+      ZkProductItem
     }
   }
 </script>
 
 <style  lang="less" >
-  .zkui-czt-default {
+  .zkui-default {
     #index_scroll {
       .mescroll-upwarp {
         display: none;
@@ -110,36 +104,28 @@
         height: 0rem;
       }
     }
-    .weui-grids {
-      border-bottom: none;
-    }
     .weui-cells__title {
       padding-left: 0;
-      margin-top: 0;
-      border-top: 1px solid @gray-500;
-      border-bottom: 1px solid @gray-500;
-      position: relative;
       .fashion-title {
-        height: 2.5rem;
-        line-height: 2.5rem;
+        height: 2rem;
+        line-height: 2rem;
         width: 6.5rem;
-        color: @info;
+        color: @light;
+        background: @warning;
         padding-left: 1.5rem;
-
         font-weight: @font-weight-bold;
         position: relative;
       }
-      .fashion-icon {
-        width: 1.5rem;
-        height: 1.5rem;
+      .fashion-title:before {
+        content: '';
+        display: block;
         position: absolute;
-        top: 50%;
-        right: 2rem;
-        transform: translate(0, -50%);
-        svg {
-          width: 100%;
-          height: 100%;
-        }
+        right: -1rem;
+        top: 0;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        background: @warning;
       }
     }
   }

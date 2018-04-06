@@ -276,20 +276,20 @@
       async changeCount (storeIndex, skuIndex, skuId) {
         // 店铺数量  商品排位 skuid
         // console.info('修改数量', storeIndex, skuIndex, skuId)
-        if (this.buySkuCount[storeIndex][skuIndex] === 0) {
-          let orderProductInput = {
-            productSkuId: skuId,
-            storeId: storeIndex
-          }
-          var reponses = await userService.RemoveCart(orderProductInput)
-          if (reponses.data.status === 1) {
-            console.log(reponses.data.status)
-            this.buySkuCount[storeIndex].splice(skuIndex, 1)
-            this.viewModel.storeItems[storeIndex].productSkuItems.splice(skuIndex, 1)
-          }
-        }
-        console.info(this.buySkuCount[storeIndex])
-        console.log(this.buySkuCount[storeIndex][skuIndex])
+        // if (this.buySkuCount[storeIndex][skuIndex] === 0) {
+        //   let orderProductInput = {
+        //     productSkuId: skuId,
+        //     storeId: storeIndex
+        //   }
+        //   var reponses = await userService.RemoveCart(orderProductInput)
+        //   if (reponses.data.status === 1) {
+        //     console.log(reponses.data.status)
+        //     this.buySkuCount[storeIndex].splice(skuIndex, 1)
+        //     this.viewModel.storeItems[storeIndex].productSkuItems.splice(skuIndex, 1)
+        //   }
+        // }
+        // console.info(this.buySkuCount[storeIndex])
+        // console.log(this.buySkuCount[storeIndex][skuIndex])
       },
       // 结算购买
       buy () {
