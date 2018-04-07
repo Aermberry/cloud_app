@@ -129,6 +129,7 @@
         // 如果是商城订单支付，则跳转到商城订单
         if (this.orderType === 'order') {
           if (this.orderIds.length === 1) {
+            console.info(this.orderIds)
             // 一个订单跳转到详情页
             this.$router.push({
               name: 'order_show',
