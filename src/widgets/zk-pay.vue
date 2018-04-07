@@ -112,9 +112,8 @@
         if (response.data.status === 1) {
           // 如果支付订单类型为商城订单，支付成功以后跳转到我的订单或者订单详情
           if (this.orderType === 'order') {
-            //测试代码
             window.location.href = response.data.result.message
-            //this.push()
+            // this.push()
           }
         } else {
           this.$vux.toast.warn(response.data.message)
