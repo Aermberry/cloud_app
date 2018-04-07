@@ -291,7 +291,7 @@
   }
 </script>
 
-<style scoped  lang="less">
+<style   lang="less">
   .zkui_order_buy {
     margin-bottom: 2.5rem;
     .weui-cells {

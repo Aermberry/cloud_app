@@ -1,6 +1,5 @@
 <template>
-  <div class="zkui-pc-productshow auto">
-  </div>
+  <div></div>
 </template>
 <script>
   export default {
@@ -14,7 +13,6 @@
       }, 2000)
     },
     methods: {
-
     },
     data () {
       return {

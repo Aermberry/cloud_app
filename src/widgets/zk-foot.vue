@@ -28,7 +28,7 @@
           <section class="li_img">
             <img src="../../static/images/foot/4.png" alt="">
           </section>
-          <section class="li_text" :class="$route.path.indexOf('order') !== -1 ? 'brand' : 'metal' ">咨询中心</section>
+          <section class="li_text" :class="$route.path.indexOf('order') !== -1 ? 'brand' : 'metal' ">分类中心</section>
         </router-link>
         <router-link to="/user/index" tag="li" class="footer_li">
           <section class="li_img">

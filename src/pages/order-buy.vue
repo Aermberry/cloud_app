@@ -129,7 +129,7 @@
                 </div>
                 <div class="pop-right">
                   <div class="pop-right-left">
-                    <el-switch v-model="value2" active-color="#15509c" inactive-color="#ced4da">
+                    <el-switch v-model="value2" active-color="#0090ff" inactive-color="#ced4da">
                     </el-switch>
                   </div>
                 </div>
