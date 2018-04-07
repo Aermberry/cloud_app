@@ -7,7 +7,7 @@
       </tabbar-item>
       <tabbar-item class="bar-star" @click.native="acctionProductFavorite">
         <m-icon slot="icon" name="zk-favorites" :class="hasFavorite === false ? 'metal' : 'brand' "></m-icon>
-        <span slot="label">收藏</span>
+        <span slot="label" :class="hasFavorite === false ? 'metal' : 'brand' ">收藏</span>
       </tabbar-item>
       <tabbar-item link="/order/cart" class="bar-cart">
         <m-icon slot="icon" name="zk-cart" class="metal"></m-icon>
@@ -144,7 +144,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        border: 1px solid rgba(0, 0, 0, 0.2);
+        border: none;
         -webkit-transform: scale(0.5);
         transform: scale(0.5);
         -webkit-transform-origin: 0 0;
@@ -157,6 +157,16 @@
       .bar-star {
         width: 15%;
         border-right: 1px solid #e5e5e5;
+      }
+      .bar-home,
+      .bar-star,
+      .bar-cart {
+        .weui-tabbar__label {
+          span {
+            font-size: 0.7rem;
+            color: @metal;
+          }
+        }
       }
     }
   }

@@ -93,7 +93,7 @@
       border-color: @brand;
     }
     .el-checkbox__input.is-checked + .el-checkbox__label {
-      color: @brand;
+      color: @black;
     }
     .el-checkbox__inner:hover {
       border-color: @brand;

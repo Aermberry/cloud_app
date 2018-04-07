@@ -1,23 +1,22 @@
 <template>
   <div class="zkui-product-show-title">
     <div class="zkui-product-show-title">
-      <div class="zkui-product-show-title-left left">
-        <span class="zkui-product-show-title-storename left">自营</span>
-      </div>
+      <!-- <div class="zkui-product-show-title-left left">
+        <span class="zkui-product-show-title-storename left">{{productView.store}}</span>
+      </div> -->
       <div class="zkui-product-show-title-left left">
         <span class="zkui-product-show-title-price_symbol left">{{productView.displayPrice}}</span>
-        <span class="zkui-product-show-title-price_old left">￥{{productView.marketPrice}}</span>
+        <p class="zkui-product-show-title-price_old left">￥{{productView.marketPrice}}</p>
         <span class="zkui-product-show-title-right right">
           {{productView.soldCount}}人已购
         </span>
       </div>
     </div>
-
     <div class="zkui-product-show-title-content">
-      {{productView.name}}
+      <span class="zkui-product-show-title-storename left">{{productView.store}}</span>{{productView.name}}
     </div>
 
-    <group gap="0rem 0rem 0rem 0rem">
+    <group>
 
       <span slot="title">
         <ul class="zkui-product-show-serve-box clear">
@@ -44,21 +43,27 @@
       Group,
       Cell
     },
-    props: ['productView']
+    props: ['productView'],
+    mounted () {
+      console.log(this.productView)
+    }
   }
 </script>
 
-<style scoped  lang="less">
+<style   lang="less">
   @import '../../../../assets/css/zkui/theme';
   @import '../../../../assets/css/zkui/mixin';
   .zkui-product-show-title {
     background: #fff;
     padding: 0.5rem 10px 0 10*@rem;
+    .vux-no-group-title {
+      margin-top: 0 !important;
+    }
     .zkui-product-show-title-left {
       position: relative;
       .zkui-product-show-title-price_symbol {
         color: @brand;
-        font-size: @h3-font-size;
+        font-size: @h4-font-size;
         padding-top: 1*@rem;
         font-weight: @font-weight-normal;
       }
@@ -90,6 +95,11 @@
     font-weight: 400;
     font-family: Helvetica;
     .sizeColor(@h5-font-size, @black);
+    .zkui-product-show-title-storename {
+      background: @brand;
+      color: @white;
+      padding: 1*@rem 5*@rem;
+    }
   }
 
   .zkui-product-show-serve-box {
@@ -98,7 +108,6 @@
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
-    height: 0.9rem;
     li {
       color: @gray-600;
       margin-left: 0.5rem;

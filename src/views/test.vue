@@ -21,12 +21,13 @@
     <zk-product-item :pageSize=4 classIds='' tagsId='' diykey='index'></zk-product-item>
 
     <!-- <zk-foot></zk-foot> -->
+    <!-- <zk-notdata></zk-notdata> -->
     <zkdebt-foot></zkdebt-foot>
   </section>
 </template>
 
 <script>
-  import { ZkSwiper, ZkGrid, ZkProductItem, ZkdebtFoot } from 'widgets'
+  import { ZkSwiper, ZkGrid, ZkProductItem, ZkdebtFoot, ZkNotdata } from 'widgets'
   import { Search, Grid, GridItem, Swiper, Box, GroupTitle, MIcon } from 'zkui'
   export default {
     components: {
@@ -40,7 +41,8 @@
       Box,
       ZkProductItem,
       ZkdebtFoot,
-      MIcon
+      MIcon,
+      ZkNotdata
     }
   }
 </script>

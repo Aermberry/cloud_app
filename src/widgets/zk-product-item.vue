@@ -129,23 +129,24 @@
             overflow: hidden;
             text-overflow: ellipsis;
             -webkit-box-orient: vertical;
-            -webkit-line-clamp: 1;
+            -webkit-line-clamp: 2;
             white-space: nowrap;
             color: @black;
           }
         }
         .itemPrice {
           padding-left: 10*@rem;
-          min-height: 3rem;
+          min-height: 2rem;
           p {
             color: @brand;
             font-weight: bold;
             margin-left: -0.2rem;
+            font-size: @h6-font-size;
           }
           span {
             text-decoration: line-through;
-            padding-top: 0.3rem;
             color: @gray-600;
+            font-size: @h6-font-size;
           }
         }
       }

@@ -14,14 +14,16 @@
                       <div class="order-cart-commodity-into_left"><img :src="productSku.thumbnailUrl " alt=""></div>
                       <div class="flex_one order-cart-commodity-into_right ">
                         <p>{{productSku.name}}</p>
-                        <span>{{productSku.bn}} {{productSku.propertyValueDesc}} <br/>重量：{{productSku.weight}}g</span>
-                        <ul class="flex">
-                          <li class="price_now">￥{{productSku.displayPrice}}</li>
-                          <li class="price_old"> ￥{{productSku.marketPrice}} </li>
-                          <li class="flex_one price_num">
-                            X {{productSku.buyCount}}
-                          </li>
-                        </ul>
+                        <span>{{productSku.bn}} {{productSku.propertyValueDesc}} 重量：{{productSku.weight}}g</span>
+                        <div class="price-box">
+                          <p class="price_now">￥{{productSku.displayPrice}}</p>
+                          <div class="flex">
+                            <span class="price_old flex_one "> ￥{{productSku.marketPrice}} </span>
+                            <span class=" price_num">
+                              X {{productSku.buyCount}}
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </li>
@@ -467,18 +469,24 @@
                 margin-top: 0.8rem;
                 padding: 0 0.8rem;
                 position: relative;
-                height: 7rem;
+                min-height: 7rem;
                 p {
                   font-size: @h6-font-size;
                   color: @black;
                   font-family: Helvetica;
+                  word-break: break-all;
+                  text-overflow: ellipsis;
+                  display: -webkit-box;
+                  -webkit-box-orient: vertical;
+                  -webkit-line-clamp: 2;
+                  overflow: hidden;
                 }
                 span {
                   font-size: 0.8rem;
                   color: @gray-500;
                   font-family: Helvetica;
                 }
-                ul {
+                div.price-box {
                   width: 95%;
                   position: absolute;
                   left: 10*@rem;
@@ -486,22 +494,21 @@
                   height: 2rem;
                   vertical-align: bottom;
                   align-items: flex-end;
-                  li.price_now {
+                  p.price_now {
                     color: @danger;
                     font-size: @h5-font-size;
                     font-weight: bold;
                     font-family: Helvetica;
                   }
-                  li.price_old {
+                  span.price_old {
                     padding-left: 5*@rem;
                     text-decoration: line-through;
                     color: @gray-500;
                     font-family: Helvetica;
                   }
-                  li.price_num {
+                  span.price_num {
                     text-align: right;
                     color: @gray-500;
-                    padding-right: 10*@rem;
                     padding-left: 10*@rem;
                     font-family: Helvetica;
                     .vux-number-round {
