@@ -4,6 +4,7 @@
     <zk-head title='注册' goBack='返回'></zk-head>
     <group gap="2rem 0.2rem" id="form">
       <x-input title="用户名" required :min="2" :max="12" v-model="user.username"></x-input>
+      <x-input title="用户名" required :min="2" :max="12" v-model="user.username"></x-input>
       <x-input title="手机号" required placeholder="请输入您的手机号" mask="999 9999 9999" v-model="user.mobile" :max="13" is-type="mobile"></x-input>
       <zk-phone-verifiy v-model="user.mobileVerifiyCode" :mobile="user.mobile"></zk-phone-verifiy>
       <x-input title="密码" required type="password" :min="6" :max="16" v-model="user.password"></x-input>
@@ -17,9 +18,6 @@
         <router-link to="/user/agreement" class="">《服务条款》</router-link>
       </span>
     </label>
-    <group>
-      <cell title="推荐人" :value="userInfoName"></cell>
-    </group>
 
     <box gap="3rem 1rem">
       <x-button @click.native="reg" type="primary" action-type="button">注册会员</x-button>
