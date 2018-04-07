@@ -50,11 +50,11 @@
         this.$router ? this.$router.back() : window.history.back()
       },
       onSubmit () {
-        this.$vux.toast.show({
-          type: 'text',
-          position: 'top',
-          text: 'on submit'
-        })
+        // this.$vux.toast.show({
+        //   type: 'text',
+        //   position: 'top',
+        //   text: 'on submit'
+        // })
         this.$router.push({
           name: 'product_list',
           params: {
@@ -63,10 +63,10 @@
         })
       },
       onFocus () {
-        console.log('on focus')
+        // console.log('on focus')
       },
       onCancel () {
-        console.log('on cancel')
+        // console.log('on cancel')
       }
     }
   }

@@ -26,7 +26,7 @@
     </div>
 
     <div class="placeholder"></div>
-    <section class="ZKProductItem">
+    <section class="ZKProductItem" v-if="!datashow">
       <div class="zkui-product-item__1 ">
         <ul>
           <li v-for="(item,index) in dataList" :key="index">
@@ -51,9 +51,11 @@
       </div>
       <zk-foot></zk-foot>
     </section>
+    <zk-notdata v-if="datashow"></zk-notdata>
   </section>
 </template>
 <script>
+  import { ZkNotdata } from 'widgets'
   import { XImg, XScroll, Tab, TabItem, Sticky, Divider } from 'zkui'
   import apiService from 'src/service/api/product.api'
   export default {
@@ -63,7 +65,8 @@
       Tab,
       TabItem,
       Sticky,
-      Divider
+      Divider,
+      ZkNotdata
     },
     data () {
       return {
@@ -71,7 +74,8 @@
         styleType: '', // 风格类型, zklist支持多种样式，判断选择哪种样式
         pageIndex: 1, // 从第一页开始加载
         sort: '',
-        tabDown: false
+        tabDown: false,
+        datashow: true
       }
     },
     mounted () {
@@ -95,6 +99,9 @@
         }
         let response = await apiService.list(params) // 通过异步方法获取数据
         this.dataList = response.data.result.productItems
+        if (this.dataList.length !== 0) {
+          this.datashow = false
+        }
       }
     }
   }
