@@ -4,7 +4,7 @@
       <div class="weui-panel__bd">
         <a :href="item.url" class="weui-media-box weui-media-box_appmsg" v-for="item in dataList" :key="item.id">
           <div class="weui-media-box__hd">
-            <x-img :src="item.image" ></x-img>
+            <x-img :src="item.image"></x-img>
           </div>
           <div class="weui-media-box__bd">
             <h4 class="weui-media-box__title zkui-user-account-finacebill-fontcolor">{{item.title}}
@@ -62,8 +62,8 @@
           diyKey: this.diykey,
           isLogin: this.isLogin
         }
-        var response = await apiService.getList() //  通过异步方法获取数据
-      //  console.dir(response) //  调试返回结果，调试完成以后请注释
+        var response = await apiService.getList(params) //  通过异步方法获取数据
+        //  console.dir(response) //  调试返回结果，调试完成以后请注释
         let totalSize = response.data.result.totalSize //  获取总页数
         this.styleType = response.data.result.styleType // 选择何种风格
         this.$refs.mescroll.endSuccess(params, totalSize) // 调用widget xsroll 下拉刷新函数
@@ -73,12 +73,12 @@
         }
       },
       success (src, ele) {
-       // console.log('success load', src)
+        // console.log('success load', src)
         const span = ele.parentNode.querySelector('span')
         ele.parentNode.removeChild(span)
       },
       error (src, ele, msg) {
-       // console.log('error load', msg, src)
+        // console.log('error load', msg, src)
         const span = ele.parentNode.querySelector('span')
         span.innerText = 'load error'
       }
