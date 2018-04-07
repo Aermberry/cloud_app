@@ -9,7 +9,7 @@
     <group gap="2rem 0.2rem" id="form" title="新用户信息">
       <x-input title="用户名" required :min="2" :max="12" v-model="user.username"></x-input>
       <x-input title="手机号" required mask="999 9999 9999" v-model="user.mobile" :max="13" is-type="mobile"></x-input>
-      <x-input title="姓名" required v-model="user.name" :max="13" is-type="mobile"></x-input>
+      <x-input title="姓名" required v-model="user.name" :max="13"></x-input>
       <zk-phone-verifiy v-model="user.mobileVerifiyCode" :mobile="user.mobile"></zk-phone-verifiy>
       <x-input title="密码" required type="password" :min="6" :max="16" v-model="user.password"></x-input>
       <x-input title="确认密码" required type="password" :min="6" :max="16" class="border-bottom" v-model="user.confirmPassword"></x-input>
