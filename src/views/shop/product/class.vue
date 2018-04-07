@@ -8,7 +8,7 @@
     </router-link>
 
     <div class="zk-class-tab">
-      <tab :line-width=2 active-color='#fc378c' v-model="index" class="zk-class-tab-left">
+      <tab :line-width=2 active-color='#0090ff' v-model="index" class="zk-class-tab-left">
         <tab-item class="vux-center" :selected="demo2 === item" v-for="(item, index) in list2" @click="demo2 = item" :key="index">{{item}}</tab-item>
       </tab>
       <swiper v-model="index" height="100px" :show-dots="false" class="zk-class-tab-right">
@@ -143,6 +143,7 @@
       width: 4.2857rem;
       height: 4.2857rem;
       margin: 0 auto;
+      border-radius: 50%;
     }
     .weui-grids > .weui-grid p {
       font-size: @h6-font-size;
@@ -194,7 +195,7 @@
     display: block !important;
     overflow-y: auto;
     // border-right: 1px solid #e5e5e5;
-    background: @gray-200 !important;
+    background: @search-bg-color !important;
     .vux-tab-selected {
       background: @white !important;
       border-bottom: 1px solid #e5e5e5 !important;

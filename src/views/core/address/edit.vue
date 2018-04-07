@@ -1,7 +1,7 @@
 <template>
   <section class="zkui-user-address-edit">
     <zk-head :title="addressTitle">
-      <a slot="right" href="/user/address/index">管理</a>
+      <!-- <a slot="right" href="/user/address/index">管理</a> -->
     </zk-head>
     <group>
       <x-input title="收件人姓名" required type="text" v-model="addressInput.name"></x-input>

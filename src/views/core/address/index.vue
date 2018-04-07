@@ -165,6 +165,9 @@
       background: @gray-100;
       padding-bottom: 50*@rem;
     }
+    .vux-checker-box {
+      padding-bottom: 10rem;
+    }
     .address_name {
       font-size: 1.2rem;
       color: @black;
@@ -252,7 +255,7 @@
       overflow-y: auto;
       z-index: 5;
       background-color: white;
-      bottom: 3.33333333rem;
+      bottom: 6.5rem;
       .weui-btn {
         border-radius: 0;
         height: 2.5rem;

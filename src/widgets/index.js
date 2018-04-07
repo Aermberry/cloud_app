@@ -15,7 +15,8 @@ import ZkPassword from 'src/widgets/zk-password' // 输入支付密码
 import ZkPay from 'src/widgets/zk-pay' // 支付方式列表
 import ZkAddress from 'src/widgets/zk-address' // 支付方式列表
 import ZkUpload from 'src/widgets/zk-upload/index' // 图片上传
-import ZkdebtFoot from 'src/widgets/zkdebt-foot'
+import ZkdebtFoot from 'src/widgets/zkdebt-foot' // 云债通专用底部
+import ZkNotdata from 'src/widgets/zk-notdata' // 暂无数据
 
 export {
   ZkSwiper,
@@ -30,5 +31,6 @@ export {
   ZkPay,
   ZkAddress,
   ZkUpload,
-  ZkdebtFoot
+  ZkdebtFoot,
+  ZkNotdata
 }

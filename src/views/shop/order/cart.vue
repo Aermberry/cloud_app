@@ -18,7 +18,7 @@
           <ul>
             <li class="zkui-order-cart-item" v-for="(productSku,skuIndex) in store.productSkuItems" :key="skuIndex">
               <div class="order-cart-commodity">
-                <div slot="content" class="demo-content " style="height:7.8rem">
+                <div slot="content" class="demo-content " style="min-height:7.8rem">
                   <ul class="flex order-cart-commodity-box">
                     <li class="order-cart-commodity-left">
                       <div class="weui-cells weui-cells_checkbox">
@@ -41,13 +41,16 @@
                             <p>{{productSku.name}}</p>
                           </router-link>
                           <span>{{productSku.propertyValueDesc}}</span>
-                          <ul class="flex">
-                            <li class="price_now">￥{{productSku.price}}</li>
-                            <li class="price_old">￥{{productSku.marketPrice}}</li>
-                            <li class="flex_one price_num">
-                              <inline-x-number :min="0" width="3rem" :max="productSku.stock" button-style="round" v-model="buySkuCount[storeIndex][skuIndex]" @on-change="changeCount(storeIndex,skuIndex,productSku.productSkuId) "></inline-x-number>
-                            </li>
-                          </ul>
+                          <div class="price-box">
+                            <p class="price_now">￥{{productSku.price}}</p>
+                            <div class="flex">
+                              <span class="price_old flex_one">￥{{productSku.marketPrice}}</span>
+                              <span class="flex_one price_num">
+                                <inline-x-number :min="0" width="3rem" :max="productSku.stock" button-style="round" v-model="buySkuCount[storeIndex][skuIndex]" @on-change="changeCount(storeIndex,skuIndex,productSku.productSkuId) "></inline-x-number>
+                              </span>
+
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -82,7 +85,7 @@
           <span slot="label">全选({{totalCount}})</span>
         </tabbar-item>
         <tabbar-item class="bar-num">
-          <span slot="label" class="zkui-order-cart-bar-price">{{totalAmount}}</span>
+          <span slot="label" class="zkui-order-cart-bar-price">{{totalAmount}}元</span>
         </tabbar-item>
         <tabbar-item class="bar-right">
           <x-button slot="customer" type="primary" class="zkui-order-cart-bar-close" @click.native="buy()">结算</x-button>
@@ -276,20 +279,20 @@
       async changeCount (storeIndex, skuIndex, skuId) {
         // 店铺数量  商品排位 skuid
         // console.info('修改数量', storeIndex, skuIndex, skuId)
-        if (this.buySkuCount[storeIndex][skuIndex] === 0) {
-          let orderProductInput = {
-            productSkuId: skuId,
-            storeId: storeIndex
-          }
-          var reponses = await userService.RemoveCart(orderProductInput)
-          if (reponses.data.status === 1) {
-            console.log(reponses.data.status)
-            this.buySkuCount[storeIndex].splice(skuIndex, 1)
-            this.viewModel.storeItems[storeIndex].productSkuItems.splice(skuIndex, 1)
-          }
-        }
-        console.info(this.buySkuCount[storeIndex])
-        console.log(this.buySkuCount[storeIndex][skuIndex])
+        // if (this.buySkuCount[storeIndex][skuIndex] === 0) {
+        //   let orderProductInput = {
+        //     productSkuId: skuId,
+        //     storeId: storeIndex
+        //   }
+        //   var reponses = await userService.RemoveCart(orderProductInput)
+        //   if (reponses.data.status === 1) {
+        //     console.log(reponses.data.status)
+        //     this.buySkuCount[storeIndex].splice(skuIndex, 1)
+        //     this.viewModel.storeItems[storeIndex].productSkuItems.splice(skuIndex, 1)
+        //   }
+        // }
+        // console.info(this.buySkuCount[storeIndex])
+        // console.log(this.buySkuCount[storeIndex][skuIndex])
       },
       // 结算购买
       buy () {
@@ -354,7 +357,7 @@
     }
   }
 </script>
-<style scoped lang="less">
+<style  lang="less">
   .zkui-order-cart {
     padding-bottom: 50*@rem;
     .flex {
@@ -408,7 +411,7 @@
         }
       }
       .order-cart-commodity {
-        height: 7.8rem;
+        min-height: 7.8rem;
         ul.order-cart-commodity-box {
           height: 100%;
         }
@@ -447,8 +450,9 @@
               border-bottom: 1px solid rgba(229, 229, 229, 0.5);
               margin-top: 0.8rem;
               padding: 0 0.8rem;
+              padding: 0 0.8rem 0.8rem 0.8rem;
               position: relative;
-              height: 7rem;
+              min-height: 7rem;
               p {
                 font-size: @h6-font-size;
                 color: @black;
@@ -463,25 +467,25 @@
                 font-size: 0.8rem;
                 color: @gray-500;
               }
-              ul {
-                width: 95%;
-                position: absolute;
-                left: 10*@rem;
-                bottom: 10*@rem;
-                height: 2rem;
+              div.price-box {
+                min-height: 2rem;
                 vertical-align: bottom;
                 align-items: flex-end;
-                li.price_now {
+                p.price_now {
                   color: @danger;
                   font-size: @h4-font-size;
                   font-weight: bold;
                 }
-                li.price_old {
+                div.flex {
+                  vertical-align: bottom;
+                  align-items: flex-end;
+                }
+                span.price_old {
                   padding-left: 5*@rem;
                   text-decoration: line-through;
                   color: @gray-500;
                 }
-                li.price_num {
+                span.price_num {
                   text-align: right;
                   color: @gray-500;
                   padding-right: 10*@rem;
@@ -492,6 +496,9 @@
                   }
                   .vux-number-round > div {
                     height: 20px;
+                  }
+                  .vux-number-input {
+                    font-size: @h4-font-size;
                   }
                 }
               }

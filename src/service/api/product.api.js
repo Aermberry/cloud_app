@@ -18,7 +18,17 @@ export default {
   },
   //  商品搜索下
   search (data) {
-    var response = http.get('/Api/Diy/SearchKeyWord', data)
+    var response = http.get('/Diy/SearchKeyWord', data)
+    return response
+  },
+  //  商品收藏
+  favorite (data) {
+    var response = http.getLogin('/product/favoriteProduct', data)
+    return response
+  },
+  //  足迹
+  footprint (data) {
+    var response = http.getLogin('/product/FootprintProduct', data)
     return response
   }
 }

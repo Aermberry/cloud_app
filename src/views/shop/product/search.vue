@@ -5,9 +5,9 @@
         <m-icon slot="icon" name="zk-return" class="metal"></m-icon>
       </div>
       <!-- <search placeholder="搜索您想要的商品" cancel-text="取消" :auto-fixed="false"></search> -->
-      <search v-model="value" cancelText="取消" :auto-fixed="false" @on-focus="onFocus" @on-cancel="onCancel" @on-submit="onSubmit" ref="search"></search>
+      <search v-model="value" cancelText="取消" :auto-fixed="false" @on-focus="onFocus" @on-cancel="onCancel" @on-submit="onSubmit" ref="search" placeholder="搜索您想要的商品"></search>
     </div>
-    <div class="zkui-product_search-item">
+    <!-- <div class="zkui-product_search-item">
       <h2>热门搜索</h2>
       <ul>
         <li v-for="(list, index) in lists" :key="index">
@@ -16,7 +16,7 @@
           </router-link>
         </li>
       </ul>
-    </div>
+    </div> -->
     <zk-foot></zk-foot>
   </section>
 </template>
@@ -50,11 +50,11 @@
         this.$router ? this.$router.back() : window.history.back()
       },
       onSubmit () {
-        this.$vux.toast.show({
-          type: 'text',
-          position: 'top',
-          text: 'on submit'
-        })
+        // this.$vux.toast.show({
+        //   type: 'text',
+        //   position: 'top',
+        //   text: 'on submit'
+        // })
         this.$router.push({
           name: 'product_list',
           params: {
@@ -63,10 +63,10 @@
         })
       },
       onFocus () {
-        console.log('on focus')
+        // console.log('on focus')
       },
       onCancel () {
-        console.log('on cancel')
+        // console.log('on cancel')
       }
     }
   }
@@ -150,6 +150,9 @@
       }
     }
     .weui-search-bar__label .weui-icon-search {
+      margin-top: 5px;
+    }
+    .weui-search-bar__label span {
       margin-top: 5px;
     }
     .sale-info-close {

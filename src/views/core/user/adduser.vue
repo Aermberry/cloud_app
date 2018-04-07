@@ -2,9 +2,14 @@
   <section class="zkui-user-adduser">
 
     <zk-head title='注册' goBack='返回'></zk-head>
-    <group gap="2rem 0.2rem" id="form">
+    <group title="推荐人信息">
+      <x-input title="推荐人" required :min="2" :max="12" v-model="user.parentUserName"></x-input>
+    </group>
+
+    <group gap="2rem 0.2rem" id="form" title="新用户信息">
       <x-input title="用户名" required :min="2" :max="12" v-model="user.username"></x-input>
-      <x-input title="手机号" required placeholder="请输入您的手机号" mask="999 9999 9999" v-model="user.mobile" :max="13" is-type="mobile"></x-input>
+      <x-input title="手机号" required mask="999 9999 9999" v-model="user.mobile" :max="13" is-type="mobile"></x-input>
+      <x-input title="姓名" required v-model="user.name" :max="13"></x-input>
       <zk-phone-verifiy v-model="user.mobileVerifiyCode" :mobile="user.mobile"></zk-phone-verifiy>
       <x-input title="密码" required type="password" :min="6" :max="16" v-model="user.password"></x-input>
       <x-input title="确认密码" required type="password" :min="6" :max="16" class="border-bottom" v-model="user.confirmPassword"></x-input>
@@ -17,9 +22,6 @@
         <router-link to="/user/agreement" class="">《服务条款》</router-link>
       </span>
     </label>
-    <group>
-      <cell title="推荐人" :value="userInfoName"></cell>
-    </group>
 
     <box gap="3rem 1rem">
       <x-button @click.native="reg" type="primary" action-type="button">注册会员</x-button>
@@ -47,9 +49,11 @@
           username: '',
           password: '',
           agree: true,
+          name: '',
+          emmail: '',
           confirmPassword: '',
           mobileVerifiyCode: '',
-          userInfoName: ''
+          parentUserName: ''
         },
         qwe: true,
         checked: true
@@ -63,21 +67,16 @@
         this.checked = !this.checked
       },
       async GetData () {
-        var reponse = await apiUser.view(this.data)
-        this.userInfoName = reponse.data.result.userName
+        this.user.parentUserName = this.LoginUser().userName
       },
       async reg () {
-        // this.user.mobile = this.user.mobile.replace(/\s+/g, '')
-        // var response = await apiUser.reg(this.user)
-        // if (response.data.status === 1) {
-        //   this.$vux.toast.success('注册成功')
-        //   this.$router.push({
-        //     name: 'user_login'
-        //   }
-        //   )
-        // } else {
-        //   this.$vux.toast.warn(response.data.message)
-        // }
+        this.user.mobile = this.user.mobile.replace(/\s+/g, '')
+        var response = await apiUser.reg(this.user)
+        if (response.data.status === 1) {
+          this.messageSuccess('新会员注册成功')
+        } else {
+          this.$vux.toast.warn(response.data.message)
+        }
       }
     }
   }
@@ -94,7 +93,7 @@
       border-color: @brand;
     }
     .el-checkbox__input.is-checked + .el-checkbox__label {
-      color: @brand;
+      color: @black;
     }
     .el-checkbox__inner:hover {
       border-color: @brand;

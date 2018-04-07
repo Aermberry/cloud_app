@@ -69,7 +69,6 @@
     .vux-slider {
       overflow: hidden;
       position: relative;
-      padding-top: 34*@rem;
     }
     img {
       width: 100%;

@@ -81,8 +81,13 @@
         salePropertyTitle: '请选择：',
         selectSku: '', // 选择的商品Sku
         buyCount: 1, // 商品购买数量
-        saleItems: [] // 可能存在多个商品规格属性，默认填充四个
+        saleItems: [], // 可能存在多个商品规格属性，默认填充四个
+        content: ''
       }
+    },
+    watch: {
+      // 监听路由的变化。
+      '$route': 'in'
     },
     mounted: function () {
       this.$nextTick(function () {
@@ -97,6 +102,13 @@
       }
     },
     methods: {
+      in () {
+        console.log('路由发生变化-showP')
+        console.log('show', this.productView)
+        for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
+          this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
+        }
+      },
       init () {
         this.productView.productExtensions.productCategory.salePropertys.forEach(element => {
           this.salePropertyTitle = this.salePropertyTitle + element.name + ' '
@@ -159,7 +171,7 @@
           }
         }
         if (sku.id === undefined) {
-          this.$vux.toast.warn('请选择商品规格')
+          // this.$vux.toast.warn('请选择商品规格')
         }
         return sku
       },
@@ -178,20 +190,18 @@
     .vux-label {
       font-weight: @font-weight-normal;
     }
-    .weui-cell {
-      padding: 1rem 1.5rem 1rem 1.5rem;
+    .weui-cells {
+      margin-top: 0;
     }
     .weui-cells-top {
-      height: 8px;
       background-color: #efefef;
       margin-bottom: -2*@rem;
       border: 1px solid white;
     }
     .weui-cells-bottom {
-      height: 8px;
+      height: 5*@rem;
       background-color: #efefef;
-      margin-top: -2*@rem;
-      border: 1px solid white;
+      // border: 1px solid white;
     }
     .weui-cells__title {
       text-align: center;
@@ -353,7 +363,11 @@
     .weui-cells:before {
       border-top: 0;
     }
+    .vux-number-input {
+      font-size: @h4-font-size;
+    }
   }
+
   .goods-title {
     position: fixed;
     width: 100%;
@@ -409,6 +423,9 @@
     min-height: 40px;
     z-index: 5;
     background-color: white;
+    button {
+      border-radius: 0;
+    }
   }
   .weui-cell__ft {
     font-weight: @font-weight-normal;

@@ -1,21 +1,40 @@
 <template>
-  <section class="ZKList-Items weui-panel weui-panel_access" v-if="styleType === 1">
-    <x-scroll class="scroller" :upCallback="upCallback" ref="mescroll" warpId="index_scroll" id="index_scroll">
-      <div class="weui-panel__bd">
-        <a :href="item.url" class="weui-media-box weui-media-box_appmsg" v-for="item in dataList" :key="item.id">
-          <div class="weui-media-box__hd">
-            <x-img :src="item.image" ></x-img>
+  <div>
+    <section class="ZKList-Items weui-panel weui-panel_access" v-if="styleType === 1">
+      <x-scroll class="scroller" :upCallback="upCallback" ref="mescroll" warpId="index_scroll" id="index_scroll">
+        <div class="weui-panel__bd">
+          <a :href="item.url" class="weui-media-box weui-media-box_appmsg" v-for="item in dataList" :key="item.id">
+            <div class="weui-media-box__hd">
+              <x-img :src="item.image"></x-img>
+            </div>
+            <div class="weui-media-box__bd">
+              <h4 class="weui-media-box__title zkui-user-account-finacebill-fontcolor">{{item.title}}
+                <span class="weui-media-box__title__extra zkui-user-account-finacebill-fontcolor brand">{{item.extra}}</span>
+              </h4>
+              <p class="weui-media-box__desc">{{item.intro}}</p>
+            </div>
+          </a>
+        </div>
+      </x-scroll>
+    </section>
+    <div v-if="styleType === 2">
+      <x-scroll class="scroller" :upCallback="upCallback" ref="mescroll" warpId="index_scroll" id="index_scroll">
+        <div class="weui-panel weui-panel_access" v-for="item in dataList" :key="item.id">
+          <!-- <div class="weui-panel__hd">图文组合列表</div> -->
+          <div class="weui-panel__bd">
+            <a href="#!/component/cell" class="weui-media-box weui-media-box_appmsg">
+              <div class="weui-media-box__hd"><img :src="item.image" alt="" class="weui-media-box__thumb"></div>
+              <div class="weui-media-box__bd">
+                <h4 class="weui-media-box__title">{{item.title}}</h4>
+                <p class="weui-media-box__desc">{{item.intro}}</p>
+                <p class="weui-media-box__desc" style="text-align: right">{{item.extra}}</p>
+              </div>
+            </a>
           </div>
-          <div class="weui-media-box__bd">
-            <h4 class="weui-media-box__title zkui-user-account-finacebill-fontcolor">{{item.title}}
-              <span class="weui-media-box__title__extra zkui-user-account-finacebill-fontcolor brand">{{item.extra}}</span>
-            </h4>
-            <p class="weui-media-box__desc">{{item.intro}}</p>
-          </div>
-        </a>
-      </div>
-    </x-scroll>
-  </section>
+        </div>
+      </x-scroll>
+    </div>
+  </div>
 </template>
 
 
@@ -31,7 +50,7 @@
     props: {
       styleType: {
         type: Number,
-        default: 1 // 样式显示方式
+        default: 2 // 样式显示方式
       },
       diykey: {
         type: String,
@@ -62,10 +81,10 @@
           diyKey: this.diykey,
           isLogin: this.isLogin
         }
-        var response = await apiService.getList() //  通过异步方法获取数据
-      //  console.dir(response) //  调试返回结果，调试完成以后请注释
+        var response = await apiService.getList(params) //  通过异步方法获取数据
+        //  console.dir(response) //  调试返回结果，调试完成以后请注释
         let totalSize = response.data.result.totalSize //  获取总页数
-        this.styleType = response.data.result.styleType // 选择何种风格
+        // this.styleType = response.data.result.styleType // 选择何种风格
         this.$refs.mescroll.endSuccess(params, totalSize) // 调用widget xsroll 下拉刷新函数
         this.dataList = this.dataList.concat(response.data.result.apiDataList)
         if (this.pageIndex < totalSize) {
@@ -73,12 +92,12 @@
         }
       },
       success (src, ele) {
-       // console.log('success load', src)
+        // console.log('success load', src)
         const span = ele.parentNode.querySelector('span')
         ele.parentNode.removeChild(span)
       },
       error (src, ele, msg) {
-       // console.log('error load', msg, src)
+        // console.log('error load', msg, src)
         const span = ele.parentNode.querySelector('span')
         span.innerText = 'load error'
       }
@@ -90,8 +109,6 @@
 <style scoped  lang="less">
   @import '../assets/css/zkui/theme';
   .weui-media-box__hd {
-    width: 45px !important;
-    height: 45px !important;
     margin: 10px auto;
     .brand {
       width: 50*@rem;

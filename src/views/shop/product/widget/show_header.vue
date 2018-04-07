@@ -1,7 +1,7 @@
 
 <template>
   <section class="zkui-show-header">
-    <x-header :left-options="{backText: '' }">
+    <x-header :left-options="{backText: '' }" :class="{'header-opacity ':headerOpacity}">
       <div class="overwrite-title-demo-bak" slot="overwrite-title">
         <button-tab>
           <button-tab-item :class="{ 'vux-button-group-current':product}" @click.native="button0Click()">
@@ -42,7 +42,8 @@
         showMenus: false,
         product: true,
         particulars: false,
-        recommend: false
+        recommend: false,
+        headerOpacity: true
       }
     },
     mounted () {
@@ -74,6 +75,11 @@
         var buttonTop = document.getElementsByClassName('vux-button-tab-item')
         var particulars = document.getElementsByClassName('zkui-product-particulars')[0].offsetTop
         var recommend = document.getElementsByClassName('zk-product-recommend')[0].offsetTop
+        if (scrollTop >= 5) {
+          this.headerOpacity = false
+        } else {
+          this.headerOpacity = true
+        }
         if (scrollTop >= 0) {
           this.particulars = false
           this.product = true
@@ -103,6 +109,23 @@
   @import '../../../../assets/css/zkui/theme';
   @import '../../../../assets/css/zkui/mixin';
   .zkui-show-header {
+    .header-opacity {
+      background-color: transparent !important;
+      transition: all 0.2s linear;
+      .overwrite-title-demo-bak {
+        opacity: 0;
+        transition: all 0.2s linear;
+      }
+      .left-arrow {
+        background: rgba(0, 0, 0, 0.5);
+        transition: all 0.2s linear;
+      }
+      .left-arrow:before {
+        border: 2px solid @white !important;
+        border-width: 2px 0 0 2px !important;
+        transition: all 0.2s linear;
+      }
+    }
     .zk-head-fixed {
       position: fixed;
       top: 0;
@@ -116,12 +139,26 @@
     .overwrite-title-demo-bak {
       margin-top: 0.15rem;
     }
+
     .vux-header {
       background-color: @white;
+      .vux-header-left,
+      .vux-header-right {
+        top: 50%;
+        transform: translateY(-50%);
+      }
       .vux-header-left {
+        .left-arrow {
+          border-radius: 50%;
+          position: relative;
+          top: 0;
+        }
         .left-arrow::before {
           border: 2px solid @gray-600;
           border-width: 2px 0 0 2px;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%) rotate(315deg);
         }
       }
       .vux-header-title-area {
@@ -133,7 +170,7 @@
         }
         .vux-button-group-current {
           color: @brand;
-          background: @white;
+          background: transparent;
           p {
             height: 100%;
             border-bottom: 2px solid @brand;
@@ -141,6 +178,7 @@
         }
         .vux-button-group > a.vux-button-tab-item {
           border-radius: 0;
+          background: transparent;
         }
         .vux-button-group > a.vux-button-tab-item::after {
           content: none;
