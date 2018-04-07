@@ -19,8 +19,8 @@
       </group>
     </div> -->
     <group title="备案人信息">
-      <x-input title="备案人姓名" required :min="2" :max="12" placeholder="填写备案人姓名"></x-input>
-      <x-input title="备案人手机号" required placeholder="填写备案人手机号" mask="999 9999 9999" :max="13" is-type="mobile"></x-input>
+      <x-input title="备案人姓名" required :min="2" :max="12"></x-input>
+      <x-input title="备案人手机号" required mask="999 9999 9999" :max="13" is-type="mobile"></x-input>
     </group>
     <group title="债权人信息">
       <x-input title="债权人性名" required :min="2" :max="12" placeholder="填写债权人性名"></x-input>

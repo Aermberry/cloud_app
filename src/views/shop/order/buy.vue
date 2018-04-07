@@ -49,6 +49,7 @@
     </group>
     <group class="mb-2">
       <x-switch :title="money.title" :inline-desc="money.description" v-for="(money,moneyIndex) in modelView.allowMoneys" :key="moneyIndex" @on-change="countPrice()" v-model="reduceMoneys[moneyIndex]"></x-switch>
+      <cell title="服务费" :value="priceView.feeAmount" v-if="priceView.feeAmount>0"></cell>
       <divider class="divider-bg "></divider>
     </group>
     <tabbar>
