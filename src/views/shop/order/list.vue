@@ -3,10 +3,10 @@
 
     <zk-head title='我的订单' goBack='会员中心'></zk-head>
     <div>
-      <tab :line-width=2 active-color='#fc378c' v-model="index">
+      <tab :line-width=2 active-color='#fc378c' v-model="showView">
         <tab-item class="vux-center" :selected="demo2 === item" v-for="(item, index) in list2" @click="demo2 = item" :key="index">{{item}}</tab-item>
       </tab>
-      <swiper v-model="index" :show-dots="false">
+      <swiper v-model="showView" :show-dots="false">
         <swiper-item v-for="(t,i) in list2" :key="i">
           <div class="tab-swiper vux-center">
             <div class="zkui-order-list-box" v-if="i===0">
@@ -272,7 +272,8 @@
       return {
         list2: ['全部', '待付款', '待发货', '待收货', '待评价'],
         demo2: '全部',
-        index: 0,
+        index: 4,
+        showView: 0,
         data: [], // 全部商品
         stayPayment: [], // 待付款1
         stayShipments: [], // 待发货2
@@ -285,6 +286,9 @@
           Evaluate: []
         }// 记录是否需要付款
       }
+    },
+    created () {
+      this.showView = parseInt(this.$route.query.orderStatus)
     },
     mounted () {
       this.GetData()
@@ -302,7 +306,6 @@
       async GetData () {
         var reponse = await orderService.list()
         this.data = reponse.data.result
-        console.log(this.data)
         for (var i = 0; i < this.data.length; i++) {
           if (this.data[i].orderStatus === 1) {
             this.stayPayment.push(this.data[i])

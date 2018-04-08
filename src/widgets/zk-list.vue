@@ -106,7 +106,7 @@
 </script>
 
 
-<style scoped  lang="less">
+<style  lang="less">
   @import '../assets/css/zkui/theme';
   .weui-media-box__hd {
     margin: 10px auto;
@@ -116,6 +116,9 @@
       padding-top: 0.1rem;
       border-radius: 50%;
     }
+  }
+  .mescroll-upwarp {
+    display: none;
   }
   .weui-media-box__title__extra {
     float: right;

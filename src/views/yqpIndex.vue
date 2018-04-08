@@ -1,5 +1,5 @@
 <template>
-  <section class="zkui-czt-default">
+  <section class="zkui-default">
     <div class="index-search weui-header ">
       <router-link to="/product/search" class="zkui-default-search-box">
         <search placeholder="搜索您想要的商品"></search>
@@ -9,9 +9,14 @@
     <zk-swiper diykey="swiper_index" height="210px"></zk-swiper>
     <zk-grid diykey="grid_index" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
 
+    <div v-for="(src,index) in list" :key="index" style="text-align:center;">
+      <span style="font-size:20px;">Loading</span>
+      <x-img :src="src" :webp-src="`${src}?type=webp`" @on-success="success" @on-error="error" class="ximg-demo" error-class="ximg-error" :offset="-100" container="#vux_view_box_body"></x-img>
+    </div>
+
     <group-title class="flex">
       <div class="fashion-title">
-        最新快报:
+        流行单品
       </div>
       <div class="fashion-topline flex_one">
         <swiper auto height="35px" direction="vertical" :interval=2000 class="text-scroll" :show-dots="false">
@@ -24,21 +29,18 @@
           </swiper-item>
         </swiper>
       </div>
-      <div class="fashion-icon">
-        <m-icon name="zk-trumpet"></m-icon>
-      </div>
     </group-title>
     <zk-product-item :pageSize=4 classIds='' tagsId='' diykey='index'></zk-product-item>
 
     <zk-foot></zk-foot>
-    <!-- <zkdebt-foot></zkdebt-foot> -->
+
   </section>
 </template>
 
 <script>
   import apiService from 'src/service/api/user.api'
-  import { ZkSwiper, ZkGrid, ZkProductItem, ZkdebtFoot } from 'widgets'
-  import { Search, Grid, GridItem, Swiper, Box, GroupTitle, MIcon, SwiperItem } from 'zkui'
+  import { ZkSwiper, ZkGrid, ZkProductItem } from 'widgets'
+  import { Search, Grid, GridItem, Swiper, Box, GroupTitle, SwiperItem, XImg } from 'zkui'
   export default {
     components: {
       Search,
@@ -50,13 +52,21 @@
       ZkSwiper,
       Box,
       ZkProductItem,
-      ZkdebtFoot,
-      MIcon,
-      SwiperItem
+      SwiperItem,
+      XImg
     },
     data () {
       return {
-        topline: ''
+        topline: '',
+        list: [
+          'https://o5omsejde.qnssl.com/demo/test1.jpg',
+          'https://o5omsejde.qnssl.com/demo/test2.jpg',
+          'https://o5omsejde.qnssl.com/demo/test4.jpg',
+          'https://o5omsejde.qnssl.com/demo/test5.jpg',
+          'https://o5omsejde.qnssl.com/demo/test6.jpg',
+          'https://o5omsejde.qnssl.com/demo/test7.jpg',
+          'https://o5omsejde.qnssl.com/demo/test8.jpg'
+        ]
       }
     },
     mounted () {
@@ -70,13 +80,23 @@
         var response = await apiService.topline(style)
         console.log(response)
         this.topline = response.data.result
+      },
+      success (src, ele) {
+        console.log('success load', src)
+        const span = ele.parentNode.querySelector('span')
+        ele.parentNode.removeChild(span)
+      },
+      error (src, ele, msg) {
+        console.log('error load', msg, src)
+        const span = ele.parentNode.querySelector('span')
+        span.innerText = 'load error'
       }
     }
   }
 </script>
 
 <style  lang="less" >
-  .zkui-czt-default {
+  .zkui-default {
     .flex {
       display: -moz-box;
       display: -ms-flexbox;
@@ -153,20 +173,14 @@
         height: 0rem;
       }
     }
-    .weui-grids {
-      border-bottom: none;
-    }
     .weui-cells__title {
       padding-left: 0;
-      margin-top: 0;
-      border-top: 1px solid @gray-500;
-      border-bottom: 1px solid @gray-500;
-      position: relative;
       .fashion-title {
         height: 2.5rem;
         line-height: 2.5rem;
         width: 6.5rem;
-        color: @info;
+        color: @light;
+        background: @warning;
         padding-left: 1.5rem;
         font-weight: @font-weight-bold;
         position: relative;
@@ -176,6 +190,7 @@
           .vux-swiper {
             .vux-swiper-item {
               p {
+                padding-left: 2rem;
                 height: 100%;
                 padding-right: 1rem;
                 line-height: 2.5rem;
@@ -192,17 +207,16 @@
           }
         }
       }
-      .fashion-icon {
-        width: 1.5rem;
-        height: 1.5rem;
+      .fashion-title:before {
+        content: '';
+        display: block;
         position: absolute;
-        top: 50%;
-        right: 0.5rem;
-        transform: translate(0, -50%);
-        svg {
-          width: 100%;
-          height: 100%;
-        }
+        right: -1rem;
+        top: 0;
+        width: 2rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        background: @warning;
       }
     }
   }

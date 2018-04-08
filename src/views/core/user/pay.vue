@@ -8,9 +8,12 @@
     },
     mounted () {
       // 云债通八图暂用这页面提示
-      this.$vux.toast.show('敬请期待')
+      this.$vux.toast.show('支付成功')
+      var salf = this
       setTimeout(function () {
-        this.$router ? this.$router.back() : window.history.back()
+        salf.$router.push(
+          { path: '/' }
+        )
       }, 2000)
     },
     methods: {

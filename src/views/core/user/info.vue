@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-user-info">
-
+    <zk-head title='账户信息' goBack='会员中心'></zk-head>
 
     <div class="zkui-user-info-app-content">
       <div id="self">
@@ -25,8 +25,6 @@
         </div>
       </div>
     </div>
-
-    <zk-head title='账户信息' goBack='会员中心'></zk-head>
 
     <zk-foot></zk-foot>
   </section>

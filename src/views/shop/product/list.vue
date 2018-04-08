@@ -24,7 +24,6 @@
         <tab-item active-class="active-6-4" @click.native="sortNum(4)">销量</tab-item>
       </tab>
     </div>
-
     <div class="placeholder"></div>
     <section class="ZKProductItem" v-if="!datashow">
       <div class="zkui-product-item__1 ">
@@ -75,8 +74,29 @@
         pageIndex: 1, // 从第一页开始加载
         sort: '',
         tabDown: false,
-        datashow: true
+        datashow: true,
+        productList: {
+          SortOrder: '', // 商品排序方式
+          Keyword: '', // 搜索关键字
+          MinPrice: '', // 最低价格
+          MaxPrice: '', // 最高价格
+          ClassIds: '', // 商品分类Id
+          TagIds: '', // 商品标签ID
+          ProductIds: '', // 商品Id
+          BrandId: '', // 商品品牌Id
+          PriceStyleId: '', //  商品模式
+          OrderType: '', // 排序方式
+          ClasssId: ''
+        }
       }
+    },
+    created () {
+      console.log(this.$route.query)
+      // if (this.$route.query.classsId === 'undefined') {
+      //   console.log('id空')
+      // } else {
+      //   console.log(this.$route.query.classsId)
+      // }
     },
     mounted () {
       this.upCallback()
@@ -85,18 +105,43 @@
       async sortNum (id) {
         let params = {
           SortOrder: id,
-          Keyword: this.$route.params.id
+          Keyword: this.productList.Keyword, // 搜索关键字
+          MinPrice: this.productList.MinPrice, // 最低价格
+          MaxPrice: this.productList.MaxPrice, // 最高价格
+          ClassIds: this.productList.ClassIds, // 商品分类Id
+          TagId: this.productList.TagIds, // 商品标签ID
+          ProductIds: this.productList.ProductIds, // 商品Id
+          BrandId: this.productList.BrandId, // 商品品牌Id
+          PriceStyleId: this.productList.PriceStyleId, //  商品模式
+          OrderType: this.productList.OrderType, // 排序方式
+          ClasssId: this.productList.ClasssId
         }
         this.sort = id
         let response = await apiService.list(params) // 通过异步方法获取数据
         this.dataList = response.data.result.productItems
       },
       async upCallback () {
-        console.log(this.$route.params.id)
-        let params = {
-          SortOrder: 0,
-          Keyword: this.$route.params.id
+        for (var index in this.$route.query) {
+          if (this.$route.query[index] !== '') {
+            this.productList[index] = this.$route.query[index]
+          }
         }
+        let params = {
+          // SortOrder: 0,
+          // Keyword: 13290
+          SortOrder: this.productList.SortOrder, // 商品排序方式
+          Keyword: this.productList.Keyword, // 搜索关键字
+          MinPrice: this.productList.MinPrice, // 最低价格
+          MaxPrice: this.productList.MaxPrice, // 最高价格
+          ClassIds: this.productList.ClassIds, // 商品分类Id
+          TagId: this.productList.TagIds, // 商品标签ID
+          ProductIds: this.productList.ProductIds, // 商品Id
+          BrandId: this.productList.BrandId, // 商品品牌Id
+          PriceStyleId: this.productList.PriceStyleId, //  商品模式
+          OrderType: this.productList.OrderType, // 排序方式
+          ClasssId: this.productList.ClasssId
+        }
+        console.log(this.productList, params)
         let response = await apiService.list(params) // 通过异步方法获取数据
         this.dataList = response.data.result.productItems
         if (this.dataList.length !== 0) {
@@ -142,6 +187,11 @@
   }
   .zkui-product-item__1 {
     background: #ffffff;
+    ul::after {
+      content: '';
+      display: block;
+      clear: both;
+    }
     li {
       display: block;
       float: left;
@@ -178,12 +228,14 @@
           min-height: 3rem;
           p {
             color: @brand;
+            height: 38*@rem;
             font-weight: bold;
             margin-left: -0.2rem;
           }
           span {
             text-decoration: line-through;
             padding-top: 0.3rem;
+            color: @gray-500;
           }
         }
       }

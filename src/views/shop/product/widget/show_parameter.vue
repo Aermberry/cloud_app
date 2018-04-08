@@ -108,6 +108,7 @@
         for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
           this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
         }
+            this.selectSku = this.productView.productExtensions.productSkus[0] // 根据specSn获取商品的规格
       },
       init () {
         this.productView.productExtensions.productCategory.salePropertys.forEach(element => {

@@ -1,5 +1,4 @@
-export default [
-  {
+export default [{
     path: '/', // 默认为空的时候，挑战到首页
     meta: {
       title: '首页'
@@ -40,13 +39,33 @@ export default [
     }
   },
   {
-    path: '/test', // 默认为空的时候，挑战到首页
+    path: '/cztIndex', // 默认为空的时候，挑战到首页
     meta: {
       title: '首页'
     },
     name: 'commont_test',
     component: function (resolve) {
-      require(['src/views/test'], resolve)
+      require(['src/views/cztIndex'], resolve)
+    }
+  },
+  {
+    path: '/yqpIndex', // 默认为空的时候，挑战到首页
+    meta: {
+      title: '首页'
+    },
+    name: 'commont_test',
+    component: function (resolve) {
+      require(['src/views/yqpIndex'], resolve)
+    }
+  },
+  {
+    path: '/pay', // 默认为空的时候，挑战到首页
+    meta: {
+      title: '支付成功'
+    },
+    name: 'commont_test',
+    component: function (resolve) {
+      require(['src/views/core/user/pay'], resolve)
     }
   },
   {
@@ -60,13 +79,13 @@ export default [
     }
   },
   {
-    path: '/test1', // 默认为空的时候，挑战到首页
+    path: '/zkindex', // 默认为空的时候，挑战到首页
     meta: {
       title: '测试'
     },
     name: 'commont_test1',
     component: function (resolve) {
-      require(['src/views/test1'], resolve)
+      require(['src/views/zkindex'], resolve)
     }
   },
   {

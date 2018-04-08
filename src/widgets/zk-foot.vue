@@ -60,12 +60,12 @@
   }
 </script>
 
-<style scoped  lang="less">
+<style   lang="less">
   @import '../assets/css/zkui/theme';
   .zkuidebt-foot {
     .placeholder {
       width: 100%;
-      height: 75*@rem;
+      height: 8rem;
     }
     .footer {
       position: fixed;
