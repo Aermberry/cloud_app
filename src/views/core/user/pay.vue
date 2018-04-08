@@ -12,7 +12,7 @@
       var salf = this
       setTimeout(function () {
         salf.$router.push(
-          { path: '/' }
+          { path: '/order/list' }
         )
       }, 2000)
     },
