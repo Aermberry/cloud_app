@@ -10,8 +10,8 @@
 <script>
   import { MIcon } from 'zkui'
   export default {
+    name: 'zk-nodata',
     components: {
-
       MIcon
     }
   }

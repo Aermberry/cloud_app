@@ -18,24 +18,24 @@
         </box>
       </group>
     </div> -->
-    <group title="备案人信息">
+    <!-- <group title="备案人信息">
       <x-input title="备案人姓名" required :min="2" :max="12"></x-input>
       <x-input title="备案人手机号" required mask="999 9999 9999" :max="13" is-type="mobile"></x-input>
-    </group>
+    </group> -->
     <group title="债权人信息">
-      <x-input title="债权人性名" required :min="2" :max="12" placeholder="填写债权人性名"></x-input>
-      <x-input title="债权人手机号" required placeholder="填写债权人手机号" mask="999 9999 9999" :max="13" is-type="mobile"></x-input>
-      <x-input title="债权人身份证号码" required placeholder="填写债权人身份证号码" :max="18" is-type="mobile"></x-input>
+      <x-input title="债权人性名" required :min="2" :max="12" placeholder="填写债权人性名" v-model="debtApiInput.DebteeName"></x-input>
+      <x-input title="债权人手机号" required placeholder="填写债权人手机号" mask="999 9999 9999" :max="13" is-type="mobile" v-model="debtApiInput.DebteePhone"></x-input>
+      <x-input title="债权人身份证号码" required placeholder="填写债权人身份证号码" :max="18" v-model="debtApiInput.DebteeId"></x-input>
     </group>
     <group title="债务人信息">
-      <x-input title="债务人性名" required :min="2" :max="12" placeholder="填写债务人性名"></x-input>
-      <x-input title="债务人手机号" required placeholder="填写债务人手机号" mask="999 9999 9999" :max="13" is-type="mobile"></x-input>
-      <x-input title="债务人身份证号码" required placeholder="填写债务人身份证号码" :max="18" is-type="mobile"></x-input>
+      <x-input title="债务人性名" required :min="2" :max="12" placeholder="填写债务人性名" v-model="debtApiInput.DebtorName"></x-input>
+      <x-input title="债务人手机号" required placeholder="填写债务人手机号" mask="999 9999 9999" :max="13" is-type="mobile" v-model="debtApiInput.DebtorPhone"></x-input>
+      <x-input title="债务人身份证号码" required placeholder="填写债务人身份证号码" :max="18" v-model="debtApiInput.DebtorId"></x-input>
       <div class="zs-money">
-        <x-input title="债事金额" required placeholder="填写债事金额"></x-input>
+        <x-input title="债事金额" required placeholder="填写债事金额" v-model="debtApiInput.Amount"></x-input>
       </div>
-      <x-input title="债务人联系地址" required placeholder="填写债务人联系地址"></x-input>
-      <x-input title="申请原因" required placeholder="请描述时间、地点、人物、经过和结果"></x-input>
+      <x-input title="债务人联系地址" required placeholder="填写债务人联系地址" v-model="debtApiInput.DebtorAddress"></x-input>
+      <x-input title="申请原因" required placeholder="请描述时间、地点、人物、经过和结果" v-model="debtApiInput.ApplyReason"></x-input>
       <div class="vux-x-input weui-cell">
         <div class="weui-cell__hd">
           <label for="vux-x-input-hvsrw" class="weui-label" style="width: 6em;">债事属性</label>
@@ -71,7 +71,7 @@
       <zk-upload :fileCount="20" :savePath="savePath" :size="5*1024" ref="savePath">上传相关凭证</zk-upload>
     </group>
     <box gap="2rem 6rem">
-      <x-button type="primary" @click.native="save" action-type="button"> 确认提交</x-button>
+      <x-button type="primary" @click.native="apiPost" action-type="button"> 确认提交</x-button>
     </box>
     <zk-foot></zk-foot>
   </section>
@@ -79,7 +79,7 @@
 
 <script>
   import { ZkUpload } from 'widgets'
-  // import apiService from 'src/service/api/debt.api'
+  import apiService from 'src/service/api/debt.api'
   import { XInput, Group, XButton, Cell, XTextarea, Checker, CheckerItem, Box } from 'zkui'
   export default {
     components: {
@@ -96,36 +96,72 @@
     data () {
       return {
         savePath: '/open/debt',
-        // files: [],
-        // step2: 0,
-        // debtApiInput: {
-        //   name: 'ddd',
-        //   mobile: '13865466956',
-        //   iDCard: '36220119940217361X',
-        //   debtProcess: '我卖了一房子没有收到钱',
-        //   attachment: '2554144545151515.jag',
-        //   amount: '12.03',
-        //   applyProductIds: '111,222,5544'
-        // },
         demo1CheckboxMax: ['2', '3'],
-        demo2CheckboxMax: ['2', '3']
+        demo2CheckboxMax: ['2', '3'],
+        // debtApiInput: {
+        //   DebteeName: '刘成志',
+        //   DebteePhone: '13714796552',
+        //   DebteeId: '362201199402173162',
+        //   DebtorName: '刘成恩',
+        //   DebtorPhone: '13714787404',
+        //   DebtorId: '362201199402173169',
+        //   Amount: 400.2,
+        //   DebtorAddress: '北京北京北京',
+        //   ApplyReason: '原因',
+        //   DebtProperty: '1,2,3',
+        //   NeedType: '6,5,4',
+        //   Attachment: '11411411445'
+        // },
+        debtApiInput: {
+          DebteeName: '刘成志',
+          DebteePhone: '13714796552',
+          DebteeId: '362201199402173162',
+          DebtorName: '刘成恩',
+          DebtorPhone: '13714787404',
+          DebtorId: '362201199402173169',
+          Amount: 400.2,
+          DebtorAddress: '北京北京北京',
+          ApplyReason: '原因',
+          DebtProperty: '2, 3',
+          NeedType: '2, 3',
+          Attachment: '11411411445'
+        },
+        debtApiInput2: {
+          DebteeName: '刘成志',
+          DebteePhone: '13714796552',
+          DebteeId: '362201199402173162',
+          DebtorId: '362201199402173169',
+          DebtorPhone: '13714787404',
+          DebtorName: '刘成恩',
+          DebtorAddress: '北京北京北京',
+          Amount: 400.2,
+          NeedType: '6,5,4',
+          DebtProperty: '1,2,3',
+          ApplyReason: '原因',
+          Attachment: '11411411445'
+        }
+
       }
     },
     methods: {
-      // async apiPost () {
-      //   var response = await apiService.apply(this.debtApiInput)
-      //   if (response.data.status === 1) {
-      //     this.messageSuccess('申请成功')
-      //   } else {
-      //     this.$vux.toast.warn(response.data.message)
-      //   }
-      // }
+      async apiPost () {
+        var response = await apiService.apply(this.debtApiInput2)
+        if (response.data.status === 1) {
+          this.messageSuccess('申请成功')
+        } else {
+          this.$vux.toast.warn(response.data.message)
+        }
+      }
+
     }
   }
 </script>
 
 <style lang="less">
   .zkui-user-apply {
+    .check-icon-item-selected .weui-icon-success {
+      color: @brand;
+    }
     .weui-cells {
       margin-top: 0;
     }

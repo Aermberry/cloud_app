@@ -16,10 +16,14 @@
           </a>
         </div>
       </x-scroll>
-      <zk-notdata v-if="!notDataf"></zk-notdata>
+      <!-- <zk-notdata  :name="dataName"></zk-notdata> -->
+      <div class="zk-not-data" v-if="!notDataf">
+        <m-icon name="zk-notdata"></m-icon>
+        <p>暂无数据</p>
+      </div>
     </section>
     <div v-if="styleType === 2">
-      <x-scroll class="scroller" :upCallback="upCallback" ref="mescroll" warpId="index_scroll" id="index_scroll">
+      <x-scroll class="scroller" :upCallback="upCallback" ref="mescroll" warpId="index_scroll" id="index_scroll" v-if="notDatas">
         <div class="weui-panel weui-panel_access" v-for="item in dataList" :key="item.id">
           <!-- <div class="weui-panel__hd">图文组合列表</div> -->
           <div class="weui-panel__bd">
@@ -34,13 +38,17 @@
           </div>
         </div>
       </x-scroll>
+      <div class="zk-not-data" v-if="!notDatas">
+        <m-icon name="zk-notdata"></m-icon>
+        <p>暂无数据</p>
+      </div>
     </div>
   </div>
 </template>
 
 
 <script>
-  import { XScroll, XImg } from 'zkui'
+  import { XScroll, XImg, MIcon } from 'zkui'
   import { ZkNotdata } from 'widgets'
   import apiService from 'src/service/api/diy.api'
   export default {
@@ -48,7 +56,8 @@
     components: {
       XScroll,
       XImg,
-      ZkNotdata
+      ZkNotdata,
+      MIcon
     },
     props: {
       styleType: {
@@ -94,6 +103,7 @@
         this.dataList = this.dataList.concat(response.data.result.apiDataList)
         if (this.dataList.length === 0) {
           this.notDataf = false
+          this.notDatas = false
         }
         if (this.pageIndex < totalSize) {
           this.pageIndex = this.pageIndex + 1 //  下拉时是自动增加一页
@@ -116,6 +126,18 @@
 
 <style  lang="less">
   @import '../assets/css/zkui/theme';
+  .zk-not-data {
+    margin: 0 auto;
+    padding-top: 150*@rem;
+    text-align: center;
+    svg {
+      width: 50*@rem;
+      height: 50*@rem;
+    }
+    p {
+      font-size: @h4-font-size;
+    }
+  }
   .weui-media-box__hd {
     margin: 10px auto;
     .brand {
