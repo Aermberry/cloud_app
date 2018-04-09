@@ -105,12 +105,13 @@
 <style   lang="less">
   @import '../../../../assets/css/zkui/theme';
   @import '../../../../assets/css/zkui/mixin';
-  .vux-header {
-    position: fixed;
-    width: 100%;
-    z-index: 999;
-  }
+
   .zkui-product-show-bar {
+    .vux-header {
+      position: fixed;
+      width: 100%;
+      z-index: 999;
+    }
     .weui-tabbar {
       position: fixed;
       z-index: 500;

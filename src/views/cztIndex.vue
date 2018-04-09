@@ -9,10 +9,20 @@
     <zk-swiper diykey="swiper_index" height="210px"></zk-swiper>
     <zk-grid diykey="grid_index" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
 
-    <group-title>
+    <group-title class="flex">
       <div class="fashion-title">
-        最新快报
-
+        最新快报:
+      </div>
+      <div class="fashion-topline flex_one">
+        <swiper auto height="35px" direction="vertical" :interval=2000 class="text-scroll" :show-dots="false">
+          <swiper-item v-for="(item,index) in this.topline.apiDataList" :key="index">
+            <p>
+              <router-link to="/topline">
+                {{item.title}}
+              </router-link>
+            </p>
+          </swiper-item>
+        </swiper>
       </div>
       <div class="fashion-icon">
         <m-icon name="zk-trumpet"></m-icon>
@@ -20,15 +30,15 @@
     </group-title>
     <zk-product-item :pageSize=4 classIds='' tagsId='' diykey='index'></zk-product-item>
 
-    <!-- <zk-foot></zk-foot> -->
-    <!-- <zk-notdata></zk-notdata> -->
-    <zkdebt-foot></zkdebt-foot>
+    <zk-foot></zk-foot>
+    <!-- <zkdebt-foot></zkdebt-foot> -->
   </section>
 </template>
 
 <script>
-  import { ZkSwiper, ZkGrid, ZkProductItem, ZkdebtFoot, ZkNotdata } from 'widgets'
-  import { Search, Grid, GridItem, Swiper, Box, GroupTitle, MIcon } from 'zkui'
+  import apiService from 'src/service/api/user.api'
+  import { ZkSwiper, ZkGrid, ZkProductItem, ZkdebtFoot } from 'widgets'
+  import { Search, Grid, GridItem, Swiper, Box, GroupTitle, MIcon, SwiperItem } from 'zkui'
   export default {
     components: {
       Search,
@@ -42,13 +52,44 @@
       ZkProductItem,
       ZkdebtFoot,
       MIcon,
-      ZkNotdata
+      SwiperItem
+    },
+    data () {
+      return {
+        topline: ''
+      }
+    },
+    mounted () {
+      this.GetData()
+    },
+    methods: {
+      async GetData () {
+        let style = {
+          DataType: 'topline'
+        }
+        var response = await apiService.topline(style)
+        console.log(response)
+        this.topline = response.data.result
+      }
     }
   }
 </script>
 
 <style  lang="less" >
   .zkui-czt-default {
+    .flex {
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+    }
+    .flex_one {
+      -ms-flex: 1;
+      -moz-box-flex: 1;
+      -webkit-flex: 1;
+      flex: 1;
+    }
     #index_scroll {
       .mescroll-upwarp {
         display: none;
@@ -127,16 +168,36 @@
         width: 6.5rem;
         color: @info;
         padding-left: 1.5rem;
-
         font-weight: @font-weight-bold;
         position: relative;
+      }
+      .fashion-topline {
+        .vux-slider {
+          .vux-swiper {
+            .vux-swiper-item {
+              p {
+                height: 100%;
+                padding-right: 1rem;
+                line-height: 2.5rem;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                white-space: nowrap;
+                a {
+                  color: @cell-value-color;
+                }
+              }
+            }
+          }
+        }
       }
       .fashion-icon {
         width: 1.5rem;
         height: 1.5rem;
         position: absolute;
         top: 50%;
-        right: 2rem;
+        right: 0.5rem;
         transform: translate(0, -50%);
         svg {
           width: 100%;
