@@ -43,7 +43,7 @@ export default [{
     meta: {
       title: '首页'
     },
-    name: 'commont_test',
+    name: 'czt',
     component: function (resolve) {
       require(['src/views/cztIndex'], resolve)
     }
@@ -53,7 +53,7 @@ export default [{
     meta: {
       title: '首页'
     },
-    name: 'commont_test',
+    name: 'yqp',
     component: function (resolve) {
       require(['src/views/yqpIndex'], resolve)
     }
@@ -63,7 +63,7 @@ export default [{
     meta: {
       title: '支付成功'
     },
-    name: 'commont_test',
+    name: 'pay',
     component: function (resolve) {
       require(['src/views/core/user/pay'], resolve)
     }

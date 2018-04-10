@@ -12,7 +12,7 @@
       </div>
 
       <div class="weui-form-preview__hd">
-        <label class="weui-form-preview__label address_name">收货人：{{viewModel.name}}</label>
+        <label class="weui-form-preview__label address_name" style="width:12rem">收货人：{{viewModel.name}}</label>
         <em class="weui-form-preview__value">{{viewModel.mobile}}</em>
         <div class="weui-form-preview__item">
           <span class="weui-form-preview__value address_particulars address_name">
@@ -311,7 +311,6 @@
     }
     .address_name {
       padding-left: 1.8rem;
-      padding-right: 1.8rem;
       word-break: break-all;
       text-overflow: ellipsif;
       display: -webkit-box;

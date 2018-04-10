@@ -136,25 +136,11 @@
       } else {
         this.allCheck = false
       }
-      console.log(this.productSkuIdChecks)
     },
     methods: {
-      async deleteCart (sId, kId, pid, stId) {
-        if (this.buySkuCount[sId][kId] === 0) {
-          let orderProductInput = {
-            productSkuId: pid,
-            storeId: stId
-          }
-          var reponses = await userService.RemoveCart(orderProductInput)
-          if (reponses.data.status === 1) {
-            console.log(reponses.data.status)
-          }
-        }
-      },
       async GetData () {
         var reponse = await userService.GetCart()
         this.viewModel = reponse.data.result
-        console.log(this.viewModel)
         if (reponse.data.status === 1) {
           this.initCart(reponse.data.result) // 初始化购物车
           if (reponse.data.result.storeItems.length === 0) {
@@ -217,7 +203,7 @@
             this.buySkuId[i][j] = productSkuItem.productSkuId
           }
           this.subscript = this.productSkuIdChecks
-          console.log(this.buySkuId)
+          // console.log(this.buySkuId)
         }
       },
       // 店铺商品选择事件
@@ -238,8 +224,8 @@
           this.storeCheckModel[stroeIndex] = false
           this.allCheck = false
         }
-        // console.log(this.productSkuIdChecks, this.productSkuIdChecks[stroeIndex].length)
-        // console.log(this.subscript, this.subscript[stroeIndex].length)
+        console.log(this.productSkuIdChecks, this.productSkuIdChecks[stroeIndex].length)
+        console.log(this.subscript, this.subscript[stroeIndex].length)
         // for (var ko = 0; ko < this.productSkuIdChecks[stroeIndex].length; ko++) {
         //   // console.log('店铺下标', ko)
         // }
@@ -291,8 +277,15 @@
         //     this.viewModel.storeItems[storeIndex].productSkuItems.splice(skuIndex, 1)
         //   }
         // }
-        // console.info(this.buySkuCount[storeIndex])
-        // console.log(this.buySkuCount[storeIndex][skuIndex])
+        if (this.buySkuCount[storeIndex][skuIndex] === 0) {
+          this.viewModel.storeItems[storeIndex].productSkuItems.splice(this.buySkuCount[storeIndex].indexOf(0), 1)
+          var a
+          a = this.buySkuCount
+          a[storeIndex].splice(this.buySkuCount[storeIndex].indexOf(0), 1)
+          this.buySkuCount = a
+          console.info(this.buySkuCount[storeIndex])
+          console.log(this.buySkuCount[storeIndex][skuIndex])
+        }
       },
       // 结算购买
       buy () {
@@ -324,30 +317,6 @@
       }
     },
     watch: {
-      // productSkuIdChecks: {
-      //   handler (val) {
-      //     // console.log(val)
-      //     this.subscript = val
-      //     var num = 0
-      //     for (var ki = 0; ki < this.buySkuId.length; ki++) {
-      //       for (var ko = 0; ko < this.buySkuId[ki].length; ko++) {
-      //         // console.log(this.buySkuId[ki].indexOf(this.productSkuIdChecks[ki][ko]), ki, ko)
-      //         // console.log(this.buySkuId[ki], this.productSkuIdChecks[ki][ko])
-      //         var a = this.buySkuId[ki].indexOf(this.productSkuIdChecks[ki][ko])
-      //         // console.log(a)
-      //         // console.log(this.viewModel.storeItems[ki].productSkuItems[a].price)
-      //         // console.log(this.viewModel.storeItems[ki].productSkuItems[a].buyCount)
-      //         // console.log(parseInt(this.viewModel.storeItems[ki].productSkuItems[a].price) * parseInt(this.viewModel.storeItems[ki].productSkuItems[a].buyCount))
-      //         num = num + this.viewModel.storeItems[ki].productSkuItems[a].price * this.viewModel.storeItems[ki].productSkuItems[a].buyCount
-      //         console.log('第', ko, '个', num)
-      //         this.totalAmount = num
-      //       }
-      //     }
-      //     console.log('总价', num)
-      //     console.log('发生变化')
-      //   },
-      //   deep: true
-      // }
       buySkuCount: {
         handler (val, oldval) {
           console.log('新', val, '旧', oldval)
