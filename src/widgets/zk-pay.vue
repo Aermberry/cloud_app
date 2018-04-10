@@ -18,7 +18,7 @@
         </p>
       </div>
       <group class="pay-index">
-        <radio :options="payTypes" fill-label="Other" @on-change="change"> </radio>
+        <radio :options="payTypes" fill-label="Other" @on-change="change" :vlaue="payTypes[0].value"> </radio>
       </group>
       <div class="pay-buttom base">
         <x-button type="primary" @click.native="pay">确认支付{{amount}}元</x-button>
@@ -95,7 +95,6 @@
             pay['desc'] = element.intro
             this.payTypes.push(pay)
           })
-          console.log(this.payTypes)
         } else {
           this.$vux.toast.warn('支付方式获取失败')
         }

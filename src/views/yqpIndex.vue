@@ -9,9 +9,13 @@
     <zk-swiper diykey="swiper_index" height="210px"></zk-swiper>
     <zk-grid diykey="grid_index" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
 
-    <div v-for="(src,index) in list" :key="index" style="text-align:center;">
-      <span style="font-size:20px;">Loading</span>
-      <x-img :src="src" :webp-src="`${src}?type=webp`" @on-success="success" @on-error="error" class="ximg-demo" error-class="ximg-error" :offset="-100" container="#vux_view_box_body"></x-img>
+    <div class="yqpimg">
+      <img src="../../static/images/yqp/1.png" alt="">
+      <img src="../../static/images/yqp/2.png" alt="">
+      <img src="../../static/images/yqp/3.png" alt="">
+      <img src="../../static/images/yqp/4.png" alt="">
+      <img src="../../static/images/yqp/5.png" alt="">
+      <img src="../../static/images/yqp/6.png" alt="">
     </div>
 
     <group-title class="flex">
@@ -57,16 +61,7 @@
     },
     data () {
       return {
-        topline: '',
-        list: [
-          'https://o5omsejde.qnssl.com/demo/test1.jpg',
-          'https://o5omsejde.qnssl.com/demo/test2.jpg',
-          'https://o5omsejde.qnssl.com/demo/test4.jpg',
-          'https://o5omsejde.qnssl.com/demo/test5.jpg',
-          'https://o5omsejde.qnssl.com/demo/test6.jpg',
-          'https://o5omsejde.qnssl.com/demo/test7.jpg',
-          'https://o5omsejde.qnssl.com/demo/test8.jpg'
-        ]
+        topline: ''
       }
     },
     mounted () {
@@ -97,6 +92,12 @@
 
 <style  lang="less" >
   .zkui-default {
+    .yqpimg {
+      width: 100%;
+      img {
+        width: 100%;
+      }
+    }
     .flex {
       display: -moz-box;
       display: -ms-flexbox;

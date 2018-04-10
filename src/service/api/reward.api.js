@@ -10,5 +10,10 @@ export default {
   show (data) {
     var response = http.getLogin('/user/reward/show', data)
     return response
+  },
+  //  分润明细
+  ceshi (data) {
+    var response = http.getLogin('/user/reward/show', data)
+    return response
   }
 }
