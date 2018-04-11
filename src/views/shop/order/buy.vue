@@ -194,6 +194,7 @@
         }
       },
       async GetData () {
+        console.info('购物车', this.$route.params.isFromCart)
         var buyProductInfo = ''
         if (this.$route.params.buyInfo !== undefined) {
           buyProductInfo = this.$route.params.buyInfo

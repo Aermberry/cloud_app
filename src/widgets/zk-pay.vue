@@ -18,7 +18,7 @@
         </p>
       </div>
       <group class="pay-index">
-        <radio :options="payTypes" fill-label="Other" @on-change="change" :vlaue="payTypes[0].value"> </radio>
+        <radio :options="payTypes" fill-label="Other" @on-change="change" :vlaue="payTypes[0].value" v-if="asyncFlag===true"> </radio>
       </group>
       <div class="pay-buttom base">
         <x-button type="primary" @click.native="pay">确认支付{{amount}}元</x-button>
@@ -52,6 +52,7 @@
         showPupop: false, // 显示支付主窗体
         payTypes: [], // 支付方式
         orderType: '', // 订单方式
+        asyncFlag: false, // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
         orderIds: [],
         payId: 0, // 支付账单Id
         amount: 0.0, // 支付金额
@@ -79,7 +80,6 @@
 
       },
       async init () {
-        console.log(this.goBack)
         this.userName = this.LoginUser().userName
         let paras = {
           clientType: 'wapH5', // this.ClientType // 在gloal中获取支付方式列表
@@ -88,6 +88,7 @@
         }
         var response = await apiService.GetList(paras) // 获取支付方式列表
         if (response.data.status === 1) {
+          this.asyncFlag = true
           var pays = response.data.result.payTypeList // 所有的支付方式
           this.note = response.data.result.note
           this.payTypes = []
@@ -110,12 +111,10 @@
           payType: this.selectPayType,
           payId: this.payId
         }
-
         var response = await apiService.Pay(paras)
         if (response.data.status === 1) {
           // 如果支付订单类型为商城订单，支付成功以后跳转到我的订单或者订单详情
           if (this.orderType === 'order') {
-            console.info('支付网址', response.data.result.message)
             if (this.selectPayType === 1) {
               this.push()
             } else {

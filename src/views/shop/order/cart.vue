@@ -85,7 +85,7 @@
           <span slot="label">全选({{totalCount}})</span>
         </tabbar-item>
         <tabbar-item class="bar-num">
-          <span slot="label" class="zkui-order-cart-bar-price">{{totalAmount}}元</span>
+          <span slot="label" class="zkui-order-cart-bar-price">￥{{totalAmount}}元</span>
         </tabbar-item>
         <tabbar-item class="bar-right">
           <x-button slot="customer" type="primary" class="zkui-order-cart-bar-close" @click.native="buy()">结算</x-button>
