@@ -44,9 +44,15 @@
     },
     methods: {
       selectAddress () {
-        this.$router.push({
-          name: 'address_select'
-        })
+        if (this.Maddress === false) {
+          this.$router.push({
+            name: 'address_index'
+          })
+        } else {
+          this.$router.push({
+            name: 'address_select'
+          })
+        }
       },
       async GetData () {
         var defaultAddress = local.getLoginStore('default_address') // 刷新时从缓冲中读取地址
@@ -56,9 +62,13 @@
           if (response.data.status === 1) {
             this.viewModel = response.data.result
             this.hasSelectAddress = true
+            this.Maddress = true
+            console.log('有地址', this.Maddress)
             local.setLoginStore('default_address', this.viewModel) // 将购买信息写到缓存中
           } else {
             this.$vux.toast.warn('请先添加地址')
+            this.Maddress = false
+            console.log('没地址', this.Maddress)
           }
         } else {
           this.viewModel = defaultAddress
@@ -69,7 +79,8 @@
     data () {
       return {
         viewModel: '', // 数据模型
-        hasSelectAddress: false // 已经选择了地址
+        hasSelectAddress: false, // 已经选择了地址
+        Maddress: true
       }
     }
   }

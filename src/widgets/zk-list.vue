@@ -138,30 +138,35 @@
       font-size: @h4-font-size;
     }
   }
-  .weui-media-box__hd {
-    margin: 10px auto;
-    .brand {
-      width: 50*@rem;
-      height: 50*@rem;
-      padding-top: 0.1rem;
-      border-radius: 50%;
+  .weui-panel:after {
+    border: none !important;
+  }
+  .ZKList-Items {
+    .weui-media-box__hd {
+      margin: 10px auto;
+      .brand {
+        width: 50*@rem;
+        height: 50*@rem;
+        padding-top: 0.1rem;
+        border-radius: 50%;
+      }
     }
-  }
-  .mescroll-upwarp {
-    display: none;
-  }
-  .weui-media-box__title__extra {
-    float: right;
-  }
-  .weui-media-box__bd {
-    padding-left: 0.1rem;
-  }
-  .weui-media-box__desc {
-    padding-top: 0.3rem;
-    font-size: @h6-font-size;
-  }
-  .weui-media-box__title__extra {
-    font-size: @h4-font-size;
-    font-weight: bold;
+    .mescroll-upwarp {
+      display: none;
+    }
+    .weui-media-box__title__extra {
+      float: right;
+    }
+    .weui-media-box__bd {
+      padding-left: 0.1rem;
+    }
+    .weui-media-box__desc {
+      padding-top: 0.3rem;
+      font-size: @h6-font-size;
+    }
+    .weui-media-box__title__extra {
+      font-size: @h4-font-size;
+      font-weight: bold;
+    }
   }
 </style>

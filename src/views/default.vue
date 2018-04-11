@@ -68,7 +68,6 @@
           DataType: 'topline'
         }
         var response = await apiService.topline(style)
-        console.log(response)
         this.topline = response.data.result
       }
     }

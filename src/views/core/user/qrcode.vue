@@ -16,6 +16,7 @@
 <script>
   import userService from 'src/service/api/user.api'
   import { MIcon } from 'zkui'
+  import local from 'src/service/common/local'
   export default {
     components: {
       MIcon
@@ -36,6 +37,7 @@
         var respone = await userService.QrCode()
         console.log(respone.data.result)
         this.viewModel = respone.data
+        local.setLoginStore('UserId', this.LoginUser().id)
       }
     }
   }

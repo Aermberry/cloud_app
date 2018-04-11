@@ -1,5 +1,4 @@
-export default [
-  {
+export default [{
     path: '/user/debt/apply',
     meta: {
       title: '债事报备',
@@ -30,6 +29,28 @@ export default [
     name: 'debt_list',
     component: function (resolve) {
       require(['src/views/open/debt/list'], resolve)
+    }
+  },
+  {
+    path: '/user/debt/college',
+    meta: {
+      title: '云债通债事生态学院',
+      login: true
+    },
+    name: 'debt_college ',
+    component: function (resolve) {
+      require(['src/views/open/debt/college'], resolve)
+    }
+  },
+  {
+    path: '/user/debt/alliance',
+    meta: {
+      title: '战略联盟',
+      login: true
+    },
+    name: 'debt_alliance ',
+    component: function (resolve) {
+      require(['src/views/open/debt/alliance'], resolve)
     }
   }
 ]

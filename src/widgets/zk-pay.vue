@@ -4,7 +4,7 @@
       <div class="pay-head">
         <div class="vux-header">
           <div class="vux-header-left">
-            <x-button type="default" @click.native="push" class="sale-info-close"></x-button>
+            <x-button type="default" @click.native="showPupop=false" class="sale-info-close"></x-button>
           </div>
           <h1 class="vux-header-title">确认付款</h1>
           <!---->
@@ -75,6 +75,9 @@
       console.log(this.goBack)
     },
     methods: {
+      close () {
+
+      },
       async init () {
         console.log(this.goBack)
         this.userName = this.LoginUser().userName
@@ -87,6 +90,7 @@
         if (response.data.status === 1) {
           var pays = response.data.result.payTypeList // 所有的支付方式
           this.note = response.data.result.note
+          this.payTypes = []
           pays.forEach(element => {
             var pay = {}
             pay['key'] = element.payType

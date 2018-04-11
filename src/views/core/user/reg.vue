@@ -36,6 +36,7 @@
   import apiUser from 'src/service/api/user.api'
   import { Group, XInput, Agree, Box, XButton } from 'zkui'
   import { ZkPhoneVerifiy } from 'widgets'
+  import local from 'src/service/common/local'
   export default {
     components: {
       Group,
@@ -52,7 +53,8 @@
           password: '',
           agree: true,
           confirmPassword: '',
-          mobileVerifiyCode: ''
+          mobileVerifiyCode: '',
+          ParentId: ''
         },
         qwe: true,
         checked: true
@@ -63,7 +65,10 @@
         this.checked = !this.checked
       },
       async reg () {
+        local.setStore('ParentId', this.$route.query.id)
+        this.user.ParentId = this.$route.query.id
         this.user.mobile = this.user.mobile.replace(/\s+/g, '')
+        console.log(this.$route.query.id, this.user)
         var response = await apiUser.reg(this.user)
         if (response.data.status === 1) {
           this.$vux.toast.success('注册成功')

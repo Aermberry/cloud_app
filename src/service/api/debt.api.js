@@ -10,5 +10,10 @@ export default {
   async show (data) {
     var response = await http.getLogin('User/Debt/show', data)
     return response
+  },
+  //  债事列表
+  async list (data) {
+    var response = await http.getLogin('User/Debt/List', data)
+    return response
   }
 }

@@ -4,7 +4,7 @@
       <a slot="right" v-if="selectType" href="/user/address/index">管理</a>
     </zk-head>
     <checker v-model="defaultCheck" default-item-class="check-icon-item" type="radio" selected-item-class="check-icon-item-selected">
-      <div class="vux-form-preview weui-form-preview" v-for="(item,index) in viewModel" :key="index" @click="selectAddress(item.id)">
+      <div class="vux-form-preview weui-form-preview" v-for="(item,index) in viewModel" :key="index">
         <div class="weui-form-preview__hd">
           <label class="weui-form-preview__label address_name">{{item.name}}</label>
           <em class="weui-form-preview__value">{{item.mobile}}</em>
@@ -101,7 +101,7 @@
         this.$router.push({
           name: 'address_edit',
           params: {
-            type: true
+            come: 'index'
           }
         })
       },
@@ -130,22 +130,22 @@
             }
           })
         }
-      },
-      // 选择地址，同时将地址写入缓存中
-      async selectAddress (id) {
-        if (this.selectType) {
-          let param = {
-            id: id
-          }
-          var response = await apiUser.SingleAddress(param)
-          if (response.data.status === 1) {
-            local.setLoginStore('default_address', response.data.result) // 将地址信息写到缓存中
-          }
-          this.$router.push({
-            name: 'order_buy'
-          })
-        }
       }
+      // 选择地址，同时将地址写入缓存中
+      // async selectAddress (id) {
+      //   if (this.selectType) {
+      //     let param = {
+      //       id: id
+      //     }
+      //     var response = await apiUser.SingleAddress(param)
+      //     if (response.data.status === 1) {
+      //       local.setLoginStore('default_address', response.data.result) // 将地址信息写到缓存中
+      //     }
+      //     this.$router.push({
+      //       name: 'order_buy'
+      //     })
+      //   }
+      // }
     },
     data () {
       return {

@@ -178,7 +178,7 @@ export default [{
     },
     params: {
       id: '',
-      type: ''
+      come: ''
     },
     name: 'address_edit',
     component: function (resolve) {

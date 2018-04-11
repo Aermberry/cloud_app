@@ -92,11 +92,6 @@
     },
     created () {
       console.log(this.$route.query)
-      // if (this.$route.query.classsId === 'undefined') {
-      //   console.log('id空')
-      // } else {
-      //   console.log(this.$route.query.classsId)
-      // }
     },
     mounted () {
       this.upCallback()

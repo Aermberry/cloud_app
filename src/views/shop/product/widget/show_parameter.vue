@@ -26,7 +26,7 @@
               <dt>{{item.name}}</dt>
               <dd>
                 <checker v-model="saleItems[index] " default-item-class="sale-item " @on-change="changSku " selected-item-class="sale-item-selected " disabled-item-class="sale-item-disabled " :radio-required="true ">
-                  <checker-item :value="sale " v-for="sale in item.propertyValues " :key="sale.id "> {{sale.valueAlias}} </checker-item>
+                  <checker-item :value="sale " v-for="sale in item.propertyValues " :key="sale.id " :disabled="productView.productExtensions.productSkus[index].productStatus!==1"> {{sale.valueAlias}} </checker-item>
                 </checker>
               </dd>
             </dl>
@@ -82,7 +82,8 @@
         selectSku: '', // 选择的商品Sku
         buyCount: 1, // 商品购买数量
         saleItems: [], // 可能存在多个商品规格属性，默认填充四个
-        content: ''
+        content: '',
+        distrue: true
       }
     },
     watch: {
@@ -108,7 +109,7 @@
         for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
           this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
         }
-            this.selectSku = this.productView.productExtensions.productSkus[0] // 根据specSn获取商品的规格
+        this.selectSku = this.productView.productExtensions.productSkus[0] // 根据specSn获取商品的规格
       },
       init () {
         this.productView.productExtensions.productCategory.salePropertys.forEach(element => {
