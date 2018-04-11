@@ -112,12 +112,11 @@
           // 如果支付订单类型为商城订单，支付成功以后跳转到我的订单或者订单详情
           if (this.orderType === 'order') {
             console.info('支付网址', response.data.result.message)
-            if (this.selectPayType === '1') {
+            if (this.selectPayType === 1) {
               this.push()
             } else {
               window.location.href = response.data.result.message
             }
-            // this.push()
           }
         } else {
           this.$vux.toast.warn(response.data.message)

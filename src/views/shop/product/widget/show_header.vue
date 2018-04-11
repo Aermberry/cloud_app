@@ -109,6 +109,11 @@
   @import '../../../../assets/css/zkui/theme';
   @import '../../../../assets/css/zkui/mixin';
   .zkui-show-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9950;
     .header-opacity {
       background-color: transparent !important;
       transition: all 0.2s linear;
@@ -127,11 +132,6 @@
       }
     }
     .zk-head-fixed {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 9950;
     }
     .vux-button-tab-item {
       font-weight: @font-weight-normal;
