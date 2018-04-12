@@ -67,7 +67,6 @@
             <span class="weui-form-preview__value">￥{{data.totalAmount}}</span>
           </div>
         </div>
-        <divider class="divider-bg "></divider>
         <!-- <div class="weui-form-preview__ft">
           <a href="javascript:" class="weui-form-preview__btn">联系卖家</a>
           <a href="javascript:" class="weui-form-preview__btn ">拨打电话</a>
@@ -87,6 +86,11 @@
         </div>
       </div>
     </div>
+    <group class="operation ">
+      <cell>
+        <x-button mini plain type="primary">付款</x-button>
+      </cell>
+    </group>
 
     <zk-foot></zk-foot>
   </section>
@@ -115,6 +119,7 @@
     },
     mounted () {
       this.GetData()
+      console.log(this.$route.query)
     },
     methods: {
       async GetData () {
@@ -130,7 +135,7 @@
           this.viewModel = defaultAddress
         }
         // console.log(this.$route.params.showId)
-        var id = this.$route.params.showId
+        var id = this.$route.query.id
         let par = {
           id: id
         }
@@ -343,6 +348,13 @@
           width: 100%;
           height: 100%;
         }
+      }
+    }
+    .operation {
+      .weui-btn {
+        width: 6rem;
+        height: 2rem;
+        line-height: 2rem;
       }
     }
   }

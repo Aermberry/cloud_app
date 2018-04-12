@@ -52,5 +52,27 @@ export default [{
     component: function (resolve) {
       require(['src/views/open/debt/alliance'], resolve)
     }
+  },
+  {
+    path: '/user/debt/property_offter',
+    meta: {
+      title: '资产提供',
+      login: true
+    },
+    name: 'debt_property_offter ',
+    component: function (resolve) {
+      require(['src/views/open/debt/property_offter'], resolve)
+    }
+  },
+  {
+    path: '/user/debt/property_demand',
+    meta: {
+      title: '资产需求',
+      login: true
+    },
+    name: 'debt_property_demand ',
+    component: function (resolve) {
+      require(['src/views/open/debt/property_demand'], resolve)
+    }
   }
 ]

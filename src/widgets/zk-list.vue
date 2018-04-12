@@ -5,12 +5,16 @@
         <div class="weui-panel__bd">
           <a :href="item.url" class="weui-media-box weui-media-box_appmsg" v-for="item in dataList" :key="item.id">
             <div class="weui-media-box__hd">
-              <x-img :src="item.image"></x-img>
+              <router-link :to="item.url">
+                <x-img :src="item.image"></x-img>
+              </router-link>
             </div>
             <div class="weui-media-box__bd">
-              <h4 class="weui-media-box__title zkui-user-account-finacebill-fontcolor">{{item.title}}
-                <span class="weui-media-box__title__extra zkui-user-account-finacebill-fontcolor brand">{{item.extra}}</span>
-              </h4>
+              <router-link :to="item.url">
+                <h4 class="weui-media-box__title zkui-user-account-finacebill-fontcolor">{{item.title}}
+                  <span class="weui-media-box__title__extra zkui-user-account-finacebill-fontcolor brand">{{item.extra}}</span>
+                </h4>
+              </router-link>
               <p class="weui-media-box__desc">{{item.intro}}</p>
             </div>
           </a>
@@ -28,9 +32,17 @@
           <!-- <div class="weui-panel__hd">图文组合列表</div> -->
           <div class="weui-panel__bd">
             <a href="#!/component/cell" class="weui-media-box weui-media-box_appmsg">
-              <div class="weui-media-box__hd"><img :src="item.image" alt="" class="weui-media-box__thumb"></div>
+              <div class="weui-media-box__hd">
+                <router-link :to="item.url">
+                  <img :src="item.image" alt="" class="weui-media-box__thumb">
+                </router-link>
+              </div>
+
               <div class="weui-media-box__bd">
-                <h4 class="weui-media-box__title">{{item.title}}</h4>
+                <router-link :to="item.url">
+                  <h4 class="weui-media-box__title">
+                    {{item.title}}</h4>
+                </router-link>
                 <p class="weui-media-box__desc">{{item.intro}}</p>
                 <p class="weui-media-box__desc" style="text-align: right">{{item.extra}}</p>
               </div>
@@ -101,6 +113,7 @@
         // this.styleType = response.data.result.styleType // 选择何种风格
         this.$refs.mescroll.endSuccess(params, totalSize) // 调用widget xsroll 下拉刷新函数
         this.dataList = this.dataList.concat(response.data.result.apiDataList)
+        console.log(this.data)
         if (this.dataList.length === 0) {
           this.notDataf = false
           this.notDatas = false
@@ -141,6 +154,9 @@
   .weui-panel:after {
     border: none !important;
   }
+  .mescroll-upwarp {
+    display: none !important;
+  }
   .ZKList-Items {
     .weui-media-box__hd {
       margin: 10px auto;
@@ -151,9 +167,7 @@
         border-radius: 50%;
       }
     }
-    .mescroll-upwarp {
-      display: none;
-    }
+
     .weui-media-box__title__extra {
       float: right;
     }

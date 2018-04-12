@@ -15,15 +15,19 @@
                   <group class="box-title">
                     <cell :title="items.storeName" :value="items.orderStatuName"></cell>
                   </group>
-                  <div class="zkui-order-list-product" @click="show(items.id)" v-for="(itemss,indexss) in items.outOrderProducts" :key="indexss">
+                  <div class="zkui-order-list-product" v-for="(itemss,indexss) in items.outOrderProducts" :key="indexss">
                     <ul class="flex">
                       <li class="left-img">
-                        <img :src="itemss.thumbnailUrl" alt="">
+                        <router-link :to="'/order/show?id='+items.id">
+                          <img :src="itemss.thumbnailUrl" alt="">
+                        </router-link>
                       </li>
                       <li class="flex_one center-content">
-                        <p>
-                          {{itemss.name}}
-                        </p>
+                        <router-link :to="'/order/show?id='+items.id">
+                          <p>
+                            {{itemss.name}}
+                          </p>
+                        </router-link>
                         <span>
                           {{itemss.propertyValueDesc}}
                         </span>
@@ -51,8 +55,9 @@
                       <!-- <x-button mini plain v-if="allState.Shipments[indexs]">退货</x-button>
                       <x-button mini plain v-if="allState.Take[indexs]">确认收货</x-button>
                       <x-button mini plain v-if="allState.Evaluate[indexs]">评价</x-button> -->
-                      <!-- <x-button mini plain v-if="allState.Payment[indexs]">取消订单</x-button>
-                      <x-button mini plain type="primary" v-if="allState.Payment[indexs]">付款</x-button> -->
+                      <!-- <x-button mini plain v-if="allState.Payment[indexs]">取消订单</x-button>-->
+                      <x-button mini plain v-if="allState.Payment[indexs]" @click.native="orderCancel(items.id,indexs)">取消订单</x-button>
+                      <x-button mini plain type="primary" v-if="allState.Payment[indexs]">付款</x-button>
                     </cell>
                   </group>
                 </div>
@@ -64,15 +69,19 @@
                   <group class="box-title">
                     <cell :title="items.storeName" :value="items.orderStatuName"></cell>
                   </group>
-                  <div class="zkui-order-list-product" @click="show(items.id)" v-for="(itemss,indexss) in items.outOrderProducts" :key="indexss">
+                  <div class="zkui-order-list-product" v-for="(itemss,indexss) in items.outOrderProducts" :key="indexss">
                     <ul class="flex">
                       <li class="left-img">
-                        <img :src="itemss.thumbnailUrl" alt="">
+                        <router-link :to="'/order/show?id='+items.id">
+                          <img :src="itemss.thumbnailUrl" alt="">
+                        </router-link>
                       </li>
                       <li class="flex_one center-content">
-                        <p>
-                          {{itemss.name}}
-                        </p>
+                        <router-link :to="'/order/show?id='+items.id">
+                          <p>
+                            {{itemss.name}}
+                          </p>
+                        </router-link>
                         <span>
                           {{itemss.propertyValueDesc}}
                         </span>
@@ -97,8 +106,8 @@
                   </group>
                   <group class="product-option">
                     <cell>
-                      <!-- <x-button mini plain>取消订单</x-button>
-                      <x-button mini plain type="primary">付款</x-button> -->
+                      <x-button mini plain @click.native="orderCancel(items.id,indexs)">取消订单</x-button>
+                      <x-button mini plain type="primary">付款</x-button>
                     </cell>
                   </group>
                 </div>
@@ -110,15 +119,19 @@
                   <group class="box-title">
                     <cell :title="items.storeName" :value="items.orderStatuName"></cell>
                   </group>
-                  <div class="zkui-order-list-product" @click="show(items.id)" v-for="(itemss,indexss) in items.outOrderProducts" :key="indexss">
+                  <div class="zkui-order-list-product" v-for="(itemss,indexss) in items.outOrderProducts" :key="indexss">
                     <ul class="flex">
                       <li class="left-img">
-                        <img :src="itemss.thumbnailUrl" alt="">
+                        <router-link :to="'/order/show?id='+items.id">
+                          <img :src="itemss.thumbnailUrl" alt="">
+                        </router-link>
                       </li>
                       <li class="flex_one center-content">
-                        <p>
-                          {{itemss.name}}
-                        </p>
+                        <router-link :to="'/order/show?id='+items.id">
+                          <p>
+                            {{itemss.name}}
+                          </p>
+                        </router-link>
                         <span>
                           {{itemss.propertyValueDesc}}
                         </span>
@@ -155,15 +168,19 @@
                   <group class="box-title">
                     <cell :title="items.storeName" :value="items.orderStatuName"></cell>
                   </group>
-                  <div class="zkui-order-list-product" @click="show(items.id)" v-for="(itemss,indexss) in items.outOrderProducts" :key="indexss">
+                  <div class="zkui-order-list-product" v-for="(itemss,indexss) in items.outOrderProducts" :key="indexss">
                     <ul class="flex">
                       <li class="left-img">
-                        <img :src="itemss.thumbnailUrl" alt="">
+                        <router-link :to="'/order/show?id='+items.id">
+                          <img :src="itemss.thumbnailUrl" alt="">
+                        </router-link>
                       </li>
                       <li class="flex_one center-content">
-                        <p>
-                          {{itemss.name}}
-                        </p>
+                        <router-link :to="'/order/show?id='+items.id">
+                          <p>
+                            {{itemss.name}}
+                          </p>
+                        </router-link>
                         <span>
                           {{itemss.propertyValueDesc}}
                         </span>
@@ -200,15 +217,19 @@
                   <group class="box-title">
                     <cell :title="items.storeName" :value="items.orderStatuName"></cell>
                   </group>
-                  <div class="zkui-order-list-product" @click="show(items.id)" v-for="(itemss,indexss) in items.outOrderProducts" :key="indexss">
+                  <div class="zkui-order-list-product" v-for="(itemss,indexss) in items.outOrderProducts" :key="indexss">
                     <ul class="flex">
                       <li class="left-img">
-                        <img :src="itemss.thumbnailUrl" alt="">
+                        <router-link :to="'/order/show?id='+items.id">
+                          <img :src="itemss.thumbnailUrl" alt="">
+                        </router-link>
                       </li>
                       <li class="flex_one center-content">
-                        <p>
-                          {{itemss.name}}
-                        </p>
+                        <router-link :to="'/order/show?id='+items.id">
+                          <p>
+                            {{itemss.name}}
+                          </p>
+                        </router-link>
                         <span>
                           {{itemss.propertyValueDesc}}
                         </span>
@@ -284,7 +305,7 @@
           Shipments: [],
           Take: [],
           Evaluate: []
-        }// 记录是否需要付款
+        } // 记录是否需要付款
       }
     },
     created () {
@@ -294,14 +315,21 @@
       this.GetData()
     },
     methods: {
-      show (id) {
-        console.log(id)
-        this.$router.push({
-          name: 'order_show',
-          params: {
-            showId: id
+      async orderCancel (oid, index) {
+        let par = {
+          id: oid
+        }
+        var reponse = await orderService.cancel(par)
+        if (reponse.data.status === 1) {
+          console.log(1)
+          this.data.splice(index, 1)
+          console.log(this.data.length)
+          if (this.data.length === 19) {
+            this.$router.go(0)
           }
-        })
+        } else {
+          this.$vux.toast.warn('删除失败')
+        }
       },
       async GetData () {
         var reponse = await orderService.list()
@@ -424,6 +452,11 @@
               .left-img {
                 width: 4.5rem;
                 height: 4.5rem;
+                a {
+                  display: block;
+                  width: 4.5rem;
+                  height: 4.5rem;
+                }
                 img {
                   width: 100%;
                   height: 100%;

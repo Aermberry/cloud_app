@@ -8,18 +8,17 @@
           <div class="weui-cells">
             <a href="" class="weui-cell weui-cell_access">
               <div class="weui-cell__hd">
-                <img src="../../../../src/assets/images/icon/man.png" alt="" class="self-header">
+                <img :src="userInfo.img" alt="" class="self-header">
               </div>
               <div class="weui-cell__bd">
-                <h4 class="self-nickname">xxx</h4>
-                <p class="self-wxid">微信号: xxx</p>
+                <h4 class="self-nickname">用户名：{{userInfo.name}}</h4>
+                <p class="self-wxid">等级：{{userInfo.info}}</p>
               </div>
               <div class="weui-cell__ft">
                 <m-icon name="zk-qrcode1" class="metal"></m-icon>
               </div>
             </a>
           </div>
-
           <zk-cell :links="links" class="zkui-core-user-weui-list"></zk-cell>
 
         </div>
@@ -31,6 +30,7 @@
 </template>
 
 <script>
+  import userService from 'src/service/api/user.api'
   import { ZkCell } from 'src/widgets/'
   import { MIcon } from 'zkui'
   export default {
@@ -41,7 +41,6 @@
     //  https://segmentfault.com/q/1010000012824355 参考这个实现方式，更为优雅
     data () {
       return {
-
         userInfo: {
           name: '马上登录',
           info: '登陆后享受更多服务'
@@ -78,13 +77,45 @@
             ]
           }
 
-        ]
+        ],
+        userInfo: {
+          name: '',
+          info: '登陆后享受更多服务',
+          img: ''
+        }
+      }
+    },
+    mounted () {
+      this.GetData()
+    },
+    methods: {
+      async GetData () {
+        var reponse = await userService.view(this.data)
+        console.log(reponse)
+        this.userInfo.name = reponse.data.result.name
+        this.userInfo.info = reponse.data.result.gradeName
+        this.userInfo.img = reponse.data.result.avator
       }
     }
   }
-
-
 </script>
 <style scoped  lang="less">
-
+  .zkui-user-info {
+    .weui-cell__hd {
+      img {
+        width: 4rem;
+        height: 4rem;
+      }
+    }
+    .weui-cell__bd {
+      .self-nickname {
+        font-size: @h4-font-size;
+        font-weight: normal;
+        padding-left: 1rem;
+      }
+      .self-wxid {
+        padding-left: 1rem;
+      }
+    }
+  }
 </style>

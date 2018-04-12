@@ -25,5 +25,10 @@ export default {
   show (data) {
     var response = http.getLogin('/order/show', data)
     return response
+  },
+  //  订单详情页
+  cancel (data) {
+    var response = http.getLogin('/Order/Cancel', data)
+    return response
   }
 }

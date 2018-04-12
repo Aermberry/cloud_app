@@ -114,8 +114,6 @@
       dl {
         a {
           display: block;
-          width: 100%;
-          min-height: 2rem;
           img {
             width: 100%;
             display: block;
@@ -126,12 +124,14 @@
           a {
             display: block;
             margin: 0.3rem 0.3rem 0.1rem 0.3rem;
-            overflow: hidden;
+            word-break: break-all;
             text-overflow: ellipsis;
+            display: -webkit-box;
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 2;
-            white-space: nowrap;
+            overflow: hidden;
             color: @black;
+            height: 40px;
           }
         }
         .itemPrice {

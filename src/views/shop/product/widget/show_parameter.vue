@@ -86,10 +86,6 @@
         distrue: true
       }
     },
-    watch: {
-      // 监听路由的变化。
-      '$route': 'in'
-    },
     mounted: function () {
       this.$nextTick(function () {
         this.$on('childMethod', function () {
@@ -97,25 +93,19 @@
         })
       })
       this.init()
-      console.log('show', this.productView)
-      for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
-        this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
-      }
+      // console.log('show', this.productView)
+      // for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
+      //   this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
+      // }
     },
     methods: {
-      in () {
-        console.log('路由发生变化-showP')
-        console.log('show', this.productView)
-        for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
-          this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
-        }
-        this.selectSku = this.productView.productExtensions.productSkus[0] // 根据specSn获取商品的规格
-      },
       init () {
         this.productView.productExtensions.productCategory.salePropertys.forEach(element => {
           this.salePropertyTitle = this.salePropertyTitle + element.name + ' '
         })
         this.selectSku = this.productView.productExtensions.productSkus[0] // 根据specSn获取商品的规格
+        console.log('select', this.selectSku)
+        console.log('刘成恩', this.productView)
       },
       // 添加到购物车
       async addToCart () {
