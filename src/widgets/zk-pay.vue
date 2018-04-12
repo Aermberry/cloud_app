@@ -114,41 +114,16 @@
         if (response.data.status === 1) {
           // 如果支付订单类型为商城订单，支付成功以后跳转到我的订单或者订单详情
           if (this.orderType === 'order') {
-            if (this.selectPayType === 1) {
-              // this.push()
-            } else {
-              // window.location.href = response.data.result.message
-            }
+            // 跳转到指定的url，跳转url从云端返回
+            window.location.href = response.data.result.url
           }
         } else {
           this.$vux.toast.warn(response.data.message)
         }
       },
       change (value, label) {
-        console.log('change:', value, label)
+        // console.log('change:', value, label)
         this.selectPayType = value
-      },
-      // 支付成功后跳转
-      push () {
-        this.showPupop = false
-        // 如果是商城订单支付，则跳转到商城订单
-        if (this.orderType === 'order') {
-          if (this.orderIds.length === 1) {
-            console.info(this.orderIds)
-            // 一个订单跳转到详情页
-            this.$router.push({
-              name: 'order_show',
-              params: {
-                showId: this.orderIds[0]
-              }
-            })
-          } else {
-            // 多个订单跳转到列表页
-            this.$router.push({
-              name: 'order_list'
-            })
-          }
-        }
       }
     }
   }
