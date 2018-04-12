@@ -145,7 +145,6 @@
               storeId: storeBuyItem.storeId,
               deliveryId: this.showDelivery[i], // 运费
               userMessage: this.userMessages[i],
-              isFromCart: this.isFromCart,
               totalAmount: this.priceView.storePrices[i].totalAmount, // 店铺订单总价格
               totalCount: this.modelView.storeItems[i].totalCount, // 店铺商品总数量
               expressAmount: this.priceView.storePrices[i].expressAmount, // 店铺运费
@@ -176,6 +175,7 @@
             paymentAmount: this.priceView.totalAmount, // 订单总金额
             orderType: 1, // 订单类型
             sign: this.modelView.sign, // 签名信息
+            isFromCart: this.isFromCart, // 是否从购物车购买
             userId: this.LoginUser().id // 下单用户ID
           }
           // console.info('购买格式', buyInput)

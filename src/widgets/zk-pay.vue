@@ -73,7 +73,6 @@
           this.goBack = payBack
         })
       })
-      console.log(this.goBack)
     },
     methods: {
       close () {
@@ -116,9 +115,9 @@
           // 如果支付订单类型为商城订单，支付成功以后跳转到我的订单或者订单详情
           if (this.orderType === 'order') {
             if (this.selectPayType === 1) {
-              this.push()
+              // this.push()
             } else {
-              window.location.href = response.data.result.message
+              // window.location.href = response.data.result.message
             }
           }
         } else {
