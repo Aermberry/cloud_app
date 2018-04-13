@@ -2,7 +2,14 @@
   <section class="zkui-czt-default">
     <div class="index-search weui-header ">
       <router-link to="/product/search" class="zkui-default-search-box">
-        <search placeholder="搜索您想要的商品"></search>
+        <!-- <search placeholder="搜索您想要的商品"></search> -->
+        <div class="search-box">
+          <input type="text">
+          <div class="search-text">
+            <m-icon name="zk-search" size="1rem"></m-icon>
+            搜索您想要的商品
+          </div>
+        </div>
       </router-link>
       <m-icon name="zk-qrcode1" class="icon-brand index-qrcode " link="/user/qrcode" size="1rem"></m-icon>
     </div>
@@ -117,9 +124,28 @@
       z-index: 9999;
       width: 100%;
       .zkui-default-search-box {
-        .vux-search-box {
-          .weui-search-bar {
-            background: transparent;
+        // .vux-search-box {
+        //   .weui-search-bar {
+        //     background: transparent;
+        //   }
+        // }
+        .search-box {
+          padding: 0.5rem 0.83333333rem;
+          height: 100%;
+          position: relative;
+          input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            height: 100%;
+          }
+          .search-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            height: 2rem;
+            line-height: 2rem;
+            transform: translate(-50%, -50%);
+            color: @gray-600;
           }
         }
       }

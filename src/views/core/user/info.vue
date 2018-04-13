@@ -41,10 +41,6 @@
     //  https://segmentfault.com/q/1010000012824355 参考这个实现方式，更为优雅
     data () {
       return {
-        userInfo: {
-          name: '马上登录',
-          info: '登陆后享受更多服务'
-        },
         links: [
           {
             color: 'metal',
