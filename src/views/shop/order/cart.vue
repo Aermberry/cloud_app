@@ -265,26 +265,26 @@
       async changeCount (storeIndex, skuIndex, skuId) {
         // 店铺数量  商品排位 skuid
         // console.info('修改数量', storeIndex, skuIndex, skuId)
-        // if (this.buySkuCount[storeIndex][skuIndex] === 0) {
-        //   let orderProductInput = {
-        //     productSkuId: skuId,
-        //     storeId: storeIndex
-        //   }
-        //   var reponses = await userService.RemoveCart(orderProductInput)
-        //   if (reponses.data.status === 1) {
-        //     console.log(reponses.data.status)
-        //     this.buySkuCount[storeIndex].splice(skuIndex, 1)
-        //     this.viewModel.storeItems[storeIndex].productSkuItems.splice(skuIndex, 1)
-        //   }
-        // }
+        if (this.buySkuCount[storeIndex][skuIndex] === 0) {
+          let orderProductInput = {
+            productSkuId: skuId,
+            storeId: storeIndex
+          }
+          var reponses = await userService.RemoveCart(orderProductInput)
+          if (reponses.data.status === 1) {
+            this.$vux.toast.success('移除成功')
+            this.buySkuCount[storeIndex].splice(skuIndex, 1)
+            this.viewModel.storeItems[storeIndex].productSkuItems.splice(skuIndex, 1)
+          }
+        }
         if (this.buySkuCount[storeIndex][skuIndex] === 0) {
           this.viewModel.storeItems[storeIndex].productSkuItems.splice(this.buySkuCount[storeIndex].indexOf(0), 1)
           var a
           a = this.buySkuCount
           a[storeIndex].splice(this.buySkuCount[storeIndex].indexOf(0), 1)
           this.buySkuCount = a
-          console.info(this.buySkuCount[storeIndex])
-          console.log(this.buySkuCount[storeIndex][skuIndex])
+          // console.info(this.buySkuCount[storeIndex])
+          // console.log(this.buySkuCount[storeIndex][skuIndex])
         }
       },
       // 结算购买
@@ -303,17 +303,18 @@
               LoginUserId: this.LoginUser().id
             }
             buyProductInfo.push(buyItem)
+            console.log(buyProductInfo)
           }
           console.info('店铺最终购买数据', storeItem.storeName, this.productSkuChecks[i])
         }
         console.info('总数据', this.viewModel, '格式', buyProductInfo)
-        this.$router.push({
-          name: 'order_buy',
-          params: {
-            buyInfo: buyProductInfo,
-            isFromCart: true // 购买信息来自购物车
-          }
-        })
+        // this.$router.push({
+        //   name: 'order_buy',
+        //   params: {
+        //     buyInfo: buyProductInfo,
+        //     isFromCart: true // 购买信息来自购物车
+        //   }
+        // })
       }
     },
     watch: {
@@ -556,6 +557,9 @@
         color: #b2b2b2;
         font-size: 3.5rem;
       }
+    }
+    .zkui-order-cart-bar-price {
+      color: @brand;
     }
   }
 </style>

@@ -5,7 +5,8 @@
     <input id="input10" :ref="serviceFiles" :value="serviceFiles" type="hidden" />
   </label>
 </template>
-<style>
+<style   lang="less">
+  @import '../../assets/css/zkui/theme';
   .file-uploads {
     overflow: hidden;
     position: relative;
@@ -34,14 +35,11 @@
   }
 </style>
 <script>
-  // eslint-disable-next-line
+  // eslint-disable-next-line to ignore the next line.
   /* eslint-disable */
   import ChunkUploadDefaultHandler from './chunk/ChunkUploadHandler'
   import InputFile from './InputFile.vue'
-  //import apiService from 'src/service/api/common.api.js'
-  //import helper from 'src/service/common/helper'
-
-
+  import apiService from 'src/service/api/common.api.js'
   const CHUNK_DEFAULT_OPTIONS = {
     headers: {
       'Content-Type': 'application/json'
@@ -55,24 +53,24 @@
 
   export default {
     components: {
-      InputFile,
+      InputFile
     },
     props: {
       inputId: {
-        type: String,
+        type: String
       },
 
       name: {
         type: String,
-        default: 'file',
+        default: 'file'
       },
 
       accept: {
-        type: String,
+        type: String
       },
 
       multiple: {
-        type: Boolean,
+        type: Boolean
       },
 
       maximum: {
@@ -83,61 +81,61 @@
       },
 
       addIndex: {
-        type: [Boolean, Number],
+        type: [Boolean, Number]
       },
 
       directory: {
-        type: Boolean,
+        type: Boolean
       },
 
       postAction: {
-        type: String,
+        type: String
       },
 
       putAction: {
-        type: String,
+        type: String
       },
 
       customAction: {
-        type: Function,
+        type: Function
       },
 
       headers: {
         type: Object,
-        default: Object,
+        default: Object
       },
 
       data: {
         type: Object,
-        default: Object,
+        default: Object
       },
 
       timeout: {
         type: Number,
-        default: 0,
+        default: 0
       },
 
 
       drop: {
-        default: true,
+        default: true
       },
 
       dropDirectory: {
         type: Boolean,
-        default: true,
+        default: true
       },
 
       size: {
         type: Number,
-        default: 0,
+        default: 0
       },
 
       savepath: {
         type: String,
-        default: "/api/",
+        default: '/api/'
       },
       extensions: {
-        default: Array,
+        default: Array
       },
 
 
@@ -172,7 +170,7 @@
         features: {
           html5: true,
           directory: false,
-          drag: false,
+          drag: false
         },
         serviceFiles: '',
         active: false,
@@ -181,7 +179,7 @@
 
         uploading: 0,
 
-        destroy: false,
+        destroy: false
       }
     },
 
@@ -373,7 +371,7 @@
               file,
               size: file.size,
               name: file.webkitRelativePath || file.relativePath || file.name || 'unknown',
-              type: file.type,
+              type: file.type
             }
           }
           let fileObject = false
@@ -401,20 +399,20 @@
               ...file,
               response: {},
 
-              progress: '0.00',          // 只读
-              speed: 0,                  // 只读
+              progress: '0.00', // 只读
+              speed: 0  // 只读
               // xhr: false,                // 只读
               // iframe: false,             // 只读
             }
 
             file.data = {
               ...this.data,
-              ...file.data ? file.data : {},
+              ...file.data ? file.data : {}
             }
 
             file.headers = {
               ...this.headers,
-              ...file.headers ? file.headers : {},
+              ...file.headers ? file.headers : {}
             }
           }
 
@@ -498,7 +496,7 @@
         } else {
           files.push({
             name: el.value.replace(/^.*?([^\/\\\r\n]+)$/, '$1'),
-            el,
+            el
           })
         }
         return this.add(files)
@@ -564,7 +562,7 @@
                   size: file.size,
                   name: path + file.name,
                   type: file.type,
-                  file,
+                  file
                 }
               ])
             })
@@ -837,9 +835,8 @@
       },
 
       async uploadHtml5 (file) {
-
-        //let result =await apiService.upload(file,"/core")
-        //console.dir(result)
+        let result = await apiService.upload(file, '/core')
+        console.dir(result)
         let form = new window.FormData()
         let value
         for (let key in file.data) {
@@ -854,20 +851,20 @@
             form.append(key, value)
           }
         }
-        form.append("savePath", this.savepath)
-        form.append("fileSize", this.size)
+        form.append('savePath', this.savepath)
+        form.append('fileSize', this.size)
         form.append(this.name, file.file, file.file.filename || file.name)
-        console.dir(form)
-        console.dir(form)
+        console.dir('表单内容', this.savepath)
         var response = await apiService.upload(form)
         if (response.data.status !== 1) {
-          helper.alertError(response.data.message)
+          this.$vux.toast.warn(response.data.message)
         } else {
-          this.$zk.toast.text('上传成功', 'bottom')
+          this.$vux.toast.text('上传成功')
           if (this.serviceFiles === undefined || this.serviceFiles.length <= 1) {
             this.serviceFiles = response.data.result.saveFileName
           } else {
             this.serviceFiles = this.serviceFiles + ',' + response.data.result.saveFileName
+            console.info('上传路径', this.serviceFiles)
           }
         }
       },
@@ -1156,17 +1153,14 @@
               if (!file.fileObject) {
                 return reject('file_object')
               }
-
               // 有错误自动响应
               if (file.error) {
                 return reject(file.error)
               }
-
               // 未激活
               if (!file.active) {
                 return reject('abort')
               }
-
               // 已完成 直接相应
               if (file.success) {
                 return resolve(file)
@@ -1331,7 +1325,7 @@
       onDrop (e) {
         e.preventDefault()
         this.addDataTransfer(e.dataTransfer)
-      },
+      }
     }
   }
 </script>

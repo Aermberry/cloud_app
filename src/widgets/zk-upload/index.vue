@@ -24,7 +24,8 @@
   </div>
 
 </template>
-<style>
+<style   lang="less">
+  @import '../../assets/css/zkui/theme';
   .weui-uploader__input-box .file-uploads {
     display: block;
     width: 79*@rem;
