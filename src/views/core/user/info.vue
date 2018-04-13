@@ -76,13 +76,7 @@
               }
             ]
           }
-
-        ],
-        userInfo: {
-          name: '',
-          info: '登陆后享受更多服务',
-          img: ''
-        }
+        ]
       }
     },
     mounted () {

@@ -51,7 +51,7 @@
           </checker>
         </div>
       </div>
-      <zk-upload :fileCount="20" :savePath="savePath" :size="5*1024" ref="savePath">上传相关凭证</zk-upload>
+      <zk-upload :fileCount="20" :savePath="savePath" :size="5*1024" ref="uploadFile">上传相关凭证</zk-upload>
     </group>
     <box gap="2rem 6rem">
       <x-button type="primary" @click.native="apiPost()" action-type="button"> 确认提交</x-button>
@@ -117,6 +117,7 @@
           ApplyReason: this.debtApiInput.ApplyReason,
           Attachment: this.debtApiInput.Attachment
         }
+        console.info('上传路径', this.$refs.uploadFile)
         var response = await apiService.apply(par)
         if (response.data.status === 1) {
           this.messageSuccess('申请成功')
