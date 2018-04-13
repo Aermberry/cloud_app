@@ -11,9 +11,15 @@
                 <ul class="flex order-cart-commodity-box">
                   <li class="flex_one">
                     <div class="order-cart-commodit-into flex">
-                      <div class="order-cart-commodity-into_left"><img :src="item.thumbnailUrl" alt=""></div>
+                      <div class="order-cart-commodity-into_left">
+                        <router-link :to="'/product/show/'+item.id">
+                        <img :src="item.thumbnailUrl" alt="">
+                        </router-link>
+                        </div>
                       <div class="flex_one order-cart-commodity-into_right ">
-                        <p>{{item.name}}</p>
+                         <router-link :to="'/product/show/'+item.id">
+                            <p>{{item.name}}</p>
+                          </router-link>
                         <div class="commodity-into_right_bottom flex">
                           <span class="now">
                             ￥{{item.price}}

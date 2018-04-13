@@ -199,8 +199,6 @@
       dl {
         a {
           display: block;
-          width: 100%;
-          min-height: 2rem;
           img {
             width: 100%;
             display: block;
@@ -211,11 +209,13 @@
           a {
             display: block;
             margin: 0.3rem 0.3rem 0.1rem 0.3rem;
-            overflow: hidden;
+            word-break: break-all;
             text-overflow: ellipsis;
+            display: -webkit-box;
             -webkit-box-orient: vertical;
-            -webkit-line-clamp: 1;
-            white-space: nowrap;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+            height: 38px;
           }
         }
         .itemPrice {
@@ -223,7 +223,7 @@
           min-height: 3rem;
           p {
             color: @brand;
-            height: 38*@rem;
+
             font-weight: bold;
             margin-left: -0.2rem;
           }

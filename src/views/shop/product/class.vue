@@ -16,7 +16,7 @@
           <grid :cols="3">
             <h1>{{items.name}}</h1>
             <grid-item v-for="(item,index) in items.childClass" :key="index">
-              <router-link :to="'/product/list'+'?'+'Keyword='+item.id">
+              <router-link :to="'/product/list'+'?'+'ClassIds='+item.id">
                 <img :src="item.icon">
                 <p>{{item.name}}</p>
               </router-link>

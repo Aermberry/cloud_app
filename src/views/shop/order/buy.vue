@@ -11,9 +11,15 @@
                 <ul class="flex order-cart-commodity-box">
                   <li class="flex_one">
                     <div class="order-cart-commodit-into flex">
-                      <div class="order-cart-commodity-into_left"><img :src="productSku.thumbnailUrl " alt=""></div>
+                      <div class="order-cart-commodity-into_left">
+                        <router-link :to="'/product/show/'+productSku.productId">
+                          <img :src="productSku.thumbnailUrl " alt="">
+                        </router-link>
+                      </div>
                       <div class="flex_one order-cart-commodity-into_right ">
-                        <p>{{productSku.name}}</p>
+                        <router-link :to="'/product/show/'+productSku.productId">
+                          <p>{{productSku.name}}</p>
+                        </router-link>
                         <span>{{productSku.bn}} {{productSku.propertyValueDesc}} 重量：{{productSku.weight}}g</span>
                         <div class="price-box">
                           <p class="price_now">￥{{productSku.displayPrice}}</p>
@@ -221,6 +227,7 @@
             this.messageWarn(response.data.message)
           } else {
             this.modelView = response.data.result
+            console.log(this.modelView)
             // 初始运费模板
             for (var i = 0; i < this.modelView.storeItems.length; i++) {
               this.showDelivery[i] = this.modelView.storeItems[i].expressTemplates[0].key

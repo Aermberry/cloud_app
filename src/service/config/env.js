@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === 'development') {
   baseUrl = 'http://zkdebt.5ug.com'
   // baseUrl = 'http://zkgs.5ug.com'
   // baseUrl = 'http://zkqd.5ug.com'
-   baseUrl = 'http://localhost:9011'
+  // baseUrl = 'http://localhost:9011'
 } else {
   baseUrl = 'http://zkdebt.5ug.com'
   // baseUrl = 'http://zkgs.5ug.com'

@@ -49,7 +49,6 @@
       },
       // URL发生变化时操作的事件
       async  fetchData () {
-        console.log('路由发生变化-show')
         let params = {
           id: this.$route.params.id // 获取URL当中的Id参数
         }

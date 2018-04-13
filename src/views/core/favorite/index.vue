@@ -2,7 +2,7 @@
   <section class="zkui-user-favorite-index">
 
     <zk-head title='我的收藏' goBack='会员中心'></zk-head>
-    <!-- <zk-list :styleType=1 dataType='favarite' diyKey='list_user_favarite' :isLogin='true'></zk-list> -->
+    <zk-list :styleType=1 dataType='favarite' diyKey='list_user_favarite' :isLogin='true'></zk-list>
     <div>
       <div class="item-contnet">
         <ul>
@@ -12,9 +12,15 @@
                 <ul class="flex order-cart-commodity-box">
                   <li class="flex_one">
                     <div class="order-cart-commodit-into flex">
-                      <div class="order-cart-commodity-into_left"><img :src="item.thumbnailUrl" alt=""></div>
+                      <div class="order-cart-commodity-into_left">
+                        <router-link :to="'/product/show/'+item.id">
+                        <img :src="item.thumbnailUrl" alt="">
+                        </router-link>
+                        </div>
                       <div class="flex_one order-cart-commodity-into_right ">
+                                          <router-link :to="'/product/show/'+item.id">
                         <p>{{item.name}}</p>
+                                         </router-link>
                         <div class="commodity-into_right_bottom flex">
                           <span class="flex_one">
                             ￥{{item.price}}
