@@ -63,7 +63,6 @@
     },
     mounted () {
       this.getData()
-      console.log(this.$route.params.id)
     },
     methods: {
       async  getData () {

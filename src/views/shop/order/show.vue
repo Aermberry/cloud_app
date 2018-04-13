@@ -86,9 +86,9 @@
         </div>
       </div>
     </div>
-    <group class="operation ">
+    <group class="operation " v-if="showPay">
       <cell>
-        <x-button mini plain type="primary">付款</x-button>
+        <x-button mini plain type="primary" @click.native="pay()">付款</x-button>
       </cell>
     </group>
 
@@ -114,7 +114,8 @@
       return {
         viewModel: '', // 数据模型
         data: '',
-        state: ''
+        state: '',
+        showPay: false
       }
     },
     mounted () {
@@ -143,6 +144,7 @@
         this.data = showData.data.result
         if (this.data.orderStatus === 1) {
           this.state = '待付款'
+          this.showPay = true
         } else if (this.data.orderStatus === 2) {
           this.state = '待发货'
         } else if (this.data.orderStatus === 3) {
@@ -150,8 +152,31 @@
         } else if (this.data.orderStatus === 4) {
           this.state = '待评价'
         }
+      },
+      pay () {
+        console.log(123, this.data)
+        var buyProductInfo = []
+        console.log(this.data.productSkuItems[0].productId)
+        var buyItem = {
+          // ProductSkuId: this.data.productSkuItems[0].productSkuId,
+          // Count: this.data.productSkuItems[0].buyCount,
+          // ProductId: this.data.productSkuItems[0].productId,
+          // storeId: this.data.storeId,
+          LoginUserId: this.LoginUser().id,
+          Count: 1,
+          ProductId: 65,
+          ProductSkuId: 372,
+          storeId: 1
+        }
+        buyProductInfo.push(buyItem)
+        console.log(buyProductInfo)
+        this.$router.push({
+          name: 'order_buy',
+          params: {
+            buyInfo: buyProductInfo
+          }
+        })
       }
-
     }
   }
 </script>

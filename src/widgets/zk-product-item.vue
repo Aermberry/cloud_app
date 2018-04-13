@@ -131,6 +131,7 @@
             -webkit-line-clamp: 2;
             overflow: hidden;
             color: @black;
+            font-size: 14px;
             height: 40px;
           }
         }

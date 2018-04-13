@@ -21,24 +21,27 @@
       <div class="from-col">
         <x-input required placeholder="请输入联系邮箱" name="email" is-type="email"></x-input>
       </div>
+      <div class="from-col">
+        <popup-picker title="所在地区" :data="addressData" :columns="3" show-name v-model="addressValue" ref="addressRef"></popup-picker>
+      </div>
+      <div class="from-col-checker ">
+        <x-textarea :max="50" placeholder="输入详细地址" :rows="2"></x-textarea>
+      </div>
       <div class="from-col-checker">
         <div class="box">
           <p>请选择合作需求(多选)</p>
         </div>
         <checker v-model="demo1CheckboxMax" default-item-class="check-icon-item" type="checkbox" selected-item-class="check-icon-item-selected">
-          <checker-item value="1" type="default">汽车房产</checker-item>
-          <checker-item value="2" type="default">家居家纺</checker-item>
-          <checker-item value="3" type="default">鞋服箱包</checker-item>
-          <checker-item value="4" type="default">矿产珠宝</checker-item>
-          <checker-item value="5" type="default">粮油速食</checker-item>
-          <checker-item value="6" type="default">艺术品</checker-item>
+          <checker-item value="1" type="default">原材料</checker-item>
+          <checker-item value="2" type="default">半成品</checker-item>
+          <checker-item value="3" type="default">成品</checker-item>
+          <checker-item value="4" type="default">能源</checker-item>
+          <checker-item value="5" type="default">矿产</checker-item>
+          <checker-item value="6" type="default">建材</checker-item>
         </checker>
       </div>
-      <div class="from-col-checker ">
-        <x-textarea :max="50" placeholder="输入详细地址" :rows="2"></x-textarea>
-      </div>
       <div class="from-col">
-        <popup-picker title="所在地区" :data="addressData" :columns="3" show-name v-model="addressValue" ref="addressRef"></popup-picker>
+        <popup-picker title="请选择联盟属性" :data="list1" v-model="value1" @on-show="onShow" @on-hide="onHide" @on-change="onChange" placeholder="please select"></popup-picker>
       </div>
       <div class="sumbit">
         <x-button type="primary" action-type="button"> 确认提交</x-button>
@@ -68,13 +71,11 @@
     },
     data () {
       return {
-        list1: [['个人', '机构', '企业', '政府']],
-        value1: ['个人'],
+        list1: [['1万-5万', '5万-10万', '10万-50万', '100万-300万']],
+        value1: [''],
         demo1CheckboxMax: [],
         addressValue: [],
-        addressData: [],
-        option1: '',
-        options1: ['企业', '政府机构', '金融机构', '集体', '个人', '其他']
+        addressData: []
       }
     },
     mounted () {

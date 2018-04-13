@@ -189,10 +189,10 @@
      * @return {[type]} [description]
      */
     mounted () {
+      console.log(this.$refs.serviceFiles)
       let input = document.createElement('input')
       input.type = 'file'
       input.multiple = true
-
       // html5 特征
       if (window.FormData && input.files) {
         // 上传目录特征

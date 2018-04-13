@@ -98,9 +98,13 @@
       }
     },
     mounted () {
+
     },
     methods: {
       async apiPost () {
+        var a = document.getElementById('input10')
+        console.log(a.value)
+        // this.debtApiInput.Attachment = a.value
         var NeedType = this.demo1CheckboxMax.join(',')
         var DebtProperty = this.demo2CheckboxMax.join(',')
         let par = {
@@ -115,9 +119,8 @@
           NeedType: NeedType,
           DebtProperty: DebtProperty,
           ApplyReason: this.debtApiInput.ApplyReason,
-          Attachment: this.debtApiInput.Attachment
+          Attachment: a.value
         }
-        console.info('上传路径', this.$refs.uploadFile)
         var response = await apiService.apply(par)
         if (response.data.status === 1) {
           this.messageSuccess('申请成功')
