@@ -93,10 +93,10 @@
         })
       })
       this.init()
-      // console.log('show', this.productView)
-      // for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
-      //   this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
-      // }
+      console.log('show', this.productView)
+      for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
+        this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
+      }
     },
     methods: {
       init () {
@@ -104,8 +104,6 @@
           this.salePropertyTitle = this.salePropertyTitle + element.name + ' '
         })
         this.selectSku = this.productView.productExtensions.productSkus[0] // 根据specSn获取商品的规格
-        console.log('select', this.selectSku)
-        console.log('刘成恩', this.productView)
       },
       // 添加到购物车
       async addToCart () {

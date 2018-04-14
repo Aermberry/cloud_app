@@ -1,5 +1,28 @@
 <template>
-  <section class="zkui-czt-default">
+  <section class="zkui-default">
+    <!-- <div class="zkui-default-top flex">
+      <div class="top-left">
+        <div class="logo">
+          <img src="../../static/images/yqp/1.png" alt="">
+        </div>
+        <p>一起拼</p>
+      </div>
+      <div class="top-right">
+        <ul class="right-box flex">
+          <li>
+            <router-link to="/product/search">
+              <m-icon name="zk-topsearch" size="1rem"></m-icon>
+              关注
+            </router-link>
+          </li>
+          <li class="right-box-record ">
+            <router-link to="/user/index">
+              我的记录
+            </router-link>
+          </li>
+        </ul>
+      </div>
+    </div> -->
     <div class="index-search weui-header ">
       <router-link to="/product/search" class="zkui-default-search-box">
         <!-- <search placeholder="搜索您想要的商品"></search> -->
@@ -16,9 +39,18 @@
     <zk-swiper diykey="swiper_index" height="210px"></zk-swiper>
     <zk-grid diykey="grid_index" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
 
+    <div class="yqpimg">
+      <img src="../../static/images/yqp/1.png" alt="">
+      <img src="../../static/images/yqp/2.png" alt="">
+      <img src="../../static/images/yqp/3.png" alt="">
+      <img src="../../static/images/yqp/4.png" alt="">
+      <img src="../../static/images/yqp/5.png" alt="">
+      <img src="../../static/images/yqp/6.png" alt="">
+    </div>
+
     <group-title class="flex">
       <div class="fashion-title">
-        最新快报:
+        流行单品
       </div>
       <div class="fashion-topline flex_one">
         <swiper auto height="35px" direction="vertical" :interval=2000 class="text-scroll" :show-dots="false">
@@ -31,21 +63,18 @@
           </swiper-item>
         </swiper>
       </div>
-      <div class="fashion-icon">
-        <m-icon name="zk-trumpet"></m-icon>
-      </div>
     </group-title>
     <zk-product-item :pageSize=4 classIds='' tagsId='' diykey='index'></zk-product-item>
 
     <zk-foot></zk-foot>
-    <!-- <zkdebt-foot></zkdebt-foot> -->
+
   </section>
 </template>
 
 <script>
   import apiService from 'src/service/api/user.api'
-  import { ZkSwiper, ZkGrid, ZkProductItem, ZkdebtFoot } from 'widgets'
-  import { Search, Grid, GridItem, Swiper, Box, GroupTitle, MIcon, SwiperItem } from 'zkui'
+  import { ZkSwiper, ZkGrid, ZkProductItem } from 'widgets'
+  import { Search, Grid, GridItem, Swiper, Box, GroupTitle, SwiperItem, XImg } from 'zkui'
   export default {
     components: {
       Search,
@@ -57,9 +86,8 @@
       ZkSwiper,
       Box,
       ZkProductItem,
-      ZkdebtFoot,
-      MIcon,
-      SwiperItem
+      SwiperItem,
+      XImg
     },
     data () {
       return {
@@ -75,14 +103,95 @@
           DataType: 'topline'
         }
         var response = await apiService.topline(style)
+        console.log(response)
         this.topline = response.data.result
+      },
+      success (src, ele) {
+        console.log('success load', src)
+        const span = ele.parentNode.querySelector('span')
+        ele.parentNode.removeChild(span)
+      },
+      error (src, ele, msg) {
+        console.log('error load', msg, src)
+        const span = ele.parentNode.querySelector('span')
+        span.innerText = 'load error'
       }
     }
   }
 </script>
 
 <style  lang="less" >
-  .zkui-czt-default {
+  .zkui-default {
+    .zkui-default-top {
+      height: 2.5rem;
+      background: @black;
+      .top-left {
+        width: 60%;
+        height: 100%;
+        padding-left: 3rem;
+        position: relative;
+        .logo {
+          position: absolute;
+          top: 50%;
+          left: 0.5rem;
+          transform: translateY(-50%);
+          width: 2rem;
+          height: 1rem;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+        p {
+          width: 100%;
+          height: 100%;
+          line-height: 2.5rem;
+          color: @gray-500;
+        }
+      }
+      .top-right {
+        width: 40%;
+        height: 100%;
+        ul {
+          width: 100%;
+          height: 100%;
+          li {
+            height: 100%;
+            flex: 1;
+            a {
+              height: 100%;
+              display: block;
+              text-align: center;
+              line-height: 2.5rem;
+              color: @gray-500;
+              svg {
+                margin-right: 10px;
+              }
+            }
+          }
+          li.right-box-record {
+            position: relative;
+          }
+          li.right-box-record::after {
+            content: '';
+            position: absolute;
+            display: block;
+            width: 0.5px;
+            height: 1.5rem;
+            background: @white;
+            top: 0.5rem;
+            left: 0;
+          }
+        }
+      }
+    }
+    .yqpimg {
+      width: 100%;
+      img {
+        width: 100%;
+        height: 180px;
+      }
+    }
     .flex {
       display: -moz-box;
       display: -ms-flexbox;
@@ -178,20 +287,14 @@
         height: 0rem;
       }
     }
-    .weui-grids {
-      border-bottom: none;
-    }
     .weui-cells__title {
       padding-left: 0;
-      margin-top: 0;
-      border-top: 1px solid @gray-500;
-      border-bottom: 1px solid @gray-500;
-      position: relative;
       .fashion-title {
         height: 2.5rem;
         line-height: 2.5rem;
         width: 6.5rem;
-        color: @info;
+        color: @light;
+        background: @warning;
         padding-left: 1.5rem;
         font-weight: @font-weight-bold;
         position: relative;
@@ -201,6 +304,7 @@
           .vux-swiper {
             .vux-swiper-item {
               p {
+                padding-left: 2rem;
                 height: 100%;
                 padding-right: 1rem;
                 line-height: 2.5rem;
@@ -217,17 +321,16 @@
           }
         }
       }
-      .fashion-icon {
-        width: 1.5rem;
-        height: 1.5rem;
+      .fashion-title:before {
+        content: '';
+        display: block;
         position: absolute;
-        top: 50%;
-        right: 0.5rem;
-        transform: translate(0, -50%);
-        svg {
-          width: 100%;
-          height: 100%;
-        }
+        right: -1rem;
+        top: 0;
+        width: 2rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        background: @warning;
       }
     }
   }

@@ -48,6 +48,18 @@
     },
     mounted () {
       window.addEventListener('scroll', this.handleScroll)
+      if (this.product === true) {
+        this.particulars = false
+        this.recommend = false
+      }
+      if (this.particulars === true) {
+        this.product = false
+        this.recommend = false
+      }
+      if (this.recommend === true) {
+        this.product = false
+        this.particulars = false
+      }
     },
     methods: {
       button0Click () {
@@ -80,7 +92,7 @@
         } else {
           this.headerOpacity = true
         }
-        if (scrollTop >= 0) {
+        if (scrollTop >= 0 && scrollTop <= particulars) {
           this.particulars = false
           this.product = true
           this.recommend = false
