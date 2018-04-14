@@ -9,7 +9,7 @@
           <label class="weui-label">真实姓名</label>
         </div>
         <div class="weui-cell__bd">
-          <input class="weui-input" type="password" pattern="[0-9]*" placeholder="请输入真实姓名" v-model="identity.RealName">
+          <input class="weui-input" type="text" pattern="[0-9]*" placeholder="请输入真实姓名" v-model="identity.RealName">
         </div>
       </div>
       <div class="weui-cell">
@@ -41,7 +41,7 @@
           <label class="weui-label">证件号码</label>
         </div>
         <div class="weui-cell__bd">
-          <input class="weui-input" type="password" pattern="[0-9]*" placeholder="请输入证件号码" v-model="identity.IdentityCardNo">
+          <input class="weui-input" type="text" pattern="[0-9]*" placeholder="请输入证件号码" v-model="identity.IdentityCardNo">
         </div>
       </div>
       <div class="weui-cell">
