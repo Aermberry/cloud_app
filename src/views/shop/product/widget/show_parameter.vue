@@ -26,7 +26,7 @@
               <dt>{{item.name}}</dt>
               <dd>
                 <checker v-model="saleItems[index] " default-item-class="sale-item " @on-change="changSku " selected-item-class="sale-item-selected " disabled-item-class="sale-item-disabled " :radio-required="true ">
-                  <checker-item :value="sale " v-for="sale in item.propertyValues " :key="sale.id " :disabled="productView.productExtensions.productSkus[index].productStatus!==1"> {{sale.valueAlias}} </checker-item>
+                  <checker-item :value="sale " v-for="sale in item.propertyValues " :key="sale.id "> {{sale.valueAlias}} </checker-item>
                 </checker>
               </dd>
             </dl>
