@@ -57,7 +57,7 @@
                       <x-button mini plain v-if="allState.Evaluate[indexs]">评价</x-button> -->
                       <!-- <x-button mini plain v-if="allState.Payment[indexs]">取消订单</x-button>-->
                       <x-button mini plain v-if="allState.Payment[indexs]" @click.native="orderCancel(items.id,indexs)">取消订单</x-button>
-                      <x-button mini plain type="primary" v-if="allState.Payment[indexs]">付款</x-button>
+                      <!-- <x-button mini plain type="primary" v-if="allState.Payment[indexs]">付款</x-button> -->
                     </cell>
                   </group>
                 </div>
@@ -327,6 +327,7 @@
           if (this.data.length === 19) {
             this.$router.go(0)
           }
+          this.$vux.toast.success('取消成功')
         } else {
           this.$vux.toast.warn('删除失败')
         }

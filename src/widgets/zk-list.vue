@@ -31,7 +31,7 @@
         <div class="weui-panel weui-panel_access" v-for="item in dataList" :key="item.id">
           <!-- <div class="weui-panel__hd">图文组合列表</div> -->
           <div class="weui-panel__bd">
-            <a href="#!/component/cell" class="weui-media-box weui-media-box_appmsg">
+            <a :href="item.url" class="weui-media-box weui-media-box_appmsg">
               <div class="weui-media-box__hd">
                 <router-link :to="item.url">
                   <img :src="item.image" alt="" class="weui-media-box__thumb">

@@ -25,32 +25,6 @@
     <group class="order_show-title">
       <cell :title="data.storeName" :value="state"></cell>
     </group>
-    <div class="zkui-order-list-product" v-for="(item,index) in data.productSkuItems" :key="index">
-      <ul class="flex">
-        <li class="left-img"><img :src="item.thumbnailUrl" alt=""></li>
-        <li class="flex_one center-content">
-          <p>
-            {{item.name}}
-          </p>
-          <span>
-            {{item.propertyValueDesc}}
-          </span>
-        </li>
-        <li class="left-price">
-          <ul>
-            <li class="price_now">￥{{item.price}}</li>
-            <!-- <li class="price_old">￥69.00</li> -->
-            <li class="price_count">
-              x {{item.buyCount}}
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-    <!-- <group>
-      <cell title="公益宝贝" is-link></cell>
-    </group> -->
-
     <div class="zkui-order-show-price">
       <div class="vux-form-preview weui-form-preview">
         <div class="weui-form-preview__bd">
@@ -73,12 +47,34 @@
         </div> -->
       </div>
     </div>
+    <div class="zkui-order-list-product" v-for="(item,index) in data.productSkuItems" :key="index">
+      <ul class="flex">
+        <li class="left-img"><img :src="item.thumbnailUrl" alt=""></li>
+        <li class="flex_one center-content">
+          <p>
+            {{item.name}}
+          </p>
+          <span>
+            {{item.propertyValueDesc}}
+          </span>
+        </li>
+        <li class="left-price">
+          <ul>
+            <li class="price_now">￥{{item.price}}</li>
+            <li class="price_count">
+              x {{item.buyCount}}
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
     <divider class="divider-bg "></divider>
     <div class="zkui-order-information">
       <div class="vux-form-preview weui-form-preview">
         <div class="weui-form-preview__bd">
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">订单编号:45662485624896214598</label>
+            <label class="weui-form-preview__label">订单编号:{{data.serial}}</label>
           </div>
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">创建时间: {{data.createTime}}</label>
