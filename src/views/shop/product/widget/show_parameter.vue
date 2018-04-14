@@ -93,7 +93,6 @@
         })
       })
       this.init()
-      console.log('show', this.productView)
       for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
         this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
       }
