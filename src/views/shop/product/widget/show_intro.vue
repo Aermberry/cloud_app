@@ -14,7 +14,23 @@
       Cell,
       Divider
     },
-    props: ['productView']
+    props: ['productView'],
+    mounted () {
+      var a = document.getElementsByClassName('zkui-product-show-images')[0].getElementsByTagName('img')
+      console.log('元素', a)
+      for (let i = 0; i < a.length; i++) {
+        a[i].onclick = function () {
+          console.log(a[i].src)
+          this.show()
+        }
+      }
+    },
+    methods: {
+      show () {
+        console.log('show')
+      }
+    }
+
   }
 </script>
 

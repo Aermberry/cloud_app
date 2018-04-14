@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-default">
-    <!-- <div class="zkui-default-top flex">
+    <div class="zkui-default-top flex">
       <div class="top-left">
         <div class="logo">
           <img src="../../static/images/yqp/1.png" alt="">
@@ -22,10 +22,11 @@
           </li>
         </ul>
       </div>
-    </div> -->
+    </div>
+    <zk-swiper diykey="swiper_index" height="210px"></zk-swiper>
     <div class="index-search weui-header ">
       <router-link to="/product/search" class="zkui-default-search-box">
-        <!-- <search placeholder="搜索您想要的商品"></search> -->
+        <!--  <search placeholder="搜索您想要的商品"></search> -->
         <div class="search-box">
           <input type="text">
           <div class="search-text">
@@ -36,9 +37,7 @@
       </router-link>
       <m-icon name="zk-qrcode1" class="icon-brand index-qrcode " link="/user/qrcode" size="1rem"></m-icon>
     </div>
-    <zk-swiper diykey="swiper_index" height="210px"></zk-swiper>
     <zk-grid diykey="grid_index" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
-
     <div class="yqpimg">
       <img src="../../static/images/yqp/1.png" alt="">
       <img src="../../static/images/yqp/2.png" alt="">
@@ -47,7 +46,6 @@
       <img src="../../static/images/yqp/5.png" alt="">
       <img src="../../static/images/yqp/6.png" alt="">
     </div>
-
     <group-title class="flex">
       <div class="fashion-title">
         流行单品
@@ -65,9 +63,34 @@
       </div>
     </group-title>
     <zk-product-item :pageSize=4 classIds='' tagsId='' diykey='index'></zk-product-item>
-
+    <div class="yqp-foot">
+      <ul class="foot-item flex">
+        <li>
+          <router-link to="/default">
+            店铺主页
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/user/index">
+            会员中心
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/user/qrcode">
+            关注我们
+          </router-link>
+        </li>
+        <li class="item-last">
+          <router-link to="/default">
+            店铺信息
+          </router-link>
+        </li>
+      </ul>
+      <div class="foot-img">
+        <img src="../../static/images/yqp/1.png" alt="">
+      </div>
+    </div>
     <zk-foot></zk-foot>
-
   </section>
 </template>
 
@@ -227,10 +250,10 @@
       display: -ms-flexbox;
       display: -webkit-flex;
       display: flex;
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 9999;
+      // position: fixed;
+      // top: 0;
+      // left: 0;
+      // z-index: 9999;
       width: 100%;
       .zkui-default-search-box {
         // .vux-search-box {
@@ -246,6 +269,7 @@
             width: 100%;
             background: rgba(255, 255, 255, 0.8);
             height: 100%;
+            border: 1px solid @load-more-line-color;
           }
           .search-text {
             position: absolute;
@@ -259,7 +283,6 @@
         }
       }
     }
-
     .index-qrcode {
       display: block;
       width: 30*@rem;
@@ -268,7 +291,6 @@
       margin-top: 0.3rem;
       margin-right: 0.5rem;
     }
-
     .zkui-default-search-box {
       display: block;
       -webkit-box-flex: 1;
@@ -280,7 +302,6 @@
     .index-qrcode > div {
       margin: 10px 0 0 5*@rem;
     }
-
     .scroller {
       .mescroll-upwarp {
         padding: 0;
@@ -331,6 +352,55 @@
         height: 2.5rem;
         border-radius: 50%;
         background: @warning;
+      }
+    }
+    .zkui-product-item__1 ul {
+      padding-bottom: 0;
+    }
+    .yqp-foot {
+      width: 100%;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+      background: @search-bg-color;
+      .foot-item {
+        padding: 0 4rem;
+        li {
+          flex: 1;
+          position: relative;
+          height: 2rem;
+          line-height: 2rem;
+          a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            font-size: @h6-font-size;
+            color: @gray-600;
+          }
+        }
+        li:after {
+          content: '';
+          display: block;
+          position: absolute;
+          width: 1px;
+          height: 1rem;
+          top: 0.5rem;
+          right: 0;
+          background: @gray-500;
+        }
+        li.item-last:after {
+          content: none;
+        }
+      }
+      .foot-img {
+        margin: 1.5rem auto auto;
+        width: 5rem;
+        height: 2rem;
+        img {
+          width: 100%;
+          height: 100%;
+        }
       }
     }
   }
