@@ -44,78 +44,9 @@
           <input class="weui-input" type="text" pattern="[0-9]*" placeholder="请输入证件号码" v-model="identity.IdentityCardNo">
         </div>
       </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">证件正面照</label>
-        </div>
-        <div class="weui-cell__bd">
-          <div class="weui-cell__bd">
-            <div class="weui-cell">
-              <div class="weui-cell__bd">
-                <div class="weui-uploader">
-                  <div class="weui-uploader__bd">
-                    <ul class="weui-uploader__files" id="uploaderFiles">
-                      <li class="weui-uploader__file" style="background-image:url(../)"></li>
-
-                    </ul>
-                    <div class="weui-uploader__input-box">
-                      <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple="">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">证件反面照</label>
-        </div>
-        <div class="weui-cell__bd">
-          <div class="weui-cell__bd">
-            <div class="weui-cell">
-              <div class="weui-cell__bd">
-                <div class="weui-uploader">
-                  <div class="weui-uploader__bd">
-                    <ul class="weui-uploader__files" id="uploaderFiles">
-                      <li class="weui-uploader__file" style="background-image:url(../)"></li>
-
-                    </ul>
-                    <div class="weui-uploader__input-box">
-                      <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple="">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">个人正面照</label>
-        </div>
-        <div class="weui-cell__bd">
-          <div class="weui-cell__bd">
-            <div class="weui-cell">
-              <div class="weui-cell__bd">
-                <div class="weui-uploader">
-                  <div class="weui-uploader__bd">
-                    <ul class="weui-uploader__files" id="uploaderFiles">
-                      <li class="weui-uploader__file" style="background-image:url(../)"></li>
-
-                    </ul>
-                    <div class="weui-uploader__input-box">
-                      <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple="">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <zk-upload :fileCount="1" :savePath="savePath" :size="5*1024" ref="uploadFile">证件正面照</zk-upload>
+      <zk-upload :fileCount="1" :savePath="savePath" :size="5*1024" ref="uploadFile">证件反面照</zk-upload>
+      <zk-upload :fileCount="1" :savePath="savePath" :size="5*1024" ref="uploadFile">个人正面照</zk-upload>
     </div>
     <div class="weui-btn-area">
       <a class="weui-btn weui-btn_primary" @click="apipost" href="javascript:" id="showTooltips">确定</a>
@@ -125,8 +56,21 @@
 </template>
 
 <script>
+  import { ZkUpload } from 'widgets'
   import apiUser from 'src/service/api/user.api'
+  import { XInput, Group, XButton, Cell, XTextarea, Checker, CheckerItem, Box } from 'zkui'
   export default {
+    components: {
+      XInput,
+      XButton,
+      Group,
+      Cell,
+      XTextarea,
+      Checker,
+      CheckerItem,
+      Box,
+      ZkUpload
+    },
     data () {
       return {
         identity: {
@@ -145,7 +89,20 @@
     },
     methods: {
       async apipost () {
-        var repsonse = await apiUser.Identity(this.identity)
+        let par = {
+          IdentityType: this.identity.IdentityType,
+          IdentityCardType: this.identity.IdentityCardType,
+          IdentityCardName: this.identity.IdentityCardName,
+          IdentityCardNo: this.identity.IdentityCardNo,
+          IdentityImagefrontUrl: this.identity.IdentityImagefrontUrl,
+          IdentityImageAntiUrl: this.identity.IdentityImageAntiUrl,
+          IdentitySmallimageUrl: this.identity.IdentitySmallimageUrl,
+          CheckState: this.identity.CheckState,
+          RealName: this.identity.RealName,
+          Sex: this.identity.Sex
+        }
+        console.dir(par)
+        var repsonse = await apiUser.Identity(par)
         console.dir(repsonse)
       }
     }
