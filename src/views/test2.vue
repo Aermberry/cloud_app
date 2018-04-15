@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- <vue-preview :slides="slide1" @close="handleClose"></vue-preview> -->
   </div>
 </template>
 <script>
@@ -13,11 +14,11 @@
         this.$router ? this.$router.back() : window.history.back()
       }, 2000)
     },
-    methods: {
-    },
     data () {
       return {
       }
+    },
+    methods: {
     },
     watch: {
     }
