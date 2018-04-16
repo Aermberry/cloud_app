@@ -31,7 +31,7 @@
         console.log(this.data.isRedirect)
         if (this.data.isRedirect === true) {
           this.$router.push({
-            name: 'from'
+            name: '/user/reg'
           })
         } else {
 
