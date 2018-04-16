@@ -1,7 +1,7 @@
 <template>
   <section class="zkui-user-from">
     <div class="qrcode-box">
-      <img :src="data.bgPicture" alt="二维码名片">
+      <div v-html='data.showContent' v-if="data.isRedirect===false "></div>
     </div>
   </section>
 </template>
@@ -24,17 +24,13 @@
     },
     methods: {
       async Getdata () {
+        console.info(this.$route.query.userName)
         local.setStore('qrcode_username', this.$route.query.userName)
         var respone2 = await userService.GetConfigValue('QrCodeConfig')
-        console.log(respone2)
         this.data = respone2.data.result
         console.log(this.data.isRedirect)
         if (this.data.isRedirect === true) {
-          this.$router.push({
-            name: 'from'
-          })
-        } else {
-
+          window.location.href = this.data.redirectUrl
         }
       }
     }
