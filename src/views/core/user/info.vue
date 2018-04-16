@@ -2,29 +2,6 @@
   <section class="zkui-user-info">
     <zk-head title='账户信息' goBack='会员中心'></zk-head>
 
-    <div class="zkui-user-info-app-content">
-      <div id="self">
-        <div class="weui-tab__content" style="display: block;">
-          <div class="weui-cells">
-            <a href="" class="weui-cell weui-cell_access">
-              <div class="weui-cell__hd">
-                <img :src="userInfo.img" alt="" class="self-header">
-              </div>
-              <div class="weui-cell__bd">
-                <h4 class="self-nickname">用户名：{{userInfo.name}}</h4>
-                <p class="self-wxid">等级：{{userInfo.info}}</p>
-              </div>
-              <div class="weui-cell__ft">
-                <m-icon name="zk-qrcode1" class="metal"></m-icon>
-              </div>
-            </a>
-          </div>
-          <zk-cell :links="links" class="zkui-core-user-weui-list"></zk-cell>
-
-        </div>
-      </div>
-    </div>
-
     <zk-foot></zk-foot>
   </section>
 </template>
@@ -32,11 +9,12 @@
 <script>
   import userService from 'src/service/api/user.api'
   import { ZkCell } from 'src/widgets/'
-  import { MIcon } from 'zkui'
+  import { MIcon, Group } from 'zkui'
   export default {
     components: {
       ZkCell,
-      MIcon
+      MIcon,
+      Group
     },
     //  https://segmentfault.com/q/1010000012824355 参考这个实现方式，更为优雅
     data () {
@@ -72,7 +50,12 @@
               }
             ]
           }
-        ]
+        ],
+        userInfo: {
+          img: '',
+          name: '',
+          info: ''
+        }
       }
     },
     mounted () {
