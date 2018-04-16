@@ -2,6 +2,9 @@
   <section class="zkui-user-reg">
 
     <zk-head title='注册' goBack='返回'></zk-head>
+    <group title="推荐人信息" v-if="showParent">
+      <x-input title="推荐人" required :min="2" :max="12" v-model="user.parentUserName"></x-input>
+    </group>
     <group gap="2rem 0.2rem" id="form">
       <x-input title="用户名" required :min="2" :max="12" v-model="user.username"></x-input>
       <x-input title="手机号" required placeholder="请输入您的手机号" mask="999 9999 9999" v-model="user.mobile" :max="13" is-type="mobile"></x-input>
@@ -36,7 +39,6 @@
   import apiUser from 'src/service/api/user.api'
   import { Group, XInput, Agree, Box, XButton } from 'zkui'
   import { ZkPhoneVerifiy } from 'widgets'
-  import local from 'src/service/common/local'
   export default {
     components: {
       Group,
@@ -54,21 +56,29 @@
           agree: true,
           confirmPassword: '',
           mobileVerifiyCode: '',
-          ParentId: ''
+          parentUserName: ''
         },
         qwe: true,
-        checked: true
+        checked: true,
+        showParent: false
       }
+    },
+    mounted () {
+      this.GetData()
     },
     methods: {
       checker () {
         this.checked = !this.checked
       },
+      GetData () {
+        console.log(window.localStorage.getItem('qrcode_username'))
+        if (window.localStorage.getItem('qrcode_username') !== '') {
+          this.user.parentUserName = window.localStorage.getItem('qrcode_username')
+          this.showParent = true
+        }
+      },
       async reg () {
-        local.setStore('ParentId', this.$route.query.id)
-        this.user.ParentId = this.$route.query.id
         this.user.mobile = this.user.mobile.replace(/\s+/g, '')
-        console.log(this.$route.query.id, this.user)
         var response = await apiUser.reg(this.user)
         if (response.data.status === 1) {
           this.$vux.toast.success('注册成功')

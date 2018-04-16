@@ -51,6 +51,17 @@ export default [{
     }
   },
   {
+    path: '/from',
+    meta: {
+      title: 'from',
+      login: true
+    },
+    name: 'from',
+    component: function (resolve) {
+      require(['src/views/core/user/from'], resolve)
+    }
+  },
+  {
     path: '/user/tree',
     meta: {
       title: '组织架构图',

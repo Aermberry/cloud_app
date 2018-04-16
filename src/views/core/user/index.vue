@@ -7,15 +7,15 @@
       </div>
       <router-link class="head-info" to="login">
         <div class="portrait">
-          <img src="../../../assets/images/icon/me-active.png" alt="portrait">
+          <img :src="userInfo.img" alt="portrait">
         </div>
         <div class="personal-info">
-          <div class="name" href="javascript:;">{{userInfo.name}}
+          <div class="name" href="javascript:;">{{userInfo.userName}}
             <div class="level-icon">
               <img src="../../../assets/images/icon/level-1.png" alt="level">
             </div>
           </div>
-          <a class="info" href="/user/login">{{userInfo.info}}</a>
+          <a class="info" href="/user/login">{{userInfo.gradeName}}</a>
         </div>
       </router-link>
     </div>
@@ -49,8 +49,9 @@
     data () {
       return {
         userInfo: {
-          name: '',
-          info: '登陆后享受更多服务'
+          userName: '',
+          gradeName: '登陆后享受更多服务',
+          img: ''
         }
       }
     },
@@ -60,8 +61,9 @@
     methods: {
       async GetData () {
         var reponse = await userService.view(this.data)
-        this.userInfo.name = reponse.data.result.userName
-        this.userInfo.info = reponse.data.result.mobile
+        this.userInfo.userName = reponse.data.result.userName
+        this.userInfo.gradeName = reponse.data.result.gradeName
+        this.userInfo.img = reponse.data.result.avator
       }
     }
   }
@@ -120,18 +122,18 @@
             color: #fff;
             position: relative;
             &:after {
-              content: ' ';
-              display: inline-block;
-              height: 0.4286rem;
-              width: 0.4286rem;
-              border-width: 2px 2px 0 0;
-              border-color: #fff;
-              border-style: solid;
-              transform: rotate(45deg);
-              position: absolute;
-              top: 50%;
-              margin-top: -4*@rem;
-              right: -0.5rem;
+              // content: ' ';
+              // display: inline-block;
+              // height: 0.4286rem;
+              // width: 0.4286rem;
+              // border-width: 2px 2px 0 0;
+              // border-color: #fff;
+              // border-style: solid;
+              // transform: rotate(45deg);
+              // position: absolute;
+              // top: 50%;
+              // margin-top: -4*@rem;
+              // right: -0.5rem;
             }
           }
         }
