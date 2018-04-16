@@ -46,11 +46,21 @@
     data () {
       return {
         user: {
+          // username: 'B21' + Math.floor(Math.random() * 10) * Math.floor(Math.random() * 10),
+          // password: '111111',
+          // agree: true,
+          // name: '张三' + Math.floor(Math.random() * 10) * Math.floor(Math.random() * 10),
+          // emmail: '',
+          // mobile: '13508794' + Math.floor(Math.random() * 10) + Math.floor(Math.random() * 10) + Math.floor(Math.random() * 10),
+          // confirmPassword: '111111',
+          // mobileVerifiyCode: '111111',
+          // parentUserName: ''
           username: '',
           password: '',
           agree: true,
           name: '',
           emmail: '',
+          mobile: '',
           confirmPassword: '',
           mobileVerifiyCode: '',
           parentUserName: ''

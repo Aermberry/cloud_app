@@ -4,30 +4,66 @@
     <div class="zkui-product-show-images">
       <div v-html='productView.detail.mobileIntro'></div>
     </div>
+    <vue-preview :slides="imgV" @close="handleClose"></vue-preview>
   </section>
 </template>
 <script>
-  import { Group, Cell, Divider } from 'zkui'
+  import { Group, Cell, Divider, Swiper, SwiperItem, Previewer, TransferDom } from 'zkui'
   export default {
     components: {
       Group,
       Cell,
-      Divider
+      Divider,
+      Swiper,
+      SwiperItem,
+      Previewer,
+      TransferDom
+    },
+    directives: {
+      TransferDom
     },
     props: ['productView'],
+    created () {
+
+    },
     mounted () {
-      var a = document.getElementsByClassName('zkui-product-show-images')[0].getElementsByTagName('img')
-      console.log('元素', a)
+      console.log(this.productView.detail.mobileIntro)
+      var a = document.getElementsByClassName('zkui-product-show-intro')[0].getElementsByTagName('img')
       for (let i = 0; i < a.length; i++) {
-        a[i].onclick = function () {
-          console.log(a[i].src)
-          this.show()
+        var b
+        b = {
+          src: a[i].src,
+          msrc: a[i].src,
+          w: a[i].width,
+          h: a[i].height
         }
+        this.imgV[i] = b
       }
     },
     methods: {
-      show () {
-        console.log('show')
+      handleClose () {
+        console.log('close event')
+      }
+    },
+    data () {
+      return {
+        b: {},
+        imgV: [],
+        hide: false,
+        slide1: [
+          {
+            src: 'https://farm6.staticflickr.com/5591/15008867125_68a8ed88cc_b.jpg',
+            msrc: 'https://farm6.staticflickr.com/5591/15008867125_68a8ed88cc_m.jpg',
+            w: 600,
+            h: 400
+          },
+          {
+            src: 'https://farm4.staticflickr.com/3902/14985871946_86abb8c56f_b.jpg',
+            msrc: 'https://farm4.staticflickr.com/3902/14985871946_86abb8c56f_m.jpg',
+            w: 1200,
+            h: 900
+          }
+        ]
       }
     }
 
@@ -42,8 +78,19 @@
       font-weight: @font-weight-bold;
       color: @black;
     }
+    .zkui-product-show-images {
+    }
     .zkui-product-show-images img {
       width: 100%;
+    }
+    .show-intro-img {
+      img {
+      }
+    }
+    .my-gallery {
+      img {
+        width: 100%;
+      }
     }
   }
 </style>

@@ -59,7 +59,6 @@
         } else {
           this.asyncFlag = true
           this.modelView = product
-          console.log(this.modelView)
           document.title = this.modelView.name
         }
       },

@@ -57,7 +57,7 @@
                       <x-button mini plain v-if="allState.Evaluate[indexs]">评价</x-button> -->
                       <!-- <x-button mini plain v-if="allState.Payment[indexs]">取消订单</x-button>-->
                       <x-button mini plain v-if="allState.Payment[indexs]" @click.native="orderCancel(items.id,indexs)">取消订单</x-button>
-                      <x-button mini plain type="primary" v-if="allState.Payment[indexs]">付款</x-button>
+                      <!-- <x-button mini plain type="primary" v-if="allState.Payment[indexs]">付款</x-button> -->
                     </cell>
                   </group>
                 </div>
@@ -260,6 +260,10 @@
                 </div>
               </div>
             </div>
+            <!-- <div class="zk-not-data" v-if="!notDatas">
+              <m-icon name="zk-notdata"></m-icon>
+              <p>暂无数据</p>
+            </div> -->
           </div>
         </swiper-item>
       </swiper>
@@ -327,6 +331,7 @@
           if (this.data.length === 19) {
             this.$router.go(0)
           }
+          this.$vux.toast.success('取消成功')
         } else {
           this.$vux.toast.warn('删除失败')
         }
@@ -334,6 +339,7 @@
       async GetData () {
         var reponse = await orderService.list()
         this.data = reponse.data.result
+        console.log(this.data, this.data.length)
         for (var i = 0; i < this.data.length; i++) {
           if (this.data[i].orderStatus === 1) {
             this.stayPayment.push(this.data[i])
@@ -514,6 +520,18 @@
             }
           }
         }
+      }
+    }
+    .zk-not-data {
+      margin: 0 auto;
+      padding-top: 150*@rem;
+      text-align: center;
+      svg {
+        width: 50*@rem;
+        height: 50*@rem;
+      }
+      p {
+        font-size: @h4-font-size;
       }
     }
   }
