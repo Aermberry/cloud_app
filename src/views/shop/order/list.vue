@@ -9,7 +9,7 @@
       <swiper v-model="showView" :show-dots="false">
         <swiper-item v-for="(t,i) in list2" :key="i">
           <div class="tab-swiper vux-center">
-            <div class="zkui-order-list-box" v-if="i===0">
+            <div class="zkui-order-list-box" v-if="i===0&&!showBox">
               <div class="zkui-order-list-content">
                 <div class="zkui-order-list-box-item" v-for="(items,indexs) in data" :key="indexs">
                   <group class="box-title">
@@ -63,7 +63,11 @@
                 </div>
               </div>
             </div>
-            <div class="zkui-order-list-box" v-if="i===1">
+            <div class="zk-not-data" v-if="i===0&&showBox">
+              <m-icon name="zk-notdata"></m-icon>
+              <p>暂无数据</p>
+            </div>
+            <div class="zkui-order-list-box" v-if="i===1&&!showBox&&!allShow[0]">
               <div class="zkui-order-list-content">
                 <div class="zkui-order-list-box-item" v-for="(items,indexs) in stayPayment" :key="indexs">
                   <group class="box-title">
@@ -107,13 +111,17 @@
                   <group class="product-option">
                     <cell>
                       <x-button mini plain @click.native="orderCancel(items.id,indexs)">取消订单</x-button>
-                      <x-button mini plain type="primary">付款</x-button>
+                      <!-- <x-button mini plain type="primary">付款</x-button> -->
                     </cell>
                   </group>
                 </div>
               </div>
             </div>
-            <div class="zkui-order-list-box" v-if="i===2">
+            <div class="zk-not-data" v-if="i===1&&allShow[0]">
+              <m-icon name="zk-notdata"></m-icon>
+              <p>暂无数据</p>
+            </div>
+            <div class="zkui-order-list-box" v-if="i===2&&!showBox&&!allShow[1]">
               <div class="zkui-order-list-content">
                 <div class="zkui-order-list-box-item" v-for="(items,indexs) in stayShipments" :key="indexs">
                   <group class="box-title">
@@ -162,7 +170,11 @@
                 </div>
               </div>
             </div>
-            <div class="zkui-order-list-box" v-if="i===3">
+            <div class="zk-not-data" v-if="i===2&&allShow[1]">
+              <m-icon name="zk-notdata"></m-icon>
+              <p>暂无数据</p>
+            </div>
+            <div class="zkui-order-list-box" v-if="i===3&&!showBox&&!allShow[2]">
               <div class="zkui-order-list-content">
                 <div class="zkui-order-list-box-item" v-for="(items,indexs) in stayTake" :key="indexs">
                   <group class="box-title">
@@ -211,7 +223,11 @@
                 </div>
               </div>
             </div>
-            <div class="zkui-order-list-box" v-if="i===4">
+            <div class="zk-not-data" v-if="i===3&&allShow[2]">
+              <m-icon name="zk-notdata"></m-icon>
+              <p>暂无数据</p>
+            </div>
+            <div class="zkui-order-list-box" v-if="i===4&&!allShow[3]">
               <div class="zkui-order-list-content">
                 <div class="zkui-order-list-box-item" v-for="(items,indexs) in stayEvaluate" :key="indexs">
                   <group class="box-title">
@@ -260,10 +276,10 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="zk-not-data" v-if="!notDatas">
+            <div class="zk-not-data" v-if="i===4&&allShow[3]">
               <m-icon name="zk-notdata"></m-icon>
               <p>暂无数据</p>
-            </div> -->
+            </div>
           </div>
         </swiper-item>
       </swiper>
@@ -309,7 +325,9 @@
           Shipments: [],
           Take: [],
           Evaluate: []
-        } // 记录是否需要付款
+        }, // 记录是否需要付款
+        showBox: false, // 判断总数据是否为空
+        allShow: [false, false, false, false]
       }
     },
     created () {
@@ -325,7 +343,6 @@
         }
         var reponse = await orderService.cancel(par)
         if (reponse.data.status === 1) {
-          console.log(1)
           this.data.splice(index, 1)
           console.log(this.data.length)
           if (this.data.length === 19) {
@@ -340,6 +357,9 @@
         var reponse = await orderService.list()
         this.data = reponse.data.result
         console.log(this.data, this.data.length)
+        if (this.data.length === 0) {
+          this.showBox = true
+        }
         for (var i = 0; i < this.data.length; i++) {
           if (this.data[i].orderStatus === 1) {
             this.stayPayment.push(this.data[i])
@@ -366,6 +386,19 @@
             this.allState.Evaluate[i] = false
           }
         }
+        if (this.stayPayment.length === 0) {
+          this.allShow[0] = true
+        }
+        if (this.stayShipments.length === 0) {
+          this.allShow[1] = true
+        }
+        if (this.stayTake.length === 0) {
+          this.allShow[2] = true
+        }
+        if (this.stayEvaluate.length === 0) {
+          this.allShow[3] = true
+        }
+        console.log(this.allShow)
       }
     }
   }

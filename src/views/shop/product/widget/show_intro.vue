@@ -27,7 +27,6 @@
 
     },
     mounted () {
-      console.log(this.productView.detail.mobileIntro)
       var a = document.getElementsByClassName('zkui-product-show-intro')[0].getElementsByTagName('img')
       for (let i = 0; i < a.length; i++) {
         var b

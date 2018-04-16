@@ -137,6 +137,7 @@ export default {
     }
     var loginuserid = loginUser.id
     var token = url.toLowerCase() + timestamp + loginUser.userName.toLowerCase()
+    // console.info('前台taoken', token)
     token = md5(token)
     params = {
       ...params,
