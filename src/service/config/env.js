@@ -12,7 +12,10 @@
 
 const key = '5C017EC7FF0045D1B8B00076067D3B3B'
 const projectId = 'b93900e2-26ad-4ae0-bc3f-e639c2d482a0'
+// const title = '一起拼'
+
 const clientType = 'moblie'
+
 
 let baseUrl
 
@@ -29,4 +32,10 @@ if (process.env.NODE_ENV === 'development') {
   // baseUrl = 'http://zkqd.5ug.com/'
   // baseUrl = 'http://localhost:9011'
 }
-export { baseUrl, routerMode, key, projectId, clientType }
+export {
+  baseUrl,
+  routerMode,
+  key,
+  projectId,
+  clientType
+}

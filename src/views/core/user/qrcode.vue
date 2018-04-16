@@ -9,17 +9,20 @@
     <div class="qrcode-box">
       <img :src="viewModel.result" alt="二维码名片">
     </div>
+    <div class="qrcode-button">
+      <x-button type="primary" link="/user/adduser">加入我们</x-button>
+    </div>
     <!-- <zk-foot></zk-foot> -->
   </section>
 </template>
 
 <script>
   import userService from 'src/service/api/user.api'
-  import { MIcon } from 'zkui'
-  import local from 'src/service/common/local'
+  import { MIcon, XButton } from 'zkui'
   export default {
     components: {
-      MIcon
+      MIcon,
+      XButton
     },
     data () {
       return {
@@ -37,7 +40,6 @@
         var respone = await userService.QrCode()
         console.log(respone.data.result)
         this.viewModel = respone.data
-        local.setLoginStore('UserId', this.LoginUser().id)
       }
     }
   }
@@ -78,6 +80,20 @@
       img {
         width: 100%;
         height: 99%;
+      }
+    }
+    .qrcode-button {
+      width: 100%;
+      height: 3rem;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: 9999;
+      .weui-btn {
+        height: 100%;
+      }
+      .weui-btn_primary {
+        background: @brand;
       }
     }
   }

@@ -4,7 +4,7 @@
     <cell title="用户名/手机/邮箱登录"></cell>
     <group gap="5rem 0.2rem" id="form">
       <x-input title="帐号" ref="user_username" required placeholder="用户名/手机/邮箱登录" :min="2" :max="20" v-model="user.username"></x-input>
-      <x-input title="密码" ref="user_password" required type="password" :min="6" :max="16" v-model="user.password" class="border-bottom"></x-input>
+      <x-input title="密码" required type="password" :min="6" :max="16" v-model="password1" class="border-bottom"></x-input>
     </group>
 
     <box gap=" 3rem 1rem">
@@ -34,6 +34,7 @@
     },
     data () {
       return {
+        password1: '',
         user: {
           username: '',
           password: ''
@@ -50,6 +51,9 @@
     methods: {
       login () {
         if (this.$refs.user_username.valid) {
+          this.user.password = this.password1
+          console.log('1', this.password1)
+          console.log(this.user.password)
           this.$store.dispatch('UserLogin', this.user)
         }
       }
