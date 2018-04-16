@@ -72,7 +72,7 @@
       },
       GetData () {
         console.log(window.localStorage.getItem('qrcode_username'))
-        if (window.localStorage.getItem('qrcode_username') !== '') {
+        if (window.localStorage.getItem('qrcode_username') !== '' && window.localStorage.getItem('qrcode_username') !== 'undefined') {
           this.user.parentUserName = window.localStorage.getItem('qrcode_username')
           this.showParent = true
         }
