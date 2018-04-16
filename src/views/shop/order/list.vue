@@ -260,6 +260,10 @@
                 </div>
               </div>
             </div>
+            <!-- <div class="zk-not-data" v-if="!notDatas">
+              <m-icon name="zk-notdata"></m-icon>
+              <p>暂无数据</p>
+            </div> -->
           </div>
         </swiper-item>
       </swiper>
@@ -335,6 +339,7 @@
       async GetData () {
         var reponse = await orderService.list()
         this.data = reponse.data.result
+        console.log(this.data, this.data.length)
         for (var i = 0; i < this.data.length; i++) {
           if (this.data[i].orderStatus === 1) {
             this.stayPayment.push(this.data[i])
@@ -515,6 +520,18 @@
             }
           }
         }
+      }
+    }
+    .zk-not-data {
+      margin: 0 auto;
+      padding-top: 150*@rem;
+      text-align: center;
+      svg {
+        width: 50*@rem;
+        height: 50*@rem;
+      }
+      p {
+        font-size: @h4-font-size;
       }
     }
   }
