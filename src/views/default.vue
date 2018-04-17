@@ -129,10 +129,8 @@
         var response = await apiService.topline(style)
         console.log(response)
         this.topline = response.data.result
-        let parameter = {
-          diykey: 'index_single_ad'
-        }
-        var sixImg = await diy.getLink(parameter)
+
+        var sixImg = await diy.getLink('index_single_ad')
         console.log('图片', sixImg)
       },
       success (src, ele) {
