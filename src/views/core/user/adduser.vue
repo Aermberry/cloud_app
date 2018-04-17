@@ -22,7 +22,6 @@
         <router-link to="/user/agreement" class="">《服务条款》</router-link>
       </span>
     </label>
-
     <box gap="3rem 1rem">
       <x-button @click.native="reg" type="primary" action-type="button">注册会员</x-button>
     </box>
@@ -70,6 +69,19 @@
       },
       GetData () {
         this.user.parentUserName = this.LoginUser().userName
+        // 会员测试时用
+        var type = this.$route.query.type
+        console.info(type)
+        if (type === '1') {
+          this.user.username = 'B21' + Math.floor(Math.random() * 10) * Math.floor(Math.random() * 10)
+          this.user.password = '111111'
+          this.user.agree = true
+          this.user.name = '张三' + Math.floor(Math.random() * 10) * Math.floor(Math.random() * 10)
+          this.user.emmail = ''
+          this.user.mobile = '13508794' + Math.floor(Math.random() * 10) + Math.floor(Math.random() * 10) + Math.floor(Math.random() * 10)
+          this.user.confirmPassword = '111111'
+          this.user.mobileVerifiyCode = '111111'
+        }
       },
       async reg () {
         this.user.mobile = this.user.mobile.replace(/\s+/g, '')
