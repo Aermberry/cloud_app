@@ -130,10 +130,10 @@
       async accomplish (type) {
         console.log(this.uName)
         if (type === 'name') {
-          let a = {
-            name: this.uName
+          let userDetail = {
+            nickName: this.uName
           }
-          var response = await userService.update(a)
+          var response = await userService.update(userDetail)
           console.log(response)
           if (response.data.status === 1) {
             this.userInfo.name = this.uName
