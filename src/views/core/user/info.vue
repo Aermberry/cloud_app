@@ -12,9 +12,9 @@
           </div>
         </div>
         <cell title="名字 " :value="userInfo.name " is-link @click.native="ceshi('name') "></cell>
-        <cell title="性别 " value="value " is-link @click.native="ceshi() "></cell>
-        <cell title="电话 " :value="userInfo.mobile " is-link @click.native="ceshi('phone') "></cell>
-        <cell title="邮箱 " :value="userInfo.email " is-link @click.native="ceshi() "></cell>
+        <cell title="性别 " :value="userInfo.sex" is-link @click.native="ceshi('gender') "></cell>
+        <cell title="电话 " :value="userInfo.mobile "></cell>
+        <cell title="邮箱 " :value="userInfo.email "></cell>
         <cell title="等级 " :value="userInfo.gender "></cell>
         <cell title="推荐人 " value="value "></cell>
       </group>
@@ -49,8 +49,22 @@
         <x-input is-type="china-name" v-model="uName"></x-input>
       </group>
     </div>
+    <!-- 修改性别 -->
+    <div class="set-gender" v-if="updateGender">
+      <x-header :right-options="{showMore:false }" :left-options="{showBack: false}" @on-click-more=" showMenus=true ">
+        {{infoTitle}}
+        <div class="showback" @click="showback()">
+        </div>
+        <div class="accomplish" @click="accomplish('gender')">
+          完成
+        </div>
+      </x-header>
+      <group>
+        <radio :options="radio001" @on-change="change"></radio>
+      </group>
+    </div>
     <!-- 修改电话 -->
-    <div class="set-phone" v-if="updateMobile">
+    <!-- <div class="set-phone" v-if="updateMobile">
       <x-header :right-options="{showMore:false }" :left-options="{showBack: false}" @on-click-more=" showMenus=true ">
         {{infoTitle}}
         <div class="showback" @click="showback()">
@@ -65,7 +79,7 @@
     </div>
     <div v-transfer-dom>
       <actionsheet :menus="menus " v-model="showMenus " show-cancel></actionsheet>
-    </div>
+    </div> -->
     <zk-foot></zk-foot>
   </section>
 </template>
@@ -73,7 +87,7 @@
 <script>
   import userService from 'src/service/api/user.api'
   import { ZkCell } from 'src/widgets/'
-  import { MIcon, Group, Cell, XHeader, Actionsheet, TransferDom, ButtonTab, ButtonTabItem, XInput } from 'zkui'
+  import { MIcon, Group, Cell, XHeader, Actionsheet, TransferDom, ButtonTab, ButtonTabItem, XInput, Radio } from 'zkui'
   export default {
     directives: {
       TransferDom
@@ -87,11 +101,13 @@
       Actionsheet,
       ButtonTab,
       ButtonTabItem,
-      XInput
+      XInput,
+      Radio
     },
     //  https://segmentfault.com/q/1010000012824355 参考这个实现方式，更为优雅
     data () {
       return {
+        radio001: ['男', '女'],
         viewModel: '',
         userInfo: {
           avator: '',
@@ -100,7 +116,8 @@
           class: '',
           referrer: '',
           mobile: '',
-          email: ''
+          email: '',
+          sex: ''
         },
         infoTitle: '', // 修改的头部标题
         showinfoTitle: true,
@@ -108,6 +125,7 @@
         portrait: true, // 修改头像
         updateName: false, // 修改名字
         updateMobile: false, // 修改电话
+        updateGender: false, // 修改电话
         uName: '',
         uMobile: '',
         menus: {
@@ -127,8 +145,10 @@
         this.portrait = true
         this.updateName = false
       },
+      change (value, label) {
+        console.log('change:', value, label)
+      },
       ceshi (type) {
-        console.log(type)
         if (type === 'portrait') {
           this.showinfoBox = false
           this.showinfoTitle = false
@@ -142,16 +162,22 @@
           this.infoTitle = '设置姓名'
           this.uName = this.userInfo.name
         }
-        if (type === 'phone') {
+        if (type === 'gender') {
           this.showinfoBox = false
           this.showinfoTitle = false
-          this.updateMobile = true
-          this.infoTitle = '设置电话'
-          this.uMobile = this.userInfo.mobile
+          this.updateGender = true
+          this.infoTitle = '设置性别'
+          this.uName = this.userInfo.name
         }
+        // if (type === 'phone') {
+        //   this.showinfoBox = false
+        //   this.showinfoTitle = false
+        //   this.updateMobile = true
+        //   this.infoTitle = '设置电话'
+        //   this.uMobile = this.userInfo.mobile
+        // }
       },
       async accomplish (type) {
-        console.log(this.uName)
         if (type === 'name') {
           let userDetail = {
             nickName: this.uName
@@ -165,19 +191,25 @@
             this.updateName = false
           }
         }
-        if (type === 'phone') {
-          let userDetail = {
-            nickName: this.uMobile
-          }
-          var moblieM = await userService.update(userDetail)
-          console.log(moblieM)
-          if (moblieM.data.status === 1) {
-            this.userInfo.moblie = this.uMobile
-            this.showinfoBox = true
-            this.showinfoTitle = true
-            this.updateMobile = false
-          }
+        if (type === 'gender') {
+          this.showinfoBox = true
+          this.showinfoTitle = true
+          this.updateGender = false
         }
+        // if (type === 'phone') {
+        //   let userDetail = {
+        //     nickName: this.uMobile
+        //   }
+        //   console.log(this.uMobile)
+        //   var moblieM = await userService.update(userDetail)
+        //   console.log(moblieM)
+        //   if (moblieM.data.status === 1) {
+        //     this.userInfo.mobile = this.uMobile
+        //     this.showinfoBox = true
+        //     this.showinfoTitle = true
+        //     this.updateMobile = false
+        //   }
+        // }
       },
       async GetData () {
         var reponse = await userService.view(this.data)
@@ -188,6 +220,11 @@
         this.userInfo.gender = this.viewModel.gradeName
         this.userInfo.mobile = this.viewModel.mobile
         this.userInfo.email = this.viewModel.email
+        if (this.viewModel.sex === 1) {
+          this.userInfo.sex = '男'
+        } else if (this.viewModel.sex === 2) {
+          this.userInfo.sex = '女'
+        }
       }
     }
   }

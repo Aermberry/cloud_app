@@ -15,5 +15,10 @@ export default {
   async list (data) {
     var response = await http.getLogin('User/Debt/List', data)
     return response
+  },
+  //  解债方案选择
+  async Solution (data) {
+    var response = await http.postLogin('User/Debt/Solution', data)
+    return response
   }
 }

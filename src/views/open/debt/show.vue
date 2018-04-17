@@ -58,6 +58,10 @@
       <div class="weui-panel__hd">方案{{index+1}}</div>
       <div class="weui-panel__bd" v-for="(i,n) in item.debtProducts" :key="n">
         <div class="weui-media-box weui-media-box_text">
+          <h4 class="weui-media-box__title">资产包</h4>
+          <div class="property-img">
+            <img :src="i.thumbnailUrl" alt="">
+          </div>
           <h4 class="weui-media-box__title">资产简介</h4>
           <p class="weui-media-box__desc">{{i.name}}{{i.debtProductSkus[0].skuValues}}</p>
           <h4 class="weui-media-box__title">市场价值</h4>
@@ -116,11 +120,11 @@
         <radio :options="radio001" @on-change="change"></radio>
       </group>
       <group>
-        <x-input title="电子签名" is-type="china-name"></x-input>
-        <x-input title="日期"></x-input>
+        <x-input title="电子签名" is-type="china-name" v-model="screenName"></x-input>
+        <x-input title="日期" v-model="time"></x-input>
       </group>
       <box gap="3rem 1rem">
-        <x-button type="primary">
+        <x-button type="primary" @click.native="sumbit">
           点击进入资产包云商城
         </x-button>
       </box>
@@ -132,7 +136,7 @@
 
 <script>
   import apiService from 'src/service/api/debt.api'
-  import { XTable, LoadMore, Checker, CheckerItem, Radio, Group, XInput, XButton, Box } from 'zkui'
+  import { XTable, LoadMore, Checker, CheckerItem, Radio, Group, XInput, XButton, Box, Cell } from 'zkui'
   export default {
     components: {
       XTable,
@@ -143,20 +147,36 @@
       Group,
       XInput,
       XButton,
-      Box
+      Box,
+      Cell
     },
     data () {
       return {
         modelView: '',
-        radio001: []
+        radio001: [],
+        subscript: '',
+        screenName: '',
+        time: ''
       }
     },
     mounted () {
       this.GetData()
+      var myDate = new Date()
+      this.time = myDate.toLocaleDateString()
     },
     methods: {
       change (value, label) {
-        console.log('change:', value, label)
+        // console.log('change:', value, label)
+        this.subscript = value
+      },
+      async sumbit () {
+        console.log(this.modelView.debtSolutions[this.radio001.indexOf(this.subscript)].id)
+        let parameter = {
+          AdminPlanId: this.modelView.debtSolutions[this.radio001.indexOf(this.subscript)].id,
+          Signature: this.screenName
+        }
+        var message = await apiService.Solution(parameter)
+        console.log(message)
       },
       async GetData () {
         let params = {
@@ -222,6 +242,14 @@
     .weui-media-box {
       padding: 0.8rem 1.2rem 0 1.2rem;
       border-bottom: 1px solid #e5e5e5;
+    }
+    .property-img {
+      width: 4rem;
+      height: 4rem;
+      img {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 </style>

@@ -9,9 +9,6 @@
     <div class="qrcode-box">
       <img :src="viewModel.result" alt="二维码名片">
     </div>
-    <div class="qrcode-button">
-      <x-button type="primary" link="/user/adduser">加入我们</x-button>
-    </div>
     <!-- <zk-foot></zk-foot> -->
   </section>
 </template>
