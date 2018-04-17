@@ -63,12 +63,10 @@
             this.viewModel = response.data.result
             this.hasSelectAddress = true
             this.Maddress = true
-            console.log('有地址', this.Maddress)
             local.setLoginStore('default_address', this.viewModel) // 将购买信息写到缓存中
           } else {
             this.$vux.toast.warn('请先添加地址')
             this.Maddress = false
-            console.log('没地址', this.Maddress)
           }
         } else {
           this.viewModel = defaultAddress

@@ -28,7 +28,7 @@
     </div>
     <!-- 修改头像 -->
     <div class="show-portrait " v-if="!portrait ">
-      <x-header :right-options="{showMore: !portrait}" :left-options="{showBack: false}" @on-click-more=" showMenus=true ">
+      <x-header :right-options="{showMore: true}" :left-options="{showBack: false}" @on-click-more=" showMenus=true ">
         {{infoTitle}}
         <div class="showback" @click="showback()">
         </div>

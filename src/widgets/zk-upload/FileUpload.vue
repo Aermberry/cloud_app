@@ -2,7 +2,7 @@
   <label :class="className">
     <slot></slot>
     <input-file></input-file>
-    <input id="input10" :ref="serviceFiles" :value="serviceFiles" type="hidden" />
+    <input id="input10" class="inputimg" :ref="serviceFiles" :value="serviceFiles" type="hidden" />
   </label>
 </template>
 <style   lang="less">
@@ -189,7 +189,6 @@
      * @return {[type]} [description]
      */
     mounted () {
-      console.log(this.$refs.serviceFiles)
       let input = document.createElement('input')
       input.type = 'file'
       input.multiple = true

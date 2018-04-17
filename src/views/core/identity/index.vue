@@ -48,7 +48,7 @@
       <zk-upload :fileCount="1" :savePath="savePath" :size="5*1024" ref="uploadFile">证件反面照</zk-upload>
       <zk-upload :fileCount="1" :savePath="savePath" :size="5*1024" ref="uploadFile">个人正面照</zk-upload>
     </div>
-    <div class="weui-btn-area">
+    <div class="weui-btn-area btn-name">
       <a class="weui-btn weui-btn_primary" @click="apipost" href="javascript:" id="showTooltips">确定</a>
     </div>
     <zk-foot></zk-foot>
@@ -74,6 +74,7 @@
     data () {
       return {
         identity: {
+          savePath: '/open/debt',
           IdentityType: 1,
           IdentityCardType: 1,
           IdentityCardName: 'gggg',
@@ -89,14 +90,18 @@
     },
     methods: {
       async apipost () {
+        var a = document.getElementsByClassName('inputimg')
+        console.log(a[0].value)
+        console.log(a[1].value)
+        console.log(a[2].value)
         let par = {
           IdentityType: this.identity.IdentityType,
           IdentityCardType: this.identity.IdentityCardType,
           IdentityCardName: this.identity.IdentityCardName,
           IdentityCardNo: this.identity.IdentityCardNo,
-          IdentityImagefrontUrl: this.identity.IdentityImagefrontUrl,
-          IdentityImageAntiUrl: this.identity.IdentityImageAntiUrl,
-          IdentitySmallimageUrl: this.identity.IdentitySmallimageUrl,
+          IdentityImagefrontUrl: a[0].value,
+          IdentityImageAntiUrl: a[1].value,
+          IdentitySmallimageUrl: a[2].value,
           CheckState: this.identity.CheckState,
           RealName: this.identity.RealName,
           Sex: this.identity.Sex
@@ -108,4 +113,16 @@
     }
   }
 </script>
+<style   lang="less">
+  .zkui-user-identity-index {
+    font-size: 12px;
+    .btn-name {
+      a {
+        background: @brand;
+        height: 3rem;
+        line-height: 3rem;
+      }
+    }
+  }
+</style>
 
