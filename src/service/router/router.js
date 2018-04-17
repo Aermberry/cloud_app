@@ -20,6 +20,8 @@ import order from './shop/order' // 订单
 import Product from './shop/product' // 商品
 // import store from './shop/store' //dian
 
+// mall
+import mill from './shop/mill'
 // CMS
 import Help from './cms/help' // 帮助
 import Article from './cms/article' // 文章
@@ -38,7 +40,8 @@ const router = new Router({
     ...Debt,
     ...order,
     ...Help,
-    ...Article
+    ...Article,
+    ...mill
   ],
   mode: 'history', // 路由模式
   strict: process.env.NODE_ENV !== 'production',
@@ -60,7 +63,9 @@ router.beforeEach((to, from, next) => {
   if (to.meta.login) {
     if (!isLogin) {
       helper.alertError('请先登录')
-      return next({ path: '/user/login' })
+      return next({
+        path: '/user/login'
+      })
     }
   }
   //  如果访问的是登陆页面或者注册页面，登陆成功后跳转到登陆会员中心
@@ -71,7 +76,9 @@ router.beforeEach((to, from, next) => {
       to.path === '/user/findpassword')
   ) {
     helper.alertSucess('您已成功登陆')
-    return next({ path: '/user/index' })
+    return next({
+      path: '/user/index'
+    })
   }
   next()
 })

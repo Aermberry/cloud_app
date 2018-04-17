@@ -13,7 +13,7 @@
         </div>
         <cell title="名字 " :value="userInfo.name " is-link @click.native="ceshi('name') "></cell>
         <cell title="性别 " value="value " is-link @click.native="ceshi() "></cell>
-        <cell title="电话 " :value="userInfo.mobile " is-link @click.native="ceshi() "></cell>
+        <cell title="电话 " :value="userInfo.mobile " is-link @click.native="ceshi('phone') "></cell>
         <cell title="邮箱 " :value="userInfo.email " is-link @click.native="ceshi() "></cell>
         <cell title="等级 " :value="userInfo.gender "></cell>
         <cell title="推荐人 " value="value "></cell>
@@ -36,7 +36,7 @@
       <img :src="userInfo.avator " alt=" ">
     </div>
     <!-- 修改姓名 -->
-    <div class="show-message" v-if="updateName">
+    <div class="set-name" v-if="updateName">
       <x-header :right-options="{showMore:false }" :left-options="{showBack: false}" @on-click-more=" showMenus=true ">
         {{infoTitle}}
         <div class="showback" @click="showback()">
@@ -47,6 +47,20 @@
       </x-header>
       <group>
         <x-input is-type="china-name" v-model="uName"></x-input>
+      </group>
+    </div>
+    <!-- 修改电话 -->
+    <div class="set-phone" v-if="updateMobile">
+      <x-header :right-options="{showMore:false }" :left-options="{showBack: false}" @on-click-more=" showMenus=true ">
+        {{infoTitle}}
+        <div class="showback" @click="showback()">
+        </div>
+        <div class="accomplish" @click="accomplish('phone')">
+          完成
+        </div>
+      </x-header>
+      <group>
+        <x-input keyboard="number" is-type="china-mobile" v-model="uMobile"></x-input>
       </group>
     </div>
     <div v-transfer-dom>
@@ -93,7 +107,9 @@
         showinfoBox: true, // 个人信息内容盒子
         portrait: true, // 修改头像
         updateName: false, // 修改名字
+        updateMobile: false, // 修改电话
         uName: '',
+        uMobile: '',
         menus: {
           menu1: 'Take Photo',
           menu2: 'Choose from photos'
@@ -126,6 +142,13 @@
           this.infoTitle = '设置姓名'
           this.uName = this.userInfo.name
         }
+        if (type === 'phone') {
+          this.showinfoBox = false
+          this.showinfoTitle = false
+          this.updateMobile = true
+          this.infoTitle = '设置电话'
+          this.uMobile = this.userInfo.mobile
+        }
       },
       async accomplish (type) {
         console.log(this.uName)
@@ -140,6 +163,19 @@
             this.showinfoBox = true
             this.showinfoTitle = true
             this.updateName = false
+          }
+        }
+        if (type === 'phone') {
+          let userDetail = {
+            nickName: this.uMobile
+          }
+          var moblieM = await userService.update(userDetail)
+          console.log(moblieM)
+          if (moblieM.data.status === 1) {
+            this.userInfo.moblie = this.uMobile
+            this.showinfoBox = true
+            this.showinfoTitle = true
+            this.updateMobile = false
           }
         }
       },

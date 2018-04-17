@@ -13,31 +13,31 @@
         <div class="weui-form-preview__bd">
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">债务人姓名</label>
-            <span class="weui-form-preview__value">{{modelView.plan.name}}</span>
+            <span class="weui-form-preview__value">{{modelView.plan.debteeName}}</span>
           </div>
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">债务人联系电话</label>
-            <span class="weui-form-preview__value">{{modelView.plan.mobile}}</span>
+            <span class="weui-form-preview__value">{{modelView.plan.debteePhone}}</span>
           </div>
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">债务人身份证号码</label>
-            <span class="weui-form-preview__value">{{modelView.plan.iDcard}}</span>
+            <span class="weui-form-preview__value">{{modelView.plan.debteeId}}</span>
           </div>
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">债事过程（描述）</label>
-            <span class="weui-form-preview__value">{{modelView.plan.debtProcess}}</span>
+            <span class="weui-form-preview__value">{{modelView.plan.applyReason}}</span>
           </div>
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">债事状态（描述）</label>
             <span class="weui-form-preview__value">{{modelView.planStatus}}</span>
           </div>
-          <div class="weui-form-preview__item">
+          <!-- <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">申请的商品Id</label>
             <span class="weui-form-preview__value">{{modelView.plan.applyProductIds}}</span>
-          </div>
+          </div> -->
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">是否付款</label>
-            <span class="weui-form-preview__value">{{modelView.isPay}}</span>
+            <span class="weui-form-preview__value">{{modelView.plan.isPay}}</span>
           </div>
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">借条附件上传</label>
@@ -47,42 +47,70 @@
             <label class="weui-form-preview__label">时间</label>
             <span class="weui-form-preview__value">{{modelView.plan.createTime}}</span>
           </div>
-          <div class="weui-form-preview__item">
+          <!-- <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">备注</label>
             <span class="weui-form-preview__value">{{modelView.plan.remark}}</span>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
-    <div class="table-box">
-      <div>
-        <load-more tip="content-bordered=false" :show-loading="false" background-color="#fbf9fe"></load-more>
-        <x-table style="background-color:#fff;">
+    <div class="weui-panel weui-panel_access" v-for="(item,index) in modelView.debtSolutions" :key="index">
+      <div class="weui-panel__hd">方案{{index+1}}</div>
+      <div class="weui-panel__bd" v-for="(i,n) in item.debtProducts" :key="n">
+        <div class="weui-media-box weui-media-box_text">
+          <h4 class="weui-media-box__title">资产简介</h4>
+          <p class="weui-media-box__desc">{{i.name}}{{i.debtProductSkus[0].skuValues}}</p>
+          <h4 class="weui-media-box__title">市场价值</h4>
+          <p class="weui-media-box__desc">0</p>
+          <h4 class="weui-media-box__title">兑现债务</h4>
+          <p class="weui-media-box__desc">0</p>
+          <h4 class="weui-media-box__title">服务费</h4>
+          <p class="weui-media-box__desc">0</p>
+        </div>
+      </div>
+      <div class="weui-panel__ft">
+        <a href="http://vux.li" class="weui-cell weui-cell_access weui-cell_link">
+          <div class="weui-cell__bd">
+            总市场价值:{{item.marketPrice}} <br>总兑现债务：{{item.debtAmount}} <br>总服务费：{{item.cnyAmount }}
+          </div>
+        </a>
+      </div>
+    </div>
+    <!-- <div class="table-box" v-for="(item,index) in modelView.debtSolutions" :key="index">
+      <load-more :tip="'方案'+(index+1)" :show-loading="false" background-color="#fbf9fe"></load-more>
+      <div style="overflow: auto; width: 100%;">
+        <x-table style="background-color:#fff;     white-space: nowrap;">
           <thead>
             <tr style="background-color: #F7F7F7">
-              <th>Product</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Quantity</th>
+              <th>资产包</th>
+              <th>资产简介</th>
+              <th>市场价值</th>
+              <th>兑现债额</th>
+              <th>服务费</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Apple</td>
-              <td>$1.25</td>
-              <td> x 1</td>
-              <td> x 2</td>
+            <tr v-for="(i,n) in item.debtProducts" :key="n">
+              <td class="td-img"><img :src="i.thumbnailUrl" alt=""></td>
+              <td class="td-brief ">{{i.name}}<br>{{i.debtProductSkus[0].skuValues}}</td>
+              <td> 0</td>
+              <td>0</td>
+              <td>
+              </td>
             </tr>
             <tr>
-              <td>Banana</td>
-              <td>$1.20</td>
-              <td> x 2</td>
-              <td> x 2</td>
+              <td></td>
+              <td></td>
+              <td>{{item.marketPrice}}</td>
+              <td>{{item.debtAmount}}</td>
+              <td>
+                {{item.cnyAmount }}
+              </td>
             </tr>
           </tbody>
         </x-table>
       </div>
-    </div>
+    </div> -->
     <div class="select-scheme">
       <group title="最终方案选择">
         <radio :options="radio001" @on-change="change"></radio>
@@ -120,7 +148,7 @@
     data () {
       return {
         modelView: '',
-        radio001: ['China', 'Japan']
+        radio001: []
       }
     },
     mounted () {
@@ -137,6 +165,10 @@
         var response = await apiService.show(params)
         this.modelView = response.data.result
         console.dir((this.modelView))
+        for (var i = 0; i < this.modelView.debtSolutions.length; i++) {
+          console.log(i)
+          this.radio001[i] = '方案' + (i + 1)
+        }
       }
     }
   }
@@ -144,10 +176,11 @@
 <style lang="less">
   .zkui-user-debt-show {
     .table-box {
-      padding-bottom: 3rem;
     }
     .select-scheme {
       background: @white;
+      margin-top: 0.83333333rem;
+      border-top: 1px solid #e5e5e5;
       padding-bottom: 3rem;
       .weui-cell {
         padding: 0.43333333rem 1.25rem;
@@ -158,6 +191,37 @@
       .weui-btn {
         height: 3rem;
       }
+    }
+    .td-img {
+      width: 5rem;
+      img {
+        width: 100%;
+      }
+    }
+    .td-brief {
+      width: 7rem;
+    }
+    .weui-loadmore {
+      margin-top: 2.4em;
+      margin-bottom: 0;
+    }
+    .weui-media-box__title {
+      margin-bottom: 0;
+      font-size: @h5-font-size;
+    }
+    .weui-media-box__desc {
+      margin-bottom: 0.66666667rem;
+    }
+    .weui-panel__hd {
+      color: @brand;
+      font-weight: @font-weight-bold;
+    }
+    .weui-panel {
+      border: 1px solid #e5e5e5;
+    }
+    .weui-media-box {
+      padding: 0.8rem 1.2rem 0 1.2rem;
+      border-bottom: 1px solid #e5e5e5;
     }
   }
 </style>
