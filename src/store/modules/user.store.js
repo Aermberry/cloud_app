@@ -59,6 +59,7 @@ const mutations = {
           window.location = '/user/index'
         } else {
           helper.alertError(response.data.message)
+          console.log('登陆失败')
         }
       } catch (ex) {
         helper.alertError('登录失败，服务器异常')
