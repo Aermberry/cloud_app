@@ -12,14 +12,17 @@
           </div>
         </div>
         <cell title="名字 " :value="userInfo.name " is-link @click.native="ceshi('name') "></cell>
-        <cell title="性别 " :value="userInfo.sex" is-link @click.native="ceshi('gender') "></cell>
+        <cell title="性别 " :value="userInfo.sex" is-link @click.native="ceshi('sex') "></cell>
         <cell title="电话 " :value="userInfo.mobile "></cell>
         <cell title="邮箱 " :value="userInfo.email "></cell>
-        <cell title="等级 " :value="userInfo.gender "></cell>
-        <cell title="推荐人 " value="value "></cell>
+        <cell title="等级 " :value="userInfo.gradeName "></cell>
+        <cell title="推荐人 " :value="userInfo.parentUserName  "></cell>
+        <cell title="门店名" :value="userInfo.serviceCenterName"></cell>
+        <cell title="是否认证通过" :value="userInfo.isIdentity "></cell>
+        <cell title="会员是否是门店" :value=" userInfo.isServiceCenter"></cell>
       </group>
       <group>
-        <cell title="我的地址 " link="/user/address/index "></cell>
+        <cell title="我的地址 " @click.native="ceshi('address') " is-link></cell>
       </group>
       <group>
         <cell title="我的二维码 " link="/user/qrcode "></cell>
@@ -55,7 +58,7 @@
         {{infoTitle}}
         <div class="showback" @click="showback()">
         </div>
-        <div class="accomplish" @click="accomplish('gender')">
+        <div class="accomplish" @click="accomplish('sex')">
           完成
         </div>
       </x-header>
@@ -63,31 +66,49 @@
         <radio :options="radio001" @on-change="change"></radio>
       </group>
     </div>
-    <!-- 修改电话 -->
-    <!-- <div class="set-phone" v-if="updateMobile">
-      <x-header :right-options="{showMore:false }" :left-options="{showBack: false}" @on-click-more=" showMenus=true ">
+    <!-- 修改地址 -->
+    <div class="set-gender" v-if="updateAddress">
+      <x-header :right-options="{showMore:false }" :left-options="{showBack: false}" @on-click-more=" showMenus=true " v-if="!addressBox">
         {{infoTitle}}
         <div class="showback" @click="showback()">
         </div>
-        <div class="accomplish" @click="accomplish('phone')">
+        <!-- <div class="accomplish" @click="accomplish('address')">
           完成
-        </div>
+        </div> -->
       </x-header>
-      <group>
-        <x-input keyboard="number" is-type="china-mobile" v-model="uMobile"></x-input>
+      <group v-if="!addressBox">
+        <div class="weui-panel weui-panel_access">
+          <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+              <cell :title="userInfo.name " is-link style="margin-bottom:.2rem; padding:0"></cell>
+              <p class="weui-media-box__desc">{{userInfo.regionName}}</p>
+              <p class="weui-media-box__desc">{{userInfo.address}}</p>
+            </div>
+          </div>
+        </div>
+      </group>
+      <x-header :right-options="{showMore:false }" :left-options="{showBack: false}" @on-click-more=" showMenus=true " v-if="addressBox">
+        设置地址
+        <div class="showback" @click="showback()">
+        </div>
+        <!-- <div class="accomplish" @click="accomplish('address')">
+          完成
+        </div> -->
+      </x-header>
+      <group v-if="addressBox">
+        <popup-picker title="选择区域" :data="addressData" :columns="3" show-name v-model="addressValue" ref="addressRef"></popup-picker>
+        <x-textarea :max="40" placeholder="输入详细地址" title="详细地址" :rows="2" v-model="addressInput"></x-textarea>
       </group>
     </div>
-    <div v-transfer-dom>
-      <actionsheet :menus="menus " v-model="showMenus " show-cancel></actionsheet>
-    </div> -->
     <zk-foot></zk-foot>
   </section>
 </template>
 
 <script>
   import userService from 'src/service/api/user.api'
-  import { ZkCell } from 'src/widgets/'
-  import { MIcon, Group, Cell, XHeader, Actionsheet, TransferDom, ButtonTab, ButtonTabItem, XInput, Radio } from 'zkui'
+  import { ZkCell, ZkAddress } from 'src/widgets/'
+  import address from 'src/service/common/address'
+  import { MIcon, Group, Cell, XHeader, Actionsheet, TransferDom, ButtonTab, ButtonTabItem, XInput, Radio, PopupPicker, XTextarea } from 'zkui'
   export default {
     directives: {
       TransferDom
@@ -102,22 +123,34 @@
       ButtonTab,
       ButtonTabItem,
       XInput,
-      Radio
+      Radio,
+      ZkAddress,
+      PopupPicker,
+      XTextarea
     },
     //  https://segmentfault.com/q/1010000012824355 参考这个实现方式，更为优雅
     data () {
       return {
         radio001: ['男', '女'],
         viewModel: '',
+        addressData: [], // 地址数据
+        addressValue: [], // 选择的地址
+        addressInput: '', // 填写的详细地址
         userInfo: {
+          address: '',
           avator: '',
           name: '',
-          gender: '',
+          gradeName: '',
           class: '',
           referrer: '',
           mobile: '',
           email: '',
-          sex: ''
+          sex: '',
+          regionName: '',
+          parentUserName: '',
+          serviceCenterName: '',
+          isIdentity: '',
+          isServiceCenter: ''
         },
         infoTitle: '', // 修改的头部标题
         showinfoTitle: true,
@@ -125,9 +158,12 @@
         portrait: true, // 修改头像
         updateName: false, // 修改名字
         updateMobile: false, // 修改电话
-        updateGender: false, // 修改电话
+        updateGender: false, // 修改性别
+        updateAddress: false, // 修改地址
+        addressBox: true, // 修改地址里的盒子
         uName: '',
         uMobile: '',
+        uGender: '',
         menus: {
           menu1: 'Take Photo',
           menu2: 'Choose from photos'
@@ -144,9 +180,16 @@
         this.showinfoTitle = true
         this.portrait = true
         this.updateName = false
+        this.updateGender = false
+        this.updateAddress = false
       },
       change (value, label) {
-        console.log('change:', value, label)
+        // console.log('change:', value, label)
+        if (value === '男') {
+          this.uGender = '0'
+        } else if (value === '女') {
+          this.uGender = '1'
+        }
       },
       ceshi (type) {
         if (type === 'portrait') {
@@ -162,12 +205,17 @@
           this.infoTitle = '设置姓名'
           this.uName = this.userInfo.name
         }
-        if (type === 'gender') {
+        if (type === 'sex') {
           this.showinfoBox = false
           this.showinfoTitle = false
           this.updateGender = true
           this.infoTitle = '设置性别'
-          this.uName = this.userInfo.name
+        }
+        if (type === 'address') {
+          this.showinfoBox = false
+          this.showinfoTitle = false
+          this.updateAddress = true
+          this.infoTitle = '我的地址'
         }
         // if (type === 'phone') {
         //   this.showinfoBox = false
@@ -191,10 +239,27 @@
             this.updateName = false
           }
         }
-        if (type === 'gender') {
+        if (type === 'sex') {
+          let parameter = {
+            Sex: this.uGender
+          }
+          var sexMessage = await userService.update(parameter)
+          console.log(sexMessage)
+          if (sexMessage.data.status === 1) {
+            this.showinfoBox = true
+            this.showinfoTitle = true
+            this.updateGender = false
+            if (this.uGender === '0') {
+              this.userInfo.sex = '男'
+            } else if (this.uGender === '1') {
+              this.userInfo.sex = '女'
+            }
+          }
+        }
+        if (type === 'address') {
           this.showinfoBox = true
           this.showinfoTitle = true
-          this.updateGender = false
+          this.updateAddress = false
         }
         // if (type === 'phone') {
         //   let userDetail = {
@@ -212,19 +277,36 @@
         // }
       },
       async GetData () {
+        this.addressData = address.addressData
         var reponse = await userService.view(this.data)
         console.log(reponse)
         this.viewModel = reponse.data.result
+        this.userInfo.address = this.viewModel.address
         this.userInfo.avator = this.viewModel.avator
         this.userInfo.name = this.viewModel.name
-        this.userInfo.gender = this.viewModel.gradeName
+        this.userInfo.gradeName = this.viewModel.gradeName
         this.userInfo.mobile = this.viewModel.mobile
         this.userInfo.email = this.viewModel.email
-        if (this.viewModel.sex === 1) {
+        this.userInfo.regionName = this.viewModel.regionName
+        this.userInfo.parentUserName = this.viewModel.parentUserName
+        this.userInfo.serviceCenterName = this.viewModel.serviceCenterName
+        if (this.viewModel.isIdentity === true) {
+          this.userInfo.isIdentity = '是'
+        } else {
+          this.userInfo.isIdentity = '否'
+        }
+        if (this.viewModel.isServiceCenter === true) {
+          this.userInfo.isServiceCenter = '是'
+        } else {
+          this.userInfo.isServiceCenter = '否'
+        }
+        console.log(this.viewModel.sex)
+        if (this.viewModel.sex === '0') {
           this.userInfo.sex = '男'
-        } else if (this.viewModel.sex === 2) {
+        } else if (this.viewModel.sex === '1') {
           this.userInfo.sex = '女'
         }
+        console.log(this.viewModel.sex, this.userInfo.sex)
       }
     }
   }

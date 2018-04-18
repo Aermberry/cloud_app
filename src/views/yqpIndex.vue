@@ -38,14 +38,7 @@
       <m-icon name="zk-qrcode1" class="icon-brand index-qrcode " link="/user/qrcode" size="1rem"></m-icon>
     </div>
     <zk-grid diykey="grid_index" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
-    <div class="yqpimg">
-      <img src="../../static/images/yqp/1.png" alt="">
-      <img src="../../static/images/yqp/2.png" alt="">
-      <img src="../../static/images/yqp/3.png" alt="">
-      <img src="../../static/images/yqp/4.png" alt="">
-      <img src="../../static/images/yqp/5.png" alt="">
-      <img src="../../static/images/yqp/6.png" alt="">
-    </div>
+    <zk-singlead diykey="index_single_ad"></zk-singlead>
     <group-title class="flex">
       <div class="fashion-title">
         流行单品
@@ -96,7 +89,7 @@
 
 <script>
   import apiService from 'src/service/api/user.api'
-  import { ZkSwiper, ZkGrid, ZkProductItem } from 'widgets'
+  import { ZkSwiper, ZkGrid, ZkProductItem, ZkSinglead } from 'widgets'
   import { Search, Grid, GridItem, Swiper, Box, GroupTitle, SwiperItem, XImg } from 'zkui'
   export default {
     components: {
@@ -110,7 +103,8 @@
       Box,
       ZkProductItem,
       SwiperItem,
-      XImg
+      XImg,
+      ZkSinglead
     },
     data () {
       return {
@@ -210,9 +204,13 @@
     }
     .yqpimg {
       width: 100%;
-      img {
+      a {
         width: 100%;
         height: 180px;
+        img {
+          width: 100%;
+          height: 100%;
+        }
       }
     }
     .flex {
