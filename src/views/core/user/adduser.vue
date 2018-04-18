@@ -4,6 +4,7 @@
     <zk-head title='注册' goBack='返回'></zk-head>
     <group title="推荐人信息">
       <x-input title="推荐人" required :min="2" :max="12" v-model="user.parentUserName"></x-input>
+      <x-input title="门店" required :min="2" :max="12" v-model="user.serviceCenter" v-if="userConfig.needSelectServiceCenter===true"></x-input>
     </group>
 
     <group gap="2rem 0.2rem" id="form" title="新用户信息">
@@ -30,6 +31,7 @@
 
 <script>
   import apiUser from 'src/service/api/user.api'
+  import apiService from 'src/service/api/common.api'
   import { Group, XInput, Agree, Box, XButton, Cell } from 'zkui'
   import { ZkPhoneVerifiy } from 'widgets'
   // import local from 'src/service/common/local'
@@ -54,10 +56,11 @@
           mobile: '',
           confirmPassword: '',
           mobileVerifiyCode: '',
+          serviceCenter: '', // 门店或服务中心
           parentUserName: ''
         },
-        qwe: true,
-        checked: true
+        checked: true,
+        userConfig: '' // 会员配置
       }
     },
     mounted () {
@@ -67,11 +70,13 @@
       checker () {
         this.checked = !this.checked
       },
-      GetData () {
+      async GetData () {
         this.user.parentUserName = this.LoginUser().userName
+        // 用户注册选项
+        var response = await apiService.GetConfigValue('UserConfig')
+        this.userConfig = response.data.result
         // 会员测试时用
         var type = this.$route.query.type
-        console.info(type)
         if (type === '1') {
           this.user.username = 'B21' + Math.floor(Math.random() * 10) * Math.floor(Math.random() * 10)
           this.user.password = '111111'
