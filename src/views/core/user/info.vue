@@ -72,12 +72,12 @@
         {{infoTitle}}
         <div class="showback" @click="showback()">
         </div>
-        <!-- <div class="accomplish" @click="accomplish('address')">
+        <div class="accomplish" @click="accomplish('address')">
           完成
-        </div> -->
+        </div>
       </x-header>
       <group v-if="!addressBox">
-        <div class="weui-panel weui-panel_access">
+        <div class="weui-panel weui-panel_access" @click="aBox()">
           <div class="weui-panel__bd">
             <div class="weui-media-box weui-media-box_text">
               <cell :title="userInfo.name " is-link style="margin-bottom:.2rem; padding:0"></cell>
@@ -89,14 +89,14 @@
       </group>
       <x-header :right-options="{showMore:false }" :left-options="{showBack: false}" @on-click-more=" showMenus=true " v-if="addressBox">
         设置地址
-        <div class="showback" @click="showback()">
+        <div class="showback" @click="showback('addressBox')">
         </div>
-        <!-- <div class="accomplish" @click="accomplish('address')">
+        <div class="accomplish" @click="accomplish('addressBox')">
           完成
-        </div> -->
+        </div>
       </x-header>
       <group v-if="addressBox">
-        <popup-picker title="选择区域" :data="addressData" :columns="3" show-name v-model="addressValue" ref="addressRef"></popup-picker>
+        <popup-picker title="选择区域" :data="addressData" :columns="3" show-name v-model="addressValue" ref="addressRef" :on-hide="hide()"></popup-picker>
         <x-textarea :max="40" placeholder="输入详细地址" title="详细地址" :rows="2" v-model="addressInput"></x-textarea>
       </group>
     </div>
@@ -160,7 +160,8 @@
         updateMobile: false, // 修改电话
         updateGender: false, // 修改性别
         updateAddress: false, // 修改地址
-        addressBox: true, // 修改地址里的盒子
+        addressBox: false, // 修改地址里的盒子
+        addressString: '',
         uName: '',
         uMobile: '',
         uGender: '',
@@ -175,13 +176,18 @@
       this.GetData()
     },
     methods: {
-      showback () {
-        this.showinfoBox = true
-        this.showinfoTitle = true
-        this.portrait = true
-        this.updateName = false
-        this.updateGender = false
-        this.updateAddress = false
+      showback (type) {
+        if (type === 'addressBox') {
+          this.addressBox = false
+        } else {
+          this.showinfoBox = true
+          this.showinfoTitle = true
+          this.portrait = true
+          this.updateName = false
+          this.updateGender = false
+          this.updateAddress = false
+          this.addressBox = false
+        }
       },
       change (value, label) {
         // console.log('change:', value, label)
@@ -261,6 +267,18 @@
           this.showinfoTitle = true
           this.updateAddress = false
         }
+        if (type === 'addressBox') {
+          let parameter = {
+            Address: this.addressInput,
+            ReginonId: this.addressString
+          }
+          var addressBoxMessage = await userService.update(parameter)
+          console.log(addressBoxMessage)
+          if (addressBoxMessage.data.status === 1) {
+            this.userInfo.address = this.addressInput
+            this.addressBox = false
+          }
+        }
         // if (type === 'phone') {
         //   let userDetail = {
         //     nickName: this.uMobile
@@ -275,6 +293,13 @@
         //     this.updateMobile = false
         //   }
         // }
+      },
+      aBox () {
+        this.addressInput = this.userInfo.address
+        this.addressBox = true
+      },
+      hide () {
+        this.addressString = this.addressValue[0] + ',' + this.addressValue[1] + ',' + this.addressValue[2]
       },
       async GetData () {
         this.addressData = address.addressData

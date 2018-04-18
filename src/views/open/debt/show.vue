@@ -57,7 +57,7 @@
     <div class="weui-panel weui-panel_access" v-for="(item,index) in modelView.debtSolutions" :key="index">
       <div class="weui-panel__hd">方案{{index+1}}</div>
       <div class="weui-panel__bd" v-for="(i,n) in item.debtProducts" :key="n">
-        <div class="weui-media-box weui-media-box_text">
+        <div class="weui-media-box weui-media-box_text" v-if="!item.isDefault">
           <h4 class="weui-media-box__title">资产包</h4>
           <div class="property-img">
             <img :src="i.thumbnailUrl" alt="">
@@ -65,17 +65,17 @@
           <h4 class="weui-media-box__title">资产简介</h4>
           <p class="weui-media-box__desc">{{i.name}}{{i.debtProductSkus[0].skuValues}}</p>
           <h4 class="weui-media-box__title">市场价值</h4>
-          <p class="weui-media-box__desc">0</p>
+          <p class="weui-media-box__desc">{{i.debtProductSkus[0].marketPrice}}</p>
           <h4 class="weui-media-box__title">兑现债务</h4>
-          <p class="weui-media-box__desc">0</p>
+          <p class="weui-media-box__desc">{{i.debtProductSkus[0].maxPayPrice}}</p>
           <h4 class="weui-media-box__title">服务费</h4>
-          <p class="weui-media-box__desc">0</p>
+          <p class="weui-media-box__desc">{{i.debtProductSkus[0].serviceFee}}</p>
         </div>
       </div>
       <div class="weui-panel__ft">
         <a href="http://vux.li" class="weui-cell weui-cell_access weui-cell_link">
           <div class="weui-cell__bd">
-            总市场价值:{{item.marketPrice}} <br>总兑现债务：{{item.debtAmount}} <br>总服务费：{{item.cnyAmount }}
+            总市场价值:{{item.marketPrice}} <br>总兑现债务：{{item.debtAmount}} <br>总服务费：{{item.cnyAmount }}<br>云债金转换：{{item.totalAmount}}
           </div>
         </a>
       </div>
@@ -125,7 +125,7 @@
       </group>
       <box gap="3rem 1rem">
         <x-button type="primary" @click.native="sumbit">
-          点击进入资产包云商城
+          确认方案提交
         </x-button>
       </box>
     </div>
@@ -177,6 +177,9 @@
         }
         var message = await apiService.Solution(parameter)
         console.log(message)
+        if (message.data.result === true) {
+          this.$vux.toast.success('提交成功')
+        }
       },
       async GetData () {
         let params = {
@@ -186,8 +189,11 @@
         this.modelView = response.data.result
         console.dir((this.modelView))
         for (var i = 0; i < this.modelView.debtSolutions.length; i++) {
-          console.log(i)
-          this.radio001[i] = '方案' + (i + 1)
+          if (this.modelView.debtSolutions[i].isDefault === true) {
+            this.radio001[i] = '方案' + (i + 1) + ' 将债条转化为云债金分解平债'
+          } else {
+            this.radio001[i] = '方案' + (i + 1)
+          }
         }
       }
     }

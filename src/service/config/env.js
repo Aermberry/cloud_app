@@ -19,20 +19,21 @@ let baseUrl
 let routerMode = 'history'
 
 if (process.env.NODE_ENV === 'development') {
-  // baseUrl = 'http://zkdebt.5ug.com'
+  baseUrl = 'http://zkdebt.5ug.com'
   // baseUrl = 'http://zkgs.5ug.com'
   // baseUrl = 'http://zkqd.5ug.com'
-<<<<<<< HEAD
-  baseUrl = 'http://zqingchun.yiqipingou.com/'
-  //  baseUrl = 'http://localhost:9011'
-=======
   // baseUrl = 'http://zqingchun.yiqipingou.com/'
-  baseUrl = 'http://localhost:9011'
->>>>>>> 592d83cb5cf213c88cb160b90a2827f69817daa1
+  // baseUrl = 'http://localhost:9011'
 } else {
-  // baseUrl = 'http://zkdebt.5ug.com'
+  baseUrl = 'http://zkdebt.5ug.com'
   // baseUrl = 'http://zkgs.5ug.com'
   // baseUrl = 'http://zkqd.5ug.com/'
-  baseUrl = 'http://zqingchun.yiqipingou.com/'
+  // baseUrl = 'http://zqingchun.yiqipingou.com/'
 }
-export { baseUrl, routerMode, key, projectId, clientType }
+export {
+  baseUrl,
+  routerMode,
+  key,
+  projectId,
+  clientType
+}
