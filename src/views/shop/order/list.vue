@@ -1,7 +1,7 @@
 <template>
   <section class="zkui-order-list">
 
-    <zk-head title='我的订单' goBack='会员中心'></zk-head>
+    <zk-head title='我的订单'></zk-head>
     <div>
       <tab :line-width=2 active-color='#fc378c' v-model="showView">
         <tab-item class="vux-center" :selected="demo2 === item" v-for="(item, index) in list2" @click="demo2 = item" :key="index">{{item}}</tab-item>
@@ -345,9 +345,7 @@
         if (reponse.data.status === 1) {
           this.data.splice(index, 1)
           console.log(this.data.length)
-          if (this.data.length === 19) {
-            this.$router.go(0)
-          }
+          this.GetData()
           this.$vux.toast.success('取消成功')
         } else {
           this.$vux.toast.warn('删除失败')
