@@ -14,22 +14,36 @@
       </div>
     </div>
     <tab :scroll-threshold="5">
-      <tab-item selected>房产</tab-item>
-      <tab-item>汽车</tab-item>
-      <tab-item>艺术品</tab-item>
-      <tab-item>原材料</tab-item>
-      <tab-item>半成品</tab-item>
-      <tab-item>机器设备</tab-item>
-      <tab-item>其他</tab-item>
+      <tab-item>
+        <router-link to="/product/list?Keyword=房产">房产</router-link>
+      </tab-item>
+      <tab-item>
+        <router-link to="/product/list?Keyword=汽车">汽车</router-link>
+      </tab-item>
+      <tab-item>
+        <router-link to="/product/list?Keyword=艺术品">艺术品</router-link>
+      </tab-item>
+      <tab-item>
+        <router-link to="/product/list?Keyword=原材料">原材料</router-link>
+      </tab-item>
+      <tab-item>
+        <router-link to="/product/list?Keyword=半成品">半成品</router-link>
+      </tab-item>
+      <tab-item>
+        <router-link to="/product/list?Keyword=机器设备">机器设备</router-link>
+      </tab-item>
+      <tab-item>
+        <router-link to="/product/list?Keyword=其他">其他</router-link>
+      </tab-item>
     </tab>
-    <zk-grid diykey="grid_index" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
+    <zk-grid diykey="grid1_config" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
     <div class="point-title">
       <span class="title-text">
         首推平债资产包
       </span>
     </div>
     <div class="point-content-box">
-
+      <zk-product-item :pageSize=2 classIds='' tagsId='' diykey='index'></zk-product-item>
     </div>
     <div class="point-title">
       <span class="title-text">
@@ -37,7 +51,7 @@
       </span>
     </div>
     <div class="point-content-box">
-
+      <zk-product-item :pageSize=2 classIds='' tagsId='' diykey='index'></zk-product-item>
     </div>
     <div class="point-title">
       <span class="title-text">
@@ -45,13 +59,13 @@
       </span>
     </div>
     <div class="point-content-box">
-
+      <zk-product-item :pageSize=2 classIds='' tagsId='' diykey='index'></zk-product-item>
     </div>
     <zk-foot></zk-foot>
   </section>
 </template>
 <script>
-  import { ZkSwiper, ZkGrid } from 'widgets'
+  import { ZkSwiper, ZkGrid, ZkProductItem } from 'widgets'
   import { Tab, TabItem } from 'zkui'
   export default {
     directives: {
@@ -61,7 +75,8 @@
       Tab,
       TabItem,
       ZkSwiper,
-      ZkGrid
+      ZkGrid,
+      ZkProductItem
     },
     mounted () {
     },

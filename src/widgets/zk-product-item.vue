@@ -69,7 +69,9 @@
       async upCallback () {
         let params = {
           pageIndex: this.pageIndex, // 当前第页,下拉一次增加一次
-          pageSize: 10 // 每页显示的数量 建议20
+          pageSize: this.pageSize, // 每页显示的数量 建议20
+          classIds: this.classIds,
+          tagIds: this.tagIds
         }
         let response = await apiService.list(params) // 通过异步方法获取数据
         let totalSize = response.data.result.totalSize // 获取总页数
