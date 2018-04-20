@@ -67,6 +67,7 @@
           id: this.$route.params.id // 获取URL当中的Id参数
         }
         var response = await apiService.show(params)
+        console.log('123', this.$route.params.id)
         var product = response.data.result
         if (response.data.status !== 1) {
           this.messageWarn(response.data.message)

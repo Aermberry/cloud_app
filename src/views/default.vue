@@ -88,6 +88,7 @@
 </template>
 
 <script>
+  import common from 'src/service/api/common.api'
   import apiService from 'src/service/api/user.api'
   import { ZkSwiper, ZkGrid, ZkProductItem, ZkSinglead } from 'widgets'
   import { Search, Grid, GridItem, Swiper, Box, GroupTitle, SwiperItem, XImg } from 'zkui'
@@ -120,8 +121,9 @@
           DataType: 'topline'
         }
         var response = await apiService.topline(style)
-        console.log(response)
         this.topline = response.data.result
+        var setMessage = await common.GetConfigValue('WebSiteConfig')
+        console.log(setMessage)
       },
       success (src, ele) {
         console.log('success load', src)

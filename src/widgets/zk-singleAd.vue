@@ -32,7 +32,6 @@
       async GetData () {
         var response = await apiService.getLink(this.diykey)
         this.singImg = response.data.result
-        console.log('图片', this.singImg)
       }
     }
   }

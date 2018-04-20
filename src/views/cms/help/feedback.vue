@@ -5,7 +5,7 @@
     <div>
       <group gap="0.51rem 0rem" id="form">
         <x-textarea title="问题描述" class="zk-border-bottom" v-model="feedback.Description"></x-textarea>
-        <x-upload :fileCount="5" :savePath="savePath" :size="5*1024" ref="savePath" v-model="feedback.Attachment">相关资料</x-upload>
+        <zk-upload :fileCount="5" :savePath="savePath" :size="5*1024" ref="uploadFile" v-model="feedback.Attachment">相关资料</zk-upload>
         <box gap="2rem">
           <x-button @click.native="apiPost()" type="primary" action-type="button">提交</x-button>
         </box>
@@ -16,17 +16,18 @@
 </template>
 
 <script>
+  import { ZkUpload } from 'widgets'
   import apiService from 'src/service/api/workOrder.api'
-  import { Group, XInput, Box, XTextarea, XUpload, GroupTitle, XButton } from 'zkui'
+  import { Group, XInput, Box, XTextarea, GroupTitle, XButton } from 'zkui'
   export default {
     components: {
-      Group, XInput, Box, XTextarea, XButton, XUpload, GroupTitle
+      Group, XInput, Box, XTextarea, XButton, GroupTitle, ZkUpload
     },
     data () {
       return {
         feedback: {
-          Description: 'ff',
-          Attachment: 'ff'
+          Description: '',
+          Attachment: ''
         }
       }
     },
@@ -35,6 +36,8 @@
     },
     methods: {
       async apiPost () {
+        var a = document.getElementsByClassName('inputimg')
+        this.feedback.Attachment = a[0].value
         var repsonse = await apiService.feedBackApply(this.feedback)
         console.dir(repsonse)
       },

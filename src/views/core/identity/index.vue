@@ -78,12 +78,12 @@
           IdentityType: 1,
           IdentityCardType: 1,
           IdentityCardName: 'gggg',
-          IdentityCardNo: '36220119940217361X',
+          IdentityCardNo: '',
           IdentityImagefrontUrl: '123456.45646',
           IdentityImageAntiUrl: '123456789',
           IdentitySmallimageUrl: 'ggg145416',
           CheckState: 1,
-          RealName: 'ggg',
+          RealName: '',
           Sex: 1
         }
       }

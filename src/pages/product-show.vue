@@ -13,13 +13,13 @@
                   <dl class="clearfix property-box">
                     <dt class=" property-type">价格</dt>
                     <dd class="property-cont">
-                      <span class="price">￥{{productShow.displayPrice}}</span>
+                      <span class="price">￥{{productShow.marketPrice}}</span>
                     </dd>
                   </dl>
                   <dl class="clearfix property-box">
                     <dt class=" property-type">促销价</dt>
                     <dd class="property-cont property-cont-now">
-                      <span class="price">￥{{productShow.marketPrice}}</span>
+                      <span class="price">￥{{productShow.displayPrice}}</span>
                     </dd>
                     <dd class="property-extra">
                       <span class="mr10">评价：
@@ -44,10 +44,10 @@
               </div>
               <div class="goods-prowrap" v-for="(par,num) in productShow.productExtensions.productCategory.salePropertys" :key="num">
                 <dl class="clearfix">
-                  <dt>{{par.name}}</dt>
+                  <dt>{{par.name}}{{num}}</dt>
                   <dd>
-                    <el-radio-group v-model="color" size="medium">
-                      <el-radio-button v-for="sale in par.propertyValues" :key="sale.id">{{sale.valueAlias}}</el-radio-button>
+                    <el-radio-group v-model="saleItems[num]" size="medium">
+                      <el-radio-button v-for="sale in par.propertyValues" :key="sale.id" :label="sale.valueAlias"></el-radio-button>
                     </el-radio-group>
                   </dd>
                 </dl>
@@ -95,7 +95,7 @@
               </div>
               <div class="goods-prowrap">
                 <dl class="clearfix">
-                  <dt>服务承诺</dt>
+                  <dt>支付方式</dt>
                   <dd>
                     <ul class="goods-pay">
                       <li>
@@ -121,7 +121,7 @@
           </div>
         </div>
       </div>
-      <div class="top-box-right">
+      <!-- <div class="top-box-right">
         <div class="goods-recommend">
           <p class="goods-recommend-title">
             <s></s>
@@ -150,7 +150,7 @@
             </ul>
           </div>
         </div>
-      </div>
+      </div> -->
       <div>
       </div>
     </div>
@@ -324,18 +324,21 @@
         var productClass = await apiService.class()
         this.productClass = productClass.data.result
         let params = {
-          id: 10059// 获取URL当中的Id参数
+          id: 176// 获取URL当中的Id参数
         }
         var productShow = await apiService.show(params)
         this.productShow = productShow.data.result
-        console.log(this.productShow)
-        console.log(this.productShow.productExtensions.productCategory.salePropertys)
+        // console.log(this.productShow.productExtensions.productCategory.salePropertys)
+        for (var i = 0; i < this.productShow.productExtensions.productCategory.salePropertys.length; i++) {
+          console.log(this.productShow.productExtensions.productCategory.salePropertys[i].propertyValues[0].valueAlias)
+          this.saleItems[i] = this.productShow.productExtensions.productCategory.salePropertys[i].propertyValues[0].valueAlias
+        }
+        console.log('saleItems', this.saleItems[0])
       }
     },
     data () {
       return {
-        color: '蓝色',
-        size: '25',
+        saleItems: [], // 商品规格
         num1: 1,
         tabbarList: 1,
         productClass: '',
@@ -444,12 +447,11 @@
                 }
               }
               .property-cont-now {
-                width: 282px;
                 height: auto;
                 margin-left: -6px;
                 .price {
-                  color: #ef2f23;
-                  font-size: 24px;
+                  color: @brand;
+                  font-size: 18px;
                   display: inline-block;
                   vertical-align: middle;
                   font-weight: 700;

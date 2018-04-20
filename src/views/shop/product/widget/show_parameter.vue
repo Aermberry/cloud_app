@@ -462,7 +462,7 @@
     }
     .vux-button-tab-item-last {
       color: @white !important;
-      background: @number-button-font-color !important;
+      background: @brand!important;
     }
   }
 </style>

@@ -13,6 +13,10 @@
         <m-icon slot="icon" name="zk-cart" class="metal"></m-icon>
         <span slot="label">购物车</span>
       </tabbar-item>
+      <tabbar-item link="/order/cart" class="bar-cart">
+        <m-icon slot="icon" name="zk-service " class="metal"></m-icon>
+        <span slot="label">客服</span>
+      </tabbar-item>
       <tabbar-item>
         <x-button slot="customer" type="warn" @click.native="showSaleProperty">加入购物车</x-button>
       </tabbar-item>
