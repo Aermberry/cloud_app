@@ -3,9 +3,9 @@
     <div class="zkui-default-top flex">
       <div class="top-left">
         <div class="logo">
-          <img src="../../static/images/yqp/1.png" alt="">
+          <img :src="Ilogo" alt="">
         </div>
-        <p>一起拼</p>
+        <p>{{Ititle}}</p>
       </div>
       <div class="top-right">
         <ul class="right-box flex">
@@ -80,7 +80,7 @@
         </li>
       </ul>
       <div class="foot-img">
-        <img src="../../static/images/yqp/1.png" alt="">
+        <img :src="Ilogo" alt="">
       </div>
     </div>
     <zk-foot></zk-foot>
@@ -109,7 +109,10 @@
     },
     data () {
       return {
-        topline: ''
+        topline: '',
+        message: '',
+        Ilogo: '',
+        Ititle: ''
       }
     },
     mounted () {
@@ -124,6 +127,9 @@
         this.topline = response.data.result
         var setMessage = await common.GetConfigValue('WebSiteConfig')
         console.log(setMessage)
+        this.message = setMessage.data.result
+        this.Ilogo = this.message.Ilogo
+        this.Ititle = this.message.companyName
       },
       success (src, ele) {
         console.log('success load', src)

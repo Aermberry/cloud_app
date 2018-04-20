@@ -4,6 +4,7 @@
       <div class="weui-cells-top"></div>
       <cell :title="salePropertyTitle" @click.native="showSale = true" is-link :value="selectSku.propertyValueDesc"></cell>
       <cell title="商品参数" @click.native="showParameter = true" is-link class="border-bottom"></cell>
+      <cell :title="productView.productExtensions.productCategory.remark" v-if="productView.productExtensions.productCategory.remark===''||productView.productExtensions.productCategory.remark==='undefined'"></cell>
       <div class="weui-cells-bottom"></div>
     </group>
 
@@ -87,6 +88,7 @@
       }
     },
     mounted: function () {
+      console.log('show', this.productView)
       this.$nextTick(function () {
         this.$on('childMethod', function () {
           this.showSale = true
