@@ -126,7 +126,6 @@
         var response = await apiService.topline(style)
         this.topline = response.data.result
         var setMessage = await common.GetConfigValue('WebSiteConfig')
-        console.log(setMessage)
         this.message = setMessage.data.result
         this.Ilogo = this.message.logo
         this.Ititle = this.message.companyName
