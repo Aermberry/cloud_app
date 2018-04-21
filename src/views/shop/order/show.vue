@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-order-show">
-    <zk-head title='订单详情' ></zk-head>
+    <zk-head title='订单详情'></zk-head>
     <!-- <div>
       <group class="mt-0">
         <cell title="地址" value="请选择地址" is-link svg='zk-orderaddress'> </cell>
@@ -82,11 +82,11 @@
         </div>
       </div>
     </div>
-    <group class="operation " v-if="showPay">
+    <!-- <group class="operation " v-if="showPay">
       <cell>
         <x-button mini plain type="primary" @click.native="pay()">付款</x-button>
       </cell>
-    </group>
+    </group> -->
 
     <zk-foot></zk-foot>
   </section>

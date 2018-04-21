@@ -7,12 +7,12 @@
     </group>
     <group gap="2rem 0.2rem" id="form">
       <x-input title="用户名" required :min="2" :max="12" v-model="user.username"></x-input>
-      <x-input title="手机号" required placeholder="请输入您的手机号" mask="999 9999 9999" v-model="user.mobile" :max="13" is-type="mobile"></x-input>
+      <x-input title="手机号" required placeholder="请输入您的手机号" mask="99999999999" v-model="user.mobile" :max="13" is-type="mobile"></x-input>
       <zk-phone-verifiy v-model="user.mobileVerifiyCode" :mobile="user.mobile"></zk-phone-verifiy>
       <x-input title="密码" required type="password" :min="6" :max="16" v-model="user.password"></x-input>
       <x-input title="确认密码" required type="password" :min="6" :max="16" class="border-bottom" v-model="user.confirmPassword"></x-input>
     </group>
-    <label role="checkbox" class="el-checkbox " :class="{'is-checked':checked}" @click="checker">
+    <label role="checkbox" class="el-checkbox " :class="{'is-checked':checked}" @click.native="checker">
       <span aria-checked="mixed" class="el-checkbox__input " :class="{'is-checked':checked}">
         <span class="el-checkbox__inner"></span><input type="checkbox" class="el-checkbox__original" value=""></span>
       <span class="el-checkbox__label">
@@ -56,9 +56,9 @@
           agree: true,
           confirmPassword: '',
           mobileVerifiyCode: '',
-          parentUserName: ''
+          parentUserName: '',
+          mobile: ''
         },
-        qwe: true,
         checked: true,
         showParent: false
       }
