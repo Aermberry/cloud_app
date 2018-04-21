@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <vue-preview :slides="slide1" @close="handleClose"></vue-preview> -->
   </div>
 </template>
 <script>

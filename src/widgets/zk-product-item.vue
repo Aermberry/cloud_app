@@ -17,7 +17,9 @@
               </dd>
               <dd class="itemPrice">
                 <p>{{item.displayPrice}}</p>
-                <span>￥{{item.marketPrice}}</span>
+                <span style="height:1rem">
+                  <span v-if="item.marketPrice!==0">￥{{item.marketPrice}}</span>
+                </span>
               </dd>
             </dl>
           </li>
@@ -108,6 +110,7 @@
       display: block;
       float: left;
       width: 47%;
+      height: 19rem;
       margin: 2% 0 0 2%;
       padding-bottom: 0.3rem;
       border-radius: 2*@rem;

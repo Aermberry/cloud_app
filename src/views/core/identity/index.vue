@@ -46,7 +46,7 @@
       </div>
       <zk-upload :fileCount="1" :savePath="savePath" :size="5*1024" ref="uploadFile">证件正面照</zk-upload>
       <zk-upload :fileCount="1" :savePath="savePath" :size="5*1024" ref="uploadFile">证件反面照</zk-upload>
-      <zk-upload :fileCount="1" :savePath="savePath" :size="5*1024" ref="uploadFile">个人正面照</zk-upload>
+      <zk-upload :fileCount="1" :savePath="savePath" :size="5*1024" ref="uploadFile">个人手持证件正面照</zk-upload>
     </div>
     <div class="weui-btn-area btn-name">
       <a class="weui-btn weui-btn_primary" @click="apipost" href="javascript:" id="showTooltips">确定</a>
@@ -78,12 +78,12 @@
           IdentityType: 1,
           IdentityCardType: 1,
           IdentityCardName: 'gggg',
-          IdentityCardNo: '36220119940217361X',
+          IdentityCardNo: '',
           IdentityImagefrontUrl: '123456.45646',
           IdentityImageAntiUrl: '123456789',
           IdentitySmallimageUrl: 'ggg145416',
           CheckState: 1,
-          RealName: 'ggg',
+          RealName: '',
           Sex: 1
         }
       }
@@ -109,6 +109,11 @@
         console.dir(par)
         var repsonse = await apiUser.Identity(par)
         console.dir(repsonse)
+        if (repsonse.data.status === 1) {
+          this.$vux.toast.success(repsonse.data.message)
+        } else {
+          this.$vux.toast.warn(repsonse.data.message)
+        }
       }
     }
   }

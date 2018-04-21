@@ -108,12 +108,12 @@
           isLogin: this.isLogin
         }
         var response = await apiService.getList(params) //  通过异步方法获取数据
-        //  console.dir(response) //  调试返回结果，调试完成以后请注释
+        console.dir('数据', response) //  调试返回结果，调试完成以后请注释
         let totalSize = response.data.result.totalSize //  获取总页数
         // this.styleType = response.data.result.styleType // 选择何种风格
         this.$refs.mescroll.endSuccess(params, totalSize) // 调用widget xsroll 下拉刷新函数
         this.dataList = this.dataList.concat(response.data.result.apiDataList)
-        console.log(this.data)
+        console.log('data', this.dataList)
         if (this.dataList.length === 0) {
           this.notDataf = false
           this.notDatas = false

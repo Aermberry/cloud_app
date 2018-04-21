@@ -74,5 +74,16 @@ export default [{
     component: function (resolve) {
       require(['src/views/open/debt/property_demand'], resolve)
     }
+  },
+  {
+    path: '/user/debt/plan',
+    meta: {
+      title: '平债计划',
+      login: true
+    },
+    name: 'debt_plan ',
+    component: function (resolve) {
+      require(['src/views/open/debt/plan'], resolve)
+    }
   }
 ]

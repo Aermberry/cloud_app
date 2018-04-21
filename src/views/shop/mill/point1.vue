@@ -13,37 +13,21 @@
         </router-link>
       </div>
     </div>
-    <tab :scroll-threshold="5">
-      <tab-item>
-        <router-link to="/product/list?Keyword=房产">房产</router-link>
-      </tab-item>
-      <tab-item>
-        <router-link to="/product/list?Keyword=汽车">汽车</router-link>
-      </tab-item>
-      <tab-item>
-        <router-link to="/product/list?Keyword=艺术品">艺术品</router-link>
-      </tab-item>
-      <tab-item>
-        <router-link to="/product/list?Keyword=原材料">原材料</router-link>
-      </tab-item>
-      <tab-item>
-        <router-link to="/product/list?Keyword=半成品">半成品</router-link>
-      </tab-item>
-      <tab-item>
-        <router-link to="/product/list?Keyword=机器设备">机器设备</router-link>
-      </tab-item>
-      <tab-item>
-        <router-link to="/product/list?Keyword=其他">其他</router-link>
-      </tab-item>
-    </tab>
-    <zk-grid diykey="grid1_config" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
+    <div class="point-tab">
+      <ul>
+        <li v-for="(item,index) in data " :key="index">
+          <router-link :to="'/product/list?Keyword='+item.name">{{item.name}}</router-link>
+        </li>
+      </ul>
+    </div>
+    <zk-grid diykey="grid2_config" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
     <div class="point-title">
       <span class="title-text">
         首推平债资产包
       </span>
     </div>
     <div class="point-content-box">
-      <zk-product-item :pageSize=2 classIds='' tagsId='' diykey='index'></zk-product-item>
+      <zk-product-item :pageSize=2 classIds='' tagsId='1966' diykey='index'></zk-product-item>
     </div>
     <div class="point-title">
       <span class="title-text">
@@ -51,7 +35,7 @@
       </span>
     </div>
     <div class="point-content-box">
-      <zk-product-item :pageSize=2 classIds='' tagsId='' diykey='index'></zk-product-item>
+      <zk-product-item :pageSize=2 classIds='' tagsId='1964' diykey='index'></zk-product-item>
     </div>
     <div class="point-title">
       <span class="title-text">
@@ -65,6 +49,7 @@
   </section>
 </template>
 <script>
+  import apiService from 'src/service/api/product.api'
   import { ZkSwiper, ZkGrid, ZkProductItem } from 'widgets'
   import { Tab, TabItem } from 'zkui'
   export default {
@@ -79,13 +64,19 @@
       ZkProductItem
     },
     mounted () {
+      this.Getdata()
     },
     methods: {
+      async Getdata () {
+        var response = await apiService.class()
+        console.log(response)
+        this.data = response.data.result
+      }
 
     },
     data () {
       return {
-
+        data: ''
       }
     }
   }
@@ -134,6 +125,30 @@
     .point-content-box {
       width: 100%;
       min-height: 180px;
+    }
+    .point-tab {
+      width: 100%;
+      height: 3.3rem;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(229, 229, 229, 0.7);
+      ul {
+        width: 100%;
+        height: 3.66666667rem;
+        display: flex;
+        overflow: auto;
+
+        li {
+          height: 3.66666667rem;
+          text-align: center;
+          a {
+            display: block;
+            min-width: 4rem;
+            margin: 0 0.5rem;
+            line-height: 3.66666667rem;
+            color: @black;
+          }
+        }
+      }
     }
   }
 </style>

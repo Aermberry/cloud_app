@@ -69,7 +69,7 @@
             </div>
             <div class="zkui-order-list-box" v-if="i===1&&!showBox&&!allShow[0]">
               <div class="zkui-order-list-content">
-                <div class="zkui-order-list-box-item" v-for="(items,indexs) in stayPayment" :key="indexs">
+                <div class="zkui-order-list-box-item" v-for="(items,indexs) in data" :key="indexs" v-if="items.orderStatus===1">
                   <group class="box-title">
                     <cell :title="items.storeName" :value="items.orderStatuName"></cell>
                   </group>
@@ -396,7 +396,6 @@
         if (this.stayEvaluate.length === 0) {
           this.allShow[3] = true
         }
-        console.log(this.allShow)
       }
     }
   }

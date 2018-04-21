@@ -160,6 +160,7 @@
       -webkit-line-clamp: 1;
       overflow: hidden;
       height: 1.3rem;
+      text-align: center;
     }
     .weui-grids > h1 {
       padding: 0 0.7143rem;
