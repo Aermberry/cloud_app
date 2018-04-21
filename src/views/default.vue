@@ -1,6 +1,6 @@
 <template>
-  <section class="zkui-default">
-    <div class="zkui-default-top flex">
+  <section class="zkui-yqp">
+    <div class="zkui-yqp-top flex">
       <div class="top-left">
         <div class="logo">
           <img :src="Ilogo" alt="">
@@ -25,7 +25,7 @@
     </div>
     <zk-swiper diykey="swiper_index" height="210px"></zk-swiper>
     <div class="index-search weui-header ">
-      <router-link to="/product/search" class="zkui-default-search-box">
+      <router-link to="/product/search" class="zkui-yqp-search-box">
         <!--  <search placeholder="搜索您想要的商品"></search> -->
         <div class="search-box">
           <input type="text">
@@ -128,7 +128,7 @@
         var setMessage = await common.GetConfigValue('WebSiteConfig')
         console.log(setMessage)
         this.message = setMessage.data.result
-        this.Ilogo = this.message.Ilogo
+        this.Ilogo = this.message.logo
         this.Ititle = this.message.companyName
       },
       success (src, ele) {
@@ -146,8 +146,8 @@
 </script>
 
 <style  lang="less" >
-  .zkui-default {
-    .zkui-default-top {
+  .zkui-yqp {
+    .zkui-yqp-top {
       height: 2.5rem;
       background: @black;
       .top-left {
@@ -261,7 +261,7 @@
       // left: 0;
       // z-index: 9999;
       width: 100%;
-      .zkui-default-search-box {
+      .zkui-yqp-search-box {
         // .vux-search-box {
         //   .weui-search-bar {
         //     background: transparent;
@@ -297,7 +297,7 @@
       margin-top: 0.3rem;
       margin-right: 0.5rem;
     }
-    .zkui-default-search-box {
+    .zkui-yqp-search-box {
       display: block;
       -webkit-box-flex: 1;
       -moz-box-flex: 1;
