@@ -50,12 +50,8 @@
     },
     methods: {
       login () {
-        if (this.$refs.user_username.valid) {
-          this.user.password = this.password1
-          console.log('1', this.password1)
-          console.log(this.user.password)
-          this.$store.dispatch('UserLogin', this.user)
-        }
+        this.user.password = this.password1
+        this.$store.dispatch('UserLogin', this.user)
       }
     }
   }

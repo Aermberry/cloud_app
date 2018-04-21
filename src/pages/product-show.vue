@@ -44,10 +44,12 @@
               </div>
               <div class="goods-prowrap" v-for="(par,num) in productShow.productExtensions.productCategory.salePropertys" :key="num">
                 <dl class="clearfix">
-                  <dt>{{par.name}}{{num}}</dt>
+                  <dt>{{par.name}}</dt>
                   <dd>
                     <el-radio-group v-model="saleItems[num]" size="medium">
-                      <el-radio-button v-for="sale in par.propertyValues" :key="sale.id" :label="sale.valueAlias"></el-radio-button>
+                      <el-radio-button v-for="sale in par.propertyValues" :key="sale.id" :label="sale" @click.native="ceshi">
+                        {{sale.valueAlias}}
+                      </el-radio-button>
                     </el-radio-group>
                   </dd>
                 </dl>
@@ -330,10 +332,12 @@
         this.productShow = productShow.data.result
         // console.log(this.productShow.productExtensions.productCategory.salePropertys)
         for (var i = 0; i < this.productShow.productExtensions.productCategory.salePropertys.length; i++) {
-          console.log(this.productShow.productExtensions.productCategory.salePropertys[i].propertyValues[0].valueAlias)
-          this.saleItems[i] = this.productShow.productExtensions.productCategory.salePropertys[i].propertyValues[0].valueAlias
+          this.saleItems[i] = this.productShow.productExtensions.productCategory.salePropertys[i].propertyValues[0]
         }
         console.log('saleItems', this.saleItems[0])
+      },
+      ceshi () {
+        console.log(this.saleItems)
       }
     },
     data () {

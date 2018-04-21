@@ -13,7 +13,7 @@
         <m-icon slot="icon" name="zk-cart" class="metal"></m-icon>
         <span slot="label">购物车</span>
       </tabbar-item>
-      <tabbar-item link="/order/cart" class="bar-cart">
+      <tabbar-item class="bar-cart" target="_blank" href="mqqwpa://im/chat?chat_type=wpa&uin=1139936790&version=1&src_type=web&web_src=lvlingseeds.com" v-if="showService">
         <m-icon slot="icon" name="zk-service " class="metal"></m-icon>
         <span slot="label">客服</span>
       </tabbar-item>
@@ -44,13 +44,19 @@
     data () {
       return {
         hasFavorite: false, // 商品是否收藏
-        loginUser: null // 当前登录用户
+        loginUser: null, // 当前登录用户
+        showService: true
       }
     },
     mounted () {
       this.addFootprint()
       this.getFavorite()
       this.loginUser = this.LoginUser()
+      if (window.location.host.indexOf('yiqipingou') !== -1) {
+        this.showService = true
+      } else {
+        this.showService = false
+      }
     },
     methods: {
       addFootprint () { // 添加足迹
