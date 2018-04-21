@@ -109,6 +109,11 @@
         console.dir(par)
         var repsonse = await apiUser.Identity(par)
         console.dir(repsonse)
+        if (repsonse.data.status === 1) {
+          this.$vux.toast.success(repsonse.data.message)
+        } else {
+          this.$vux.toast.warn(repsonse.data.message)
+        }
       }
     }
   }

@@ -20,14 +20,14 @@
         </li>
       </ul>
     </div>
-    <zk-grid diykey="grid1_config" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
+    <zk-grid diykey="grid2_config" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
     <div class="point-title">
       <span class="title-text">
         首推平债资产包
       </span>
     </div>
     <div class="point-content-box">
-      <zk-product-item :pageSize=2 classIds='' tagsId='' diykey='index'></zk-product-item>
+      <zk-product-item :pageSize=2 classIds='' tagsId='1966' diykey='index'></zk-product-item>
     </div>
     <div class="point-title">
       <span class="title-text">
@@ -35,7 +35,7 @@
       </span>
     </div>
     <div class="point-content-box">
-      <zk-product-item :pageSize=2 classIds='' tagsId='' diykey='index'></zk-product-item>
+      <zk-product-item :pageSize=2 classIds='' tagsId='1964' diykey='index'></zk-product-item>
     </div>
     <div class="point-title">
       <span class="title-text">

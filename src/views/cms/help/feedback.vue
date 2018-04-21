@@ -40,6 +40,11 @@
         this.feedback.Attachment = a[0].value
         var repsonse = await apiService.feedBackApply(this.feedback)
         console.dir(repsonse)
+        if (repsonse.data.status === 1) {
+          this.$vux.toast.success(repsonse.data.message)
+        } else {
+          this.$vux.toast.warn(repsonse.data.message)
+        }
       },
       async GetData () {
         var response = await apiService.feedback()

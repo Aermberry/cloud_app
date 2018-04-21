@@ -98,6 +98,8 @@
       for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
         this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
       }
+      console.log('this.productView.productExtensions.productCategory.salePropertys[i].propertyValues', this.productView.productExtensions.productCategory.salePropertys)
+      console.log('saleItems', this.saleItems)
     },
     methods: {
       init () {
@@ -105,6 +107,7 @@
           this.salePropertyTitle = this.salePropertyTitle + element.name + ' '
         })
         this.selectSku = this.productView.productExtensions.productSkus[0] // 根据specSn获取商品的规格
+        console.log('selectSku', this.selectSku)
       },
       // 添加到购物车
       async addToCart () {
@@ -164,6 +167,11 @@
         if (sku.id === undefined) {
           // this.$vux.toast.warn('请选择商品规格')
         }
+        // console.log(this.productView.productExtensions.productCategory.salePropertys)
+        // console.log('skus', this.productView.productExtensions.productSkus)
+        // console.log(this.saleItems, specSn, sku)
+        // console.log('saleItems', this.saleItems)
+        console.log('saleItems', this.saleItems)
         return sku
       },
       // 获取Sku ，用户选择不同的sku
