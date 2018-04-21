@@ -18,7 +18,7 @@
         <x-input title="债事金额" required placeholder="填写债事金额" v-model="debtApiInput.Amount"></x-input>
       </div>
       <x-input title="债务人联系地址" required placeholder="填写债务人联系地址" v-model="debtApiInput.DebtorAddress"></x-input>
-      <x-input title="申请原因" required placeholder="请描述时间、地点、人物、经过和结果" v-model="debtApiInput.ApplyReason"></x-input>
+      <x-input title="债事过程" required placeholder="请描述时间、地点、人物、经过和结果" v-model="debtApiInput.ApplyProcess"></x-input>
       <div class="vux-x-input weui-cell">
         <div class="weui-cell__hd">
           <label for="vux-x-input-hvsrw" class="weui-label" style="width: 6em;">债事属性</label>
@@ -92,7 +92,7 @@
           Amount: '',
           NeedType: '',
           DebtProperty: '',
-          ApplyReason: '',
+          ApplyProcess: '',
           Attachment: ''
         }
       }
@@ -105,8 +105,8 @@
         var a = document.getElementById('input10')
         console.log(a.value)
         // this.debtApiInput.Attachment = a.value
-        var NeedType = this.demo1CheckboxMax.join(',')
-        var DebtProperty = this.demo2CheckboxMax.join(',')
+        var NeedType = this.demo2CheckboxMax.join(',')
+        var DebtProperty = this.demo1CheckboxMax.join(',')
         let par = {
           DebteeName: this.debtApiInput.DebteeName,
           DebteePhone: this.debtApiInput.DebteePhone,
@@ -118,7 +118,7 @@
           Amount: this.debtApiInput.Amount,
           NeedType: NeedType,
           DebtProperty: DebtProperty,
-          ApplyReason: this.debtApiInput.ApplyReason,
+          ApplyProcess: this.debtApiInput.ApplyProcess,
           Attachment: a.value
         }
         var response = await apiService.apply(par)
