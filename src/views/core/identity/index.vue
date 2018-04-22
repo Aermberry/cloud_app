@@ -4,25 +4,19 @@
     <zk-head title='实名认证' goBack='会员中心'></zk-head>
 
     <div class="weui-cells weui-cells_form">
+
       <div class="weui-cell">
         <div class="weui-cell__hd">
-          <label class="weui-label">真实姓名</label>
+          <label class="weui-label">认证身份类型</label>
         </div>
         <div class="weui-cell__bd">
-          <input class="weui-input" type="text" pattern="[0-9]*" placeholder="请输入真实姓名" v-model="identity.RealName">
-        </div>
-      </div>
-      <div class="weui-cell">
-        <div class="weui-cell__hd">
-          <label class="weui-label">性别</label>
-        </div>
-        <div class="weui-cell__bd">
-          <select class="weui-select" name="select1" v-model="identity.Sex">
-            <option selected="" value="1">男</option>
-            <option value="2">女</option>
+          <select class="weui-select" name="select1" v-model="identity.IdentityType">
+            <option selected="" value="1">个人</option>
+            <option value="2">公司</option>
           </select>
         </div>
       </div>
+
       <div class="weui-cell">
         <div class="weui-cell__hd">
           <label class="weui-label">证件类型</label>
@@ -36,6 +30,7 @@
           </select>
         </div>
       </div>
+
       <div class="weui-cell">
         <div class="weui-cell__hd">
           <label class="weui-label">证件号码</label>
@@ -44,6 +39,28 @@
           <input class="weui-input" type="text" pattern="[0-9]*" placeholder="请输入证件号码" v-model="identity.IdentityCardNo">
         </div>
       </div>
+
+      <div class="weui-cell">
+        <div class="weui-cell__hd">
+          <label class="weui-label">真实姓名</label>
+        </div>
+        <div class="weui-cell__bd">
+          <input class="weui-input" type="text" pattern="[0-9]*" placeholder="请输入真实姓名" v-model="identity.RealName">
+        </div>
+      </div>
+
+      <div class="weui-cell">
+        <div class="weui-cell__hd">
+          <label class="weui-label">性别</label>
+        </div>
+        <div class="weui-cell__bd">
+          <select class="weui-select" name="select1" v-model="identity.Sex">
+            <option selected="" value="1">男</option>
+            <option value="2">女</option>
+          </select>
+        </div>
+      </div>
+
       <zk-upload :fileCount="1" :savePath="savePath" :size="5*1024" ref="uploadFile">证件正面照</zk-upload>
       <zk-upload :fileCount="1" :savePath="savePath" :size="5*1024" ref="uploadFile">证件反面照</zk-upload>
       <zk-upload :fileCount="1" :savePath="savePath" :size="5*1024" ref="uploadFile">个人手持证件正面照</zk-upload>
