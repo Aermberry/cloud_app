@@ -62,6 +62,11 @@ exports.install = function (Vue, options) {
   Vue.prototype.ClientType = function () {
     var u = navigator.userAgent
     var client = ''
+    if (u.indexOf('MicroMessenger') > -1 && u.indexOf('WIFI Language') > -1) {
+      client = "Wechat" //微信
+      return client
+    }
+
     if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {
       client = 'WapH5' // android终端或者uc浏览器
       return client
