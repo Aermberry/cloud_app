@@ -122,8 +122,6 @@
           }
         }
         let params = {
-          // SortOrder: 0,
-          // Keyword: 13290
           SortOrder: this.productList.SortOrder, // 商品排序方式
           Keyword: this.productList.Keyword, // 搜索关键字
           MinPrice: this.productList.MinPrice, // 最低价格
