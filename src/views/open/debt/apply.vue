@@ -123,7 +123,7 @@
         }
         var response = await apiService.apply(par)
         if (response.data.status === 1) {
-          this.messageSuccess('申请成功')
+          this.messageSuccess('债事申请成功')
         } else {
           this.$vux.toast.warn(response.data.message)
         }
