@@ -56,6 +56,9 @@
       </div>
     </group-title>
     <zk-product-item :pageSize=4 classIds='' tagsId='' diykey='index'></zk-product-item>
+    <div class="yqp-more">
+      <router-link to="/product/list?SortOrder=2">查看更多 </router-link>
+    </div>
     <div class="yqp-foot">
       <ul class="foot-item flex">
         <li>
@@ -91,7 +94,7 @@
   import common from 'src/service/api/common.api'
   import apiService from 'src/service/api/user.api'
   import { ZkSwiper, ZkGrid, ZkProductItem, ZkSinglead } from 'widgets'
-  import { Search, Grid, GridItem, Swiper, Box, GroupTitle, SwiperItem, XImg } from 'zkui'
+  import { Search, Grid, GridItem, Swiper, Box, GroupTitle, SwiperItem, XImg, XButton } from 'zkui'
   export default {
     components: {
       Search,
@@ -105,7 +108,8 @@
       ZkProductItem,
       SwiperItem,
       XImg,
-      ZkSinglead
+      ZkSinglead,
+      XButton
     },
     data () {
       return {
@@ -126,11 +130,9 @@
         var response = await apiService.topline(style)
         this.topline = response.data.result
         var setMessage = await common.GetConfigValue('WebSiteConfig')
-        console.log(setMessage)
         this.message = setMessage.data.result
         this.Ilogo = this.message.logo
         this.Ititle = this.message.companyName
-        console.log(this.Ilogo)
       },
       success (src, ele) {
         console.log('success load', src)
@@ -363,6 +365,19 @@
     }
     .zkui-product-item__1 ul {
       padding-bottom: 0;
+    }
+    .yqp-more {
+      padding: 0 0.5rem;
+      margin-top: 2rem;
+      a {
+        text-align: center;
+        display: block;
+        background: @search-bg-color;
+        color: @brand;
+        font-size: @h5-font-size;
+        border-radius: 10px;
+        padding: 0.5rem 0;
+      }
     }
     .yqp-foot {
       width: 100%;
