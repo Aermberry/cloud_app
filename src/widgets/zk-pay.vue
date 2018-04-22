@@ -109,18 +109,18 @@
           amount: this.amount,
           payType: this.selectPayType,
           payId: this.payId,
-          code: GetQueryString("code")
+          code: GetQueryString('code')
         }
 
-        if (paras.clientType == "Wechat" && paras.code == null) {
-          //https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842
-          var url = "https://open.weixin.qq.com/connect/oauth2/authorize"
-          url += "?appid=wxcaea259bd2844850" //公众号的唯一标识
-          url += "&redirect_uri=" + encodeURIComponent('http://zkdebt.5ug.com') //授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理
-          url += "&response_type=code" //	返回类型，请填写code
-          url += "&scope=snsapi_base" //应用授权作用域，snsapi_base （不弹出授权页面，直接跳转，只能获取用户openid），snsapi_userinfo （弹出授权页面，可通过openid拿到昵称、性别、所在地。并且， 即使在未关注的情况下，只要用户授权，也能获取其信息 ）
-          url += "&state=STATE"//重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节
-          url += "#wechat_redirect"//无论直接打开还是做页面302重定向时候，必须带此参数
+        if (paras.clientType === 'Wechat' && paras.code === null) {
+          // https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842
+          var url = 'https://open.weixin.qq.com/connect/oauth2/authorize'
+          url += '?appid=wxcaea259bd2844850' // 公众号的唯一标识
+          url += '&redirect_uri=' + encodeURIComponent('http://zkdebt.5ug.com') // 授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理
+          url += '&response_type=code' // 返回类型，请填写code
+          url += '&scope=snsapi_base' // 应用授权作用域，snsapi_base （不弹出授权页面，直接跳转，只能获取用户openid），snsapi_userinfo （弹出授权页面，可通过openid拿到昵称、性别、所在地。并且， 即使在未关注的情况下，只要用户授权，也能获取其信息 ）
+          url += '&state=STATE' // 重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节
+          url += '#wechat_redirect' // 无论直接打开还是做页面302重定向时候，必须带此参数
           window.location.href = url
         }
 
@@ -130,7 +130,7 @@
           if (this.orderType === 'order') {
             // 跳转到指定的url，跳转url从云端返回
             onBridgeReady(response.data.result.url)
-            //window.location.href = response.data.result.url
+            // window.location.href = response.data.result.url
           }
         } else {
           this.$vux.toast.warn(response.data.message)
@@ -144,33 +144,25 @@
   }
 
   function GetQueryString (name) {
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-    var r = window.location.search.substr(1).match(reg);
-    if (r != null) return unescape(r[2]); return null;
+    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
+    var r = window.location.search.substr(1).match(reg)
+    if (r != null) return unescape(r[2]); return null
   }
 
-  // function onBridgeReady (json) {
-  //   WeixinJSBridge.invoke(
-  //     'getBrandWCPayRequest', json,
-  //     function (res) {
-  //       if (res.err_msg == "get_brand_wcpay_request:ok") { }     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
-  //     }
-  //   );
-  // }
+  function onBridgeReady (json) {
 
-  // if (typeof WeixinJSBridge == "undefined") {
-  //   if (document.addEventListener) {
-  //     document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-  //   } else if (document.attachEvent) {
-  //     document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
-  //     document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
-  //   }
-  // } else {
-  //   onBridgeReady();
-  // }
-
+  }
+  if (typeof WeixinJSBridge === 'undefined') {
+    if (document.addEventListener) {
+      document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false)
+    } else if (document.attachEvent) {
+      document.attachEvent('WeixinJSBridgeReady', onBridgeReady)
+      document.attachEvent('onWeixinJSBridgeReady', onBridgeReady)
+    }
+  } else {
+    onBridgeReady()
+  }
 </script>
-
 <style lang='less'>
   @import '../assets/css/zkui/theme';
   .zk-pay {

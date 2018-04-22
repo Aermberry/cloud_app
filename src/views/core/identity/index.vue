@@ -110,7 +110,7 @@
         var repsonse = await apiUser.Identity(par)
         console.dir(repsonse)
         if (repsonse.data.status === 1) {
-          this.$vux.toast.success(repsonse.data.message)
+          this.messageSuccess('实名认证提交成功，等待审核')
         } else {
           this.$vux.toast.warn(repsonse.data.message)
         }
