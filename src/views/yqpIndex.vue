@@ -57,7 +57,7 @@
     </group-title>
     <zk-product-item :pageSize=4 classIds='' tagsId='' diykey='index'></zk-product-item>
     <div class="yqp-more">
-      <router-link to="/product/list?SortOrder=2">查看更多</router-link>
+      <router-link to="/product/list?SortOrder=2">查看更多 </router-link>
     </div>
     <div class="yqp-foot">
       <ul class="foot-item flex">
