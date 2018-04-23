@@ -70,3 +70,18 @@
     }
   }
 </script>
+<style lang="less">
+  .zk-not-data {
+    margin: 0 auto;
+    padding-top: 150*@rem;
+    text-align: center;
+    svg {
+      width: 50*@rem;
+      height: 50*@rem;
+    }
+    p {
+      font-size: @h4-font-size;
+    }
+  }
+</style>
+

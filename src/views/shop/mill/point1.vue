@@ -20,7 +20,8 @@
         </li>
       </ul>
     </div>
-    <zk-grid diykey="grid2_config" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
+    <zk-swiper diykey="Swiper1Config" height="210px"></zk-swiper>
+    <zk-grid diykey="Grid2Config" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
     <div class="point-title">
       <span class="title-text">
         首推平债资产包

@@ -78,12 +78,23 @@ export default [{
   {
     path: '/user/debt/plan',
     meta: {
-      title: '平债计划',
+      title: '智能平债',
       login: true
     },
     name: 'debt_plan ',
     component: function (resolve) {
       require(['src/views/open/debt/plan'], resolve)
+    }
+  },
+  {
+    path: '/user/debt/data',
+    meta: {
+      title: '债事数据',
+      login: true
+    },
+    name: 'debt_data ',
+    component: function (resolve) {
+      require(['src/views/open/debt/data'], resolve)
     }
   }
 ]

@@ -20,14 +20,15 @@
         </li>
       </ul>
     </div>
-    <zk-grid diykey="grid1_config" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
+    <zk-swiper diykey="Swiper1Config" height="210px"></zk-swiper>
+    <zk-grid diykey="Grid1Config" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
     <div class="point-title">
       <span class="title-text">
         首推平债资产包
       </span>
     </div>
     <div class="point-content-box">
-      <zk-product-item classIds='' tagIds='13728' diykey='' totalCount='2'></zk-product-item>
+      <zk-product-item :pageSize=2 classIds='' tagIds='13728' diykey=''></zk-product-item>
     </div>
     <div class="point-title">
       <span class="title-text">
@@ -35,7 +36,7 @@
       </span>
     </div>
     <div class="point-content-box">
-      <zk-product-item :pageSize=2 classIds='' tagIds='' diykey='index'></zk-product-item>
+      <zk-product-item :pageSize=2 classIds='' tagIds='13729'></zk-product-item>
     </div>
     <div class="point-title">
       <span class="title-text">
@@ -43,7 +44,7 @@
       </span>
     </div>
     <div class="point-content-box">
-      <zk-product-item :pageSize=2 classIds='' tagIds='' diykey='index'></zk-product-item>
+      <zk-product-item :pageSize=2 classIds='' tagIds='13730'></zk-product-item>
     </div>
     <zk-foot></zk-foot>
   </section>
