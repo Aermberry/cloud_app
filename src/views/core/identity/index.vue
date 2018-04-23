@@ -118,40 +118,30 @@
       },
       async apipost () {
         var a = document.getElementsByClassName('inputimg')
-        // console.log(a[0].value)
-        // console.log(a[1].value)
-        // console.log(a[2].value)
+        console.log(a[0].value)
+        console.log(a[1].value)
+        console.log(a[2].value)
         let par = {
+          IdentityType: this.identity.IdentityType,
+          IdentityCardType: this.identity.IdentityCardType,
+          IdentityCardName: this.identity.IdentityCardName,
+          IdentityCardNo: this.identity.IdentityCardNo,
+          IdentityImagefrontUrl: a[0].value,
+          IdentityImageAntiUrl: a[1].value,
+          IdentitySmallimageUrl: a[2].value,
+          CheckState: this.identity.CheckState,
+          RealName: this.identity.RealName,
+          Sex: this.identity.Sex
         }
-        var repsonses = await apiUser.Identitys(par)
-        console.log('测试', repsonses)
+        console.dir(par)
+        var repsonse = await apiUser.Identity(par)
+        console.dir(repsonse)
+        if (repsonse.data.status === 1) {
+          this.messageSuccess('实名认证提交成功，等待审核')
+        } else {
+          this.$vux.toast.warn(repsonse.data.message)
+        }
       }
-      // async apipost () {
-      //   var a = document.getElementsByClassName('inputimg')
-      //   console.log(a[0].value)
-      //   console.log(a[1].value)
-      //   console.log(a[2].value)
-      //   let par = {
-      //     IdentityType: this.identity.IdentityType,
-      //     IdentityCardType: this.identity.IdentityCardType,
-      //     IdentityCardName: this.identity.IdentityCardName,
-      //     IdentityCardNo: this.identity.IdentityCardNo,
-      //     IdentityImagefrontUrl: a[0].value,
-      //     IdentityImageAntiUrl: a[1].value,
-      //     IdentitySmallimageUrl: a[2].value,
-      //     CheckState: this.identity.CheckState,
-      //     RealName: this.identity.RealName,
-      //     Sex: this.identity.Sex
-      //   }
-      //   console.dir(par)
-      //   var repsonse = await apiUser.Identity(par)
-      //   console.dir(repsonse)
-      //   if (repsonse.data.status === 1) {
-      //     this.messageSuccess('实名认证提交成功，等待审核')
-      //   } else {
-      //     this.$vux.toast.warn(repsonse.data.message)
-      //   }
-      // }
     }
   }
 </script>
