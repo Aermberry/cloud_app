@@ -131,6 +131,7 @@
         this.topline = response.data.result
         var setMessage = await common.GetConfigValue('WebSiteConfig')
         this.message = setMessage.data.result
+        console.log('message', this.message)
         this.Ilogo = this.message.logo
         this.Ititle = this.message.companyName
       },

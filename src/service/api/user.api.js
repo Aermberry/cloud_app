@@ -1,7 +1,9 @@
 import http from 'src/service/common/http'
 // import helper from 'src/service/common/helper'
 import local from 'src/service/common/local'
-import { md5 } from 'zkui' // md5 函数
+import {
+  md5
+} from 'zkui' // md5 函数
 
 export default {
   //  用户登录
@@ -145,6 +147,11 @@ export default {
   // 实名认证
   async Identity (data) {
     var response = await http.postLogin('/UserDetail/Identity', data)
+    return response
+  },
+  // 获取是否实名认证
+  async Identitys (data) {
+    var response = await http.getLogin('/UserDetail/Identity', data)
     return response
   }
 }

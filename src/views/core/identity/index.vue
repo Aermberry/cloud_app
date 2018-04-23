@@ -111,6 +111,17 @@
     methods: {
       async ceshi () {
         let par = {
+
+        }
+        var repsonses = await apiUser.Identitys(par)
+        console.log('测试', repsonses)
+      },
+      async apipost () {
+        var a = document.getElementsByClassName('inputimg')
+        // console.log(a[0].value)
+        // console.log(a[1].value)
+        // console.log(a[2].value)
+        let par = {
         }
         var repsonses = await apiUser.Identitys(par)
         console.log('测试', repsonses)
