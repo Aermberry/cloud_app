@@ -130,8 +130,8 @@
           // 如果支付订单类型为商城订单，支付成功以后跳转到我的订单或者订单详情
           if (this.orderType === 'order') {
             // 跳转到指定的url，跳转url从云端返回
-            onBridgeReady(response.data.result.url)
-            // window.location.href = response.data.result.url
+            // onBridgeReady(response.data.result.url)
+            window.location.href = response.data.result.url
           }
         } else {
           this.$vux.toast.warn(response.data.message)
