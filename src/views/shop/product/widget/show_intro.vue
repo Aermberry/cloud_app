@@ -4,7 +4,7 @@
     <div class="zkui-product-show-images">
       <div v-html='productView.detail.mobileIntro'></div>
     </div>
-    <vue-preview :slides="imgV" @close="handleClose"></vue-preview>
+    <vue-preview :slides="slide1" @close="handleClose"></vue-preview>
   </section>
 </template>
 <script>
@@ -27,6 +27,7 @@
 
     },
     mounted () {
+      this.imgV = this.slide1
       var a = document.getElementsByClassName('zkui-product-show-intro')[0].getElementsByTagName('img')
       for (let i = 0; i < a.length; i++) {
         var b
@@ -36,10 +37,34 @@
           w: a[i].width,
           h: a[i].height
         }
-        this.imgV[i] = b
+        this.slide1.push(b)
+        // this.slide1.splice(0, 1)
       }
+      // window.addEventListener('scroll', this.handleScroll)
     },
     methods: {
+      handleScroll () {
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+        console.log('滚动高度', scrollTop)
+        // var buttonTop = document.getElementsByClassName('vux-button-tab-item')[0].offsetTop
+        if (scrollTop > 1 && scrollTop < 8) {
+          // this.slide1.splice(0, 1)
+          //   var a = document.getElementsByClassName('zkui-product-show-intro')[0].getElementsByTagName('img')
+          //   // console.log('intro', a)
+          //   for (let i = 0; i < a.length; i++) {
+          //     // console.log('intro', a[i].width, a[i].height)
+          //     var b
+          //     b = {
+          //       src: a[i].src,
+          //       msrc: a[i].src,
+          //       w: a[i].width,
+          //       h: a[i].height
+          //     }
+          //     this.slide1.push(b)
+          //   }
+          //   // console.log('滚动', this.slide1)
+        }
+      },
       handleClose () {
         console.log('close event')
       }
@@ -51,17 +76,17 @@
         hide: false,
         slide1: [
           {
-            src: 'https://farm6.staticflickr.com/5591/15008867125_68a8ed88cc_b.jpg',
-            msrc: 'https://farm6.staticflickr.com/5591/15008867125_68a8ed88cc_m.jpg',
-            w: 600,
-            h: 400
-          },
-          {
-            src: 'https://farm4.staticflickr.com/3902/14985871946_86abb8c56f_b.jpg',
-            msrc: 'https://farm4.staticflickr.com/3902/14985871946_86abb8c56f_m.jpg',
-            w: 1200,
-            h: 900
+            src: '',
+            msrc: '',
+            w: 0,
+            h: 0
           }
+          // {
+          //   src: 'https://farm4.staticflickr.com/3902/14985871946_86abb8c56f_b.jpg',
+          //   msrc: 'https://farm4.staticflickr.com/3902/14985871946_86abb8c56f_m.jpg',
+          //   w: 1200,
+          //   h: 900
+          // }
         ]
       }
     }
@@ -77,7 +102,9 @@
       font-weight: @font-weight-bold;
       color: @black;
     }
-    .zkui-product-show-images {
+    .zkui-product-show-images > div {
+      height: 1px;
+      overflow: hidden;
     }
     .zkui-product-show-images img {
       width: 100%;
@@ -91,5 +118,17 @@
         width: 100%;
       }
     }
+    .pswp {
+      z-index: 9999;
+    }
+    .pswp__button--share {
+      display: none !important;
+    }
+    .pswp__button--fs {
+      display: none !important;
+    }
+    // .my-gallery > figure:nth-child(1) {
+    //   display: none !important;
+    // }
   }
 </style>
