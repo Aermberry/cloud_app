@@ -55,6 +55,10 @@
         type: Number,
         default: 0 // 默认排序方式
       },
+      totalCount: {
+        type: Number,
+        default: 0 // 商品总数，如果为0，显示符合条件的商品
+      },
       diykey: {
         type: String,
         default: '' // 默认Diy方式
@@ -73,8 +77,10 @@
           pageIndex: this.pageIndex, // 当前第页,下拉一次增加一次
           pageSize: this.pageSize, // 每页显示的数量 建议20
           classIds: this.classIds,
-          tagIds: this.tagIds
+          tagIds: this.tagIds,
+          totalCount: this.totalCount
         }
+        console.info('参数', params)
         let response = await apiService.list(params) // 通过异步方法获取数据
         let totalSize = response.data.result.totalSize // 获取总页数
         this.styleType = response.data.result.styleType // 选择何种风格
