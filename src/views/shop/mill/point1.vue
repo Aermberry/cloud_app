@@ -28,7 +28,7 @@
       </span>
     </div>
     <div class="point-content-box">
-      <zk-product-item :pageSize=2 classIds='' tagsId='1966' diykey='index'></zk-product-item>
+      <zk-product-item :pageSize=2 classIds='' tagsId='13728' diykey='index'></zk-product-item>
     </div>
     <div class="point-title">
       <span class="title-text">
@@ -36,7 +36,7 @@
       </span>
     </div>
     <div class="point-content-box">
-      <zk-product-item :pageSize=2 classIds='' tagsId='1964' diykey='index'></zk-product-item>
+      <zk-product-item :pageSize=2 classIds='' tagsId='13729' diykey='index'></zk-product-item>
     </div>
     <div class="point-title">
       <span class="title-text">
@@ -44,7 +44,7 @@
       </span>
     </div>
     <div class="point-content-box">
-      <zk-product-item :pageSize=2 classIds='' tagsId='' diykey='index'></zk-product-item>
+      <zk-product-item :pageSize=2 classIds='' tagsId='13730' diykey='index'></zk-product-item>
     </div>
     <zk-foot></zk-foot>
   </section>
@@ -147,6 +147,7 @@
             margin: 0 0.5rem;
             line-height: 3.66666667rem;
             color: @black;
+            font-size: @h6-font-size;
           }
         }
       }

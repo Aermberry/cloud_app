@@ -42,6 +42,7 @@
             w: a[i].width,
             h: a[i].height
           }
+          console.log(a[i].height)
           this.slide1.push(b)
           // this.slide1.splice(0, 1)
         }

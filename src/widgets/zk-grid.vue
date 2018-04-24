@@ -54,5 +54,9 @@
   .weui-grids {
     border-bottom: 8*@rem solid rgba(229, 229, 229, 0.5);
   }
+  .weui-grid__label > span {
+    font-size: @h6-font-size;
+    width: 100%;
+  }
 </style>
 

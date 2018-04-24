@@ -65,7 +65,7 @@
   .zkuidebt-foot {
     .placeholder {
       width: 100%;
-      height: 8rem;
+      height: 6.5rem;
     }
     .footer {
       position: fixed;

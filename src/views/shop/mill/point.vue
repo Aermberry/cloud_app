@@ -152,6 +152,7 @@
             margin: 0 0.5rem;
             line-height: 3.66666667rem;
             color: @black;
+            font-size: @h6-font-size;
           }
         }
       }

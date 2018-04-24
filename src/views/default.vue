@@ -132,7 +132,7 @@
         var setMessage = await common.GetConfigValue('WebSiteConfig')
         this.message = setMessage.data.result
         console.log('message', this.message)
-        this.Ilogo = this.message.logo
+        this.Ilogo = this.message.apiImagesUrl + this.message.logo
         this.Ititle = this.message.companyName
       },
       success (src, ele) {
@@ -165,7 +165,7 @@
           left: 0.5rem;
           transform: translateY(-50%);
           width: 2rem;
-          height: 1rem;
+          height: 2rem;
           img {
             width: 100%;
             height: 100%;
@@ -419,7 +419,7 @@
       .foot-img {
         margin: 1.5rem auto auto;
         width: 5rem;
-        height: 2rem;
+        height: 5rem;
         img {
           width: 100%;
           height: 100%;

@@ -16,8 +16,7 @@
       <span class="zkui-product-show-title-storename left">{{productView.store}}</span>{{productView.name}}
     </div>
 
-    <group>
-
+    <!-- <group>
       <span slot="title">
         <ul class="zkui-product-show-serve-box clear">
           <li>
@@ -31,8 +30,7 @@
           </li>
         </ul>
       </span>
-
-    </group>
+    </group> -->
   </div>
 </template>
 
