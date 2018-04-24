@@ -1,7 +1,8 @@
 <template>
   <section class="zkui-user-plan">
     <zk-head title='智能平债'></zk-head>
-    <zk-singlead diykey="SingleAd1Config"></zk-singlead>
+    <!-- <zk-singlead diykey="SingleAd1Config"></zk-singlead> -->
+    <zk-swiper diykey="Swiper3Config" height="210px"></zk-swiper>
     <div>
       <tab :line-width=2 active-color='@brand' v-model="index">
         <tab-item class="vux-center" :selected="demo2 === item" v-for="(item, index) in list2" @click="demo2 = item" :key="index">{{item}}</tab-item>
@@ -19,15 +20,15 @@
               <div class="weui-form-preview__bd">
                 <div class="weui-form-preview__item">
                   <label class="weui-form-preview__label">累计备案总债额：</label>
-                  <span class="weui-form-preview__value">电动打蛋机</span>
+                  <span class="weui-form-preview__value"></span>
                 </div>
                 <div class="weui-form-preview__item">
                   <label class="weui-form-preview__label">累计债权人备案人次：</label>
-                  <span class="weui-form-preview__value">名字名字名字</span>
+                  <span class="weui-form-preview__value"></span>
                 </div>
                 <div class="weui-form-preview__item">
                   <label class="weui-form-preview__label">累计债务人备案人次：</label>
-                  <span class="weui-form-preview__value">很长很长的名字很长很长的名字很长很长的名字很长很长的名字很长很长的名字</span>
+                  <span class="weui-form-preview__value"></span>
                 </div>
               </div>
             </div>
@@ -57,15 +58,15 @@
               <div class="weui-form-preview__bd">
                 <div class="weui-form-preview__item">
                   <label class="weui-form-preview__label">累计结案总债额：</label>
-                  <span class="weui-form-preview__value">电动打蛋机</span>
+                  <span class="weui-form-preview__value"></span>
                 </div>
                 <div class="weui-form-preview__item">
                   <label class="weui-form-preview__label">累计债权人结案人次：</label>
-                  <span class="weui-form-preview__value">名字名字名字</span>
+                  <span class="weui-form-preview__value"></span>
                 </div>
                 <div class="weui-form-preview__item">
                   <label class="weui-form-preview__label">累计债务人结案人次：</label>
-                  <span class="weui-form-preview__value">很长很长的名字很长很长的名字很长很长的名字很长很长的名字很长很长的名字</span>
+                  <span class="weui-form-preview__value"></span>
                 </div>
               </div>
             </div>
@@ -81,11 +82,11 @@
 </template>
 
 <script>
-  import { ZkSinglead, ZkProductItem } from 'widgets'
+  import { ZkSinglead, ZkProductItem, ZkSwiper } from 'widgets'
   import { Tab, TabItem, Sticky, Divider, XButton, Swiper, SwiperItem, Group, Cell, FormPreview } from 'zkui'
   export default {
     components: {
-      Tab, TabItem, Sticky, Divider, XButton, Swiper, SwiperItem, Group, Cell, ZkSinglead, ZkProductItem, FormPreview
+      Tab, TabItem, Sticky, Divider, XButton, Swiper, SwiperItem, Group, Cell, ZkSinglead, ZkProductItem, FormPreview, ZkSwiper
     },
     data () {
       return {

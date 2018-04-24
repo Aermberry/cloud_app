@@ -61,6 +61,7 @@
     methods: {
       async GetData () {
         var reponse = await userService.view(this.data)
+        console.log(reponse)
         this.userInfo.userName = reponse.data.result.userName
         this.userInfo.gradeName = reponse.data.result.gradeName
         this.userInfo.img = reponse.data.result.avator
