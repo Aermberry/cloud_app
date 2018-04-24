@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-user-apply">
-    <zk-head title='债事报备' goBack='首页'></zk-head>
+    <zk-head title='债事备案' goBack='首页'></zk-head>
     <!-- <group title="备案人信息">
       <x-input title="备案人姓名" required :min="2" :max="12"></x-input>
       <x-input title="备案人手机号" required mask="999 9999 9999" :max="13" is-type="mobile"></x-input>

@@ -1,7 +1,7 @@
 export default [{
     path: '/user/debt/apply',
     meta: {
-      title: '债事报备',
+      title: '债事备案',
       login: true
     },
     name: 'debt_apply',
@@ -23,7 +23,7 @@ export default [{
   {
     path: '/user/debt/list',
     meta: {
-      title: '我的债事',
+      title: '平债计划',
       login: true
     },
     name: 'debt_list',

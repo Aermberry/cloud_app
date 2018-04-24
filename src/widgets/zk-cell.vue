@@ -34,6 +34,7 @@
         } else {
           var repsonse = await apiService.getLink(this.diykey)
           this.cells = repsonse.data.result
+          console.log('cell', this.cells)
         }
       }
     }
