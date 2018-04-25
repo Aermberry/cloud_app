@@ -46,7 +46,39 @@
     <div class="point-content-box">
       <zk-product-item :pageSize=2 classIds='' tagsId='13730' diykey='index'></zk-product-item>
     </div>
-    <zk-foot></zk-foot>
+    <!-- <zk-foot></zk-foot> -->
+    <div class="point-foot">
+      <div class="placeholder"></div>
+      <div class="zkfoot footer">
+        <ul class="clear">
+          <router-link to="/default" tag="li" class="footer_li">
+            <section class="li_svg">
+              <m-icon name="debt-cloud" :class="$route.path.indexOf('default') !== -1 ? 'brand' : 'metal' "></m-icon>
+            </section>
+            <section class="li_text" :class="$route.path.indexOf('default') !== -1 ? 'brand' : 'metal' ">首页</section>
+          </router-link>
+          <router-link to="/product/class" tag="li" class="footer_li">
+            <section class="li_svg">
+              <m-icon name="debt-classify " :class="$route.path.indexOf('product') !== -1 ? 'brand' : 'metal' "></m-icon>
+            </section>
+            <section class="li_text" :class="$route.path.indexOf('product') !== -1 ? 'brand' : 'metal' ">分类</section>
+
+          </router-link>
+          <router-link to="/order/cart" tag="li" class="footer_li">
+            <section class="li_svg">
+              <m-icon name="debt-cart" :class="$route.path.indexOf('order') !== -1 ? 'brand' : 'metal' "></m-icon>
+            </section>
+            <section class="li_text" :class="$route.path.indexOf('order') !== -1 ? 'brand' : 'metal' ">购物车</section>
+          </router-link>
+          <router-link to="/user/index" tag="li" class="footer_li">
+            <section class="li_svg">
+              <m-icon name="debt-me" :class="$route.path.indexOf('user') !== -1 ? 'brand' : 'metal' "></m-icon>
+            </section>
+            <section class="li_text" :class="$route.path.indexOf('user') !== -1 ? 'brand' : 'metal' ">我的</section>
+          </router-link>
+        </ul>
+      </div>
+    </div>
   </section>
 </template>
 <script>

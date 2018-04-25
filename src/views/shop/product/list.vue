@@ -134,7 +134,7 @@
           OrderType: this.productList.OrderType, // 排序方式
           ClasssId: this.productList.ClasssId
         }
-        console.log(this.productList, params)
+        console.log('参数', this.productList, params)
         let response = await apiService.list(params) // 通过异步方法获取数据
         this.dataList = response.data.result.productItems
         if (this.dataList.length !== 0) {
