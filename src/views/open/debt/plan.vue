@@ -2,7 +2,9 @@
   <section class="zkui-user-plan">
     <zk-head title='智能平债'></zk-head>
     <!-- <zk-singlead diykey="SingleAd1Config"></zk-singlead> -->
-    <zk-swiper diykey="Swiper3Config" height="210px"></zk-swiper>
+    <div class="plan-swiper">
+      <zk-swiper diykey="Swiper3Config" height="210px"></zk-swiper>
+    </div>
     <zk-grid diykey="Grid3Config" :cols="2" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
     <div>
       <div class="plan-condition ">
@@ -40,10 +42,10 @@
 
 <script>
   import { ZkSinglead, ZkProductItem, ZkSwiper, ZkGrid } from 'widgets'
-  import { Tab, TabItem, Sticky, Divider, XButton, Swiper, SwiperItem, Group, Cell, FormPreview } from 'zkui'
+  import { Sticky, Divider, XButton, Group, Cell, FormPreview } from 'zkui'
   export default {
     components: {
-      Tab, TabItem, Sticky, Divider, XButton, Swiper, SwiperItem, Group, Cell, ZkSinglead, ZkProductItem, FormPreview, ZkSwiper, ZkGrid
+      Sticky, Divider, XButton, Group, Cell, ZkSinglead, ZkProductItem, FormPreview, ZkSwiper, ZkGrid
     },
     data () {
       return {
@@ -76,6 +78,10 @@
 
 <style lang="less">
   .zkui-user-plan {
+    .plan-swiper {
+      width: 100%;
+      overflow: hidden;
+    }
     .plan-condition {
       display: flex;
       .box {
@@ -109,12 +115,6 @@
       width: 100%;
       min-height: 180px;
       padding-bottom: 20*@rem;
-    }
-    .vux-slider {
-      overflow: visible !important;
-    }
-    .vux-swiper {
-      overflow: visible !important;
     }
     .vux-label {
     }

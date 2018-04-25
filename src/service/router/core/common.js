@@ -39,7 +39,7 @@ export default [{
     }
   },
   {
-    path: '/cztIndex', // 默认为空的时候，挑战到首页
+    path: '/cztIndex', // 云债通首页
     meta: {
       title: '首页'
     },
@@ -49,7 +49,7 @@ export default [{
     }
   },
   {
-    path: '/yqpIndex', // 默认为空的时候，挑战到首页
+    path: '/yqpIndex', // 一起拼首页
     meta: {
       title: '首页'
     },
@@ -59,7 +59,17 @@ export default [{
     }
   },
   {
-    path: '/pay', // 默认为空的时候，挑战到首页
+    path: '/gsIndex', // 港生首页
+    meta: {
+      title: '首页'
+    },
+    name: 'gs',
+    component: function (resolve) {
+      require(['src/views/gsIndex'], resolve)
+    }
+  },
+  {
+    path: '/pay',
     meta: {
       title: '支付成功'
     },

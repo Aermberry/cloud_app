@@ -194,7 +194,7 @@
       .weui-grid__label > span {
         font-size: 0.8rem;
       }
-      .grid-icon-middle .weui-grid {
+      .weui-grid {
         padding: 0.66666667rem 0;
       }
     }

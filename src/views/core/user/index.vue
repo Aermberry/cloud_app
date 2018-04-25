@@ -30,8 +30,11 @@
       </div>
       <!-- </router-link> -->
     </div>
-
     <group class="zkui-user-order-title">
+      <cell title="我的订单" link="/order/list" value="查看全部"></cell>
+    </group>
+    <zk-grid diykey="grid_user_order_nav" class="icon-brand zkui-grid zkui-grid-border__none border-bottom"></zk-grid>
+    <!-- <group class="zkui-user-order-title">
       <cell title="债事订单" link="/order/list" value="查看全部"></cell>
     </group>
     <div class="debtindex-item">
@@ -77,7 +80,7 @@
           </p>
         </a>
       </div>
-    </div>
+    </div> -->
     <div class="debtindex-item">
       <div class="weui-grids icon-metal zkui-grid zkui-grid-border__none mt-2 border">
         <router-link to="/user/recuser" class="weui-grid" style="width: 25%;">
