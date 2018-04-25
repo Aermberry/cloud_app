@@ -25,32 +25,34 @@
       </tab>
     </div>
     <div class="placeholder"></div>
-    <section class="ZKProductItem" v-if="!datashow">
-      <div class="zkui-product-item__1 ">
-        <ul>
-          <li v-for="(item,index) in dataList" :key="index">
-            <dl>
-              <dt>
-                <router-link :to="'/product/show/'+item.id">
-                  <x-img :src="item.thumbnailUrl" :alt="item.thumbnailUrl"></x-img>
-                </router-link>
-              </dt>
-              <dd class="itemTitle">
-                <router-link :to="'/product/show/'+item.id">
-                  {{item.name}}
-                </router-link>
-              </dd>
-              <dd class="itemPrice">
-                <p>{{item.displayPrice}}</p>
-                <span>￥{{item.marketPrice}}</span>
-              </dd>
-            </dl>
-          </li>
-        </ul>
-      </div>
-      <zk-foot></zk-foot>
-    </section>
-    <zk-notdata v-if="datashow"></zk-notdata>
+    <x-scroll class="scroller" :upCallback="upCallback" ref="mescroll" warpId="index_scroll" id="index_scroll">
+      <section class="ZKProductItem">
+        <div class="zkui-product-item__1 ">
+          <ul>
+            <li v-for="(item,index) in dataList" :key="index">
+              <dl>
+                <dt>
+                  <router-link :to="'/product/show/'+item.id">
+                    <x-img :src="item.thumbnailUrl" :alt="item.thumbnailUrl"></x-img>
+                  </router-link>
+                </dt>
+                <dd class="itemTitle">
+                  <router-link :to="'/product/show/'+item.id">
+                    {{item.name}}
+                  </router-link>
+                </dd>
+                <dd class="itemPrice">
+                  <p>{{item.displayPrice}}</p>
+                  <span>￥{{item.marketPrice}}</span>
+                </dd>
+              </dl>
+            </li>
+          </ul>
+        </div>
+        <zk-foot></zk-foot>
+      </section>
+    </x-scroll>
+    <!-- <zk-notdata v-if="datashow"></zk-notdata> -->
   </section>
 </template>
 <script>
@@ -73,6 +75,7 @@
         styleType: '', // 风格类型, zklist支持多种样式，判断选择哪种样式
         pageIndex: 1, // 从第一页开始加载
         sort: '',
+        pageSize: 20,
         tabDown: false,
         datashow: true,
         productList: {
@@ -109,11 +112,24 @@
           BrandId: this.productList.BrandId, // 商品品牌Id
           PriceStyleId: this.productList.PriceStyleId, //  商品模式
           OrderType: this.productList.OrderType, // 排序方式
-          ClasssId: this.productList.ClasssId
+          ClasssId: this.productList.ClasssId,
+          pageIndex: this.pageIndex, // 当前第页,下拉一次增加一次
+          pageSize: this.pageSize // 每页显示的数量 建议20
         }
-        this.sort = id
+        // this.sort = id
         let response = await apiService.list(params) // 通过异步方法获取数据
+        let totalSize = response.data.result.totalSize // 获取总页数
+        this.styleType = response.data.result.styleType // 选择何种风格
+        if (this.pageIndex < totalSize) {
+          this.$refs.mescroll.endSuccess(params, totalSize) // 调用widget xsroll 下拉刷新函数
+        }
         this.dataList = response.data.result.productItems
+        if (this.dataList.length !== 0) {
+          this.datashow = false
+        }
+        if (this.pageIndex < totalSize) {
+          this.pageIndex = this.pageIndex + 1 // 下拉时是自动增加一页
+        }
       },
       async upCallback () {
         for (var index in this.$route.query) {
@@ -132,13 +148,23 @@
           BrandId: this.productList.BrandId, // 商品品牌Id
           PriceStyleId: this.productList.PriceStyleId, //  商品模式
           OrderType: this.productList.OrderType, // 排序方式
-          ClasssId: this.productList.ClasssId
+          ClasssId: this.productList.ClasssId,
+          pageIndex: this.pageIndex, // 当前第页,下拉一次增加一次
+          pageSize: this.pageSize // 每页显示的数量 建议20
         }
         console.log('参数', this.productList, params)
         let response = await apiService.list(params) // 通过异步方法获取数据
-        this.dataList = response.data.result.productItems
+        let totalSize = response.data.result.totalSize // 获取总页数
+        this.styleType = response.data.result.styleType // 选择何种风格
+        if (this.pageIndex < totalSize) {
+          this.$refs.mescroll.endSuccess(params, totalSize) // 调用widget xsroll 下拉刷新函数
+        }
+        this.dataList = this.dataList.concat(response.data.result.productItems)
         if (this.dataList.length !== 0) {
           this.datashow = false
+        }
+        if (this.pageIndex < totalSize) {
+          this.pageIndex = this.pageIndex + 1 // 下拉时是自动增加一页
         }
       }
     }

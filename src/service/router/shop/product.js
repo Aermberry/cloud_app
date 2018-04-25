@@ -35,7 +35,7 @@ export default [{
   {
     path: '/product/search', // 商品搜索页
     meta: {
-      title: '分类'
+      title: '商品搜索'
     },
     name: 'product_search',
     component: function (resolve) {
