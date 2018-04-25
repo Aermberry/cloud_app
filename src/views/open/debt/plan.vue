@@ -15,7 +15,7 @@
           </div>
         </div>
         <div class="box">
-          <p class="title">喜案接报</p>
+          <p class="title">结案喜报</p>
           <div class="content">
             <p>累计结案债额：</p>
             <p>累计债权人结案人次：</p>

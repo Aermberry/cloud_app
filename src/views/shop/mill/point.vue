@@ -4,7 +4,7 @@
     <div class="point-top">
       <div class="top-left" :class="{'text-top':true}">
         <router-link to="/mill/point">
-          资产包商城
+          资产包云商城
         </router-link>
       </div>
       <div class="top-right">
@@ -21,7 +21,7 @@
       </ul>
     </div>
     <zk-swiper diykey="Swiper1Config" height="210px"></zk-swiper>
-    <zk-grid diykey="Grid1Config" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
+    <zk-grid diykey="Grid1Config" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle point-item"></zk-grid>
     <div class="point-title">
       <span class="title-text">
         首推平债资产包
@@ -155,6 +155,14 @@
             font-size: @h6-font-size;
           }
         }
+      }
+    }
+    .point-item {
+      .weui-grid__label > span {
+        font-size: 0.8rem;
+      }
+      .grid-icon-middle .weui-grid {
+        padding: 0.66666667rem 0;
       }
     }
   }

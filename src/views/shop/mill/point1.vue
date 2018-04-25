@@ -4,7 +4,7 @@
     <div class="point-top">
       <div class="top-left">
         <router-link to="/mill/point">
-          资产包商城
+          资产包云商城
         </router-link>
       </div>
       <div class="top-right" :class="{'text-top':true}">
@@ -21,7 +21,7 @@
       </ul>
     </div>
     <zk-swiper diykey="Swiper2Config" height="210px"></zk-swiper>
-    <zk-grid diykey="Grid2Config" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
+    <zk-grid diykey="Grid2Config" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle point-item "></zk-grid>
     <div class="point-title">
       <span class="title-text">
         首推平债资产包

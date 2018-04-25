@@ -4,7 +4,7 @@
       <img :src="topImg" alt="">
     </div>
     <div class="zkui-core-user-head">
-      <router-link to="" class="interests">
+      <router-link to="/user/interests" class="interests">
         权益中心
         <m-icon name="arrows-right"></m-icon>
       </router-link>
@@ -34,81 +34,85 @@
     <group class="zkui-user-order-title">
       <cell title="债事订单" link="/order/list" value="查看全部"></cell>
     </group>
-    <div data-v-82a56a4c="" class="weui-grids icon-brand zkui-grid zkui-grid-border__none border-bottom">
-      <a href="javascript:;" class="weui-grid" style="width: 20%;">
-        <div class="weui-grid__icon">
-          <img src="../../../assets/images/debticon/待审核.png" alt="">
-        </div>
-        <p class="weui-grid__label">
-          <span>待审核</span>
-        </p>
-      </a>
-      <a href="javascript:;" class="weui-grid" style="width: 20%;">
-        <div class="weui-grid__icon">
-          <img src="../../../assets/images/debticon/待出方案.png" alt="">
-        </div>
-        <p class="weui-grid__label">
-          <span>待出方案</span>
-        </p>
-      </a>
-      <a href="javascript:;" class="weui-grid" style="width: 20%;">
-        <div class="weui-grid__icon">
-          <img src="../../../assets/images/debticon/待选方案.png" alt="">
-        </div>
-        <p class="weui-grid__label">
-          <span>待选方案</span>
-        </p>
-      </a>
-      <a href="javascript:;" class="weui-grid" style="width: 20%;">
-        <div class="weui-grid__icon">
-          <img src="../../../assets/images/debticon/待定方案.png" alt="">
-        </div>
-        <p class="weui-grid__label">
-          <span>待定方案</span>
-        </p>
-      </a>
-      <a href="javascript:;" class="weui-grid" style="width: 20%;">
-        <div class="weui-grid__icon">
-          <img src="../../../assets/images/debticon/待评价.png" alt="">
-        </div>
-        <p class="weui-grid__label">
-          <span>待评价</span>
-        </p>
-      </a>
+    <div class="debtindex-item">
+      <div class="weui-grids icon-brand zkui-grid zkui-grid-border__none border-bottom">
+        <a href="javascript:;" class="weui-grid" style="width: 20%;">
+          <div class="weui-grid__icon">
+            <img src="../../../assets/images/debticon/待审核.png" alt="">
+          </div>
+          <p class="weui-grid__label">
+            <span>待审核</span>
+          </p>
+        </a>
+        <a href="javascript:;" class="weui-grid" style="width: 20%;">
+          <div class="weui-grid__icon">
+            <img src="../../../assets/images/debticon/待出方案.png" alt="">
+          </div>
+          <p class="weui-grid__label">
+            <span>待出方案</span>
+          </p>
+        </a>
+        <a href="javascript:;" class="weui-grid" style="width: 20%;">
+          <div class="weui-grid__icon">
+            <img src="../../../assets/images/debticon/待选方案.png" alt="">
+          </div>
+          <p class="weui-grid__label">
+            <span>待选方案</span>
+          </p>
+        </a>
+        <a href="javascript:;" class="weui-grid" style="width: 20%;">
+          <div class="weui-grid__icon">
+            <img src="../../../assets/images/debticon/待定方案.png" alt="">
+          </div>
+          <p class="weui-grid__label">
+            <span>待定方案</span>
+          </p>
+        </a>
+        <a href="javascript:;" class="weui-grid" style="width: 20%;">
+          <div class="weui-grid__icon">
+            <img src="../../../assets/images/debticon/待评价.png" alt="">
+          </div>
+          <p class="weui-grid__label">
+            <span>待评价</span>
+          </p>
+        </a>
+      </div>
     </div>
-    <div class="weui-grids icon-metal zkui-grid zkui-grid-border__none mt-2 border">
-      <router-link to="/user/recuser" class="weui-grid" style="width: 25%;">
-        <div class="weui-grid__icon">
-          <img src="../../../assets/images/debticon/事业部门.png" alt="">
-        </div>
-        <p class="weui-grid__label">
-          <span>事业部门</span>
-        </p>
-      </router-link>
-      <router-link to="/user/account/index" class="weui-grid" style="width: 25%;">
-        <div class="weui-grid__icon">
-          <img src="../../../assets/images/debticon/我的钱包.png" alt="">
-        </div>
-        <p class="weui-grid__label">
-          <span>我的钱包</span>
-        </p>
-      </router-link>
-      <router-link to="/identity/index" class="weui-grid" style="width: 25%;">
-        <div class="weui-grid__icon">
-          <img src="../../../assets/images/debticon/实名认证.png" alt="">
-        </div>
-        <p class="weui-grid__label">
-          <span>实名认证</span>
-        </p>
-      </router-link>
-      <router-link to="/" class="weui-grid" style="width: 25%;">
-        <div class="weui-grid__icon">
-          <img src="../../../assets/images/debticon/联系小云.png" alt="">
-        </div>
-        <p class="weui-grid__label">
-          <span>联系小云</span>
-        </p>
-      </router-link>
+    <div class="debtindex-item">
+      <div class="weui-grids icon-metal zkui-grid zkui-grid-border__none mt-2 border">
+        <router-link to="/user/recuser" class="weui-grid" style="width: 25%;">
+          <div class="weui-grid__icon">
+            <img src="../../../assets/images/debticon/事业部门.png" alt="">
+          </div>
+          <p class="weui-grid__label">
+            <span>事业部门</span>
+          </p>
+        </router-link>
+        <router-link to="/user/account/index" class="weui-grid" style="width: 25%;">
+          <div class="weui-grid__icon">
+            <img src="../../../assets/images/debticon/我的钱包.png" alt="">
+          </div>
+          <p class="weui-grid__label">
+            <span>我的钱包</span>
+          </p>
+        </router-link>
+        <router-link to="/identity/index" class="weui-grid" style="width: 25%;">
+          <div class="weui-grid__icon">
+            <img src="../../../assets/images/debticon/实名认证.png" alt="">
+          </div>
+          <p class="weui-grid__label">
+            <span>实名认证</span>
+          </p>
+        </router-link>
+        <router-link to="/" class="weui-grid" style="width: 25%;">
+          <div class="weui-grid__icon">
+            <img src="../../../assets/images/debticon/联系小云.png" alt="">
+          </div>
+          <p class="weui-grid__label">
+            <span>联系小云</span>
+          </p>
+        </router-link>
+      </div>
     </div>
     <group>
       <cell title="个人设置" is-link link="/user/info">
@@ -312,7 +316,13 @@
         }
       }
     }
-
+    .debtindex-item {
+      .weui-grid__label {
+        span {
+          font-size: 0.8rem;
+        }
+      }
+    }
     .zkui-user-order-title {
       .weui-cell__ft {
         background: @brand;

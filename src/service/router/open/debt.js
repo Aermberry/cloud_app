@@ -96,5 +96,17 @@ export default [{
     component: function (resolve) {
       require(['src/views/open/debt/data'], resolve)
     }
+  }, {
+    path: '/user/debt/reference',
+
+    meta: {
+      title: '咨询中心',
+      login: true
+    },
+    name: 'debt_reference ',
+    component: function (resolve) {
+      require(['src/views/open/debt/reference'], resolve)
+    }
   }
+
 ]
