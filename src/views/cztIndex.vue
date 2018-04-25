@@ -35,7 +35,7 @@
         <m-icon name="zk-trumpet"></m-icon>
       </div>
     </group-title>
-    <zk-product-item :pageSize=4 classIds='' tagsId='' diykey='index'></zk-product-item>
+    <zk-product-item :pageSize=4 classIds='' :pagination=6 tagsId='' diykey='index'></zk-product-item>
 
     <zk-foot></zk-foot>
     <!-- <zkdebt-foot></zkdebt-foot> -->

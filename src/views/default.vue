@@ -1,8 +1,32 @@
 <template>
-  <section class="zkui-czt-default">
+  <section class="zkui-yqp">
+    <div class="zkui-yqp-top flex">
+      <div class="top-left">
+        <div class="logo">
+          <img :src="Ilogo" alt="">
+        </div>
+        <p>{{Ititle}}</p>
+      </div>
+      <div class="top-right">
+        <ul class="right-box flex">
+          <li>
+            <router-link to="/product/search">
+              <m-icon name="zk-topsearch" size="1rem"></m-icon>
+              关注
+            </router-link>
+          </li>
+          <li class="right-box-record ">
+            <router-link to="/user/index">
+              我的记录
+            </router-link>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <zk-swiper diykey="swiper_index" height="210px"></zk-swiper>
     <div class="index-search weui-header ">
-      <router-link to="/product/search" class="zkui-default-search-box">
-        <!-- <search placeholder="搜索您想要的商品"></search> -->
+      <router-link to="/product/search" class="zkui-yqp-search-box">
+        <!--  <search placeholder="搜索您想要的商品"></search> -->
         <div class="search-box">
           <input type="text">
           <div class="search-text">
@@ -13,12 +37,11 @@
       </router-link>
       <m-icon name="zk-qrcode1" class="icon-brand index-qrcode " link="/user/qrcode" size="1rem"></m-icon>
     </div>
-    <zk-swiper diykey="swiper_index" height="210px"></zk-swiper>
     <zk-grid diykey="grid_index" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
-
+    <zk-singlead diykey="index_single_ad"></zk-singlead>
     <group-title class="flex">
       <div class="fashion-title">
-        最新快报:
+        流行单品
       </div>
       <div class="fashion-topline flex_one">
         <swiper auto height="35px" direction="vertical" :interval=2000 class="text-scroll" :show-dots="false">
@@ -31,21 +54,47 @@
           </swiper-item>
         </swiper>
       </div>
-      <div class="fashion-icon">
-        <m-icon name="zk-trumpet"></m-icon>
-      </div>
     </group-title>
-    <zk-product-item :pageSize=4 classIds='' :pagination=6 tagsId='' diykey='index'></zk-product-item>
-
+    <zk-product-item :pageSize=4 classIds='' :pagination=6  tagsId='' diykey='index'></zk-product-item>
+    <div class="yqp-more">
+      <router-link to="/product/list?SortOrder=2">查看更多 </router-link>
+    </div>
+    <div class="yqp-foot">
+      <ul class="foot-item flex">
+        <li>
+          <router-link to="/default">
+            店铺主页
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/user/index">
+            会员中心
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/user/qrcode">
+            关注我们
+          </router-link>
+        </li>
+        <li class="item-last">
+          <router-link to="/default">
+            店铺信息
+          </router-link>
+        </li>
+      </ul>
+      <div class="foot-img">
+        <img :src="Ilogo" alt="">
+      </div>
+    </div>
     <zk-foot></zk-foot>
-    <!-- <zkdebt-foot></zkdebt-foot> -->
   </section>
 </template>
 
 <script>
+  import common from 'src/service/api/common.api'
   import apiService from 'src/service/api/user.api'
-  import { ZkSwiper, ZkGrid, ZkProductItem, ZkdebtFoot } from 'widgets'
-  import { Search, Grid, GridItem, Swiper, Box, GroupTitle, MIcon, SwiperItem } from 'zkui'
+  import { ZkSwiper, ZkGrid, ZkProductItem, ZkSinglead } from 'widgets'
+  import { Search, Grid, GridItem, Swiper, Box, GroupTitle, SwiperItem, XImg, XButton } from 'zkui'
   export default {
     components: {
       Search,
@@ -57,13 +106,17 @@
       ZkSwiper,
       Box,
       ZkProductItem,
-      ZkdebtFoot,
-      MIcon,
-      SwiperItem
+      SwiperItem,
+      XImg,
+      ZkSinglead,
+      XButton
     },
     data () {
       return {
-        topline: ''
+        topline: '',
+        message: '',
+        Ilogo: '',
+        Ititle: ''
       }
     },
     mounted () {
@@ -76,13 +129,102 @@
         }
         var response = await apiService.topline(style)
         this.topline = response.data.result
+        var setMessage = await common.GetConfigValue('WebSiteConfig')
+        this.message = setMessage.data.result
+        console.log('message', this.message)
+        this.Ilogo = this.message.apiImagesUrl + this.message.logo
+        this.Ititle = this.message.companyName
+      },
+      success (src, ele) {
+        console.log('success load', src)
+        const span = ele.parentNode.querySelector('span')
+        ele.parentNode.removeChild(span)
+      },
+      error (src, ele, msg) {
+        console.log('error load', msg, src)
+        const span = ele.parentNode.querySelector('span')
+        span.innerText = 'load error'
       }
     }
   }
 </script>
 
 <style  lang="less" >
-  .zkui-czt-default {
+  .zkui-yqp {
+    .zkui-yqp-top {
+      height: 2.5rem;
+      background: @black;
+      .top-left {
+        width: 60%;
+        height: 100%;
+        padding-left: 3rem;
+        position: relative;
+        .logo {
+          position: absolute;
+          top: 50%;
+          left: 0.5rem;
+          transform: translateY(-50%);
+          width: 2rem;
+          height: 2rem;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+        p {
+          width: 100%;
+          height: 100%;
+          line-height: 2.5rem;
+          color: @gray-500;
+        }
+      }
+      .top-right {
+        width: 40%;
+        height: 100%;
+        ul {
+          width: 100%;
+          height: 100%;
+          li {
+            height: 100%;
+            flex: 1;
+            a {
+              height: 100%;
+              display: block;
+              text-align: center;
+              line-height: 2.5rem;
+              color: @gray-500;
+              svg {
+                margin-right: 10px;
+              }
+            }
+          }
+          li.right-box-record {
+            position: relative;
+          }
+          li.right-box-record::after {
+            content: '';
+            position: absolute;
+            display: block;
+            width: 0.5px;
+            height: 1.5rem;
+            background: @white;
+            top: 0.5rem;
+            left: 0;
+          }
+        }
+      }
+    }
+    .yqpimg {
+      width: 100%;
+      a {
+        width: 100%;
+        height: 180px;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
     .flex {
       display: -moz-box;
       display: -ms-flexbox;
@@ -118,12 +260,12 @@
       display: -ms-flexbox;
       display: -webkit-flex;
       display: flex;
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 9999;
+      // position: fixed;
+      // top: 0;
+      // left: 0;
+      // z-index: 9999;
       width: 100%;
-      .zkui-default-search-box {
+      .zkui-yqp-search-box {
         // .vux-search-box {
         //   .weui-search-bar {
         //     background: transparent;
@@ -137,6 +279,7 @@
             width: 100%;
             background: rgba(255, 255, 255, 0.8);
             height: 100%;
+            border: 1px solid @load-more-line-color;
           }
           .search-text {
             position: absolute;
@@ -150,7 +293,6 @@
         }
       }
     }
-
     .index-qrcode {
       display: block;
       width: 30*@rem;
@@ -159,8 +301,7 @@
       margin-top: 0.3rem;
       margin-right: 0.5rem;
     }
-
-    .zkui-default-search-box {
+    .zkui-yqp-search-box {
       display: block;
       -webkit-box-flex: 1;
       -moz-box-flex: 1;
@@ -171,27 +312,20 @@
     .index-qrcode > div {
       margin: 10px 0 0 5*@rem;
     }
-
     .scroller {
       .mescroll-upwarp {
         padding: 0;
         height: 0rem;
       }
     }
-    .weui-grids {
-      border-bottom: none;
-    }
     .weui-cells__title {
       padding-left: 0;
-      margin-top: 0;
-      border-top: 1px solid @gray-500;
-      border-bottom: 1px solid @gray-500;
-      position: relative;
       .fashion-title {
         height: 2.5rem;
         line-height: 2.5rem;
         width: 6.5rem;
-        color: @info;
+        color: @light;
+        background: @warning;
         padding-left: 1.5rem;
         font-weight: @font-weight-bold;
         position: relative;
@@ -201,6 +335,7 @@
           .vux-swiper {
             .vux-swiper-item {
               p {
+                padding-left: 2rem;
                 height: 100%;
                 padding-right: 1rem;
                 line-height: 2.5rem;
@@ -217,14 +352,75 @@
           }
         }
       }
-      .fashion-icon {
-        width: 1.5rem;
-        height: 1.5rem;
+      .fashion-title:before {
+        content: '';
+        display: block;
         position: absolute;
-        top: 50%;
-        right: 0.5rem;
-        transform: translate(0, -50%);
-        svg {
+        right: -1rem;
+        top: 0;
+        width: 2rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        background: @warning;
+      }
+    }
+    .zkui-product-item__1 ul {
+      padding-bottom: 0;
+    }
+    .yqp-more {
+      padding: 0 0.5rem;
+      margin-top: 2rem;
+      a {
+        text-align: center;
+        display: block;
+        background: @search-bg-color;
+        color: @brand;
+        font-size: @h5-font-size;
+        border-radius: 10px;
+        padding: 0.5rem 0;
+      }
+    }
+    .yqp-foot {
+      width: 100%;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+      background: @search-bg-color;
+      .foot-item {
+        padding: 0 4rem;
+        li {
+          flex: 1;
+          position: relative;
+          height: 2rem;
+          line-height: 2rem;
+          a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            font-size: @h6-font-size;
+            color: @gray-600;
+          }
+        }
+        li:after {
+          content: '';
+          display: block;
+          position: absolute;
+          width: 1px;
+          height: 1rem;
+          top: 0.5rem;
+          right: 0;
+          background: @gray-500;
+        }
+        li.item-last:after {
+          content: none;
+        }
+      }
+      .foot-img {
+        margin: 1.5rem auto auto;
+        width: 5rem;
+        height: 5rem;
+        img {
           width: 100%;
           height: 100%;
         }
