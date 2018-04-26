@@ -270,7 +270,8 @@
         if (type === 'addressBox') {
           let parameter = {
             Address: this.addressInput,
-            ReginonId: this.addressString
+            RegionId: this.addressString
+
           }
           var addressBoxMessage = await userService.update(parameter)
           console.log(addressBoxMessage)
@@ -299,7 +300,8 @@
         this.addressBox = true
       },
       hide () {
-        this.addressString = this.addressValue[0] + ',' + this.addressValue[1] + ',' + this.addressValue[2]
+        // this.addressString = this.addressValue[0] + ',' + this.addressValue[1] + ',' + this.addressValue[2]
+        this.addressString = this.addressValue[1]
       },
       async GetData () {
         this.addressData = address.addressData
