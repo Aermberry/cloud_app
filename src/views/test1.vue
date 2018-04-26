@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-input title="用户名" v-model="aa2.InsurancePolicyStr"></x-input>
+    <x-input title="用户名" v-model="aa2.MemberStr"></x-input>
     <box gap=" 3rem 1rem ">
       <x-button @click.native="ceshi" type="primary " action-type="button ">数据传输</x-button>
     </box>
@@ -25,19 +25,13 @@
       // setTimeout(function () {
       //   this.$router ? this.$router.back() : window.history.back()
       // }, 2000)
-      // this.ceshi()
+      this.ceshi()
     },
     data () {
       return {
         user: {
           username: 'aa00121',
-          password: '123456789',
-          name: '刘成恩2',
-          emmail: '',
-          mobile: '13719887004',
-          serviceCenter: '1000020', // 门店或服务中心
-          parentUserName: '1000020',
-          Grade: 1
+          Amount: '123456789',
         },
         aa2: {
           InsurancePolicyStr: ''
@@ -47,7 +41,7 @@
     methods: {
       async ceshi () {
         // var response = await apiService.Member(this.user)
-        var response = await apiUser.OrderCount(this.aa2)
+        var response = await apiUser.MemberCount(this.user)
         console.log(response)
       }
     },
