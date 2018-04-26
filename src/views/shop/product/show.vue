@@ -20,6 +20,7 @@
   import ShowBar from './widget/show_bar' // 底部操作按钮 立即购买 加入购物车等
 
   import { Group, Box } from 'zkui'
+  // import { setInterval } from 'timers';
 
   export default {
     components: {
@@ -49,6 +50,10 @@
       },
       // URL发生变化时操作的事件
       async  fetchData () {
+        // var a = setTimeout(function () {
+        //   this.$router.go(0)
+        // }, 100)
+        console.log(123)
         let params = {
           id: this.$route.params.id // 获取URL当中的Id参数
         }
@@ -73,7 +78,6 @@
         } else {
           this.asyncFlag = true
           this.modelView = product
-          console.dir(product)
         }
       }
     }

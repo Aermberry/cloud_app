@@ -42,6 +42,7 @@
   </section>
 </template>
 <script>
+  import common from 'src/service/api/common.api'
   import { ZkCell, ZkGrid } from 'widgets'
   import { MIcon, Grid, GridItem, Cell, Group, XButton } from 'zkui'
   export default {
@@ -62,9 +63,13 @@
     created () {
     },
     mounted () {
+      this.Getdata()
     },
     methods: {
-
+      async Getdata () {
+        var response = await common.GetConfigValue('GradePrivilegesConfig')
+        console.log(response)
+      }
     }
   }
 </script>
