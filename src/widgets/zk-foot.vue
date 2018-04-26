@@ -9,14 +9,14 @@
           </div>
           <section class="li_text" :class="$route.path.indexOf('default') !== -1 ? 'brand' : 'metal' ">首页</section>
         </router-link>
-        <router-link to="/user/debt/list" tag="li" class="footer_li" @click="ceshi">
+        <router-link to="/user/debt/manage" tag="li" class="footer_li">
           <section class="li_img">
             <img src="../../static/images/foot/2.png" alt="">
           </section>
           <section class="li_text" :class="$route.path.indexOf('product') !== -1 ? 'brand' : 'metal' ">债事管理</section>
 
         </router-link>
-        <router-link to="/topline" tag="li" class="footer_li footer_li-center" @click="ceshi">
+        <router-link to="/user/debt/notice" tag="li" class="footer_li footer_li-center">
           <div class="center-box">
             <section class="li_img">
               <img src="../../static/images/foot/3.png" alt="">
@@ -24,11 +24,11 @@
             <section class="li_text" :class="$route.path.indexOf('order') !== -1 ? 'brand' : 'metal' ">债事公告</section>
           </div>
         </router-link>
-        <router-link to="/product/class" tag="li" class="footer_li" @click="ceshi">
+        <router-link to="/user/debt/reference" tag="li" class="footer_li">
           <section class="li_img">
             <img src="../../static/images/foot/4.png" alt="">
           </section>
-          <section class="li_text" :class="$route.path.indexOf('order') !== -1 ? 'brand' : 'metal' ">分类中心</section>
+          <section class="li_text" :class="$route.path.indexOf('order') !== -1 ? 'brand' : 'metal' ">咨询中心</section>
         </router-link>
         <router-link to="/user/index" tag="li" class="footer_li">
           <section class="li_img">
@@ -49,9 +49,9 @@
     mounted () {
     },
     methods: {
-      ceshi () {
-        this.$vux.toast.show('敬请期待')
-      }
+      // ceshi () {
+      //   this.$vux.toast.show('敬请期待')
+      // }
     },
     data () {
       return {
@@ -65,7 +65,7 @@
   .zkuidebt-foot {
     .placeholder {
       width: 100%;
-      height: 8rem;
+      height: 6.5rem;
     }
     .footer {
       position: fixed;

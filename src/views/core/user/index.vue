@@ -1,5 +1,8 @@
 <template>
   <section class="zkui-core-user">
+    <div class="zkui-head-bg">
+      <img :src="topImg" alt="">
+    </div>
     <div class="zkui-core-user-head">
       <div class="head-top">
         <m-icon name="zk-setting" class="icon-light" size="2rem" link="/user/info"></m-icon>
@@ -32,6 +35,7 @@
   </section>
 </template>
 <script>
+  import apiService from 'src/service/api/diy.api'
   import userService from 'src/service/api/user.api'
   import { ZkCell, ZkGrid } from 'widgets'
   import { MIcon, Grid, GridItem, Cell, Group } from 'zkui'
@@ -51,14 +55,26 @@
         userInfo: {
           userName: '',
           gradeName: '登陆后享受更多服务',
-          img: ''
+          img: '',
+          imgData: '',
+          topImg: ''
         }
       }
+    },
+    created () {
+      this.ceshi()
     },
     mounted () {
       this.GetData()
     },
     methods: {
+      async ceshi () {
+        var response2 = await apiService.getLink('SingleAd2Config')
+        this.imgData = response2.data.result
+        console.log('imgData', this.imgData)
+        this.topImg = this.imgData[0].imageUrl
+        console.log(this.topImg)
+      },
       async GetData () {
         var reponse = await userService.view(this.data)
         console.log(reponse)
@@ -73,13 +89,26 @@
   @import '../../../assets/css/zkui/theme';
   .zkui-core-user {
     background: #f8f8f8;
+    .zkui-head-bg {
+      width: 100%;
+      height: 85*@rem;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 95;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
     img {
       width: 100%;
       height: 100%;
     }
     .zkui-core-user-head {
-      background: @brand;
       height: 85*@rem;
+      position: relative;
+      z-index: 99;
       .head-top {
         width: 100%;
         height: 30*@rem;

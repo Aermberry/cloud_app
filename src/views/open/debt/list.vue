@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-user-debt-list">
-    <zk-head title='我的债事'></zk-head>
+    <zk-head title='平债计划'></zk-head>
     <!-- <zk-list :styleType=1 dataType='debt' diyKey='list_user_reward' :isLogin='true'></zk-list> -->
 
     <section class="ZKList-Items weui-panel weui-panel_access">

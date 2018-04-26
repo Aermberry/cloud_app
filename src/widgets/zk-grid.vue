@@ -43,7 +43,6 @@
           this.grids = this.links
         } else {
           var repsonse = await apiService.getLink(this.diykey)
-          console.log('grid', repsonse)
           this.grids = repsonse.data.result
         }
       }
@@ -53,6 +52,10 @@
 <style   lang="less">
   .weui-grids {
     border-bottom: 8*@rem solid rgba(229, 229, 229, 0.5);
+  }
+  .weui-grid__label > span {
+    font-size: @h6-font-size;
+    width: 100%;
   }
 </style>
 

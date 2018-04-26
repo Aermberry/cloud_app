@@ -2,9 +2,12 @@
   <section class="zkui-point">
     <!-- <zk-head goBack='商品详情'></zk-head> -->
     <div class="point-top">
+      <div class="top-goback" @click="goBack()">
+        <m-icon name="zk-return"></m-icon>
+      </div>
       <div class="top-left">
         <router-link to="/mill/point">
-          资产包商城
+          资产包云商城
         </router-link>
       </div>
       <div class="top-right" :class="{'text-top':true}">
@@ -21,14 +24,14 @@
       </ul>
     </div>
     <zk-swiper diykey="Swiper2Config" height="210px"></zk-swiper>
-    <zk-grid diykey="Grid2Config" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
+    <zk-grid diykey="Grid2Config" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle point-item "></zk-grid>
     <div class="point-title">
       <span class="title-text">
         首推平债资产包
       </span>
     </div>
     <div class="point-content-box">
-      <zk-product-item :pageSize=2 classIds='' tagsId='1966' diykey='index'></zk-product-item>
+      <zk-product-item :pageSize=2 classIds='' tagsId='13728' diykey='index'></zk-product-item>
     </div>
     <div class="point-title">
       <span class="title-text">
@@ -36,7 +39,7 @@
       </span>
     </div>
     <div class="point-content-box">
-      <zk-product-item :pageSize=2 classIds='' tagsId='1964' diykey='index'></zk-product-item>
+      <zk-product-item :pageSize=2 classIds='' tagsId='13729' diykey='index'></zk-product-item>
     </div>
     <div class="point-title">
       <span class="title-text">
@@ -44,9 +47,41 @@
       </span>
     </div>
     <div class="point-content-box">
-      <zk-product-item :pageSize=2 classIds='' tagsId='' diykey='index'></zk-product-item>
+      <zk-product-item :pageSize=2 classIds='' tagsId='13730' diykey='index'></zk-product-item>
     </div>
-    <zk-foot></zk-foot>
+    <!-- <zk-foot></zk-foot> -->
+    <div class="point-foot">
+      <div class="placeholder"></div>
+      <div class="zkfoot footer">
+        <ul class="clear">
+          <router-link to="/default" tag="li" class="footer_li">
+            <section class="li_svg">
+              <m-icon name="debt-cloud" :class="$route.path.indexOf('default') !== -1 ? 'brand' : 'metal' "></m-icon>
+            </section>
+            <section class="li_text" :class="$route.path.indexOf('default') !== -1 ? 'brand' : 'metal' ">首页</section>
+          </router-link>
+          <router-link to="/product/class" tag="li" class="footer_li">
+            <section class="li_svg">
+              <m-icon name="debt-classify " :class="$route.path.indexOf('product') !== -1 ? 'brand' : 'metal' "></m-icon>
+            </section>
+            <section class="li_text" :class="$route.path.indexOf('product') !== -1 ? 'brand' : 'metal' ">分类</section>
+
+          </router-link>
+          <router-link to="/order/cart" tag="li" class="footer_li">
+            <section class="li_svg">
+              <m-icon name="debt-cart" :class="$route.path.indexOf('order') !== -1 ? 'brand' : 'metal' "></m-icon>
+            </section>
+            <section class="li_text" :class="$route.path.indexOf('order') !== -1 ? 'brand' : 'metal' ">购物车</section>
+          </router-link>
+          <router-link to="/user/index" tag="li" class="footer_li">
+            <section class="li_svg">
+              <m-icon name="debt-me" :class="$route.path.indexOf('user') !== -1 ? 'brand' : 'metal' "></m-icon>
+            </section>
+            <section class="li_text" :class="$route.path.indexOf('user') !== -1 ? 'brand' : 'metal' ">我的</section>
+          </router-link>
+        </ul>
+      </div>
+    </div>
   </section>
 </template>
 <script>
@@ -92,6 +127,18 @@
       height: 2.91666667rem;
       display: flex;
       background: @brand;
+      position: relative;
+      .top-goback {
+        position: absolute;
+        height: 100%;
+        width: 2.5rem;
+        svg {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
       .top-left,
       .top-right {
         flex: 1;
@@ -147,6 +194,7 @@
             margin: 0 0.5rem;
             line-height: 3.66666667rem;
             color: @black;
+            font-size: @h6-font-size;
           }
         }
       }

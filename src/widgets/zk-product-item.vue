@@ -62,6 +62,9 @@
       diykey: {
         type: String,
         default: '' // 默认Diy方式
+      },
+      pagination: {
+        type: Number
       }
     },
     data () {
@@ -81,9 +84,13 @@
           totalCount: this.totalCount
         }
         let response = await apiService.list(params) // 通过异步方法获取数据
-        let totalSize = response.data.result.totalSize // 获取总页数
+        var totalSize = response.data.result.totalSize // 获取总页数
         this.styleType = response.data.result.styleType // 选择何种风格
-        if (this.pageIndex < totalSize) {
+        if (this.pagination === '' || this.pagination === 'undefined') {
+          this.pagination = totalSize
+        }
+        console.log('数字', this.pagination)
+        if (this.pageIndex < this.pagination) {
           this.$refs.mescroll.endSuccess(params, totalSize) // 调用widget xsroll 下拉刷新函数
         }
         this.dataList = this.dataList.concat(response.data.result.productItems)
@@ -109,13 +116,13 @@
       clear: both;
     }
     ul {
-      padding-bottom: 35*@rem;
+      padding-bottom: 10*@rem;
     }
     li {
       display: block;
       float: left;
       width: 47%;
-      height: 19rem;
+      height: 20rem;
       margin: 2% 0 0 2%;
       padding-bottom: 0.3rem;
       border-radius: 2*@rem;
@@ -150,6 +157,7 @@
           min-height: 2rem;
           p {
             color: @brand;
+            height: 2.5rem;
             font-weight: bold;
             margin-left: -0.2rem;
             font-size: @h6-font-size;

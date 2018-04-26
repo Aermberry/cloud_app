@@ -10,6 +10,28 @@ export default [{
     }
   },
   {
+    path: '/user/debtIndex',
+    meta: {
+      title: '会员中心',
+      login: true
+    },
+    name: 'user_debtIndex',
+    component: function (resolve) {
+      require(['src/views/core/user/debtindex'], resolve)
+    }
+  },
+  {
+    path: '/user/interests',
+    meta: {
+      title: '会员权益',
+      login: true
+    },
+    name: 'interests',
+    component: function (resolve) {
+      require(['src/views/core/user/interests'], resolve)
+    }
+  },
+  {
     path: '/user/login',
     meta: {
       title: '会员中心'
