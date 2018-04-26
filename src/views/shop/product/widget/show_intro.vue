@@ -33,6 +33,8 @@
     },
     methods: {
       ceshi () {
+        // console.log('没有发生变化')
+        // console.log(this.productView.detail.mobileIntro)
         var a = document.getElementsByClassName('zkui-product-show-intro')[0].getElementsByTagName('img')
         for (let i = 0; i < a.length; i++) {
           let height = 300
@@ -46,11 +48,9 @@
             w: a[i].width,
             h: height
           }
-          console.log('高度', height)
           this.slide1.push(b)
           // this.slide1.splice(0, 1)
         }
-        console.log('qweqeqweqweqwe', this.slide1)
       },
       // handleScroll () {
       //   var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop

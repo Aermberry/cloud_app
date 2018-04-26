@@ -89,7 +89,6 @@
         if (this.pagination === '' || this.pagination === 'undefined') {
           this.pagination = totalSize
         }
-        console.log('数字', this.pagination)
         if (this.pageIndex < this.pagination) {
           this.$refs.mescroll.endSuccess(params, totalSize) // 调用widget xsroll 下拉刷新函数
         }

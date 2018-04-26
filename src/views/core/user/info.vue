@@ -234,7 +234,7 @@
       async accomplish (type) {
         if (type === 'name') {
           let userDetail = {
-            nickName: this.uName
+            name: this.uName
           }
           var response = await userService.update(userDetail)
           console.log(response)

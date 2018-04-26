@@ -9,56 +9,236 @@
       <swiper v-model="showView" :show-dots="false">
         <swiper-item v-for="(t,i) in list2" :key="i">
           <div class="tab-swiper vux-center">
-            <div class="zkui-order-list-box">
+            <div class="zkui-order-list-box" v-if="i==0">
               <div class="zkui-order-list-content">
-                <div class="zkui-order-list-box-item">
-                  <!-- <group class="box-title">
-                    <cell :title="i" value="items.orderStatuName"></cell>
-                  </group> -->
+                <div class="zkui-order-list-box-item" v-for="(item,index) in all" :key="index">
                   <div class="zkui-order-list-product">
                     <ul class="flex">
                       <li class="left-img">
-                        <router-link to="/order/show?id=+items.id">
-                          <img src="" alt="">
+                        <router-link :to="item.url">
+                          <img :src="item.image" alt="">
                         </router-link>
                       </li>
                       <li class="flex_one center-content">
-                        <router-link to="/order/show?id=+items.id">
+                        <router-link :to="item.url">
                           <p>
-
+                            {{item.title}}
                           </p>
                         </router-link>
                         <span>
-
+                          {{item.intro}}
                         </span>
                       </li>
                       <li class="left-price">
                         <ul>
-                          <li class="price_now">￥789</li>
+                          <li class="price_now">￥{{item.extra}}</li>
                           <!-- <li class="price_old">￥69.00</li> -->
-                          <li class="price_count">x 60</li>
+                          <!-- <li class="price_count">x 60</li> -->
                         </ul>
                       </li>
                     </ul>
 
                   </div>
-                  <group class="list-aggregate">
+                  <!-- <group class="list-aggregate">
                     <cell>
                       共
                       <span class="num">789</span> 件商品 合计：
                       <span class="num">￥456</span>
-                      <!-- (含运费
-                      <span class="num">￥123</span>) -->
+                      (含运费
+                      <span class="num">￥123</span>)
                     </cell>
-                  </group>
+                  </group> -->
                   <group class="product-option">
                     <cell>
-                      <!-- <x-button mini plain v-if="allState.Shipments[indexs]">退货</x-button>
-                      <x-button mini plain v-if="allState.Take[indexs]">确认收货</x-button>
-                      <x-button mini plain v-if="allState.Evaluate[indexs]">评价</x-button> -->
-                      <!-- <x-button mini plain v-if="allState.Payment[indexs]">取消订单</x-button>-->
                       <x-button mini plain>取消订单</x-button>
-                      <!-- <x-button mini plain type="primary" v-if="allState.Payment[indexs]">付款</x-button> -->
+                    </cell>
+                  </group>
+                </div>
+              </div>
+            </div>
+            <div class="zkui-order-list-box" v-if="i==1">
+              <div class="zkui-order-list-content">
+                <div class="zkui-order-list-box-item" v-for="(item,index) in stayAudit" :key="index">
+                  <div class="zkui-order-list-product">
+                    <ul class="flex">
+                      <li class="left-img">
+                        <router-link :to="item.url">
+                          <img :src="item.image" alt="">
+                        </router-link>
+                      </li>
+                      <li class="flex_one center-content">
+                        <router-link :to="item.url">
+                          <p>
+                            {{item.title}}
+                          </p>
+                        </router-link>
+                        <span>
+                          {{item.intro}}
+                        </span>
+                      </li>
+                      <li class="left-price">
+                        <ul>
+                          <li class="price_now">￥{{item.extra}}</li>
+                          <!-- <li class="price_old">￥69.00</li> -->
+                          <!-- <li class="price_count">x 60</li> -->
+                        </ul>
+                      </li>
+                    </ul>
+
+                  </div>
+                  <!-- <group class="list-aggregate">
+                    <cell>
+                      共
+                      <span class="num">789</span> 件商品 合计：
+                      <span class="num">￥456</span>
+                      (含运费
+                      <span class="num">￥123</span>)
+                    </cell>
+                  </group> -->
+                  <group class="product-option">
+                    <cell>
+                      <x-button mini plain>取消订单</x-button>
+                    </cell>
+                  </group>
+                </div>
+              </div>
+            </div>
+            <div class="zkui-order-list-box" v-if="i==2">
+              <div class="zkui-order-list-content">
+                <div class="zkui-order-list-box-item" v-for="(item,index) in stayCome" :key="index">
+                  <div class="zkui-order-list-product">
+                    <ul class="flex">
+                      <li class="left-img">
+                        <router-link :to="item.url">
+                          <img :src="item.image" alt="">
+                        </router-link>
+                      </li>
+                      <li class="flex_one center-content">
+                        <router-link :to="item.url">
+                          <p>
+                            {{item.title}}
+                          </p>
+                        </router-link>
+                        <span>
+                          {{item.intro}}
+                        </span>
+                      </li>
+                      <li class="left-price">
+                        <ul>
+                          <li class="price_now">￥{{item.extra}}</li>
+                          <!-- <li class="price_old">￥69.00</li> -->
+                          <!-- <li class="price_count">x 60</li> -->
+                        </ul>
+                      </li>
+                    </ul>
+
+                  </div>
+                  <!-- <group class="list-aggregate">
+                    <cell>
+                      共
+                      <span class="num">789</span> 件商品 合计：
+                      <span class="num">￥456</span>
+                      (含运费
+                      <span class="num">￥123</span>)
+                    </cell>
+                  </group> -->
+                  <group class="product-option">
+                    <cell>
+                      <x-button mini plain>取消订单</x-button>
+                    </cell>
+                  </group>
+                </div>
+              </div>
+            </div>
+            <div class="zkui-order-list-box" v-if="i==3">
+              <div class="zkui-order-list-content">
+                <div class="zkui-order-list-box-item" v-for="(item,index) in stayDecide" :key="index">
+                  <div class="zkui-order-list-product">
+                    <ul class="flex">
+                      <li class="left-img">
+                        <router-link :to="item.url">
+                          <img :src="item.image" alt="">
+                        </router-link>
+                      </li>
+                      <li class="flex_one center-content">
+                        <router-link :to="item.url">
+                          <p>
+                            {{item.title}}
+                          </p>
+                        </router-link>
+                        <span>
+                          {{item.intro}}
+                        </span>
+                      </li>
+                      <li class="left-price">
+                        <ul>
+                          <li class="price_now">￥{{item.extra}}</li>
+                          <!-- <li class="price_old">￥69.00</li> -->
+                          <!-- <li class="price_count">x 60</li> -->
+                        </ul>
+                      </li>
+                    </ul>
+
+                  </div>
+                  <!-- <group class="list-aggregate">
+                    <cell>
+                      共
+                      <span class="num">789</span> 件商品 合计：
+                      <span class="num">￥456</span>
+                      (含运费
+                      <span class="num">￥123</span>)
+                    </cell>
+                  </group> -->
+                  <group class="product-option">
+                    <cell>
+                      <x-button mini plain>取消订单</x-button>
+                    </cell>
+                  </group>
+                </div>
+              </div>
+            </div>
+            <div class="zkui-order-list-box" v-if="i==4">
+              <div class="zkui-order-list-content">
+                <div class="zkui-order-list-box-item" v-for="(item,index) in stayEvaluate" :key="index">
+                  <div class="zkui-order-list-product">
+                    <ul class="flex">
+                      <li class="left-img">
+                        <router-link :to="item.url">
+                          <img :src="item.image" alt="">
+                        </router-link>
+                      </li>
+                      <li class="flex_one center-content">
+                        <router-link :to="item.url">
+                          <p>
+                            {{item.title}}
+                          </p>
+                        </router-link>
+                        <span>
+                          {{item.intro}}
+                        </span>
+                      </li>
+                      <li class="left-price">
+                        <ul>
+                          <li class="price_now">￥{{item.extra}}</li>
+                          <!-- <li class="price_old">￥69.00</li> -->
+                          <!-- <li class="price_count">x 60</li> -->
+                        </ul>
+                      </li>
+                    </ul>
+
+                  </div>
+                  <!-- <group class="list-aggregate">
+                    <cell>
+                      共
+                      <span class="num">789</span> 件商品 合计：
+                      <span class="num">￥456</span>
+                      (含运费
+                      <span class="num">￥123</span>)
+                    </cell>
+                  </group> -->
+                  <group class="product-option">
+                    <cell>
+                      <x-button mini plain>取消订单</x-button>
                     </cell>
                   </group>
                 </div>
@@ -75,9 +255,10 @@
 <script>
   // import orderService from 'src/service/api/order.api'
   import apiService from 'src/service/api/debt.api'
-  import { Tab, TabItem, Sticky, Divider, XButton, Swiper, SwiperItem, Cell, CellBox, CellFormPreview, Group, Badge, Xbutton, Box, GroupTitle } from 'zkui'
+  import { XScroll, Tab, TabItem, Sticky, Divider, XButton, Swiper, SwiperItem, Cell, CellBox, CellFormPreview, Group, Badge, Xbutton, Box, GroupTitle } from 'zkui'
   export default {
     components: {
+      XScroll,
       Tab,
       TabItem,
       Sticky,
@@ -98,7 +279,12 @@
       return {
         list2: ['全部', '待审核', '待出方案', '待定方案', '待评价'],
         demo2: '全部',
-        showView: 0
+        showView: 0,
+        all: '', // 全部
+        stayAudit: '',
+        stayCome: '',
+        stayDecide: '',
+        stayEvaluate: ''
       }
     },
     created () {
@@ -108,12 +294,39 @@
     },
     methods: {
       async GetData () {
-        let par = {
-          dataType: 'debt'
+        let params = {
+          dataType: 'debt',
+          PlanStatus: ''
         }
-        var response = await apiService.list(par)
-        console.log('132', response)
+        let response = await apiService.list(params)
+        this.all = response.data.result.apiDataList
+        console.log('数量', this.all)
+        let params1 = {
+          dataType: 'debt',
+          PlanStatus: 1
+        }
+        let stayAudit = await apiService.list(params1)
+        this.stayAudit = stayAudit.data.result.apiDataList
+        let params2 = {
+          dataType: 'debt',
+          PlanStatus: 2
+        }
+        let stayCome = await apiService.list(params2)
+        this.stayCome = stayCome.data.result.apiDataList
+        let params3 = {
+          dataType: 'debt',
+          PlanStatus: 3
+        }
+        let stayDecide = await apiService.list(params3)
+        this.stayDecide = stayDecide.data.result.apiDataList
+        let params4 = {
+          dataType: 'debt',
+          PlanStatus: 4
+        }
+        let stayEvaluate = await apiService.list(params4)
+        this.stayEvaluate = stayEvaluate.data.result.apiDataList
       }
+
     }
   }
 </script>
