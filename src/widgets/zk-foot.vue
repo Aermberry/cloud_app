@@ -9,14 +9,14 @@
           </div>
           <section class="li_text" :class="$route.path.indexOf('default') !== -1 ? 'brand' : 'metal' ">首页</section>
         </router-link>
-        <router-link to="/user/debt/list" tag="li" class="footer_li">
+        <router-link to="/user/debt/manage" tag="li" class="footer_li">
           <section class="li_img">
             <img src="../../static/images/foot/2.png" alt="">
           </section>
           <section class="li_text" :class="$route.path.indexOf('product') !== -1 ? 'brand' : 'metal' ">债事管理</section>
 
         </router-link>
-        <router-link to="/topline" tag="li" class="footer_li footer_li-center">
+        <router-link to="/user/debt/notice" tag="li" class="footer_li footer_li-center">
           <div class="center-box">
             <section class="li_img">
               <img src="../../static/images/foot/3.png" alt="">

@@ -8,12 +8,12 @@
     <group title="债权人信息">
       <x-input title="债权人性名" required :min="2" :max="12" placeholder="填写债权人性名" v-model="debtApiInput.DebteeName"></x-input>
       <x-input title="债权人手机号" required placeholder="填写债权人手机号" mask="99999999999" :max="11" is-type="mobile" v-model="debtApiInput.DebteePhone"></x-input>
-      <x-input title="债权人身份证号码" required placeholder="填写债权人身份证号码" :max="18" v-model="debtApiInput.DebteeId"></x-input>
+      <x-input title="债权人身份证号码" required placeholder="填写债权人身份证号码" :min="18" :max="18" v-model="debtApiInput.DebteeId"></x-input>
     </group>
     <group title="债务人信息">
       <x-input title="债务人性名" required :min="2" :max="12" placeholder="填写债务人性名" v-model="debtApiInput.DebtorName"></x-input>
       <x-input title="债务人手机号" required placeholder="填写债务人手机号" mask="99999999999" :max="11" is-type="mobile" v-model="debtApiInput.DebtorPhone"></x-input>
-      <x-input title="债务人身份证号码" required placeholder="填写债务人身份证号码" :max="18" v-model="debtApiInput.DebtorId"></x-input>
+      <x-input title="债务人身份证号码" required placeholder="填写债务人身份证号码" :min="18" :max="18" v-model="debtApiInput.DebtorId"></x-input>
       <div class="zs-money">
         <x-input title="债事金额" required placeholder="填写债事金额" v-model="debtApiInput.Amount"></x-input>
       </div>

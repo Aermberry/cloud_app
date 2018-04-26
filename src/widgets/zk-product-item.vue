@@ -122,7 +122,7 @@
       display: block;
       float: left;
       width: 47%;
-      height: 19rem;
+      height: 20rem;
       margin: 2% 0 0 2%;
       padding-bottom: 0.3rem;
       border-radius: 2*@rem;
