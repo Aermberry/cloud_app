@@ -26,7 +26,7 @@
     </div>
     <div class="placeholder"></div>
     <x-scroll class="scroller" :upCallback="upCallback" ref="mescroll" warpId="index_scroll" id="index_scroll">
-      <section class="ZKProductItem">
+      <section class="ZKProductItem" v-if="!datashow">
         <div class="zkui-product-item__1 ">
           <ul>
             <li v-for="(item,index) in dataList" :key="index">
@@ -43,7 +43,7 @@
                 </dd>
                 <dd class="itemPrice">
                   <p>{{item.displayPrice}}</p>
-                  <span>￥{{item.marketPrice}}</span>
+                  <span v-if="item.marketPrice!==0">￥{{item.marketPrice}}</span>
                 </dd>
               </dl>
             </li>
@@ -52,7 +52,7 @@
         <zk-foot></zk-foot>
       </section>
     </x-scroll>
-    <!-- <zk-notdata v-if="datashow"></zk-notdata> -->
+    <zk-notdata v-if="datashow"></zk-notdata>
   </section>
 </template>
 <script>
@@ -160,6 +160,7 @@
           this.$refs.mescroll.endSuccess(params, totalSize) // 调用widget xsroll 下拉刷新函数
         }
         this.dataList = this.dataList.concat(response.data.result.productItems)
+        // console.log('dataList', this.dataList, this.dataList.length)
         if (this.dataList.length !== 0) {
           this.datashow = false
         }
@@ -170,7 +171,7 @@
     }
   }
 </script>
-<style lang="less" scoped>
+<style lang="less">
   .placeholder {
     height: 3.66666667rem;
   }
@@ -200,6 +201,9 @@
     }
   }
   #index_scroll {
+    .mescroll-upwarp {
+      display: none;
+    }
     div:first-child {
       font-size: 12px;
     }
@@ -215,6 +219,7 @@
       display: block;
       float: left;
       width: 47%;
+      height: 20rem;
       margin: 2% 0 0 2%;
       padding-bottom: 0.3rem;
       border-radius: 2*@rem;
@@ -239,7 +244,9 @@
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 2;
             overflow: hidden;
-            height: 38px;
+            color: @black;
+            font-size: 14px;
+            height: 40px;
           }
         }
         .itemPrice {
@@ -247,9 +254,10 @@
           min-height: 3rem;
           p {
             color: @brand;
-
+            height: 2.5rem;
             font-weight: bold;
             margin-left: -0.2rem;
+            font-size: @h6-font-size;
           }
           span {
             text-decoration: line-through;

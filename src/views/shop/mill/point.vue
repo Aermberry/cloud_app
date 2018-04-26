@@ -2,6 +2,9 @@
   <section class="zkui-point">
     <!-- <zk-head goBack='商品详情'></zk-head> -->
     <div class="point-top">
+      <div class="top-goback" @click="goBack()">
+        <m-icon name="zk-return"></m-icon>
+      </div>
       <div class="top-left" :class="{'text-top':true}">
         <router-link to="/mill/point">
           资产包云商城
@@ -106,6 +109,9 @@
       this.Getdata()
     },
     methods: {
+      goBack () {
+        this.$router ? this.$router.back() : window.history.back()
+      },
       async Getdata () {
         var response = await apiService.class()
         console.log(response)
@@ -130,6 +136,18 @@
       height: 2.91666667rem;
       display: flex;
       background: @brand;
+      position: relative;
+      .top-goback {
+        position: absolute;
+        height: 100%;
+        width: 2.5rem;
+        svg {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
       .top-left,
       .top-right {
         flex: 1;
@@ -194,7 +212,7 @@
       .weui-grid__label > span {
         font-size: 0.8rem;
       }
-      .grid-icon-middle .weui-grid {
+      .weui-grid {
         padding: 0.66666667rem 0;
       }
     }

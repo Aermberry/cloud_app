@@ -43,7 +43,6 @@
           this.grids = this.links
         } else {
           var repsonse = await apiService.getLink(this.diykey)
-          console.log('grid', repsonse)
           this.grids = repsonse.data.result
         }
       }

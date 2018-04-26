@@ -2,6 +2,9 @@
   <section class="zkui-point">
     <!-- <zk-head goBack='商品详情'></zk-head> -->
     <div class="point-top">
+      <div class="top-goback" @click="goBack()">
+        <m-icon name="zk-return"></m-icon>
+      </div>
       <div class="top-left">
         <router-link to="/mill/point">
           资产包云商城
@@ -124,6 +127,18 @@
       height: 2.91666667rem;
       display: flex;
       background: @brand;
+      position: relative;
+      .top-goback {
+        position: absolute;
+        height: 100%;
+        width: 2.5rem;
+        svg {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
       .top-left,
       .top-right {
         flex: 1;

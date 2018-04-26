@@ -107,6 +107,27 @@ export default [{
     component: function (resolve) {
       require(['src/views/open/debt/reference'], resolve)
     }
-  }
+  }, {
+    path: '/user/debt/manage',
+    meta: {
+      title: '债事管理',
+      login: true
+    },
+    name: 'debt_manage',
 
+    component: function (resolve) {
+      require(['src/views/open/debt/manage'], resolve)
+    }
+  }, {
+    path: '/user/debt/notice',
+    meta: {
+      title: '债事公告',
+      login: true
+    },
+    name: 'debt_notice',
+
+    component: function (resolve) {
+      require(['src/views/open/debt/notice'], resolve)
+    }
+  }
 ]

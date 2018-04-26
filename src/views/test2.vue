@@ -23,7 +23,11 @@
         <tab-item active-class="active-6-3" @click.native="sortNum(3)">人气</tab-item>
         <tab-item active-class="active-6-4" @click.native="sortNum(4)">销量</tab-item>
       </tab>
-    </div>
+    <x-input title="用户名" v-model="aa2.InsurancePolicyStr"></x-input>
+    <box gap=" 3rem 1rem ">
+      <x-button @click.native="ceshi" type="primary " action-type="button ">数据传输</x-button>
+    </box>
+  </div>
     <div class="placeholder"></div>
     <x-scroll class="scroller" :upCallback="upCallback" ref="mescroll" warpId="index_scroll" id="index_scroll">
       <section class="ZKProductItem">
@@ -130,13 +134,13 @@
         if (this.pageIndex < totalSize) {
           this.pageIndex = this.pageIndex + 1 // 下拉时是自动增加一页
         }
-      },
+    },
       async upCallback () {
         for (var index in this.$route.query) {
           if (this.$route.query[index] !== '') {
             this.productList[index] = this.$route.query[index]
-          }
-        }
+    }
+  }
         let params = {
           SortOrder: this.productList.SortOrder, // 商品排序方式
           Keyword: this.productList.Keyword, // 搜索关键字
