@@ -1,4 +1,5 @@
-export default [{
+export default [
+  {
     path: '/user/index',
     meta: {
       title: '会员中心',
@@ -75,8 +76,7 @@ export default [{
   {
     path: '/from',
     meta: {
-      title: 'from',
-      login: true
+      title: 'from'
     },
     name: 'from',
     component: function (resolve) {
