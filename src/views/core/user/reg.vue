@@ -66,16 +66,19 @@
     mounted () {
       this.GetData()
     },
+
     methods: {
       checker () {
         this.checked = !this.checked
       },
       GetData () {
         if (this.$route.query.userName !== undefined) {
-          window.localStorage.setStore('qrcode_username', this.$route.query.userName)
+          window.localStorage.setItem('qrcode_username', this.$route.query.userName)
         }
-        if (window.localStorage.getItem('qrcode_username') !== '' && window.localStorage.getItem('qrcode_username') !== 'undefined') {
-          this.user.parentUserName = window.localStorage.getItem('qrcode_username')
+        let qrcodeUserName = window.localStorage.getItem('qrcode_username')
+        console.info('推荐人', qrcodeUserName)
+        if (qrcodeUserName !== '' && qrcodeUserName !== 'undefined') {
+          this.user.parentUserName = qrcodeUserName
           this.showParent = true
         }
       },

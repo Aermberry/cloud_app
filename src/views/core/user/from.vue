@@ -35,7 +35,7 @@
         this.$router ? this.$router.back() : window.history.back()
       },
       async Getdata () {
-        console.info(this.$route.query.userName)
+        console.info('url内容', this.$route.query.userName)
         local.setStore('qrcode_username', this.$route.query.userName)
         var respone2 = await userService.GetConfigValue('QrCodeConfig')
         this.data = respone2.data.result
