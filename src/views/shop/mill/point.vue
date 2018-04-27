@@ -18,8 +18,32 @@
     </div>
     <div class="point-tab">
       <ul>
-        <li v-for="(item,index) in data " :key="index">
-          <router-link :to="'/product/list?Keyword='+item.name">{{item.name}}</router-link>
+        <li>
+          <router-link to="product/list?Keyword=汽车">汽车</router-link>
+        </li>
+        <li>
+          <router-link to="product/list?Keyword=房产 ">房产 </router-link>
+        </li>
+        <li>
+          <router-link to="product/list?Keyword= 艺术品"> 艺术品</router-link>
+        </li>
+        <li>
+          <router-link to="product/list?Keyword=原材料">原材料 </router-link>
+        </li>
+        <li>
+          <router-link to="product/list?Keyword=半成品">半成品</router-link>
+        </li>
+        <li>
+          <router-link to="product/list?Keyword=成品">成品 </router-link>
+        </li>
+        <li>
+          <router-link to="product/list?Keyword= 矿产"> 矿产 </router-link>
+        </li>
+        <li>
+          <router-link to="product/list?Keyword= 机器设备"> 机器设备 </router-link>
+        </li>
+        <li>
+          <router-link to="product/list?Keyword= 其他 "> 其他 </router-link>
         </li>
       </ul>
     </div>

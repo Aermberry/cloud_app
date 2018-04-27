@@ -18,8 +18,26 @@
     </div>
     <div class="point-tab">
       <ul>
-        <li v-for="(item,index) in data " :key="index">
-          <router-link :to="'/product/list?Keyword='+item.name">{{item.name}}</router-link>
+        <li>
+          <router-link to="product/list?Keyword=数码家电">数码家电</router-link>
+        </li>
+        <li>
+          <router-link to="product/list?Keyword=鞋服箱包 ">鞋服箱包 </router-link>
+        </li>
+        <li>
+          <router-link to="product/list?Keyword= 家居家纺"> 家居家纺</router-link>
+        </li>
+        <li>
+          <router-link to="product/list?Keyword=美妆饰品">美妆饰品 </router-link>
+        </li>
+        <li>
+          <router-link to="product/list?Keyword=粮油速食">粮油速食</router-link>
+        </li>
+        <li>
+          <router-link to="product/list?Keyword=母婴用品">母婴用品 </router-link>
+        </li>
+        <li>
+          <router-link to="product/list?Keyword= 其他 "> 其他 </router-link>
         </li>
       </ul>
     </div>
@@ -27,27 +45,27 @@
     <zk-grid diykey="Grid2Config" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle point-item "></zk-grid>
     <div class="point-title">
       <span class="title-text">
-        首推平债资产包
+        特卖
       </span>
     </div>
     <div class="point-content-box">
-      <zk-product-item :pageSize=2 classIds='' tagsId='13728' diykey='index'></zk-product-item>
+      <zk-product-item :pageSize=2 classIds='' tagsId='13733' diykey='index'></zk-product-item>
     </div>
     <div class="point-title">
       <span class="title-text">
-        热门平债资产包
+        火爆单品
       </span>
     </div>
     <div class="point-content-box">
-      <zk-product-item :pageSize=2 classIds='' tagsId='13729' diykey='index'></zk-product-item>
+      <zk-product-item :pageSize=2 classIds='' tagsId='13734' diykey='index'></zk-product-item>
     </div>
     <div class="point-title">
       <span class="title-text">
-        私人订制平债资产包
+        小云推荐
       </span>
     </div>
     <div class="point-content-box">
-      <zk-product-item :pageSize=2 classIds='' tagsId='13730' diykey='index'></zk-product-item>
+      <zk-product-item :pageSize=2 classIds='' tagsId='13735' diykey='index'></zk-product-item>
     </div>
     <!-- <zk-foot></zk-foot> -->
     <div class="point-foot">

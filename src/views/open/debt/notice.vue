@@ -62,7 +62,7 @@
   </section>
 </template>
 <script>
-  // import apiService from 'src/service/api/diy.api'
+  import apiService from 'src/service/api/diy.api'
   // import userService from 'src/service/api/user.api'
   import { Tab, TabItem, Swiper, SwiperItem } from 'zkui'
   export default {
@@ -79,9 +79,17 @@
     created () {
     },
     mounted () {
+      this.GetData()
     },
     methods: {
-
+      async GetData () {
+        let pra = {
+          dataType: 1,
+          diyKey: 'UserNotice'
+        }
+        let response = await apiService.getList(pra)
+        console.log(response)
+      }
     }
   }
 </script>
