@@ -234,7 +234,7 @@
       async accomplish (type) {
         if (type === 'name') {
           let userDetail = {
-            name: this.uName
+            NickName: this.uName
           }
           var response = await userService.update(userDetail)
           console.log(response)
@@ -301,7 +301,7 @@
       },
       hide () {
         // this.addressString = this.addressValue[0] + ',' + this.addressValue[1] + ',' + this.addressValue[2]
-        this.addressString = this.addressValue[1]
+        this.addressString = this.addressValue[2]
       },
       async GetData () {
         this.addressData = address.addressData
