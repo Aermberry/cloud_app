@@ -64,7 +64,6 @@
         this.dataList = response.data.result.apiDataList
         if (this.dataList.length === 0) {
           this.notDataf = false
-          this.notDatas = false
         }
       }
     }

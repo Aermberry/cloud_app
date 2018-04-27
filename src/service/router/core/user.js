@@ -1,4 +1,5 @@
-export default [{
+export default [
+  {
     path: '/user/index',
     meta: {
       title: '会员中心',
@@ -18,17 +19,6 @@ export default [{
     name: 'user_debtIndex',
     component: function (resolve) {
       require(['src/views/core/user/debtindex'], resolve)
-    }
-  },
-  {
-    path: '/user/interests',
-    meta: {
-      title: '会员权益',
-      login: true
-    },
-    name: 'interests',
-    component: function (resolve) {
-      require(['src/views/core/user/interests'], resolve)
     }
   },
   {
@@ -75,8 +65,7 @@ export default [{
   {
     path: '/from',
     meta: {
-      title: 'from',
-      login: true
+      title: 'from'
     },
     name: 'from',
     component: function (resolve) {

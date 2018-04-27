@@ -1,4 +1,5 @@
-export default [{
+export default [
+  {
     path: '/user/debt/apply',
     meta: {
       title: '债事备案',
@@ -96,7 +97,8 @@ export default [{
     component: function (resolve) {
       require(['src/views/open/debt/data'], resolve)
     }
-  }, {
+  },
+  {
     path: '/user/debt/reference',
 
     meta: {
@@ -107,10 +109,11 @@ export default [{
     component: function (resolve) {
       require(['src/views/open/debt/reference'], resolve)
     }
-  }, {
+  },
+  {
     path: '/user/debt/manage',
     meta: {
-      title: '债事管理',
+      title: '个人债事详情管理',
       login: true
     },
     name: 'debt_manage',
@@ -118,7 +121,8 @@ export default [{
     component: function (resolve) {
       require(['src/views/open/debt/manage'], resolve)
     }
-  }, {
+  },
+  {
     path: '/user/debt/notice',
     meta: {
       title: '债事公告',
@@ -128,6 +132,17 @@ export default [{
 
     component: function (resolve) {
       require(['src/views/open/debt/notice'], resolve)
+    }
+  },
+  {
+    path: '/user/debt/interests',
+    meta: {
+      title: '会员权益',
+      login: true
+    },
+    name: 'interests',
+    component: function (resolve) {
+      require(['src/views/core/user/interests'], resolve)
     }
   }
 ]

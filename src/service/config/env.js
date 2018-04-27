@@ -30,10 +30,4 @@ if (process.env.NODE_ENV === 'development') {
   // baseUrl = 'http://zkqd.5ug.com/'
   // baseUrl = 'http://zqingchun.yiqipingou.com/'
 }
-export {
-  baseUrl,
-  routerMode,
-  key,
-  projectId,
-  clientType
-}
+export { baseUrl, routerMode, key, projectId, clientType }

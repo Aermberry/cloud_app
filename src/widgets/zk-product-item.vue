@@ -47,6 +47,10 @@
         type: String,
         default: '' // 商品标签Id，多个ID用,号隔开
       },
+      recommend: {
+        type: String,
+        default: '' // 商品标签Id，多个ID用,号隔开
+      },
       pageSize: {
         type: Number,
         default: 4 // 默认分页数量
@@ -81,7 +85,8 @@
           pageSize: this.pageSize, // 每页显示的数量 建议20
           classIds: this.classIds,
           tagIds: this.tagIds,
-          totalCount: this.totalCount
+          totalCount: this.totalCount,
+          recommend: this.recommend
         }
         let response = await apiService.list(params) // 通过异步方法获取数据
         var totalSize = response.data.result.totalSize // 获取总页数

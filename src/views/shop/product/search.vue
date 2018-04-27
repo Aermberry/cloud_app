@@ -58,7 +58,7 @@
         this.$router.push({
           name: 'product_list',
           params: {
-            id: this.value
+            value: this.value
           }
         })
       },
