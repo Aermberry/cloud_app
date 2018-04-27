@@ -2,7 +2,7 @@
   <section>
     <div class="zk-product-recommend-top"></div>
     <divider class="zk-product-recommend">推荐商品</divider>
-    <zk-product-item :pageSize=4 classIds='' :pagination=6 tagsId='' diykey='index'></zk-product-item>
+    <zk-product-item :pageSize=4 classIds='' :recommend="sid" :pagination=6 diykey='index'></zk-product-item>
 
   </section>
 </template>
@@ -14,7 +14,15 @@
     components: {
       ZkProductItem, Divider
     },
-    props: ['productView']
+    data () {
+      return {
+        sid: ''
+      }
+    },
+    props: ['productView'],
+    mounted () {
+      this.sid = this.$route.params.id
+    }
   }
 </script>
 <style scoped  lang="less">

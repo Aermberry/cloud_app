@@ -94,7 +94,7 @@
       }
     },
     created () {
-      console.log(this.$route.query)
+      console.log('create', this.$route.query)
     },
     mounted () {
       this.upCallback()

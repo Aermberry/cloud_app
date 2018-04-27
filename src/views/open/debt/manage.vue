@@ -1,7 +1,7 @@
 <template>
   <section class="zkui-order-list">
 
-    <zk-head title='我的订单'></zk-head>
+    <zk-head title='个人债事详情管理'></zk-head>
     <div>
       <tab :line-width=2 active-color='#fc378c' v-model="showView">
         <tab-item class="vux-center" :selected="demo2 === item" v-for="(item, index) in list2" @click="demo2 = item" :key="index">{{item}}</tab-item>
@@ -50,7 +50,7 @@
                   </group> -->
                   <group class="product-option">
                     <cell>
-                      <x-button mini plain>取消订单</x-button>
+                      <x-button mini plain v-if="item.type===1">取消订单</x-button>
                     </cell>
                   </group>
                 </div>
@@ -288,43 +288,45 @@
       }
     },
     created () {
+      if (this.$route.query.id !== '' || this.$route.query.id !== 'undefined') {
+        this.showView = this.$route.query.id
+      }
     },
     mounted () {
       this.GetData()
     },
     methods: {
       async GetData () {
+        console.log(this.showView)
         let params = {
-          dataType: 'debt',
-          PlanStatus: ''
+          dataType: 'debt'
         }
         let response = await apiService.list(params)
-        this.all = response.data.result.apiDataList
-        console.log('数量', this.all)
+        this.all = response.data.result
         let params1 = {
           dataType: 'debt',
           PlanStatus: 1
         }
         let stayAudit = await apiService.list(params1)
-        this.stayAudit = stayAudit.data.result.apiDataList
+        this.stayAudit = stayAudit.data.result
         let params2 = {
           dataType: 'debt',
           PlanStatus: 2
         }
         let stayCome = await apiService.list(params2)
-        this.stayCome = stayCome.data.result.apiDataList
+        this.stayCome = stayCome.data.result
         let params3 = {
           dataType: 'debt',
           PlanStatus: 3
         }
         let stayDecide = await apiService.list(params3)
-        this.stayDecide = stayDecide.data.result.apiDataList
+        this.stayDecide = stayDecide.data.result
         let params4 = {
           dataType: 'debt',
           PlanStatus: 4
         }
         let stayEvaluate = await apiService.list(params4)
-        this.stayEvaluate = stayEvaluate.data.result.apiDataList
+        this.stayEvaluate = stayEvaluate.data.result
       }
 
     }
