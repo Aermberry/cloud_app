@@ -98,6 +98,7 @@
     },
     mounted () {
       this.upCallback()
+      console.log(this.$route.params)
     },
     methods: {
       async sortNum (id) {
@@ -136,6 +137,9 @@
           if (this.$route.query[index] !== '') {
             this.productList[index] = this.$route.query[index]
           }
+        }
+        if (this.$route.params.value !== '' || this.$route.params.value !== 'undefined') {
+          this.productList.Keyword = this.$route.params.value
         }
         let params = {
           SortOrder: this.productList.SortOrder, // 商品排序方式
