@@ -2,9 +2,7 @@
   <section class="zkui-debt-notice">
     <zk-head title='债事公告'></zk-head>
     <div>
-      <tab :line-width=2 active-color='#0090ff' v-model="index">
-        <tab-item class="vux-center" :selected="demo2 === item" v-for="(item, index) in list2" @click="demo2 = item" :key="index">{{item}}</tab-item>
-      </tab>
+
       <swiper v-model="index" height="100px" :show-dots="false">
         <swiper-item>
           <div class="notice-box">
@@ -49,12 +47,69 @@
               </li>
             </ul>
           </div>
-        </swiper-item>
-        <swiper-item>
-          <div class="tab-swiper vux-center">行业新闻页面</div>
-        </swiper-item>
-        <swiper-item>
-          <div class="tab-swiper vux-center">公司活动通知页面</div>
+          <div class="notice-box">
+            <ul>
+              <li class="box-left">
+                <div class="left-time">
+                  <p>04:08</p>
+                  <p>14:20</p>
+                </div>
+              </li>
+              <li class="box-right">
+                <div class="title">
+                  <p>关于市场部用业绩置换区级代理政策</p>
+                </div>
+                <div class="introduction ">
+                  <p>市场拓展商家的业绩可置换区级代理的相关条件和收益，详情请点击查看</p>
+                  <router-link to="">
+                    点击查看详细
+                  </router-link>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="notice-box">
+            <ul>
+              <li class="box-left">
+                <div class="left-time">
+                  <p>04:08</p>
+                  <p>14:20</p>
+                </div>
+              </li>
+              <li class="box-right">
+                <div class="title">
+                  <p>关于市场部用业绩置换区级代理政策</p>
+                </div>
+                <div class="introduction ">
+                  <p>市场拓展商家的业绩可置换区级代理的相关条件和收益，详情请点击查看</p>
+                  <router-link to="">
+                    点击查看详细
+                  </router-link>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="notice-box">
+            <ul>
+              <li class="box-left">
+                <div class="left-time">
+                  <p>04:08</p>
+                  <p>14:20</p>
+                </div>
+              </li>
+              <li class="box-right">
+                <div class="title">
+                  <p>关于市场部用业绩置换区级代理政策</p>
+                </div>
+                <div class="introduction ">
+                  <p>市场拓展商家的业绩可置换区级代理的相关条件和收益，详情请点击查看</p>
+                  <router-link to="">
+                    点击查看详细
+                  </router-link>
+                </div>
+              </li>
+            </ul>
+          </div>
         </swiper-item>
       </swiper>
     </div>
@@ -71,7 +126,7 @@
     },
     data () {
       return {
-        list2: ['公司公告页面', '行业新闻页面', '公司活动通知页面'],
+        list2: ['公司公告', '行业新闻', '公司活动通知'],
         demo2: '公司公告页面',
         index: 0
       }
