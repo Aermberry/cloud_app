@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-debt-reference">
-    <zk-head title='咨询中心'></zk-head>
+    <zk-head title='资讯中心'></zk-head>
     <div>
       <tab :line-width=2 active-color='#0090ff' v-model="index">
         <tab-item class="vux-center" :selected="demo2 === item" v-for="(item, index) in list2" @click="demo2 = item" :key="index">{{item}}</tab-item>
@@ -62,8 +62,8 @@
   </section>
 </template>
 <script>
-  // import apiService from 'src/service/api/diy.api'
   // import userService from 'src/service/api/user.api'
+  import apiService from 'src/service/api/diy.api'
   import { Tab, TabItem, Swiper, SwiperItem } from 'zkui'
   export default {
     components: {
@@ -71,7 +71,7 @@
     },
     data () {
       return {
-        list2: ['公司公告页面', '行业新闻页面', '公司活动通知页面'],
+        list2: ['公司公告', '行业新闻', '公司活动通知'],
         demo2: '公司公告页面',
         index: 0
       }
@@ -79,9 +79,16 @@
     created () {
     },
     mounted () {
+      this.Getdata()
     },
     methods: {
-
+      async Getdata () {
+        let par = {
+          dataType: 'article'
+        }
+        var response = await apiService.getList(par)
+        console.log(response)
+      }
     }
   }
 </script>

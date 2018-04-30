@@ -1,5 +1,5 @@
 <template>
-  <section class="zkui-order-list">
+  <section class="zkui-manage">
 
     <zk-head title='个人债事详情管理'></zk-head>
     <div>
@@ -9,7 +9,7 @@
       <swiper v-model="showView" :show-dots="false">
         <swiper-item v-for="(t,i) in list2" :key="i">
           <div class="tab-swiper vux-center">
-            <div class="zkui-order-list-box" v-if="i==0">
+            <div class="zkui-order-list-box" v-if="i==0&&!showof[0]">
               <div class="zkui-order-list-content">
                 <div class="zkui-order-list-box-item" v-for="(item,index) in all" :key="index">
                   <div class="zkui-order-list-product">
@@ -56,7 +56,11 @@
                 </div>
               </div>
             </div>
-            <div class="zkui-order-list-box" v-if="i==1">
+            <div class="zk-not-data" v-if="i===0&&showof[0]">
+              <m-icon name="zk-notdata"></m-icon>
+              <p>暂无数据</p>
+            </div>
+            <div class="zkui-order-list-box" v-if="i==1&&!showof[1]">
               <div class="zkui-order-list-content">
                 <div class="zkui-order-list-box-item" v-for="(item,index) in stayAudit" :key="index">
                   <div class="zkui-order-list-product">
@@ -103,7 +107,11 @@
                 </div>
               </div>
             </div>
-            <div class="zkui-order-list-box" v-if="i==2">
+            <div class="zk-not-data" v-if="i===0&&showof[1]">
+              <m-icon name="zk-notdata"></m-icon>
+              <p>暂无数据</p>
+            </div>
+            <div class="zkui-order-list-box" v-if="i==2&&!showof[2]">
               <div class="zkui-order-list-content">
                 <div class="zkui-order-list-box-item" v-for="(item,index) in stayCome" :key="index">
                   <div class="zkui-order-list-product">
@@ -150,7 +158,11 @@
                 </div>
               </div>
             </div>
-            <div class="zkui-order-list-box" v-if="i==3">
+            <div class="zk-not-data" v-if="i===0&&showof[2]">
+              <m-icon name="zk-notdata"></m-icon>
+              <p>暂无数据</p>
+            </div>
+            <div class="zkui-order-list-box" v-if="i==3&&!showof[3]">
               <div class="zkui-order-list-content">
                 <div class="zkui-order-list-box-item" v-for="(item,index) in stayDecide" :key="index">
                   <div class="zkui-order-list-product">
@@ -197,7 +209,11 @@
                 </div>
               </div>
             </div>
-            <div class="zkui-order-list-box" v-if="i==4">
+            <div class="zk-not-data" v-if="i===0&&showof[3]">
+              <m-icon name="zk-notdata"></m-icon>
+              <p>暂无数据</p>
+            </div>
+            <div class="zkui-order-list-box" v-if="i==4&&!showof[4]">
               <div class="zkui-order-list-content">
                 <div class="zkui-order-list-box-item" v-for="(item,index) in stayEvaluate" :key="index">
                   <div class="zkui-order-list-product">
@@ -244,6 +260,10 @@
                 </div>
               </div>
             </div>
+            <div class="zk-not-data" v-if="i===0&&showof[4]">
+              <m-icon name="zk-notdata"></m-icon>
+              <p>暂无数据</p>
+            </div>
           </div>
         </swiper-item>
       </swiper>
@@ -284,7 +304,8 @@
         stayAudit: '',
         stayCome: '',
         stayDecide: '',
-        stayEvaluate: ''
+        stayEvaluate: '',
+        showof: [false, false, false, false, false]
       }
     },
     created () {
@@ -303,37 +324,66 @@
         }
         let response = await apiService.list(params)
         this.all = response.data.result
+        console.log('all', this.all)
+        if (this.all.length === 0) {
+          this.showof[0] = true
+        }
         let params1 = {
           dataType: 'debt',
           PlanStatus: 1
         }
+
         let stayAudit = await apiService.list(params1)
         this.stayAudit = stayAudit.data.result
+        if (this.stayAudit.length === 0) {
+          this.showof[1] = true
+        }
         let params2 = {
           dataType: 'debt',
           PlanStatus: 2
         }
         let stayCome = await apiService.list(params2)
         this.stayCome = stayCome.data.result
+        if (this.stayCome.length === 0) {
+          this.showof[2] = true
+        }
         let params3 = {
           dataType: 'debt',
           PlanStatus: 3
         }
         let stayDecide = await apiService.list(params3)
         this.stayDecide = stayDecide.data.result
+        if (this.stayDecide.length === 0) {
+          this.showof[3] = true
+        }
         let params4 = {
           dataType: 'debt',
           PlanStatus: 4
         }
         let stayEvaluate = await apiService.list(params4)
         this.stayEvaluate = stayEvaluate.data.result
+        if (this.stayEvaluate.length === 0) {
+          this.showof[4] = true
+        }
       }
 
     }
   }
 </script>
 <style   lang="less">
-  .zkui-order-list {
+  .zkui-manage {
+    .zk-not-data {
+      margin: 0 auto;
+      padding-top: 150*@rem;
+      text-align: center;
+      svg {
+        width: 50*@rem;
+        height: 50*@rem;
+      }
+      p {
+        font-size: @h4-font-size;
+      }
+    }
     .flex {
       display: -moz-box;
       display: -ms-flexbox;

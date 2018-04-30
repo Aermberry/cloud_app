@@ -1,5 +1,5 @@
 <template>
-  <section class="zkui-debt-reference">
+  <section class="zkui-debt-notice">
     <zk-head title='债事公告'></zk-head>
     <div>
       <tab :line-width=2 active-color='#0090ff' v-model="index">
@@ -7,7 +7,7 @@
       </tab>
       <swiper v-model="index" height="100px" :show-dots="false">
         <swiper-item>
-          <div class="reference-box">
+          <div class="notice-box">
             <ul>
               <li class="box-left">
                 <div class="left-time">
@@ -28,7 +28,7 @@
               </li>
             </ul>
           </div>
-          <div class="reference-box">
+          <div class="notice-box">
             <ul>
               <li class="box-left">
                 <div class="left-time">
@@ -94,14 +94,14 @@
   }
 </script>
 <style   lang="less">
-  .zkui-debt-reference {
+  .zkui-debt-notice {
     .vux-slider {
       overflow: visible;
       .vux-swiper {
         overflow: visible;
       }
     }
-    .reference-box {
+    .notice-box {
       margin-bottom: 2rem;
       ul {
         width: 100%;
