@@ -1,7 +1,7 @@
 <template>
   <section class="market">
 
-    <zk-head title='通知详情' goBack='会员通知'></zk-head>
+    <zk-head title='通知详情'></zk-head>
     <div class="page article">
       <div class="page__bd">
         <article class="weui-article">
@@ -24,11 +24,15 @@
   export default {
     data () {
       return {
-        modelView: null
+        modelView: null,
+        lineTitle: '通知详情'
       }
     },
     mounted () {
       this.GetData()
+      if (window.location.host.indexOf('czhait') !== -1) {
+        this.lineTitle = '公告详情'
+      }
     },
     methods: {
       async GetData () {

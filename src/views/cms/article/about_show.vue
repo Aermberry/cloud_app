@@ -1,7 +1,7 @@
 <template>
   <section class="market">
 
-    <zk-head title='通知详情' goBack='会员通知'></zk-head>
+    <zk-head title='通知详情'></zk-head>
     <div class="page article">
       <div class="page__bd">
         <article class="weui-article">
@@ -46,4 +46,5 @@
     }
   }
 </script>
+
 

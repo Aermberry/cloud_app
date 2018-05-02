@@ -5,106 +5,21 @@
 
       <swiper v-model="index" height="100px" :show-dots="false">
         <swiper-item>
-          <div class="notice-box">
+          <div class="notice-box" v-for="(item,index) in dataList" :key="index">
             <ul>
               <li class="box-left">
                 <div class="left-time">
-                  <p>04:08</p>
-                  <p>14:20</p>
+                  <p>{{item.extra}}</p>
                 </div>
               </li>
               <li class="box-right">
                 <div class="title">
-                  <p>关于市场部用业绩置换区级代理政策</p>
+                  <p>{{item.title}}</p>
                 </div>
                 <div class="introduction ">
-                  <p>市场拓展商家的业绩可置换区级代理的相关条件和收益，详情请点击查看</p>
-                  <router-link to="">
+                  <p>{{item.intro}}</p>
+                  <router-link :to="item.url">
                     点击查看详情
-                  </router-link>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div class="notice-box">
-            <ul>
-              <li class="box-left">
-                <div class="left-time">
-                  <p>04:08</p>
-                  <p>14:20</p>
-                </div>
-              </li>
-              <li class="box-right">
-                <div class="title">
-                  <p>关于市场部用业绩置换区级代理政策</p>
-                </div>
-                <div class="introduction ">
-                  <p>市场拓展商家的业绩可置换区级代理的相关条件和收益，详情请点击查看</p>
-                  <router-link to="">
-                    点击查看详细
-                  </router-link>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div class="notice-box">
-            <ul>
-              <li class="box-left">
-                <div class="left-time">
-                  <p>04:08</p>
-                  <p>14:20</p>
-                </div>
-              </li>
-              <li class="box-right">
-                <div class="title">
-                  <p>关于市场部用业绩置换区级代理政策</p>
-                </div>
-                <div class="introduction ">
-                  <p>市场拓展商家的业绩可置换区级代理的相关条件和收益，详情请点击查看</p>
-                  <router-link to="">
-                    点击查看详细
-                  </router-link>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div class="notice-box">
-            <ul>
-              <li class="box-left">
-                <div class="left-time">
-                  <p>04:08</p>
-                  <p>14:20</p>
-                </div>
-              </li>
-              <li class="box-right">
-                <div class="title">
-                  <p>关于市场部用业绩置换区级代理政策</p>
-                </div>
-                <div class="introduction ">
-                  <p>市场拓展商家的业绩可置换区级代理的相关条件和收益，详情请点击查看</p>
-                  <router-link to="">
-                    点击查看详细
-                  </router-link>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div class="notice-box">
-            <ul>
-              <li class="box-left">
-                <div class="left-time">
-                  <p>04:08</p>
-                  <p>14:20</p>
-                </div>
-              </li>
-              <li class="box-right">
-                <div class="title">
-                  <p>关于市场部用业绩置换区级代理政策</p>
-                </div>
-                <div class="introduction ">
-                  <p>市场拓展商家的业绩可置换区级代理的相关条件和收益，详情请点击查看</p>
-                  <router-link to="">
-                    点击查看详细
                   </router-link>
                 </div>
               </li>
@@ -128,7 +43,8 @@
       return {
         list2: ['公司公告', '行业新闻', '公司活动通知'],
         demo2: '公司公告页面',
-        index: 0
+        index: 0,
+        dataList: ''
       }
     },
     created () {
@@ -144,6 +60,8 @@
         }
         let response = await apiService.getList(par)
         console.log(response)
+        this.dataList = response.data.result.apiDataList
+        console.log('dataList', this.dataList)
       }
     }
   }
@@ -168,7 +86,7 @@
         .box-left {
           width: 8rem;
           .left-time {
-            width: 5rem;
+            width: 6rem;
             height: 3rem;
             background: @brand;
             padding: 0.5rem;
