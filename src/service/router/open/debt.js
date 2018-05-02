@@ -1,5 +1,4 @@
-export default [
-  {
+export default [{
     path: '/user/debt/apply',
     meta: {
       title: '债事备案',
@@ -102,8 +101,7 @@ export default [
     path: '/user/debt/reference',
 
     meta: {
-      title: '咨询中心',
-      login: true
+      title: '咨询中心'
     },
     name: 'debt_reference ',
     component: function (resolve) {
@@ -125,8 +123,7 @@ export default [
   {
     path: '/user/debt/notice',
     meta: {
-      title: '债事公告',
-      login: true
+      title: '债事公告'
     },
     name: 'debt_notice',
 

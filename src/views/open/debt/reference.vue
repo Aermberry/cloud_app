@@ -84,7 +84,8 @@
     methods: {
       async Getdata () {
         let par = {
-          dataType: 'article'
+          dataType: 'article',
+          diyKey: 'article'
         }
         var response = await apiService.getList(par)
         console.log(response)

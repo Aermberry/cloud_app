@@ -193,7 +193,9 @@
     -webkit-line-clamp: 1;
     overflow: hidden;
     font-size: @h6-font-size;
-    text-align: center;
+    // text-align: center;
+    padding-left: 0.6rem;
+    text-align: left !important;
   }
   .zk-class-tab-left {
     width: 5.3571rem;

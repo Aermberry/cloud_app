@@ -138,11 +138,11 @@
     },
     methods: {
       async GetData () {
-        let pra = {
-          dataType: 1,
-          diyKey: 'UserNotice'
+        let par = {
+          dataType: 'userNotice',
+          diyKey: 'userNotice'
         }
-        let response = await apiService.getList(pra)
+        let response = await apiService.getList(par)
         console.log(response)
       }
     }
