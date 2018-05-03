@@ -21,21 +21,6 @@ export default {
     var response = await http.postLogin('User/Debt/Solution', data)
     return response
   },
-  // 实名认证
-  async Identity (data) {
-    var response = await http.postLogin('/UserDetail/Identity', data)
-    return response
-  },
-  // 获取实名认证信息
-  async getIdentity (data) {
-    var response = await http.getLogin('/UserDetail/GetIdentity', data)
-    return response
-  },
-  // 获取是否实名认证
-  async Identitys (data) {
-    var response = await http.getLogin('/UserDetail/StateJudgment', data)
-    return response
-  },
   async Member (data) {
     var response = await http.post('/DataSyn/Member', data)
     return response
