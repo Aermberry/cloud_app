@@ -4,14 +4,14 @@
       <ul>
         <li class="top-left">
           <div class="logo">
-            <img src="" alt="">
+            <img :src="Ilogo" alt="">
           </div>
         </li>
         <li class="top-center">
-          <div class="center-content">
+          <router-link to="product/search" class="center-content">
             输入关键字、搜索商品
             <m-icon name="zk-search" link="/user/qrcode"></m-icon>
-          </div>
+          </router-link>
         </li>
         <li class="top-right">
           <m-icon name="zk-qrcode1" link="/user/qrcode"></m-icon>
@@ -55,7 +55,7 @@
         <span>Baby area</span>
       </div>
       <div class="item-img">
-
+        <img :src="imgData[0].imageUrl" alt="">
       </div>
       <zk-product-item :pageSize=2 classIds='' tagIds='107' diykey=''></zk-product-item>
     </div>
@@ -65,7 +65,7 @@
         <span>Cosmetics area</span>
       </div>
       <div class="item-img">
-
+        <img :src="imgData[1].imageUrl" alt="">
       </div>
       <zk-product-item :pageSize=2 classIds='' tagIds='108' diykey=''></zk-product-item>
     </div>
@@ -75,7 +75,7 @@
         <span>Household product</span>
       </div>
       <div class="item-img">
-
+        <img :src="imgData[2].imageUrl" alt="">
       </div>
       <zk-product-item :pageSize=2 classIds='' tagIds='109' diykey=''></zk-product-item>
     </div>
@@ -85,7 +85,7 @@
         <span>Snack area</span>
       </div>
       <div class="item-img">
-
+        <img :src="imgData[3].imageUrl" alt="">
       </div>
       <zk-product-item :pageSize=2 classIds='' tagIds='110' diykey=''></zk-product-item>
     </div>
@@ -97,6 +97,7 @@
 </template>
 
 <script>
+  import common from 'src/service/api/common.api'
   import apiService from 'src/service/api/diy.api'
   import { ZkSwiper, ZkGrid, ZkProductItem } from 'widgets'
   import { MIcon } from 'zkui'
@@ -109,6 +110,9 @@
     },
     data () {
       return {
+        imgData: '',
+        message: '',
+        Ilogo: ''
       }
     },
     mounted () {
@@ -117,7 +121,13 @@
     methods: {
       async GetData () {
         var response = await apiService.getLink('SingleAd3Config')
-        console.log(response)
+        this.imgData = response.data.result
+        console.log('img', this.imgData)
+        var setMessage = await common.GetConfigValue('WebSiteConfig')
+        console.log('message', setMessage)
+        this.message = setMessage.data.result
+        this.Ilogo = this.message.apiImagesUrl + this.message.logo
+        console.log(this.Ilogo)
       }
     }
   }
@@ -151,6 +161,7 @@
           flex: 1;
           padding-left: 1rem;
           .center-content {
+            display: block;
             background: @white;
             height: 2rem;
             border-radius: 15px;

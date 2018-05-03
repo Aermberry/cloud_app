@@ -1,14 +1,3 @@
-var equipment = 'views'
-
-function isMobile () {
-  let flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
-  return flag
-}
-if (isMobile()) {
-  equipment = 'views'
-} else {
-  equipment = 'pages'
-}
 export default [{
     path: '/user/debt/apply',
     meta: {
@@ -17,7 +6,7 @@ export default [{
     },
     name: 'debt_apply',
     component: function (resolve) {
-      require(['src/' + equipment + '/open/debt/apply'], resolve)
+      require(['src/views/open/debt/apply'], resolve)
     }
   },
   {

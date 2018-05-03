@@ -1,5 +1,6 @@
-export default [
-  {
+import equipment from 'src/service/common/equipment'
+console.log('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb', equipment.equipment)
+export default [{
     path: '/order/cart',
     meta: {
       title: '购物车'
@@ -22,7 +23,7 @@ export default [
     },
     name: 'order_buy',
     component: function (resolve) {
-      require(['src/views/shop/order/buy'], resolve)
+      require(['src/' + equipment.equipment + '/shop/order/buy'], resolve)
     }
   },
   {

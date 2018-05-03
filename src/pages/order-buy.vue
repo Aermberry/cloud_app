@@ -236,7 +236,6 @@
 </script>
 <style lang="less" >
   body {
-    background: #f4f4f4;
   }
   .auto {
     margin: 0 auto;
