@@ -8,10 +8,10 @@
           </div>
         </li>
         <li class="top-center">
-          <div class="center-content">
+          <router-link to="product/search" class="center-content">
             输入关键字、搜索商品
             <m-icon name="zk-search" link="/user/qrcode"></m-icon>
-          </div>
+          </router-link>
         </li>
         <li class="top-right">
           <m-icon name="zk-qrcode1" link="/user/qrcode"></m-icon>
@@ -161,6 +161,7 @@
           flex: 1;
           padding-left: 1rem;
           .center-content {
+            display: block;
             background: @white;
             height: 2rem;
             border-radius: 15px;
