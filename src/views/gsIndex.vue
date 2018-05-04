@@ -90,7 +90,7 @@
       <zk-product-item :pageSize=2 classIds='' tagIds='110' diykey=''></zk-product-item>
     </div>
     <div class="ga-bottom">
-
+      <img v-for="(item,index) in bottomBanner" :key="index" :src="item.imageUrl" alt="">
     </div>
     <zk-foot></zk-foot>
   </section>
@@ -112,7 +112,8 @@
       return {
         imgData: '',
         message: '',
-        Ilogo: ''
+        Ilogo: '',
+        bottomBanner: ''
       }
     },
     mounted () {
@@ -122,12 +123,11 @@
       async GetData () {
         var response = await apiService.getLink('SingleAd3Config')
         this.imgData = response.data.result
-        console.log('img', this.imgData)
+        var gsimg = await apiService.getLink('GSSingleAd4Config')
+        this.bottomBanner = gsimg.data.result
         var setMessage = await common.GetConfigValue('WebSiteConfig')
-        console.log('message', setMessage)
         this.message = setMessage.data.result
         this.Ilogo = this.message.apiImagesUrl + this.message.logo
-        console.log(this.Ilogo)
       }
     }
   }

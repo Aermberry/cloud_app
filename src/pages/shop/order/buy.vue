@@ -61,39 +61,40 @@
           </li>
           <li class="td-3 quantity">
             <p>
-              X 24
+              X {{productSku.buyCount}}
             </p>
           </li>
           <li class="td-4 discounts ">
 
           </li>
         </ul>
-      </div>
-      <div class="order-ext">
-        <div class="ext-left">
-          <div class="order-memo">
-            给卖家留言:
-            <el-input v-model="memoInput" placeholder="请输入内容"></el-input>
-          </div>
-        </div>
-        <div class="ext-right">
-          <div class="delivery">
-            <div class="delivery-title">
-              运送方式:
-            </div>
-            <div class="delivery-info">
-              普通配送
-              <el-select v-model="value" placeholder="请选择">
-                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-            <div class="delivery-price">
-              10.00
+        <div class="order-ext">
+          <div class="ext-left">
+            <div class="order-memo">
+              给卖家留言:
+              <el-input v-model="userMessages[storeIndex]" placeholder="请输入内容"></el-input>
             </div>
           </div>
+          <div class="ext-right">
+            <div class="delivery">
+              <div class="delivery-title">
+                运送方式:
+              </div>
+              <div class="delivery-info">
+                普通配送
+                <el-select v-model="showValue[storeIndex]" placeholder="请选择">
+                  <el-option v-for="item in store.expressTemplates" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </div>
+              <div class="delivery-price">
+                10.00
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
       <div class="order-pay">
         <div class="pay-txt">
           店铺合计(含运费):
@@ -182,6 +183,7 @@
             console.log('modelView', this.modelView)
             for (var i = 0; i < this.modelView.storeItems.length; i++) {
               this.showDelivery[i] = this.modelView.storeItems[i].expressTemplates[0].key
+              this.showValue[i] = this.modelView.storeItems[i].expressTemplates[0].value
               this.userMessages[i] = '' // 初始化留言信息
             }
             // 初始化币种
@@ -198,11 +200,11 @@
         showDelivery: [], // 显示物流快递
         userMessages: [], // 留言信息
         reduceMoneys: [], // 非人民币资产信息
-        memoInput: '',
+        showValue: [],
         isFromCart: '',
         options: [{
           value: '选项1',
-          label: '黄金糕'
+          label: '双皮奶'
         }, {
           value: '选项2',
           label: '双皮奶'

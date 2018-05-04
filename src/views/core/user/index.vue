@@ -4,7 +4,7 @@
       <img :src="topImg" alt="">
     </div>
     <div class="zkui-core-user-head">
-      <router-link to="/user/interests" class="interests">
+      <router-link to="/user/debt/interests" class="interests">
         权益中心
         <m-icon name="arrows-right"></m-icon>
       </router-link>

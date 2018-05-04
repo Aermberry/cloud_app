@@ -55,7 +55,7 @@
         list2: [],
         list: [],
         demo2: '',
-        index: 0,
+        index: 2,
         getBarWidth: function (index) {
           return (index + 1) * 22 + 'px'
         }

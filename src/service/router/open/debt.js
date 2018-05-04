@@ -139,7 +139,7 @@ export default [{
     },
     name: 'interests',
     component: function (resolve) {
-      require(['src/views/core/user/interests'], resolve)
+      require(['src/views/open/debt/interests'], resolve)
     }
   }
 ]
