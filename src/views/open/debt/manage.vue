@@ -107,7 +107,7 @@
                 </div>
               </div>
             </div>
-            <div class="zk-not-data" v-if="i===0&&showof[1]">
+            <div class="zk-not-data" v-if="i===1&&showof[1]">
               <m-icon name="zk-notdata"></m-icon>
               <p>暂无数据</p>
             </div>
@@ -158,7 +158,7 @@
                 </div>
               </div>
             </div>
-            <div class="zk-not-data" v-if="i===0&&showof[2]">
+            <div class="zk-not-data" v-if="i===2&&showof[2]">
               <m-icon name="zk-notdata"></m-icon>
               <p>暂无数据</p>
             </div>
@@ -209,7 +209,7 @@
                 </div>
               </div>
             </div>
-            <div class="zk-not-data" v-if="i===0&&showof[3]">
+            <div class="zk-not-data" v-if="i===3&&showof[3]">
               <m-icon name="zk-notdata"></m-icon>
               <p>暂无数据</p>
             </div>
@@ -260,7 +260,7 @@
                 </div>
               </div>
             </div>
-            <div class="zk-not-data" v-if="i===0&&showof[4]">
+            <div class="zk-not-data" v-if="i===4&&showof[4]">
               <m-icon name="zk-notdata"></m-icon>
               <p>暂无数据</p>
             </div>
@@ -337,6 +337,7 @@
         this.stayAudit = stayAudit.data.result
         if (this.stayAudit.length === 0) {
           this.showof[1] = true
+          console.log('1', this.stayAudit.length, this.showof[1])
         }
         let params2 = {
           dataType: 'debt',
@@ -346,6 +347,7 @@
         this.stayCome = stayCome.data.result
         if (this.stayCome.length === 0) {
           this.showof[2] = true
+          console.log('2', this.stayCome.length, this.showof[2])
         }
         let params3 = {
           dataType: 'debt',
@@ -355,6 +357,7 @@
         this.stayDecide = stayDecide.data.result
         if (this.stayDecide.length === 0) {
           this.showof[3] = true
+          console.log('3', this.stayDecide.length, this.showof[3])
         }
         let params4 = {
           dataType: 'debt',
@@ -364,6 +367,7 @@
         this.stayEvaluate = stayEvaluate.data.result
         if (this.stayEvaluate.length === 0) {
           this.showof[4] = true
+          console.log('4', this.stayEvaluate.length, this.showof[4])
         }
       }
 

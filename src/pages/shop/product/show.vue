@@ -324,12 +324,12 @@
         }]
         this.showSale = false
         console.log('buyProductInfo', buyProductInfo)
-        // this.$router.push({
-        //   name: 'order_buy',
-        //   params: {
-        //     buyInfo: buyProductInfo
-        //   }
-        // })
+        this.$router.push({
+          name: 'order_buy',
+          params: {
+            buyInfo: buyProductInfo
+          }
+        })
       },
       getSku () {
         var specSn = ''
