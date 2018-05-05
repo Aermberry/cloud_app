@@ -160,7 +160,8 @@
       -webkit-line-clamp: 1;
       overflow: hidden;
       height: 1.3rem;
-      text-align: center;
+      display: flex;
+      justify-content: center;
     }
     .weui-grids > h1 {
       padding: 0 0.7143rem;
@@ -193,9 +194,8 @@
     -webkit-line-clamp: 1;
     overflow: hidden;
     font-size: @h6-font-size;
-    // text-align: center;
-    padding-left: 0.6rem;
-    text-align: left !important;
+    display: flex;
+    justify-content: center;
   }
   .zk-class-tab-left {
     width: 5.3571rem;

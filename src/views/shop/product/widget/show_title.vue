@@ -6,7 +6,7 @@
       </div> -->
       <div class="zkui-product-show-title-left left">
         <span class="zkui-product-show-title-price_symbol left">{{productView.displayPrice}}</span>
-        <p class="zkui-product-show-title-price_old left">￥{{productView.marketPrice}}</p>
+        <p class="zkui-product-show-title-price_old left" v-if="productView.marketPrice !==0">￥{{productView.marketPrice}}</p>
         <span class="zkui-product-show-title-right right">
           {{productView.soldCount}}人已购
         </span>
