@@ -11,17 +11,17 @@
         <div class="box">
           <p class="title">备案公告</p>
           <div class="content">
-            <p>累计备案债额：2000</p>
-            <p>累计债权人备案人次：2</p>
-            <p>累计债务人备案人次：2</p>
+            <p>累计备案债额：{{data[0].account}}</p>
+            <p>累计债权人备案人次：{{data[0].quantity}}</p>
+            <p>累计债务人备案人次：{{data[0].quantity}}</p>
           </div>
         </div>
         <div class="box">
           <p class="title">结案喜报</p>
           <div class="content">
-            <p>累计结案债额：0</p>
-            <p>累计债权人结案人次：0</p>
-            <p>累计债务人结案人次：0</p>
+            <p>累计结案债额：{{data[1].account}}</p>
+            <p>累计债权人结案人次：{{data[1].quantity}}</p>
+            <p>累计债务人结案人次：{{data[1].quantity}}</p>
           </div>
         </div>
       </div>
@@ -53,7 +53,8 @@
         list2: ['债事备案', '平债计划'],
         demo2: '债事备案',
         demo4: '即将上映',
-        index: 0
+        index: 0,
+        data: ''
       }
     },
     mounted () {
@@ -62,10 +63,12 @@
     methods: {
       async num () {
         let par = {
-          planStatus: 1
+
         }
         var response = await debt.planStatus(par)
         console.log(response)
+        this.data = response.data.result
+        console.log('chenen', this.data)
       },
       next () {
         if (this.index === this.list2.length - 1) {
