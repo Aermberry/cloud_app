@@ -36,5 +36,9 @@ export default {
   async OrderCount (data) {
     var response = await http.post('/DataSyn/OrderCount', data)
     return response
+  },
+  async planStatus (data) {
+    var response = await http.get('User/Debt/Count', data)
+    return response
   }
 }

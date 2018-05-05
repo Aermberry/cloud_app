@@ -210,13 +210,14 @@
         this.subscript = value
       },
       async sumbit () {
-        console.log(this.modelView.debtSolutions[this.radio001.indexOf(this.subscript)].id)
+        // console.log(this.modelView)
+        // console.log(this.modelView.debtSolutions[this.radio001.indexOf(this.subscript)].id)
         let parameter = {
           AdminPlanId: this.modelView.debtSolutions[this.radio001.indexOf(this.subscript)].id,
           Signature: this.screenName
         }
         var message = await apiService.Solution(parameter)
-        console.log(message)
+        // console.log(message)
         if (message.data.result === true) {
           this.$vux.toast.success('提交成功')
         }

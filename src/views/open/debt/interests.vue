@@ -31,60 +31,126 @@
     <div class="interests-box" v-if="showV===1">
       <div class="interests-content">
         <h2 class="big-title">会员权益</h2>
-        <p class="little-title">创客内容</p>
         <div class="message">
+          <ul>
+            <li>1.免费注册.</li>
+            <li>2.赠送云债金400元</li>
+            <li>3.云债金抵现率约30%，不可提现</li>
+          </ul>
         </div>
       </div>
       <div class="interests-content">
-        <h2 class="big-title">奖励</h2>
-        <p class="little-title">创客内容</p>
+        <h2 class="big-title">分享资格</h2>
         <div class="message">
+          <ul>
+            <li>1.分享会员。</li>
+            <li>2.奖励云债金100元</li>
+          </ul>
         </div>
       </div>
       <div class="interests-content">
-        <h2 class="big-title">推荐级别权利</h2>
-        <p class="little-title">创客内容</p>
+        <h2 class="big-title">解债资格</h2>
         <div class="message">
+          <ul>
+            <li>1.帮朋友解债</li>
+            <li>2.解债业绩津贴5%</li>
+          </ul>
         </div>
       </div>
     </div>
     <div class="interests-box" v-if="showV===2">
       <div class="interests-content">
         <h2 class="big-title">会员权益</h2>
-        <p class="little-title">平债士内容</p>
         <div class="message">
+          <ul>
+            <li>1.消费999元</li>
+            <li>2.获等价资产包套餐五选一</li>
+            <li>3.赠送平债士市场分享资格</li>
+          </ul>
         </div>
       </div>
       <div class="interests-content">
-        <h2 class="big-title">奖励</h2>
-        <p class="little-title">平债士内容</p>
+        <h2 class="big-title">分享资格</h2>
         <div class="message">
+          <ul>
+            <li>1.分享会员、平债士、高级平债士</li>
+            <li>2.直接部门创业津贴10%</li>
+          </ul>
         </div>
       </div>
       <div class="interests-content">
-        <h2 class="big-title">推荐级别权利</h2>
-        <p class="little-title">平债士内容</p>
+        <h2 class="big-title">解债资格</h2>
         <div class="message">
+          <ul>
+            <li>1.帮朋友解债</li>
+            <li>2.直接部门解债业绩津贴10%</li>
+          </ul>
+        </div>
+      </div>
+      <div class="interests-content">
+        <h2 class="big-title">管理津贴资格</h2>
+        <div class="message">
+          <ul>
+            <li>1、直接管理部门创业津贴和解债业绩津贴加总的50%
+            </li>
+          </ul>
         </div>
       </div>
     </div>
     <div class="interests-box" v-if="showV===3">
       <div class="interests-content">
         <h2 class="big-title">会员权益</h2>
-        <p class="little-title">高级平债士内容</p>
         <div class="message">
+          <ul>
+            <li>1.消费2999元</li>
+            <li>2.获等价资产包套餐五选一</li>
+            <li>3.赠送高级平债士市场分享资格</li>
+          </ul>
         </div>
       </div>
       <div class="interests-content">
-        <h2 class="big-title">奖励</h2>
-        <p class="little-title">高级平债士内容</p>
+        <h2 class="big-title">分享资格</h2>
         <div class="message">
+          <ul>
+            <li>1.分享会员、平债士、高级平债士</li>
+            <li>2.直接部门创业津贴21%</li>
+          </ul>
         </div>
       </div>
       <div class="interests-content">
-        <h2 class="big-title">推荐级别权利</h2>
-        <p class="little-title">高级平债士内容</p>
+        <h2 class="big-title">解债资格</h2>
         <div class="message">
+          <ul>
+            <li>1.帮朋友解债</li>
+            <li>2.直部门解债业绩津贴21%</li>
+          </ul>
+        </div>
+      </div>
+      <div class="interests-content">
+        <h2 class="big-title">管理津贴资格</h2>
+        <div class="message">
+          <ul>
+            <li>1.直接管理部门创业津贴和解债业绩津贴加总的50%</li>
+          </ul>
+        </div>
+      </div>
+      <div class="interests-content">
+        <h2 class="big-title">引荐资格</h2>
+        <div class="message">
+          <ul>
+            <li>1.优质供应商进驻2%</li>
+            <li>2.合伙人引荐10～20%</li>
+          </ul>
+        </div>
+      </div>
+      <div class="interests-content">
+        <h2 class="big-title">晋升资格</h2>
+        <div class="message">
+          <ul>
+            <li>1.晋升经理的资格</li>
+            <li>2.加盟合伙人的资格</li>
+            <li>3.直通大区总裁的资格</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -180,7 +246,12 @@
       }
       .message {
         width: 100%;
-        min-height: 180px;
+        padding: 1.25rem;
+        ul {
+          li {
+            margin-bottom: 0.5rem;
+          }
+        }
       }
     }
   }

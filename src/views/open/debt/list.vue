@@ -61,7 +61,7 @@
         }
         var response = await apiService.list(par)
         console.log(response)
-        this.dataList = response.data.result.apiDataList
+        this.dataList = response.data.result
         if (this.dataList.length === 0) {
           this.notDataf = false
         }

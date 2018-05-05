@@ -11,17 +11,17 @@
         <div class="box">
           <p class="title">备案公告</p>
           <div class="content">
-            <p>累计备案债额：</p>
-            <p>累计债权人备案人次：</p>
-            <p>累计债务人备案人次：</p>
+            <p>累计备案债额：2000</p>
+            <p>累计债权人备案人次：2</p>
+            <p>累计债务人备案人次：2</p>
           </div>
         </div>
         <div class="box">
           <p class="title">结案喜报</p>
           <div class="content">
-            <p>累计结案债额：</p>
-            <p>累计债权人结案人次：</p>
-            <p>累计债务人结案人次：</p>
+            <p>累计结案债额：0</p>
+            <p>累计债权人结案人次：0</p>
+            <p>累计债务人结案人次：0</p>
           </div>
         </div>
       </div>
@@ -41,6 +41,7 @@
 </template>
 
 <script>
+  import debt from 'src/service/api/debt.api'
   import { ZkSinglead, ZkProductItem, ZkSwiper, ZkGrid } from 'widgets'
   import { Sticky, Divider, XButton, Group, Cell, FormPreview } from 'zkui'
   export default {
@@ -56,8 +57,16 @@
       }
     },
     mounted () {
+      this.num()
     },
     methods: {
+      async num () {
+        let par = {
+          planStatus: 1
+        }
+        var response = await debt.planStatus(par)
+        console.log(response)
+      },
       next () {
         if (this.index === this.list2.length - 1) {
           this.index = 0

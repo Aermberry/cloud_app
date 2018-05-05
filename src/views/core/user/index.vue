@@ -111,7 +111,7 @@
             <span>实名认证</span>
           </p>
         </router-link>
-        <router-link to="/" class="weui-grid" style="width: 25%;">
+        <router-link class="weui-grid" style="width: 25%;" target="_blank" href="mqqwpa://im/chat?chat_type=wpa&uin=2387837329&version=1&src_type=web&web_src=lvlingseeds.com">
           <div class="weui-grid__icon">
             <img src="../../../assets/images/debticon/联系小云.png" alt="">
           </div>
