@@ -35,37 +35,37 @@
     },
     created () {
       this.GetData()
-      // this.fetchData()
+      this.fetchData()
     },
     mounted () {
     },
-    // watch: {
-    //   // 监听路由的变化。
-    //   '$route': 'fetchData'
-    // },
+    watch: {
+      // 监听路由的变化。
+      '$route': 'fetchData'
+    },
     methods: {
       showSaleModel (data) {
         this.$refs.show_parameter.$emit('childMethod') // 监听销售属性事件
         // console.info('立即购买或加入购物车')
       },
       // URL发生变化时操作的事件
-      // async  fetchData () {
-      //   // var a = setTimeout(function () {
-      //   //   this.$router.go(0)
-      //   // }, 100)
-      //   let params = {
-      //     id: this.$route.params.id // 获取URL当中的Id参数
-      //   }
-      //   var response = await apiService.show(params)
-      //   var product = response.data.result
-      //   if (response.data.status !== 1) {
-      //     this.messageWarn(response.data.message)
-      //   } else {
-      //     this.asyncFlag = true
-      //     this.modelView = product
-      //     document.title = this.modelView.name
-      //   }
-      // },
+      async  fetchData () {
+        // var a = setTimeout(function () {
+        //   this.$router.go(0)
+        // }, 100)
+        let params = {
+          id: this.$route.params.id // 获取URL当中的Id参数
+        }
+        var response = await apiService.show(params)
+        var product = response.data.result
+        if (response.data.status !== 1) {
+          this.messageWarn(response.data.message)
+        } else {
+          this.asyncFlag = true
+          this.modelView = product
+          document.title = this.modelView.name
+        }
+      },
       async GetData () {
         let params = {
           id: this.$route.params.id // 获取URL当中的Id参数

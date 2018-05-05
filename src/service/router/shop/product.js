@@ -34,6 +34,16 @@ export default [{
     }
   },
   {
+    path: '/product/show1/:id', // 商品详情页
+    meta: {
+      title: '商品详情'
+    },
+    name: 'product_show',
+    component: function (resolve) {
+      require(['src/' + equipment.equipment + '/shop/product/show1'], resolve)
+    }
+  },
+  {
     path: '/product/search', // 商品搜索页
     meta: {
       title: '商品搜索'

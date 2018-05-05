@@ -6,19 +6,19 @@
           <li v-for="(item,index) in dataList" :key="index">
             <dl>
               <dt>
-                <router-link :to="'/product/show/'+item.id">
+                <router-link :to="showUrl+item.id">
                   <x-img :src="item.thumbnailUrl" :alt="item.thumbnailUrl"></x-img>
                 </router-link>
               </dt>
               <dd class="itemTitle">
-                <router-link :to="'/product/show/'+item.id">
+                <router-link :to="showUrl+item.id">
                   {{item.name}}
                 </router-link>
               </dd>
               <dd class="itemPrice">
-                <p>{{item.displayPrice}}</p>
-                <span style="height:1rem">
-                  <span v-if="item.marketPrice!==0">￥{{item.marketPrice}}</span>
+                <p>￥{{item.displayPrice}}</p>
+                <span style="height:1rem" v-if="item.marketPrice!==0">
+                  <span>￥{{item.marketPrice}}</span>
                 </span>
               </dd>
             </dl>
@@ -75,7 +75,16 @@
       return {
         dataList: [], // 组件zklist 的循环数据,使用zklist时，所有的服务端输出结构都一样
         styleType: '', // 风格类型, zklist支持多种样式，判断选择哪种样式
-        pageIndex: 1 // 从第一页开始加载
+        pageIndex: 1, // 从第一页开始加载
+        showUrl: ''
+      }
+    },
+    created () {
+      if (window.location.href.indexOf('/product/show1/') !== -1) {
+        this.showUrl = '/product/show/'
+      }
+      if (window.location.href.indexOf('/product/show/') !== -1) {
+        this.showUrl = '/product/show1/'
       }
     },
     methods: {
@@ -126,7 +135,7 @@
       display: block;
       float: left;
       width: 47%;
-      height: 20rem;
+      // height: 20rem;
       margin: 2% 0 0 2%;
       padding-bottom: 0.3rem;
       border-radius: 2*@rem;
@@ -170,6 +179,12 @@
             text-decoration: line-through;
             color: @gray-600;
             font-size: @h6-font-size;
+            word-break: break-all;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            overflow: hidden;
           }
         }
       }

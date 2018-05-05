@@ -163,17 +163,16 @@
         if (sku.id === undefined) {
           // this.$vux.toast.warn('请选择商品规格')
         }
-        console.log(this.productView.productExtensions.productCategory.salePropertys)
-        console.log('skus', this.productView.productExtensions.productSkus)
-        console.log('sku', sku)
-        console.log('specSn', specSn)
-        console.log('saleItems', this.saleItems)
+        // console.log(this.productView.productExtensions.productCategory.salePropertys)
+        // console.log('skus', this.productView.productExtensions.productSkus)
+        // console.log('sku', sku)
+        // console.log('specSn', specSn)
+        // console.log('saleItems', this.saleItems)
         return sku
       },
       // 获取Sku ，用户选择不同的sku
       changSku () {
         this.selectSku = this.getSku() // 根据specSn获取商品的规格
-        console.log('aaaa', this.selectSku)
       }
     }
   }
