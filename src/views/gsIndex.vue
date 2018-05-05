@@ -121,7 +121,7 @@
     },
     methods: {
       async GetData () {
-        var response = await apiService.getLink('SingleAd3Config')
+        var response = await apiService.getLink('GSSingleAd3Config')
         this.imgData = response.data.result
         var gsimg = await apiService.getLink('GSSingleAd4Config')
         this.bottomBanner = gsimg.data.result

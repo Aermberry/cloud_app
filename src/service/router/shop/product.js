@@ -1,5 +1,4 @@
 import equipment from 'src/service/common/equipment'
-console.log('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb', equipment.equipment)
 export default [{
     path: '/product/class',
     //  分类页面
@@ -31,7 +30,7 @@ export default [{
     },
     name: 'product_show',
     component: function (resolve) {
-      require(['src/' + equipment.equipment + '/shop/product/show.vue'], resolve)
+      require(['src/' + equipment.equipment + '/shop/product/show'], resolve)
     }
   },
   {

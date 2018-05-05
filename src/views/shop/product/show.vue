@@ -53,7 +53,6 @@
         // var a = setTimeout(function () {
         //   this.$router.go(0)
         // }, 100)
-        console.log(123)
         let params = {
           id: this.$route.params.id // 获取URL当中的Id参数
         }

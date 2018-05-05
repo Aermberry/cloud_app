@@ -1,5 +1,4 @@
 import equipment from 'src/service/common/equipment'
-console.log('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb', equipment.equipment)
 export default [{
     path: '/order/cart',
     meta: {
