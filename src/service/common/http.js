@@ -4,8 +4,14 @@ import axios from 'axios'
 import store from 'src/store/index'
 import helper from 'src/service/common/helper'
 // import qs from 'qs'
-import { baseUrl, key, projectId } from 'src/service/config/env'
-import { md5 } from 'zkui' // md5 函数
+import {
+  baseUrl,
+  key,
+  projectId
+} from 'src/service/config/env'
+import {
+  md5
+} from 'zkui' // md5 函数
 const timestamp = Math.round(new Date().getTime() / 1000)
 
 axios.interceptors.request.use(
@@ -34,12 +40,12 @@ function getSign (url) {
     key +
     projectId +
     document.domain.toLowerCase()
-  console.info('sign', sign)
+  // console.info('sign', sign)
   return md5(sign)
 }
 
 function checkStatus (response) {
-  console.dir(response)
+  // console.dir(response)
   //  loading
   //  如果http状态码正常，则直接返回数据
   if (
@@ -149,7 +155,7 @@ export default {
 
   // get数据接口，一般用于数据获取 对应增删改查 中的查
   get (url, params) {
-    let apiUrl = url
+    // let apiUrl = url
     if (url.substring(0, 1) !== '/') {
       url = '/' + url
     }
@@ -171,7 +177,7 @@ export default {
     }).then(response => {
       return checkStatus(response)
     })
-    console.info(result, 'get接口:' + apiUrl, 'URL:' + baseUrl + '/api/' + url)
+    // console.info(result, 'get接口:' + apiUrl, 'URL:' + baseUrl + '/api/' + url)
     return result
   },
 

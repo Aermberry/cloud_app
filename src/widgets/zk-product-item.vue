@@ -76,7 +76,7 @@
         dataList: [], // 组件zklist 的循环数据,使用zklist时，所有的服务端输出结构都一样
         styleType: '', // 风格类型, zklist支持多种样式，判断选择哪种样式
         pageIndex: 1, // 从第一页开始加载
-        showUrl: ''
+        showUrl: '/product/show/'
       }
     },
     created () {
@@ -86,6 +86,9 @@
       if (window.location.href.indexOf('/product/show/') !== -1) {
         this.showUrl = '/product/show1/'
       }
+      // if (window.location.href.indexOf('123') === -1) {
+      //   this.showUrl = '/product/show/'
+      // }
     },
     methods: {
       async upCallback () {

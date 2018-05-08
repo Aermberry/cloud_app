@@ -48,14 +48,14 @@
       </ul>
     </div>
     <zk-swiper diykey="Swiper4Config" height="210px"></zk-swiper>
-    <zk-grid diykey="Grid4Config" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
+    <zk-grid diykey="GSGrid4Config" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
     <div class="gs-item">
       <div class="item-title">
         母婴专区
         <span>Baby area</span>
       </div>
       <div class="item-img">
-        <img :src="imgData[0].imageUrl" alt="">
+        <img :src="poster[0]" alt="">
       </div>
       <zk-product-item :pageSize=2 classIds='' tagIds='107' diykey=''></zk-product-item>
     </div>
@@ -65,7 +65,7 @@
         <span>Cosmetics area</span>
       </div>
       <div class="item-img">
-        <img :src="imgData[1].imageUrl" alt="">
+        <img :src="poster[1]" alt="">
       </div>
       <zk-product-item :pageSize=2 classIds='' tagIds='108' diykey=''></zk-product-item>
     </div>
@@ -75,7 +75,7 @@
         <span>Household product</span>
       </div>
       <div class="item-img">
-        <img :src="imgData[2].imageUrl" alt="">
+        <img :src="poster[1]" alt="">
       </div>
       <zk-product-item :pageSize=2 classIds='' tagIds='109' diykey=''></zk-product-item>
     </div>
@@ -85,7 +85,7 @@
         <span>Snack area</span>
       </div>
       <div class="item-img">
-        <img :src="imgData[3].imageUrl" alt="">
+        <img :src="poster[2].imageUrl" alt="">
       </div>
       <zk-product-item :pageSize=2 classIds='' tagIds='110' diykey=''></zk-product-item>
     </div>
@@ -113,7 +113,8 @@
         imgData: '',
         message: '',
         Ilogo: '',
-        bottomBanner: ''
+        bottomBanner: '',
+        poster: ['', '', '', '']
       }
     },
     mounted () {
@@ -123,6 +124,12 @@
       async GetData () {
         var response = await apiService.getLink('GSSingleAd3Config')
         this.imgData = response.data.result
+        for (var i = 0; i < this.imgData.length; i++) {
+          if (this.imgData[i].imageUrl !== '' && this.imgData[i].imageUrl !== 'undefined') {
+            this.poster[i] = this.imgData[i].imageUrl
+          }
+        }
+        console.log(this.poster)
         var gsimg = await apiService.getLink('GSSingleAd4Config')
         this.bottomBanner = gsimg.data.result
         var setMessage = await common.GetConfigValue('WebSiteConfig')
