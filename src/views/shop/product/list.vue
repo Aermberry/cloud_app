@@ -42,8 +42,12 @@
                   </router-link>
                 </dd>
                 <dd class="itemPrice">
-                  <p>{{item.displayPrice}}</p>
-                  <span v-if="item.marketPrice!==0">￥{{item.marketPrice}}</span>
+                  <!-- <p>{{item.displayPrice}}</p>
+                  <span v-if="item.marketPrice!==0">￥{{item.marketPrice}}</span> -->
+                  <div>
+                    ￥{{item.displayPrice}}
+                    <span v-if="item.marketPrice!==0">￥{{item.marketPrice}}</span>
+                  </div>
                 </dd>
               </dl>
             </li>
@@ -212,9 +216,9 @@
     .mescroll-upwarp {
       display: none;
     }
-    div:first-child {
-      font-size: 12px;
-    }
+    // div:first-child {
+    //   font-size: 12px;
+    // }
   }
   .zkui-product-item__1 {
     background: #ffffff;
@@ -227,7 +231,6 @@
       display: block;
       float: left;
       width: 47%;
-      height: 20rem;
       margin: 2% 0 0 2%;
       padding-bottom: 0.3rem;
       border-radius: 2*@rem;
@@ -260,17 +263,26 @@
         .itemPrice {
           padding-left: 10*@rem;
           min-height: 3rem;
-          p {
+          div {
+            display: flex;
             color: @brand;
             height: 2.5rem;
-            font-weight: bold;
             margin-left: -0.2rem;
             font-size: @h6-font-size;
-          }
-          span {
-            text-decoration: line-through;
-            padding-top: 0.3rem;
-            color: @gray-500;
+            flex-wrap: wrap;
+            span {
+              padding-left: 5px;
+              text-decoration: line-through;
+              color: @gray-600;
+              font-size: @h6-font-size;
+              word-break: break-all;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 1;
+              overflow: hidden;
+              font-weight: normal;
+            }
           }
         }
       }

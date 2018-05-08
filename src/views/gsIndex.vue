@@ -129,7 +129,6 @@
             this.poster[i] = this.imgData[i].imageUrl
           }
         }
-        console.log(this.poster)
         var gsimg = await apiService.getLink('GSSingleAd4Config')
         this.bottomBanner = gsimg.data.result
         var setMessage = await common.GetConfigValue('WebSiteConfig')

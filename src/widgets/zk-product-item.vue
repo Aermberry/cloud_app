@@ -16,10 +16,10 @@
                 </router-link>
               </dd>
               <dd class="itemPrice">
-                <p>￥{{item.displayPrice}}</p>
-                <span style="height:1rem" v-if="item.marketPrice!==0">
+                <div>
+                  ￥{{item.displayPrice}}
                   <span>￥{{item.marketPrice}}</span>
-                </span>
+                </div>
               </dd>
             </dl>
           </li>
@@ -171,23 +171,26 @@
         .itemPrice {
           padding-left: 10*@rem;
           min-height: 2rem;
-          p {
+          div {
+            display: flex;
             color: @brand;
             height: 2.5rem;
-            font-weight: bold;
             margin-left: -0.2rem;
             font-size: @h6-font-size;
-          }
-          span {
-            text-decoration: line-through;
-            color: @gray-600;
-            font-size: @h6-font-size;
-            word-break: break-all;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 1;
-            overflow: hidden;
+            flex-wrap: wrap;
+            span {
+              padding-left: 5px;
+              text-decoration: line-through;
+              color: @gray-600;
+              font-size: @h6-font-size;
+              word-break: break-all;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 1;
+              overflow: hidden;
+              font-weight: normal;
+            }
           }
         }
       }
