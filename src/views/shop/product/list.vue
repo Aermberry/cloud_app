@@ -261,7 +261,7 @@
           }
         }
         .itemPrice {
-          padding-left: 10*@rem;
+          padding-left: 0.3rem;
           min-height: 3rem;
           div {
             display: flex;

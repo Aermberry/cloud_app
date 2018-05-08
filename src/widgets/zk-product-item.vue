@@ -18,7 +18,7 @@
               <dd class="itemPrice">
                 <div>
                   ￥{{item.displayPrice}}
-                  <span>￥{{item.marketPrice}}</span>
+                  <span v-if="item.marketPrice!==0">￥{{item.marketPrice}}</span>
                 </div>
               </dd>
             </dl>
@@ -169,8 +169,8 @@
           }
         }
         .itemPrice {
-          padding-left: 10*@rem;
-          min-height: 2rem;
+          padding-left: 0.3rem;
+          min-height: 3rem;
           div {
             display: flex;
             color: @brand;
