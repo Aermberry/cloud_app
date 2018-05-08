@@ -265,6 +265,7 @@
           storeDelivery.push(deliveryItem)
         }
         var reduceMoneys = []
+        console.log('qweqwewqeqe', this.modelView.allowMoneys)
         for (var k = 0; k < this.modelView.allowMoneys.length; k++) {
           var allowMoneyItem = this.modelView.allowMoneys[k]
           if (this.reduceMoneys[k]) {

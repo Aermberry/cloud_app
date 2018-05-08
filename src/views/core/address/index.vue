@@ -10,7 +10,7 @@
           <em class="weui-form-preview__value">{{item.mobile}}</em>
           <div class="weui-form-preview__item">
             <span class="weui-form-preview__value address_particulars ">
-              {{item.addressDescription}}
+              {{item.address}}
             </span>
           </div>
         </div>
@@ -71,6 +71,7 @@
         var response = await apiUser.GetAddress()
         if (response.data.status === 1) {
           this.viewModel = response.data.result
+          console.log(this.viewModel)
           this.viewModel.forEach(element => {
             if (element.isDefault) {
               this.defaultCheck = element.id

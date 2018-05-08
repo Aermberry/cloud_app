@@ -3,30 +3,21 @@
     <div class="address-box auto">
       <h2 class="title">选择收货地址</h2>
       <ul class="address-select">
-        <li class="item active">
+        <li class="item " v-for="(item,index) in addresslist" :key="index" :class="{'active':item.isDefault}">
           <div class="recipients">
-            （刘成恩）收
+            （{{item.name}}）收
           </div>
           <p class="particular ">
-            虎门 东莞市虎门镇新湾富民路海产品市场老渔夫海味店
+            {{item.address}}
           </p>
-          <p class="default ">默认地址</p>
-        </li>
-        <li class="item">
-          <div class="recipients">
-            （刘成恩）收
-          </div>
-          <p class="particular ">
-            虎门 东莞市虎门镇新湾富民路海产品市场老渔夫海味店
-          </p>
-          <p class="default ">默认地址</p>
+          <p class="default" :class="{'more':item.isDefault}" v-if="item.isDefault">默认地址</p>
         </li>
       </ul>
       <div class="operation ">
         <el-button type="primary">使用新地址</el-button>
-        <span class="operation-right fr">
+        <!-- <span class="operation-right fr">
           管理收货地址
-        </span>
+        </span> -->
       </div>
     </div>
     <div class="order-box auto">
@@ -82,27 +73,40 @@
               </div>
               <div class="delivery-info">
                 普通配送
-                <el-select v-model="showValue[storeIndex]" placeholder="请选择">
+                <el-select v-model="showValue[storeIndex]" placeholder="请选择" @change="countPrice()">
                   <el-option v-for="item in store.expressTemplates" :key="item.value" :label="item.label" :value="item.value">
                   </el-option>
                 </el-select>
               </div>
-              <div class="delivery-price">
+              <!-- <div class="delivery-price">
                 10.00
-              </div>
+              </div> -->
             </div>
+          </div>
+        </div>
+        <div class="order-pay" v-if="asyncFlag">
+          <div class="pay-placeholder "></div>
+          <div class="pay-txt">
+            共:
+          </div>
+          <div class="pay-price">
+            {{store.totalCount}}
+          </div>
+          <div class="pay-txt">
+            件-运费:
+          </div>
+          <div class="pay-price">
+            ￥{{storePrices[storeIndex].expressAmount }}
+          </div>
+          <div class="pay-txt">
+            -小计:
+          </div>
+          <div class="pay-price">
+            ￥{{storePrices[storeIndex].totalAmount}}
           </div>
         </div>
       </div>
 
-      <div class="order-pay">
-        <div class="pay-txt">
-          店铺合计(含运费):
-        </div>
-        <div class="pay-price">
-          ￥50.00
-        </div>
-      </div>
       <div class="order-payInfo">
         <div class="payInfo-wrapper">
           <div class="payInfo-shadow">
@@ -111,7 +115,7 @@
                 <p>实付款：</p>
               </div>
               <div class="realpay-right">
-                <p>￥25.80</p>
+                <p>￥{{priceView.totalAmount}}</p>
               </div>
             </div>
             <div class="order-confirmAddr">
@@ -138,26 +142,39 @@
 <script>
   import apiService from 'src/service/api/order.api'
   import local from 'src/service/common/local'
+  import apiUser from 'src/service/api/user.api'
   export default {
     components: {
     },
+    data () {
+      return {
+        modelView: '',
+        priceView: '', // 价格显示模型
+        storePrices: [], // 店铺价格显示
+        asyncFlag: false, // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
+        showDelivery: [], // 显示物流快递
+        userMessages: [], // 留言信息
+        reduceMoneys: [], // 非人民币资产信息
+        showValue: [], // 显示物流快递
+        isFromCart: '', // 购买信息是否来自购物车，如果是，则需要删除购物车中，相对应的商品数据
+        value: '',
+        addresslist: '', // 收货地址
+        addressId: '527cab96-a88c-4b74-8a5a-714de0c46598',
+        payMessage: {}
+      }
+    },
     mounted () {
       this.GetData()
+      this.addressData()
     },
     methods: {
-      handleChange (value) {
-        console.log(value)
+      async addressData () {
+        var addresslist = await apiUser.GetAddress()
+        this.addresslist = addresslist.data.result // 所有地址
       },
       async GetData () {
         var buyProductInfo = ''
-        // let buyProduct = [{
-        //   ProductSkuId: this.selectSku.id,
-        //   Count: this.buyCount,
-        //   ProductId: this.productShow.id,
-        //   storeId: this.productShow.storeId,
-        //   LoginUserId: this.LoginUser().id
-        // }]
-        // buyProductInfo = buyProduct
+        console.log('this.$route.params.buyInfo', this.$route.params.buyInfo)
         if (this.$route.params.buyInfo !== undefined) {
           buyProductInfo = this.$route.params.buyInfo
           local.setStore('order_buy', buyProductInfo) // 将购买信息写到缓存中
@@ -190,35 +207,147 @@
             for (var k = 0; k < this.modelView.allowMoneys.length; k++) {
               this.reduceMoneys[k] = true
             }
+            // 初始化币种
+            this.getPrice()
           }
         }
-      }
-    },
-    data () {
-      return {
-        modelView: '',
-        showDelivery: [], // 显示物流快递
-        userMessages: [], // 留言信息
-        reduceMoneys: [], // 非人民币资产信息
-        showValue: [],
-        isFromCart: '',
-        options: [{
-          value: '选项1',
-          label: '双皮奶'
-        }, {
-          value: '选项2',
-          label: '双皮奶'
-        }, {
-          value: '选项3',
-          label: '蚵仔煎'
-        }, {
-          value: '选项4',
-          label: '龙须面'
-        }, {
-          value: '选项5',
-          label: '北京烤鸭'
-        }],
-        value: ''
+      },
+      // 更改运费方式，重新获取价格
+      countPrice () {
+        this.getPrice()
+      },
+      // 获取价格,更改店铺运费方式，修改地址时候，会修改价格
+      async getPrice () {
+        // var defaultAddress = local.getLoginStore('default_address') // 刷新时从缓冲中读取地址
+        // if (defaultAddress !== undefined) {
+        //   this.addressId = defaultAddress.id
+        // } else {
+        //   this.$vux.toast.warn('请先添加地址')
+        //   return
+        // }
+        var storeDelivery = []
+        for (var i = 0; i < this.modelView.storeItems.length; i++) {
+          var storeItem = this.modelView.storeItems[i]
+          var deliveryItem = {
+            key: storeItem.storeId,
+            value: this.showDelivery[i]
+          }
+          storeDelivery.push(deliveryItem)
+        }
+        var reduceMoneys = []
+        for (var k = 0; k < this.modelView.allowMoneys.length; k++) {
+          var allowMoneyItem = this.modelView.allowMoneys[k]
+          if (this.reduceMoneys[k]) {
+            var reduceMoneyItem = {
+              key: allowMoneyItem.moneyId,
+              value: allowMoneyItem.maxPayPrice
+            }
+            reduceMoneys.push(reduceMoneyItem)
+          }
+        }
+        var priceInput = {
+          sign: this.modelView.sign, // 传递签名
+          loginUserId: this.LoginUser().id, // 用户Id
+          addressId: this.addressId,
+          reduceMoneysJson: JSON.stringify(reduceMoneys),
+          storeExpressJson: JSON.stringify(storeDelivery)
+        }
+        var priceResponse = await apiService.getPrice(priceInput)
+        if (priceResponse.data.status !== 1) {
+          if (priceResponse.data.messagecode === 100) {
+            console.warn('qweqweqweqwe', priceResponse.data.message)
+            this.GetData() // 缓存对象不存在，重新请求一次数据库
+          }
+          // this.messageWarn(priceResponse.data.message)
+        } else {
+          this.priceView = priceResponse.data.result
+          this.storePrices = this.priceView.storePrices
+          this.asyncFlag = true
+        }
+      },
+      async buy () {
+        try {
+          // var defaultAddress = local.getLoginStore('default_address') // 刷新时从缓冲中读取地址
+          // if (defaultAddress !== undefined) {
+          //   this.addressId = defaultAddress.id
+          // } else {
+          //   this.$vux.toast.warn('请先添加地址')
+          //   return
+          // }
+          var storeBuyItems = []
+          for (var i = 0; i < this.modelView.storeItems.length; i++) {
+            var storeBuyItem = this.modelView.storeItems[i]
+            var productBuyItems = []
+            for (var j = 0; j < storeBuyItem.productSkuItems.length; j++) {
+              var productSkuBuyItem = storeBuyItem.productSkuItems[j]
+              var buyproductItem = {
+                ProductSkuId: productSkuBuyItem.productSkuId,
+                Count: productSkuBuyItem.buyCount,
+                ProductId: productSkuBuyItem.productId,
+                priceStyleId: productSkuBuyItem.priceStyleId,
+                Amount: productSkuBuyItem.buyCount * productSkuBuyItem.price,
+                storeId: storeBuyItem.storeId
+              }
+              productBuyItems.push(buyproductItem)
+            }
+
+            var buyStoreItem = {
+              storeId: storeBuyItem.storeId,
+              deliveryId: this.showDelivery[i], // 运费
+              userMessage: this.userMessages[i],
+              totalAmount: this.priceView.storePrices[i].totalAmount, // 店铺订单总价格
+              totalCount: this.modelView.storeItems[i].totalCount, // 店铺商品总数量
+              expressAmount: this.priceView.storePrices[i].expressAmount, // 店铺运费
+              productAmount: this.priceView.storePrices[i].productAmount, // 店铺总商品费用
+              productSkuItems: productBuyItems
+            }
+            storeBuyItems.push(buyStoreItem)
+          }
+          // 虚拟资产
+          var reduceMoneys = []
+          for (var r = 0; r < this.modelView.allowMoneys.length; r++) {
+            var allowMoneyItem = this.modelView.allowMoneys[r]
+            if (this.reduceMoneys[r]) {
+              var reduceMoneyItem = {
+                key: allowMoneyItem.moneyId,
+                value: allowMoneyItem.maxPayPrice
+              }
+              reduceMoneys.push(reduceMoneyItem)
+            }
+          }
+          var buyInput = {
+            reduceMoneysJson: JSON.stringify(reduceMoneys),
+            StoreOrderJson: JSON.stringify(storeBuyItems),
+            addressId: this.addressId, // 选择地址Id
+            payType: 3, // 支付方式
+            totalAmount: this.priceView.totalAmount, // 订单总金额
+            TotalCount: this.modelView.totalCount, // 订单总商品
+            paymentAmount: this.priceView.totalAmount, // 订单总金额
+            orderType: 1, // 订单类型
+            sign: this.modelView.sign, // 签名信息
+            isFromCart: this.isFromCart, // 是否从购物车购买
+            userId: this.LoginUser().id // 下单用户ID
+          }
+          // console.info('购买格式', buyInput)
+          var response = await apiService.Buy(buyInput)
+          console.dir(response)
+          if (response.data.status === 1) {
+            var buyOutput = response.data.result
+            console.log(buyOutput)
+            this.payMessage = {
+              payId: buyOutput.payId,
+              amount: buyOutput.payAmount,
+              orderType: 'order',
+              orderIds: response.data.result.orderIds
+            }
+            // this.$refs.show_pay.$emit('payMethod', buyOutput.payId, buyOutput.payAmount, 'order', response.data.result.orderIds) // 唤起支付窗口
+          } else {
+            this.$vux.toast.warn(response.data.message)
+          }
+        } catch (error) {
+          console.warn(error)
+          this.GetData() // 如果出错重新请求一次服务器
+        }
       }
     }
   }
@@ -282,6 +411,8 @@
             font-size: 12px;
             text-align: right;
             margin-bottom: 10px;
+          }
+          .more {
             color: @brand;
           }
         }
@@ -485,8 +616,10 @@
         background-color: #f2f7ff;
         height: 50px;
         display: flex;
-        .pay-txt {
+        .pay-placeholder {
           flex: 1;
+        }
+        .pay-txt {
           font-size: 14px;
           display: flex;
           align-items: center;

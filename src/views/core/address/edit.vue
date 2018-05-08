@@ -87,7 +87,7 @@
         if (id !== undefined) {
           var response = await userService.UpdateAddress(this.addressInput)
           if (response.data.status === 1) {
-            console.log('修改成功')
+            console.log('修改成功', response)
             this.$vux.toast.success('修改成功')
             this.$router.push({
               name: 'address_index'
