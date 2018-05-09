@@ -228,7 +228,6 @@
         }
         var response = await apiService.show(params)
         this.modelView = response.data.result
-        console.dir((this.modelView))
         for (var i = 0; i < this.modelView.debtSolutions.length; i++) {
           if (this.modelView.debtSolutions[i].isDefault === true) {
             this.radio001[i] = '方案' + (i + 1) + ' 将债条转化为云债金分解平债'

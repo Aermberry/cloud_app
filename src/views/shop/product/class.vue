@@ -8,7 +8,7 @@
     </router-link>
 
     <div class="zk-class-tab">
-      <tab :line-width=2 active-color='#0090ff' v-model="index2" class="zk-class-tab-left">
+      <tab :line-width=2 active-color='#0090ff' v-model="index" class="zk-class-tab-left">
         <tab-item class="vux-center" :selected="demo2 === item" v-for="(item, index) in list2" @click="demo2 = item" :key="index">{{item}}</tab-item>
       </tab>
       <swiper v-model="index" height="100px" :show-dots="false" class="zk-class-tab-right">
@@ -55,7 +55,7 @@
         list2: [],
         list: [],
         demo2: '',
-        index2: 1,
+        index: 1,
         getBarWidth: function (index) {
           return (index + 1) * 22 + 'px'
         }

@@ -37,7 +37,8 @@
         },
         aa2: {
           InsurancePolicyStr: ''
-        }
+        },
+        content: '初始值'
       }
     },
     methods: {

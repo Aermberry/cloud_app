@@ -41,6 +41,7 @@
     },
     mounted () {
       this.GetData()
+      console.log('qweeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee')
     },
     methods: {
       selectAddress () {
@@ -61,6 +62,7 @@
           var response = await apiUser.SingleAddress()
           if (response.data.status === 1) {
             this.viewModel = response.data.result
+
             this.hasSelectAddress = true
             this.Maddress = true
             local.setLoginStore('default_address', this.viewModel) // 将购买信息写到缓存中

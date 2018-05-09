@@ -3,7 +3,7 @@
     <div class="address-box auto">
       <h2 class="title">选择收货地址</h2>
       <ul class="address-select">
-        <li class="item " v-for="(item,index) in addresslist" :key="index" :class="{'active':item.isDefault}">
+        <li class="item " v-for="(item,index) in addresslist" :key="index" :class="{'active':item.isDefault}" @click="setDefault(item.id)">
           <div class="recipients">
             （{{item.name}}）收
           </div>
@@ -74,7 +74,7 @@
               <div class="delivery-info">
                 普通配送
                 <el-select v-model="showValue[storeIndex]" placeholder="请选择" @change="countPrice()">
-                  <el-option v-for="item in store.expressTemplates" :key="item.value" :label="item.label" :value="item.value">
+                  <el-option v-for="item in store.expressTemplates" :key="item.key" :label="item.value" :value="item.key">
                   </el-option>
                 </el-select>
               </div>
@@ -120,14 +120,14 @@
             </div>
             <div class="order-confirmAddr">
               <div class="confirmAddr-left">寄送至：</div>
-              <div class="confirmAddr-right">Lorem ipsum dolor sit amet consectetur adipisicicia rerum euia accusamu</div>
+              <div class="confirmAddr-right">{{addressM.Message}}</div>
             </div>
             <div class="confirmAddr-addr-user">
               <div class="addr-user-left">
                 收件人：
               </div>
               <div class="addr-user-right">
-                刘成恩 136448444965
+                {{addressM.addressee}} 136448444965
               </div>
             </div>
           </div>
@@ -152,29 +152,63 @@
         priceView: '', // 价格显示模型
         storePrices: [], // 店铺价格显示
         asyncFlag: false, // 异步数据传递判断，如果没有获取完成则不传递数据子组件中
-        showDelivery: [], // 显示物流快递
         userMessages: [], // 留言信息
         reduceMoneys: [], // 非人民币资产信息
         showValue: [], // 显示物流快递
         isFromCart: '', // 购买信息是否来自购物车，如果是，则需要删除购物车中，相对应的商品数据
         value: '',
         addresslist: '', // 收货地址
-        addressId: '527cab96-a88c-4b74-8a5a-714de0c46598',
-        payMessage: {}
+        addressId: '', // 选择的地址ID
+        addressM: {
+          Message: '', // 详细地址
+          addressee: '' // 收件人
+        },
+        payMessage: {} // 传支付页面的数据
       }
     },
     mounted () {
       this.GetData()
       this.addressData()
+      // this.ceshi()
     },
     methods: {
+      // 设置为默认地址
+      async setDefault (item) {
+        let param = {
+          userId: this.LoginUser().id,
+          id: item
+        }
+        var isDefault = await apiUser.setDefault(param)
+        if (isDefault.data.status === 1) {
+          this.$message({
+            message: '设置成功',
+            type: 'success'
+          })
+          this.addressData()
+        } else {
+          this.$message.error(isDefault.data.message)
+        }
+      },
+      // 获取地址
       async addressData () {
         var addresslist = await apiUser.GetAddress()
         this.addresslist = addresslist.data.result // 所有地址
+        for (var i = 0; i < this.addresslist.length; i++) {
+          if (this.addresslist[i].isDefault === true) {
+            this.addressM.Message = this.addresslist[i].address
+            this.addressM.addressee = this.addresslist[i].name
+            this.addressId = this.addresslist[i].id
+            local.setLoginStore('default_address', this.addresslist[i])
+          }
+        }
       },
+      // async ceshi () {
+      //   var defaultAddress = local.getLoginStore('default_address')
+      //   console.log('defaultAddress', defaultAddress)
+      // },
       async GetData () {
         var buyProductInfo = ''
-        console.log('this.$route.params.buyInfo', this.$route.params.buyInfo)
+        // console.log('this.$route.params.buyInfo', this.$route.params.buyInfo)
         if (this.$route.params.buyInfo !== undefined) {
           buyProductInfo = this.$route.params.buyInfo
           local.setStore('order_buy', buyProductInfo) // 将购买信息写到缓存中
@@ -199,15 +233,14 @@
             this.modelView = response.data.result
             console.log('modelView', this.modelView)
             for (var i = 0; i < this.modelView.storeItems.length; i++) {
-              this.showDelivery[i] = this.modelView.storeItems[i].expressTemplates[0].key
-              this.showValue[i] = this.modelView.storeItems[i].expressTemplates[0].value
+              this.showValue[i] = this.modelView.storeItems[i].expressTemplates[0].key
               this.userMessages[i] = '' // 初始化留言信息
             }
             // 初始化币种
             for (var k = 0; k < this.modelView.allowMoneys.length; k++) {
               this.reduceMoneys[k] = true
             }
-            // 初始化币种
+            // 获取价格
             this.getPrice()
           }
         }
@@ -216,67 +249,19 @@
       countPrice () {
         this.getPrice()
       },
-      // 获取价格,更改店铺运费方式，修改地址时候，会修改价格
-      async getPrice () {
-        // var defaultAddress = local.getLoginStore('default_address') // 刷新时从缓冲中读取地址
-        // if (defaultAddress !== undefined) {
-        //   this.addressId = defaultAddress.id
-        // } else {
-        //   this.$vux.toast.warn('请先添加地址')
-        //   return
-        // }
-        var storeDelivery = []
-        for (var i = 0; i < this.modelView.storeItems.length; i++) {
-          var storeItem = this.modelView.storeItems[i]
-          var deliveryItem = {
-            key: storeItem.storeId,
-            value: this.showDelivery[i]
-          }
-          storeDelivery.push(deliveryItem)
-        }
-        var reduceMoneys = []
-        for (var k = 0; k < this.modelView.allowMoneys.length; k++) {
-          var allowMoneyItem = this.modelView.allowMoneys[k]
-          if (this.reduceMoneys[k]) {
-            var reduceMoneyItem = {
-              key: allowMoneyItem.moneyId,
-              value: allowMoneyItem.maxPayPrice
-            }
-            reduceMoneys.push(reduceMoneyItem)
-          }
-        }
-        var priceInput = {
-          sign: this.modelView.sign, // 传递签名
-          loginUserId: this.LoginUser().id, // 用户Id
-          addressId: this.addressId,
-          reduceMoneysJson: JSON.stringify(reduceMoneys),
-          storeExpressJson: JSON.stringify(storeDelivery)
-        }
-        var priceResponse = await apiService.getPrice(priceInput)
-        if (priceResponse.data.status !== 1) {
-          if (priceResponse.data.messagecode === 100) {
-            console.warn('qweqweqweqwe', priceResponse.data.message)
-            this.GetData() // 缓存对象不存在，重新请求一次数据库
-          }
-          // this.messageWarn(priceResponse.data.message)
-        } else {
-          this.priceView = priceResponse.data.result
-          this.storePrices = this.priceView.storePrices
-          this.asyncFlag = true
-        }
-      },
       async buy () {
         try {
-          // var defaultAddress = local.getLoginStore('default_address') // 刷新时从缓冲中读取地址
-          // if (defaultAddress !== undefined) {
-          //   this.addressId = defaultAddress.id
-          // } else {
-          //   this.$vux.toast.warn('请先添加地址')
-          //   return
-          // }
+          var defaultAddress = local.getLoginStore('default_address') // 刷新时从缓冲中读取地址
+          if (defaultAddress !== undefined) {
+            this.addressId = defaultAddress.id
+          } else {
+            this.$message.error('请先添加地址')
+            return
+          }
           var storeBuyItems = []
           for (var i = 0; i < this.modelView.storeItems.length; i++) {
             var storeBuyItem = this.modelView.storeItems[i]
+
             var productBuyItems = []
             for (var j = 0; j < storeBuyItem.productSkuItems.length; j++) {
               var productSkuBuyItem = storeBuyItem.productSkuItems[j]
@@ -293,7 +278,7 @@
 
             var buyStoreItem = {
               storeId: storeBuyItem.storeId,
-              deliveryId: this.showDelivery[i], // 运费
+              deliveryId: this.showValue[i], // 运费
               userMessage: this.userMessages[i],
               totalAmount: this.priceView.storePrices[i].totalAmount, // 店铺订单总价格
               totalCount: this.modelView.storeItems[i].totalCount, // 店铺商品总数量
@@ -342,11 +327,59 @@
             }
             // this.$refs.show_pay.$emit('payMethod', buyOutput.payId, buyOutput.payAmount, 'order', response.data.result.orderIds) // 唤起支付窗口
           } else {
-            this.$vux.toast.warn(response.data.message)
+            this.$message.error(response.data.message)
           }
         } catch (error) {
           console.warn(error)
           this.GetData() // 如果出错重新请求一次服务器
+        }
+      },
+      // 获取价格,更改店铺运费方式，修改地址时候，会修改价格
+      async getPrice () {
+        var defaultAddress = local.getLoginStore('default_address') // 刷新时从缓冲中读取地址
+        if (defaultAddress !== undefined) {
+          this.addressId = defaultAddress.id
+        } else {
+          this.$message.error('请先添加地址')
+          return
+        }
+        var storeDelivery = []
+        for (var i = 0; i < this.modelView.storeItems.length; i++) {
+          var storeItem = this.modelView.storeItems[i]
+          var deliveryItem = {
+            key: storeItem.storeId,
+            value: this.showValue[i]
+          }
+          storeDelivery.push(deliveryItem)
+        }
+        var reduceMoneys = []
+        for (var k = 0; k < this.modelView.allowMoneys.length; k++) {
+          var allowMoneyItem = this.modelView.allowMoneys[k]
+          if (this.reduceMoneys[k]) {
+            var reduceMoneyItem = {
+              key: allowMoneyItem.moneyId,
+              value: allowMoneyItem.maxPayPrice
+            }
+            reduceMoneys.push(reduceMoneyItem)
+          }
+        }
+        var priceInput = {
+          sign: this.modelView.sign, // 传递签名
+          loginUserId: this.LoginUser().id, // 用户Id
+          addressId: this.addressId,
+          reduceMoneysJson: JSON.stringify(reduceMoneys),
+          storeExpressJson: JSON.stringify(storeDelivery)
+        }
+        var priceResponse = await apiService.getPrice(priceInput)
+        if (priceResponse.data.status !== 1) {
+          if (priceResponse.data.messagecode === 100) {
+            this.GetData() // 缓存对象不存在，重新请求一次数据库
+          }
+          // this.messageWarn(priceResponse.data.message)
+        } else {
+          this.priceView = priceResponse.data.result
+          this.storePrices = this.priceView.storePrices
+          this.asyncFlag = true
         }
       }
     }
@@ -671,13 +704,19 @@
               margin-top: 10px;
               display: flex;
               .confirmAddr-left {
+                flex: 1;
                 font-weight: bold;
                 font-size: 14px;
+                text-align: right;
               }
               .confirmAddr-right {
-                flex: 1;
-                width: 200px;
                 font-size: 14px;
+                word-break: break-all;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 1;
+                overflow: hidden;
               }
             }
             .confirmAddr-addr-user {

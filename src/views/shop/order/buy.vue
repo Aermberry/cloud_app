@@ -227,7 +227,6 @@
             this.messageWarn(response.data.message)
           } else {
             this.modelView = response.data.result
-            console.log(this.modelView)
             // 初始运费模板
             for (var i = 0; i < this.modelView.storeItems.length; i++) {
               this.showDelivery[i] = this.modelView.storeItems[i].expressTemplates[0].key
@@ -265,7 +264,6 @@
           storeDelivery.push(deliveryItem)
         }
         var reduceMoneys = []
-        console.log('qweqwewqeqe', this.modelView.allowMoneys)
         for (var k = 0; k < this.modelView.allowMoneys.length; k++) {
           var allowMoneyItem = this.modelView.allowMoneys[k]
           if (this.reduceMoneys[k]) {
@@ -294,13 +292,14 @@
           this.priceView = priceResponse.data.result
           this.storePrices = this.priceView.storePrices
           this.asyncFlag = true
+          console.log('priceView', this.priceView, this.storePrices)
         }
       }
     }
   }
 </script>
 
-<style   lang="less">
+<style  lang="less">
   .zkui_order_buy {
     margin-bottom: 2.5rem;
     .weui-cells {

@@ -15,12 +15,20 @@
                   <div class="zkui-order-list-product">
                     <ul class="flex">
                       <li class="left-img">
-                        <router-link :to="item.url">
+                        <!-- <router-link :to="item.url">
+                          <img :src="item.image" alt="">
+                        </router-link> -->
+                        <router-link to="">
                           <img :src="item.image" alt="">
                         </router-link>
                       </li>
                       <li class="flex_one center-content">
-                        <router-link :to="item.url">
+                        <!-- <router-link :to="item.url">
+                          <p>
+                            {{item.title}}
+                          </p>
+                        </router-link> -->
+                        <router-link to="">
                           <p>
                             {{item.title}}
                           </p>
@@ -66,12 +74,20 @@
                   <div class="zkui-order-list-product">
                     <ul class="flex">
                       <li class="left-img">
-                        <router-link :to="item.url">
+                        <!-- <router-link :to="item.url">
+                          <img :src="item.image" alt="">
+                        </router-link> -->
+                        <router-link to="">
                           <img :src="item.image" alt="">
                         </router-link>
                       </li>
                       <li class="flex_one center-content">
-                        <router-link :to="item.url">
+                        <!-- <router-link :to="item.url">
+                          <p>
+                            {{item.title}}
+                          </p>
+                        </router-link> -->
+                        <router-link to="">
                           <p>
                             {{item.title}}
                           </p>
@@ -117,12 +133,20 @@
                   <div class="zkui-order-list-product">
                     <ul class="flex">
                       <li class="left-img">
-                        <router-link :to="item.url">
+                        <!-- <router-link :to="item.url">
+                          <img :src="item.image" alt="">
+                        </router-link> -->
+                        <router-link to="">
                           <img :src="item.image" alt="">
                         </router-link>
                       </li>
                       <li class="flex_one center-content">
-                        <router-link :to="item.url">
+                        <!-- <router-link :to="item.url">
+                          <p>
+                            {{item.title}}
+                          </p>
+                        </router-link> -->
+                        <router-link to="">
                           <p>
                             {{item.title}}
                           </p>
@@ -168,12 +192,20 @@
                   <div class="zkui-order-list-product">
                     <ul class="flex">
                       <li class="left-img">
-                        <router-link :to="item.url">
+                        <!-- <router-link :to="item.url">
+                          <img :src="item.image" alt="">
+                        </router-link> -->
+                        <router-link to="">
                           <img :src="item.image" alt="">
                         </router-link>
                       </li>
                       <li class="flex_one center-content">
-                        <router-link :to="item.url">
+                        <!-- <router-link :to="item.url">
+                          <p>
+                            {{item.title}}
+                          </p>
+                        </router-link> -->
+                        <router-link to="">
                           <p>
                             {{item.title}}
                           </p>
@@ -219,12 +251,20 @@
                   <div class="zkui-order-list-product">
                     <ul class="flex">
                       <li class="left-img">
-                        <router-link :to="item.url">
+                        <!-- <router-link :to="item.url">
+                          <img :src="item.image" alt="">
+                        </router-link> -->
+                        <router-link to="">
                           <img :src="item.image" alt="">
                         </router-link>
                       </li>
                       <li class="flex_one center-content">
-                        <router-link :to="item.url">
+                        <!-- <router-link :to="item.url">
+                          <p>
+                            {{item.title}}
+                          </p>
+                        </router-link> -->
+                        <router-link to="">
                           <p>
                             {{item.title}}
                           </p>
@@ -318,13 +358,11 @@
     },
     methods: {
       async GetData () {
-        console.log(this.showView)
         let params = {
           dataType: 'debt'
         }
         let response = await apiService.list(params)
         this.all = response.data.result
-        console.log('all', this.all)
         if (this.all.length === 0) {
           this.showof[0] = true
         }
@@ -337,7 +375,6 @@
         this.stayAudit = stayAudit.data.result
         if (this.stayAudit.length === 0) {
           this.showof[1] = true
-          console.log('1', this.stayAudit.length, this.showof[1])
         }
         let params2 = {
           dataType: 'debt',
@@ -347,7 +384,6 @@
         this.stayCome = stayCome.data.result
         if (this.stayCome.length === 0) {
           this.showof[2] = true
-          console.log('2', this.stayCome.length, this.showof[2])
         }
         let params3 = {
           dataType: 'debt',
@@ -357,7 +393,6 @@
         this.stayDecide = stayDecide.data.result
         if (this.stayDecide.length === 0) {
           this.showof[3] = true
-          console.log('3', this.stayDecide.length, this.showof[3])
         }
         let params4 = {
           dataType: 'debt',
@@ -367,7 +402,6 @@
         this.stayEvaluate = stayEvaluate.data.result
         if (this.stayEvaluate.length === 0) {
           this.showof[4] = true
-          console.log('4', this.stayEvaluate.length, this.showof[4])
         }
       }
 

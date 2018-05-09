@@ -47,7 +47,7 @@
         </li>
       </ul>
     </div>
-    <zk-swiper diykey="Swiper4Config" height="210px"></zk-swiper>
+    <zk-swiper diykey="GSSwiper4Config" height="210px"></zk-swiper>
     <zk-grid diykey="GSGrid4Config" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
     <div class="gs-item">
       <div class="item-title">
