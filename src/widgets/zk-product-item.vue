@@ -3,7 +3,7 @@
     <section class="ZKProductItem" v-if="styleType == 1">
       <div class="zkui-product-item__1 ">
         <ul>
-          <li v-for="(item,index) in dataList" :key="index">
+          <li v-for="(item,index) in dataList" :key="index" :class="{'yqp-item':yqp}">
             <dl>
               <dt>
                 <router-link :to="showUrl+item.id">
@@ -76,7 +76,8 @@
         dataList: [], // 组件zklist 的循环数据,使用zklist时，所有的服务端输出结构都一样
         styleType: '', // 风格类型, zklist支持多种样式，判断选择哪种样式
         pageIndex: 1, // 从第一页开始加载
-        showUrl: '/product/show/'
+        showUrl: '/product/show/',
+        yqp: false
       }
     },
     created () {
@@ -89,6 +90,13 @@
       // if (window.location.href.indexOf('123') === -1) {
       //   this.showUrl = '/product/show/'
       // }
+    },
+    mounted () {
+      if (window.location.href.indexOf('yiqipingou') !== -1) {
+        this.yqp = true
+      } else {
+        this.yqp = false
+      }
     },
     methods: {
       async upCallback () {
@@ -170,7 +178,7 @@
         }
         .itemPrice {
           padding-left: 0.3rem;
-          min-height: 3rem;
+          height: 3rem;
           div {
             display: flex;
             color: @brand;
@@ -191,6 +199,17 @@
               overflow: hidden;
               font-weight: normal;
             }
+          }
+        }
+      }
+    }
+    li.yqp-item {
+      dl {
+        .itemPrice {
+          height: auto;
+          div {
+            height: 1.5rem;
+            font-size: @h5-font-size;
           }
         }
       }

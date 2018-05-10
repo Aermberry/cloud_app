@@ -30,5 +30,10 @@ export default {
   cancel (data) {
     var response = http.getLogin('/Order/Cancel', data)
     return response
+  },
+  //  确认收货
+  Confirm (data) {
+    var response = http.postLogin('order/Confirm', data)
+    return response
   }
 }

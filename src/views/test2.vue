@@ -26,13 +26,13 @@
     data () {
       return {
         rateInfo: {
-          ReviewType: 1,
-          ProductScore: 2,
-          ServiceScore: 2,
-          Images: 'upload/2014/sss.jpg',
-          Intro: '我来测试的好么',
-          LogisticsScore: '2',
-          EntityId: '8',
+          ReviewType: 1, // 好评 1-3
+          ProductScore: 2, // 商品与实物相符度 1-5
+          ServiceScore: 2, // 服务态度  1-5
+          Images: 'upload/2014/sss.jpg', // 评论图片
+          Intro: '我来测试的好么', // 评论详情
+          LogisticsScore: '2', // 快递评分 1-5
+          EntityId: '8', // 订单ID
           LoginUserId: 85
         },
         aa2: {
