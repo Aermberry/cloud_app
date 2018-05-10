@@ -275,7 +275,7 @@
                   </group>
                   <group class="product-option">
                     <cell>
-                      <x-button mini plain>评价</x-button>
+                      <x-button mini plain :to="'/order/evaluate?id='+items.id">评价</x-button>
                     </cell>
                   </group>
                 </div>
@@ -373,7 +373,7 @@
         console.log(this.cid)
       },
       async confirm () {
-        let par = {
+        var par = {
           PayPassword: this.maskValue,
           EntityId: this.cid
         }
@@ -383,7 +383,7 @@
           this.GetData()
           this.$vux.toast.success(reponse.data.message)
         } else {
-          this.$vux.toast.warm(reponse.data.message)
+          this.$vux.toast.warn(reponse.data.message)
         }
       },
       async orderCancel (oid, index) {

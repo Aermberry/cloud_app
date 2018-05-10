@@ -88,7 +88,7 @@
           ServiceScore: 2, // 服务态度  1-5
           LogisticsScore: 2, // 快递评分 1-5
           Intro: '', // 评论详情
-          EntityId: '8', // 订单ID
+          EntityId: '', // 订单ID
           Images: '' // 评论图片
         }
       }
@@ -100,10 +100,18 @@
         this.rateInfo.ReviewType = item
       },
       async ceshi () {
+        this.rateInfo.EntityId = this.$route.query.id
         var a = document.getElementsByClassName('inputimg')
         this.rateInfo.Images = a[0].value
         var response = await apiUser.Rate(this.rateInfo)
-        console.log(response)
+        if (response.data.status === 1) {
+          this.$vux.toast.success(response.data.message)
+          this.$router.push({
+            name: 'order_show'
+          })
+        } else {
+          this.$vux.toast.warn(response.data.message)
+        }
       }
     }
   }

@@ -33,7 +33,7 @@ export default {
   },
   //  确认收货
   Confirm (data) {
-    var response = http.getLogin('order/Confirm', data)
+    var response = http.postLogin('order/Confirm', data)
     return response
   }
 }
