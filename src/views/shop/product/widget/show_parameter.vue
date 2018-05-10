@@ -17,7 +17,7 @@
               <img :src="productView.thumbnailUrl" />
             </dt>
             <dd class="sale-info-name">{{productView.name}}</dd>
-            <dd class="sale-info-price brand">{{selectSku.displayPrice}}
+            <dd class="sale-info-price brand">￥{{selectSku.displayPrice}}
               <span class="metal">￥{{selectSku.marketPrice}}</span>
             </dd>
             <dd class="sale-info-stock metal">库存：{{selectSku.stock}} 货号：{{selectSku.bn}}</dd>

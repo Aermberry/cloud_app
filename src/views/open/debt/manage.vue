@@ -350,7 +350,9 @@
     },
     created () {
       if (this.$route.query.id !== '' || this.$route.query.id !== 'undefined') {
-        this.showView = this.$route.query.id
+        this.showView = Number(this.$route.query.id)
+
+        console.log(typeof (Number(this.$route.query.id)))
       }
     },
     mounted () {
@@ -363,6 +365,7 @@
         }
         let response = await apiService.list(params)
         this.all = response.data.result
+        console.log(this.all)
         if (this.all.length === 0) {
           this.showof[0] = true
         }
