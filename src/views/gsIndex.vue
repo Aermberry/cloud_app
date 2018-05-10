@@ -75,7 +75,7 @@
         <span>Household product</span>
       </div>
       <div class="item-img">
-        <img :src="poster[1]" alt="">
+        <img :src="poster[2]" alt="">
       </div>
       <zk-product-item :pageSize=2 classIds='' tagIds='109' diykey=''></zk-product-item>
     </div>
@@ -85,7 +85,7 @@
         <span>Snack area</span>
       </div>
       <div class="item-img">
-        <img :src="poster[2].imageUrl" alt="">
+        <img :src="poster[3]" alt="">
       </div>
       <zk-product-item :pageSize=2 classIds='' tagIds='110' diykey=''></zk-product-item>
     </div>
@@ -124,11 +124,13 @@
       async GetData () {
         var response = await apiService.getLink('GSSingleAd3Config')
         this.imgData = response.data.result
+        console.log(this.imgData)
         for (var i = 0; i < this.imgData.length; i++) {
           if (this.imgData[i].imageUrl !== '' && this.imgData[i].imageUrl !== 'undefined') {
             this.poster[i] = this.imgData[i].imageUrl
           }
         }
+        console.log(this.poster)
         var gsimg = await apiService.getLink('GSSingleAd4Config')
         this.bottomBanner = gsimg.data.result
         var setMessage = await common.GetConfigValue('WebSiteConfig')
@@ -254,3 +256,4 @@
     }
   }
 </style>
+
