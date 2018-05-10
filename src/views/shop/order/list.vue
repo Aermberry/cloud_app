@@ -9,6 +9,7 @@
       <swiper v-model="showView" :show-dots="false">
         <swiper-item v-for="(t,i) in list2" :key="i">
           <div class="tab-swiper vux-center">
+            <!-- 总数据 -->
             <div class="zkui-order-list-box" v-if="i===0&&!showBox">
               <div class="zkui-order-list-content">
                 <div class="zkui-order-list-box-item" v-for="(items,indexs) in data" :key="indexs">
@@ -67,6 +68,7 @@
               <m-icon name="zk-notdata"></m-icon>
               <p>暂无数据</p>
             </div>
+            <!-- 待付款 -->
             <div class="zkui-order-list-box" v-if="i===1&&!showBox&&!allShow[0]">
               <div class="zkui-order-list-content">
                 <div class="zkui-order-list-box-item" v-for="(items,indexs) in data" :key="indexs" v-if="items.orderStatus===1">
@@ -121,6 +123,7 @@
               <m-icon name="zk-notdata"></m-icon>
               <p>暂无数据</p>
             </div>
+            <!-- 待发货 -->
             <div class="zkui-order-list-box" v-if="i===2&&!showBox&&!allShow[1]">
               <div class="zkui-order-list-content">
                 <div class="zkui-order-list-box-item" v-for="(items,indexs) in stayShipments" :key="indexs">
@@ -174,9 +177,10 @@
               <m-icon name="zk-notdata"></m-icon>
               <p>暂无数据</p>
             </div>
+            <!-- 待收货 -->
             <div class="zkui-order-list-box" v-if="i===3&&!showBox&&!allShow[2]">
               <div class="zkui-order-list-content">
-                <div class="zkui-order-list-box-item" v-for="(items,indexs) in stayTake" :key="indexs">
+                <div class="zkui-order-list-box-item" v-for="(items,indexs) in data" :key="indexs" v-if="items.orderStatus===3">
                   <group class="box-title">
                     <cell :title="items.storeName" :value="items.orderStatuName"></cell>
                   </group>
@@ -217,7 +221,7 @@
                   </group>
                   <group class="product-option">
                     <cell>
-                      <!-- <x-button mini plain>确认收货</x-button> -->
+                      <x-button mini plain @click.native="confirmBox(items.id)">确认收货</x-button>
                     </cell>
                   </group>
                 </div>
@@ -227,6 +231,7 @@
               <m-icon name="zk-notdata"></m-icon>
               <p>暂无数据</p>
             </div>
+            <!-- 待评价 -->
             <div class="zkui-order-list-box" v-if="i===4&&!allShow[3]">
               <div class="zkui-order-list-content">
                 <div class="zkui-order-list-box-item" v-for="(items,indexs) in stayEvaluate" :key="indexs">
@@ -270,7 +275,7 @@
                   </group>
                   <group class="product-option">
                     <cell>
-                      <!-- <x-button mini plain>评价</x-button> -->
+                      <x-button mini plain>评价</x-button>
                     </cell>
                   </group>
                 </div>
@@ -284,15 +289,33 @@
         </swiper-item>
       </swiper>
     </div>
+    <div v-transfer-dom>
+      <popup v-model="show" :hide-on-blur=false>
+        <div class="popup0 order-list-popup" style="padding-bottom:8.5rem">
+          <div class=" close">
+            <m-icon name="zk-close" @click.native="confirmBox()"></m-icon>
+          </div>
+          <group>
+            <cell title="密码输入："></cell>
+            <x-input v-model="maskValue" placeholder="请输入安全密码" :max="6" :min="6" type="password"></x-input>
+          </group>
+          <x-button type="primary" class="btn-q" @click.native="confirm()">确认</x-button>
+        </div>
+      </popup>
+    </div>
     <zk-foot></zk-foot>
   </section>
 </template>
 
 <script>
   import orderService from 'src/service/api/order.api'
-  import { Tab, TabItem, Sticky, Divider, XButton, Swiper, SwiperItem, Cell, CellBox, CellFormPreview, Group, Badge, Xbutton, Box, GroupTitle } from 'zkui'
+  import { XInput, Tab, TabItem, Sticky, Divider, XButton, Swiper, SwiperItem, Cell, CellBox, CellFormPreview, Group, Badge, Xbutton, Box, GroupTitle, Popup, TransferDom, XSwitch } from 'zkui'
   export default {
+    directives: {
+      TransferDom
+    },
     components: {
+      XInput,
       Tab,
       TabItem,
       Sticky,
@@ -307,10 +330,15 @@
       Badge,
       Xbutton,
       Box,
-      GroupTitle
+      GroupTitle,
+      Popup,
+      XSwitch
     },
     data () {
       return {
+        maskValue: '', // 安全密码
+        cid: '', // 当前确认下单的id
+        show: false,
         list2: ['全部', '待付款', '待发货', '待收货', '待评价'],
         demo2: '全部',
         index: 4,
@@ -337,6 +365,27 @@
       this.GetData()
     },
     methods: {
+      // 确认收货
+      confirmBox (cid) {
+        this.show = !this.show
+        this.maskValue = ''
+        this.cid = cid
+        console.log(this.cid)
+      },
+      async confirm () {
+        let par = {
+          PayPassword: this.maskValue,
+          EntityId: this.cid
+        }
+        var reponse = await orderService.Confirm(par)
+        if (reponse.data.status === 1) {
+          this.show = !this.show
+          this.GetData()
+          this.$vux.toast.success(reponse.data.message)
+        } else {
+          this.$vux.toast.warm(reponse.data.message)
+        }
+      },
       async orderCancel (oid, index) {
         let par = {
           id: oid
@@ -562,6 +611,24 @@
       }
       p {
         font-size: @h4-font-size;
+      }
+    }
+  }
+  .order-list-popup {
+    .btn-q {
+      height: 3rem;
+      margin-top: 1rem;
+    }
+    .close {
+      position: relative;
+      height: 2rem;
+      svg {
+        width: 2rem;
+        height: 2rem;
+        color: @brand;
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
       }
     }
   }

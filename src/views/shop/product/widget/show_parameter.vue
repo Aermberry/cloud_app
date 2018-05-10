@@ -4,7 +4,7 @@
       <div class="weui-cells-top"></div>
       <cell :title="salePropertyTitle" @click.native="showSale = true" is-link :value="selectSku.propertyValueDesc"></cell>
       <cell title="商品参数" @click.native="showParameter = true" is-link class="border-bottom"></cell>
-      <cell :title="productView.productExtensions.productCategory.remark" v-if="productView.productExtensions.productCategory.remark===''||productView.productExtensions.productCategory.remark==='undefined'"></cell>
+      <cell :title="productView.detail.productDetailExtension.remark" v-if="productView.detail.productDetailExtension.remark !==''"></cell>
       <div class="weui-cells-bottom"></div>
     </group>
 

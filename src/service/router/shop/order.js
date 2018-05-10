@@ -47,5 +47,15 @@ export default [{
     component: function (resolve) {
       require(['src/views/shop/order/show'], resolve)
     }
+  }, {
+    path: '/order/evaluate',
+    meta: {
+      title: '发表评价'
+    },
+    name: 'order_evaluate',
+    component: function (resolve) {
+      require(['src/views/shop/order/evaluate'], resolve)
+    }
   }
+
 ]
