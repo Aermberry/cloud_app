@@ -53,9 +53,9 @@
                   </group>
                   <group class="product-option">
                     <cell>
-                      <!-- <x-button mini plain v-if="allState.Shipments[indexs]">退货</x-button>
-                      <x-button mini plain v-if="allState.Take[indexs]">确认收货</x-button>
-                      <x-button mini plain v-if="allState.Evaluate[indexs]">评价</x-button> -->
+                      <!-- <x-button mini plain v-if="allState.Shipments[indexs]">退货</x-button> -->
+                      <x-button mini plain v-if="allState.Take[indexs]" @click.native="confirmBox(items.id)">确认收货</x-button>
+                      <!-- <x-button mini plain v-if="allState.Evaluate[indexs]">评价</x-button> -->
                       <!-- <x-button mini plain v-if="allState.Payment[indexs]">取消订单</x-button>-->
                       <x-button mini plain v-if="allState.Payment[indexs]" @click.native="orderCancel(items.id,indexs)">取消订单</x-button>
                       <!-- <x-button mini plain type="primary" v-if="allState.Payment[indexs]">付款</x-button> -->

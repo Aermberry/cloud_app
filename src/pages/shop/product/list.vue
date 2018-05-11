@@ -176,97 +176,99 @@
   }
 </script>
 <style lang="less">
-  .placeholder {
-    height: 3.66666667rem;
-  }
-  .list-fixed {
-    position: fixed;
-    top: 2.91666667rem;
-    left: 0;
-    .vux-tab {
-      .vux-tab-item {
-        position: relative;
-        svg {
-          width: 1rem;
-          height: 1rem;
-        }
-        ul {
-          position: absolute;
-          top: 3.66666667rem;
-          left: 0;
-          width: 100%;
-          li {
-            background: @white;
-            border-bottom: 1px solid rgba(229, 229, 229, 1);
-            border-right: 1px solid rgba(229, 229, 229, 1);
+  .zkui-product_list {
+    .placeholder {
+      height: 3.66666667rem;
+    }
+    .list-fixed {
+      position: fixed;
+      top: 2.91666667rem;
+      left: 0;
+      .vux-tab {
+        .vux-tab-item {
+          position: relative;
+          svg {
+            width: 1rem;
+            height: 1rem;
+          }
+          ul {
+            position: absolute;
+            top: 3.66666667rem;
+            left: 0;
+            width: 100%;
+            li {
+              background: @white;
+              border-bottom: 1px solid rgba(229, 229, 229, 1);
+              border-right: 1px solid rgba(229, 229, 229, 1);
+            }
           }
         }
       }
     }
-  }
-  #index_scroll {
-    .mescroll-upwarp {
-      display: none;
+    #index_scroll {
+      .mescroll-upwarp {
+        display: none;
+      }
+      div:first-child {
+        font-size: 12px;
+      }
     }
-    div:first-child {
-      font-size: 12px;
-    }
-  }
-  .zkui-product-item__1 {
-    background: #ffffff;
-    ul::after {
-      content: '';
-      display: block;
-      clear: both;
-    }
-    li {
-      display: block;
-      float: left;
-      width: 47%;
-      height: 20rem;
-      margin: 2% 0 0 2%;
-      padding-bottom: 0.3rem;
-      border-radius: 2*@rem;
-      border: 1px solid rgba(229, 229, 229, 0.4);
+    .zkui-product-item__1 {
+      background: #ffffff;
+      ul::after {
+        content: '';
+        display: block;
+        clear: both;
+      }
+      li {
+        display: block;
+        float: left;
+        width: 47%;
+        height: 20rem;
+        margin: 2% 0 0 2%;
+        padding-bottom: 0.3rem;
+        border-radius: 2*@rem;
+        border: 1px solid rgba(229, 229, 229, 0.4);
 
-      dl {
-        a {
-          display: block;
-          img {
-            width: 100%;
-            display: block;
-          }
-        }
-
-        .itemTitle {
+        dl {
           a {
             display: block;
-            margin: 0.3rem 0.3rem 0.1rem 0.3rem;
-            word-break: break-all;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            overflow: hidden;
-            color: @black;
-            font-size: 14px;
-            height: 40px;
+            img {
+              width: 100%;
+              display: block;
+            }
           }
-        }
-        .itemPrice {
-          padding-left: 10*@rem;
-          min-height: 3rem;
-          p {
-            color: @brand;
-            height: 2.5rem;
-            font-weight: bold;
-            margin-left: -0.2rem;
-            font-size: @h6-font-size;
+
+          .itemTitle {
+            a {
+              display: block;
+              margin: 0.3rem 0.3rem 0.1rem 0.3rem;
+              word-break: break-all;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 2;
+              overflow: hidden;
+              color: @black;
+              font-size: 14px;
+              height: 40px;
+            }
           }
-          span {
-            text-decoration: line-through;
-            padding-top: 0.3rem;
-            color: @gray-500;
+          .itemPrice {
+            padding-left: 10*@rem;
+            min-height: 3rem;
+            p {
+              color: @brand;
+              height: 2.5rem;
+              font-weight: bold;
+              margin-left: -0.2rem;
+              font-size: @h6-font-size;
+            }
+            span {
+              text-decoration: line-through;
+              padding-top: 0.3rem;
+              color: @gray-500;
+            }
           }
         }
       }
