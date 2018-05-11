@@ -1,14 +1,111 @@
 <template>
   <div>
-    <group class="zkui-product-show-parameter">
+    <group class="zkui-product-show-parameter" v-if="!isgroupbuy">
       <div class="weui-cells-top"></div>
       <cell :title="salePropertyTitle" @click.native="showSale = true" is-link :value="selectSku.propertyValueDesc"></cell>
       <cell title="商品参数" @click.native="showParameter = true" is-link class="border-bottom"></cell>
-      <cell :title="productView.detail.productDetailExtension.remark" v-if="productView.detail.productDetailExtension.remark !==''"></cell>
+      <cell :title="productView.detail.productDetailExtension.remark" v-if="productView.detail.productDetailExtension.remark ===''"></cell>
       <div class="weui-cells-bottom"></div>
     </group>
-
+    <group class="zkui-product-show-groupbuy" v-if="isgroupbuy">
+      <cell title="6人在拼团，可直接参与"></cell>
+      <div class="groupbuy-box">
+        <ul>
+          <li class="groupbuy-img">
+            <img src="" alt="">
+          </li>
+          <li class="groupbuy-name">
+            <span>杨雨</span>
+          </li>
+          <li class="groupbuy-message">
+            <div class="message-box">
+              <div class="message-top">
+                还差
+                <span>1人</span>
+                拼成
+              </div>
+              <div class="meassge-bottom">
+                剩余23：58：32：0
+              </div>
+            </div>
+          </li>
+          <li class="groupbuy-btn">
+            <x-button @click.native="ceshi()">去拼单</x-button>
+          </li>
+        </ul>
+      </div>
+      <div class="weui-cells-bottom"></div>
+    </group>
     <div v-transfer-dom>
+      <x-dialog v-model="groupbuyWindow" class="dialog-demo">
+        <div class="groupbuy-dialog">
+          <h1 class="gd-title">参与在人旅途的拼单</h1>
+          <div class="gd-message">仅剩1个名额,23:58:32:0后结束</div>
+          <div class="gd-img-box">
+            <div class="gd-img">
+              <img src="" alt="">
+            </div>
+          </div>
+          <div class="gd-btn">
+            <x-button @click.native="groupbuywSale=true,groupbuyWindow=false">参与拼团</x-button>
+          </div>
+          <div @click="groupbuyWindow=false" class="gd-close">
+            <span class="vux-close"></span>
+          </div>
+        </div>
+      </x-dialog>
+    </div>
+    <!-- 拼团参数 -->
+    <div v-transfer-dom v-if="isgroupbuy">
+      <popup v-model="groupbuywSale" class="zk-product-showSale" max-height="80%" is-transparent>
+        <div class="close" @click=" groupbuywSale = false "></div>
+        <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem;">
+          <dl class="sale-info goods-information">
+            <dt class="sale-info-img">
+              <img :src="productView.thumbnailUrl" />
+            </dt>
+            <dd class="sale-info-name">{{productView.name}}</dd>
+            <dd class="sale-info-price brand">￥{{selectSku.displayPrice}}
+              <span class="metal">￥{{selectSku.marketPrice}}</span>
+            </dd>
+            <dd class="sale-info-stock metal">库存：{{selectSku.stock}} 货号：{{selectSku.bn}}</dd>
+          </dl>
+          <div class="sale-info-property goods-select">
+            <dl class="border-bottom " v-for="(item, index) in productView.productExtensions.productCategory.salePropertys " :key="index ">
+              <dt>{{item.name}}</dt>
+              <dd>
+                <checker v-model="saleItems[index] " default-item-class="sale-item " @on-change="changSku " selected-item-class="sale-item-selected " disabled-item-class="sale-item-disabled " :radio-required="true ">
+                  <checker-item :value="sale " v-for="sale in item.propertyValues " :key="sale.id "> {{sale.valueAlias}} </checker-item>
+                </checker>
+              </dd>
+            </dl>
+
+          </div>
+          <group class="zkui-product-show-parameter-amount ">
+            <cell title="购买数量 ">
+              <inline-x-number style="display:block; " :min="1 " width="50px " v-model="buyCount" :max="selectSku.stock" button-style="round"></inline-x-number>
+            </cell>
+          </group>
+          <div class="base group-base">
+            <button-tab>
+              <button-tab-item type="warn">
+                <div>
+                  <p>￥127</p>
+                  <span>单独购买</span>
+                </div>
+              </button-tab-item>
+              <button-tab-item type="primary ">
+                <div>
+                  <p>￥126</p>
+                  <span>发起拼单</span>
+                </div>
+              </button-tab-item>
+            </button-tab>
+          </div>
+        </div>
+      </popup>
+    </div>
+    <div v-transfer-dom v-if="!isgroupbuy">
       <popup v-model="showSale" class="zk-product-showSale" max-height="80%" is-transparent>
         <div class="close" @click=" showSale = false "></div>
         <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem;">
@@ -64,12 +161,12 @@
   </div>
 </template>
 <script>
-  import { Group, Checker, CheckerItem, Divider, GroupTitle, Cell, TransferDom, Popup, XButton, XSwitch, InlineXNumber, ButtonTab, ButtonTabItem } from 'zkui'
+  import { Group, Checker, CheckerItem, Divider, GroupTitle, Cell, TransferDom, Popup, XButton, XSwitch, InlineXNumber, ButtonTab, ButtonTabItem, XDialog } from 'zkui'
   import userService from 'src/service/api/user.api'
   import helper from 'src/service/common/helper'
   export default {
     components: {
-      Group, Cell, TransferDom, Popup, XButton, XSwitch, GroupTitle, InlineXNumber, ButtonTab, ButtonTabItem, Checker, CheckerItem, Divider
+      Group, Cell, TransferDom, Popup, XButton, XSwitch, GroupTitle, InlineXNumber, ButtonTab, ButtonTabItem, Checker, CheckerItem, Divider, XDialog
     },
     directives: {
       TransferDom
@@ -84,8 +181,14 @@
         buyCount: 1, // 商品购买数量
         saleItems: [], // 可能存在多个商品规格属性，默认填充四个
         content: '',
-        distrue: true
+        distrue: true,
+        isgroupbuy: false,
+        groupbuyWindow: false, // 拼团弹窗
+        groupbuywSale: false
       }
+    },
+    created () {
+      this.isgroupbuy = this.productView.productActivityExtension.isGroupBuy
     },
     mounted: function () {
       this.$nextTick(function () {
@@ -99,6 +202,9 @@
       }
     },
     methods: {
+      ceshi () {
+        this.groupbuyWindow = true
+      },
       init () {
         this.productView.productExtensions.productCategory.salePropertys.forEach(element => {
           this.salePropertyTitle = this.salePropertyTitle + element.name + ' '
@@ -328,6 +434,19 @@
         }
       }
     }
+    .group-base {
+      .vux-button-group > a {
+        height: auto;
+        line-height: normal;
+        padding: 0.5rem 0;
+      }
+      .vux-button-group > a.vux-button-tab-item-first:after {
+        content: none;
+      }
+      .vux-button-group > a.vux-button-tab-item-last:after {
+        content: none;
+      }
+    }
   }
   .zkui-product-show-parameter-amount:after {
     content: ' ';
@@ -469,6 +588,122 @@
     .vux-button-tab-item-last {
       color: @white !important;
       background: @brand!important;
+    }
+  }
+  .zkui-product-show-groupbuy {
+    .weui-cells-bottom {
+      height: 5*@rem;
+      background-color: #efefef;
+      // border: 1px solid white;
+    }
+    .weui-cells {
+      margin-top: 0;
+    }
+    .weui-cells:before {
+      content: none;
+    }
+    .groupbuy-box {
+      max-height: 10rem;
+      overflow: auto;
+      ul {
+        display: flex;
+        height: 4rem;
+        border-top: 1px solid rgba(229, 229, 229, 0.7);
+        .groupbuy-img {
+          width: 4rem;
+          height: 4rem;
+          padding: 0.4rem;
+          img {
+            width: 3.4rem;
+            height: 3.4rem;
+            border-radius: 50%;
+          }
+        }
+        .groupbuy-name {
+          flex: 1;
+          line-height: 4rem;
+          padding-left: 0.5rem;
+          span {
+            font-size: @h4-font-size;
+          }
+        }
+        .groupbuy-message {
+          width: 9rem;
+          height: 4rem;
+          position: relative;
+          .message-box {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translatey(-50%);
+            .message-top {
+              font-size: @h5-font-size;
+              span {
+                font-size: @h5-font-size;
+                color: @brand;
+              }
+            }
+            .meassge-bottom {
+              font-size: @h6-font-size;
+              color: @gray-600;
+            }
+          }
+        }
+        .groupbuy-btn {
+          height: 4rem;
+          padding: 0.7rem 0.5rem;
+
+          button {
+            height: 2.6rem;
+            background: @brand;
+            color: @white;
+          }
+        }
+      }
+    }
+  }
+  .groupbuy-dialog {
+    padding: 1.5rem;
+    position: relative;
+    .gd-title {
+      text-align: center;
+      font-weight: normal;
+      font-size: @h4-font-size;
+      margin-bottom: 0.5rem;
+    }
+    .gd-message {
+      font-size: @h5-font-size;
+      color: @gray-600;
+    }
+    .gd-img-box {
+      .gd-img {
+        width: 7.2rem;
+        min-width: 2rem;
+        margin: 0 auto;
+        height: 3.4rem;
+        img {
+          width: 3.4rem;
+          height: 3.4rem;
+          margin-right: 0.2rem;
+        }
+      }
+    }
+    .gd-btn {
+      button {
+        height: 3rem;
+        background: @brand;
+        color: @white;
+      }
+    }
+    .gd-close {
+      background: @gray-300;
+      border-radius: 50%;
+      position: absolute;
+      top: -0.5rem;
+      right: -0.5rem;
+    }
+    .weui-dialog {
+      overflow: visible;
     }
   }
 </style>

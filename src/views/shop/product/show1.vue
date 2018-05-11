@@ -77,6 +77,7 @@
         } else {
           this.asyncFlag = true
           this.modelView = product
+          console.log('show', this.modelView)
         }
       }
     }

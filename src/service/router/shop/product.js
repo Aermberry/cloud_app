@@ -38,7 +38,7 @@ export default [{
     meta: {
       title: '商品详情'
     },
-    name: 'product_show',
+    name: 'product_show1',
     component: function (resolve) {
       require(['src/' + equipment.equipment + '/shop/product/show1'], resolve)
     }

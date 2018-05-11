@@ -41,26 +41,25 @@
                         </ul>
                       </li>
                     </ul>
-
+                    <group class="list-aggregate">
+                      <cell>
+                        共
+                        <span class="num">{{items.totalCount}}</span> 件商品 合计：
+                        <span class="num">￥{{items.paymentAmount}}</span>(含运费
+                        <span class="num">￥{{items.expressAmount}}</span>)
+                      </cell>
+                    </group>
+                    <group class="product-option">
+                      <cell>
+                        <!-- <x-button mini plain v-if="allState.Shipments[indexs]">退货</x-button> -->
+                        <x-button mini plain v-if="allState.Take[indexs]" @click.native="confirmBox(items.id)">确认收货</x-button>
+                        <!-- <x-button mini plain v-if="allState.Evaluate[indexs]">评价</x-button> -->
+                        <!-- <x-button mini plain v-if="allState.Payment[indexs]">取消订单</x-button>-->
+                        <x-button mini plain v-if="allState.Payment[indexs]" @click.native="orderCancel(items.id,indexs)">取消订单</x-button>
+                        <x-button mini plain type="primary" v-if="allState.Payment[indexs]" @click.native="pay(itemss.productSkuId,itemss.buyCount,itemss.productId,itemss.storeId)">付款</x-button>
+                      </cell>
+                    </group>
                   </div>
-                  <group class="list-aggregate">
-                    <cell>
-                      共
-                      <span class="num">{{items.totalCount}}</span> 件商品 合计：
-                      <span class="num">￥{{items.paymentAmount}}</span>(含运费
-                      <span class="num">￥{{items.expressAmount}}</span>)
-                    </cell>
-                  </group>
-                  <group class="product-option">
-                    <cell>
-                      <!-- <x-button mini plain v-if="allState.Shipments[indexs]">退货</x-button> -->
-                      <x-button mini plain v-if="allState.Take[indexs]" @click.native="confirmBox(items.id)">确认收货</x-button>
-                      <!-- <x-button mini plain v-if="allState.Evaluate[indexs]">评价</x-button> -->
-                      <!-- <x-button mini plain v-if="allState.Payment[indexs]">取消订单</x-button>-->
-                      <x-button mini plain v-if="allState.Payment[indexs]" @click.native="orderCancel(items.id,indexs)">取消订单</x-button>
-                      <!-- <x-button mini plain type="primary" v-if="allState.Payment[indexs]">付款</x-button> -->
-                    </cell>
-                  </group>
                 </div>
               </div>
             </div>
@@ -100,22 +99,22 @@
                         </ul>
                       </li>
                     </ul>
-
+                    <group class="list-aggregate">
+                      <cell>
+                        共
+                        <span class="num">{{items.totalCount}}</span> 件商品 合计：
+                        <span class="num">￥{{items.paymentAmount}}</span>(含运费
+                        <span class="num">￥{{items.expressAmount}}</span>)
+                      </cell>
+                    </group>
+                    <group class="product-option">
+                      <cell>
+                        <x-button mini plain @click.native="orderCancel(items.id,indexs)">取消订单</x-button>
+                        <x-button mini plain type="primary" @click.native="pay(itemss.productSkuId,itemss.buyCount,itemss.productId,items.storeId)">付款</x-button>
+                      </cell>
+                    </group>
                   </div>
-                  <group class="list-aggregate">
-                    <cell>
-                      共
-                      <span class="num">{{items.totalCount}}</span> 件商品 合计：
-                      <span class="num">￥{{items.paymentAmount}}</span>(含运费
-                      <span class="num">￥{{items.expressAmount}}</span>)
-                    </cell>
-                  </group>
-                  <group class="product-option">
-                    <cell>
-                      <x-button mini plain @click.native="orderCancel(items.id,indexs)">取消订单</x-button>
-                      <!-- <x-button mini plain type="primary">付款</x-button> -->
-                    </cell>
-                  </group>
+
                 </div>
               </div>
             </div>
@@ -391,19 +390,35 @@
           id: oid
         }
         var reponse = await orderService.cancel(par)
+        console.log(reponse)
         if (reponse.data.status === 1) {
           this.data.splice(index, 1)
-          console.log(this.data.length)
           this.GetData()
           this.$vux.toast.success('取消成功')
         } else {
           this.$vux.toast.warn('删除失败')
         }
       },
+      pay (productSkuId, buyCount, productId, storeId) {
+        console.log(productSkuId, buyCount, productId, storeId)
+        let buyProductInfo = [{
+          ProductSkuId: productSkuId,
+          Count: buyCount,
+          ProductId: productId,
+          storeId: storeId,
+          LoginUserId: this.LoginUser().id
+        }]
+        this.$router.push({
+          name: 'order_buy',
+          params: {
+            buyInfo: buyProductInfo
+          }
+        })
+      },
       async GetData () {
         var reponse = await orderService.list()
         this.data = reponse.data.result
-        console.log(this.data, this.data.length)
+        console.log(this.data)
         if (this.data.length === 0) {
           this.showBox = true
         }

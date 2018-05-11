@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-product-show-bar">
-    <tabbar>
+    <tabbar v-if="!isgroupbuy">
       <tabbar-item link="/default" class="bar-home">
         <m-icon slot="icon" name="zk-home" class="metal"></m-icon>
         <span slot="label">首页</span>
@@ -24,6 +24,28 @@
         <x-button slot="customer" type="primary" @click.native="showSaleProperty">立即购买</x-button>
       </tabbar-item>
     </tabbar>
+    <tabbar v-if="isgroupbuy">
+      <tabbar-item link="/default" class="bar-groupbuy-home">
+        <m-icon slot="icon" name="zk-home" class="metal"></m-icon>
+        <span slot="label">首页</span>
+      </tabbar-item>
+      <tabbar-item>
+        <x-button slot="customer" type="warn" class="groupbuy-bar">
+          <div>
+            <p>￥127</p>
+            <span>单独购买</span>
+          </div>
+        </x-button>
+      </tabbar-item>
+      <tabbar-item>
+        <x-button slot="customer" type="primary" class="groupbuy-bar">
+          <div>
+            <p>￥126</p>
+            <span>发起拼单</span>
+          </div>
+        </x-button>
+      </tabbar-item>
+    </tabbar>
   </section>
 </template>
 
@@ -45,8 +67,12 @@
       return {
         hasFavorite: false, // 商品是否收藏
         loginUser: null, // 当前登录用户
-        showService: true
+        showService: true,
+        isgroupbuy: false
       }
+    },
+    created () {
+      this.isgroupbuy = this.productView.productActivityExtension.isGroupBuy
     },
     mounted () {
       this.addFootprint()
@@ -132,6 +158,9 @@
       .bar-home {
         width: 15%;
       }
+      .bar-groupbuy-home {
+        flex: 0;
+      }
       .weui-tabbar__label {
         text-align: center;
         color: #999999;
@@ -147,6 +176,12 @@
         height: 3.5rem;
         white-space: nowrap;
         border-radius: 0px;
+      }
+      .groupbuy-bar {
+        width: 100%;
+        div {
+          line-height: normal;
+        }
       }
       .weui-btn:after {
         content: ' ';

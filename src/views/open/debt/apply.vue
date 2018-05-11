@@ -6,12 +6,12 @@
       <x-input title="备案人手机号" required mask="999 9999 9999" :max="13" is-type="mobile"></x-input>
     </group> -->
     <group title="债权人信息">
-      <x-input title="债权人性名" required :min="2" :max="12" placeholder="填写债权人性名" v-model="debtApiInput.DebteeName"></x-input>
+      <x-input title="债权人姓名" required :min="2" :max="12" placeholder="填写债权人姓名" v-model="debtApiInput.DebteeName"></x-input>
       <x-input title="债权人手机号" required placeholder="填写债权人手机号" mask="99999999999" :max="11" is-type="mobile" v-model="debtApiInput.DebteePhone"></x-input>
       <x-input title="债权人身份证号码" required placeholder="填写债权人身份证号码" :min="18" :max="18" v-model="debtApiInput.DebteeId"></x-input>
     </group>
     <group title="债务人信息">
-      <x-input title="债务人性名" required :min="2" :max="12" placeholder="填写债务人性名" v-model="debtApiInput.DebtorName"></x-input>
+      <x-input title="债务人姓名" required :min="2" :max="12" placeholder="填写债务人姓名" v-model="debtApiInput.DebtorName"></x-input>
       <x-input title="债务人手机号" required placeholder="填写债务人手机号" mask="99999999999" :max="11" is-type="mobile" v-model="debtApiInput.DebtorPhone"></x-input>
       <x-input title="债务人身份证号码" required placeholder="填写债务人身份证号码" :min="18" :max="18" v-model="debtApiInput.DebtorId"></x-input>
       <div class="zs-money">
@@ -21,7 +21,7 @@
       <x-input title="债事过程" required placeholder="请描述时间、地点、人物、经过和结果" v-model="debtApiInput.ApplyProcess"></x-input>
       <div class="vux-x-input weui-cell">
         <div class="weui-cell__hd">
-          <label for="vux-x-input-hvsrw" class="weui-label" style="width: 6em;">债事属性</label>
+          <label for="vux-x-input-hvsrw" class="weui-label" style="width: 6em;">债事属姓</label>
         </div>
         <div class="weui-cell__bd weui-cell__primary zs-property ">
           <checker v-model="demo1CheckboxMax" default-item-class="check-icon-item" type="checkbox" selected-item-class="check-icon-item-selected">

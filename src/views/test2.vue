@@ -1,24 +1,19 @@
 <template>
   <div>
-    <x-input title="用户名" v-model="aa2.MemberStr"></x-input>
+    <!-- <x-input title="用户名" v-model="aa2.MemberStr"></x-input>
     <box gap=" 3rem 1rem ">
       <x-button @click.native="ceshi" type="primary " action-type="button ">评价</x-button>
-    </box>
+    </box> -->
+    <zk-groupbuy :pageSize=4 classIds='' :pagination=6 tagsId='' diykey='index'></zk-groupbuy>
   </div>
 </template>
 
 <script>
+  import { ZkGroupbuy } from 'widgets'
   import apiUser from 'src/service/api/user.api'
-  import { Group, XInput, Agree, Box, XButton } from 'zkui'
-  import { ZkPhoneVerifiy } from 'widgets'
   export default {
     components: {
-      Group,
-      XInput,
-      Agree,
-      Box,
-      ZkPhoneVerifiy,
-      XButton
+      ZkGroupbuy
     },
     mounted () {
       // this.ceshi()

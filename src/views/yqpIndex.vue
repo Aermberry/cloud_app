@@ -41,6 +41,12 @@
     <zk-singlead diykey="index_single_ad"></zk-singlead>
     <group-title class="flex">
       <div class="fashion-title">
+        拼团
+      </div>
+    </group-title>
+    <zk-groupbuy :pageSize=4 classIds='' :pagination=6 tagsId='' diykey='index'></zk-groupbuy>
+    <group-title class="flex">
+      <div class="fashion-title">
         流行单品
       </div>
       <div class="fashion-topline flex_one">
@@ -55,6 +61,7 @@
         </swiper>
       </div>
     </group-title>
+
     <zk-product-item :pageSize=4 classIds='' :pagination=6 tagsId='' diykey='index'></zk-product-item>
     <div class="yqp-more">
       <router-link to="/product/list?SortOrder=2">查看更多 </router-link>
@@ -93,7 +100,7 @@
 <script>
   import common from 'src/service/api/common.api'
   import apiService from 'src/service/api/user.api'
-  import { ZkSwiper, ZkGrid, ZkProductItem, ZkSinglead } from 'widgets'
+  import { ZkSwiper, ZkGrid, ZkProductItem, ZkSinglead, ZkGroupbuy } from 'widgets'
   import { Search, Grid, GridItem, Swiper, Box, GroupTitle, SwiperItem, XImg, XButton } from 'zkui'
   export default {
     components: {
@@ -109,7 +116,8 @@
       SwiperItem,
       XImg,
       ZkSinglead,
-      XButton
+      XButton,
+      ZkGroupbuy
     },
     data () {
       return {
