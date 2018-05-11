@@ -107,7 +107,7 @@
         if (response.data.status === 1) {
           this.$vux.toast.success(response.data.message)
           this.$router.push({
-            name: 'order_show'
+            name: 'order_list'
           })
         } else {
           this.$vux.toast.warn(response.data.message)

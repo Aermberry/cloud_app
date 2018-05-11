@@ -275,7 +275,7 @@
                   </group>
                   <group class="product-option">
                     <cell>
-                      <x-button mini plain :to="'/order/evaluate?id='+items.id">评价</x-button>
+                      <x-button mini plain :link="'/order/evaluate?id='+items.id">评价</x-button>
                     </cell>
                   </group>
                 </div>
