@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-product-show-bar">
-    <tabbar v-if="!isgroupbuy">
+    <tabbar>
       <tabbar-item link="/default" class="bar-home">
         <m-icon slot="icon" name="zk-home" class="metal"></m-icon>
         <span slot="label">首页</span>
@@ -17,33 +17,17 @@
         <m-icon slot="icon" name="zk-service " class="metal"></m-icon>
         <span slot="label">客服</span>
       </tabbar-item>
-      <tabbar-item>
+      <tabbar-item v-if="!isgroupbuy">
         <x-button slot="customer" type="warn" @click.native="showSaleProperty">加入购物车</x-button>
       </tabbar-item>
-      <tabbar-item>
+      <tabbar-item v-if="!isgroupbuy">
         <x-button slot="customer" type="primary" @click.native="showSaleProperty">立即购买</x-button>
       </tabbar-item>
-    </tabbar>
-    <tabbar v-if="isgroupbuy">
-      <tabbar-item link="/default" class="bar-groupbuy-home">
-        <m-icon slot="icon" name="zk-home" class="metal"></m-icon>
-        <span slot="label">首页</span>
+      <tabbar-item v-if="isgroupbuy">
+        <x-button slot="customer" type="warn" @click.native="showSaleProperty">单独购买</x-button>
       </tabbar-item>
-      <tabbar-item>
-        <x-button slot="customer" type="warn" class="groupbuy-bar">
-          <div>
-            <p>￥127</p>
-            <span>单独购买</span>
-          </div>
-        </x-button>
-      </tabbar-item>
-      <tabbar-item>
-        <x-button slot="customer" type="primary" class="groupbuy-bar">
-          <div>
-            <p>￥126</p>
-            <span>发起拼单</span>
-          </div>
-        </x-button>
+      <tabbar-item v-if="isgroupbuy">
+        <x-button slot="customer" type="primary" @click.native="showSaleProperty">发起拼单</x-button>
       </tabbar-item>
     </tabbar>
   </section>

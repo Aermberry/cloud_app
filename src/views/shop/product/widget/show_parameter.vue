@@ -1,6 +1,6 @@
 <template>
   <div>
-    <group class="zkui-product-show-parameter" v-if="!isgroupbuy">
+    <group class="zkui-product-show-parameter">
       <div class="weui-cells-top"></div>
       <cell :title="salePropertyTitle" @click.native="showSale = true" is-link :value="selectSku.propertyValueDesc"></cell>
       <cell title="商品参数" @click.native="showParameter = true" is-link class="border-bottom"></cell>
@@ -36,7 +36,7 @@
       </div>
       <div class="weui-cells-bottom"></div>
     </group>
-    <div v-transfer-dom>
+    <div v-transfer-dom v-if="isgroupbuy">
       <x-dialog v-model="groupbuyWindow" class="dialog-demo">
         <div class="groupbuy-dialog">
           <h1 class="gd-title">参与在人旅途的拼单</h1>
@@ -55,57 +55,8 @@
         </div>
       </x-dialog>
     </div>
-    <!-- 拼团参数 -->
-    <div v-transfer-dom v-if="isgroupbuy">
-      <popup v-model="groupbuywSale" class="zk-product-showSale" max-height="80%" is-transparent>
-        <div class="close" @click=" groupbuywSale = false "></div>
-        <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem;">
-          <dl class="sale-info goods-information">
-            <dt class="sale-info-img">
-              <img :src="productView.thumbnailUrl" />
-            </dt>
-            <dd class="sale-info-name">{{productView.name}}</dd>
-            <dd class="sale-info-price brand">￥{{selectSku.displayPrice}}
-              <span class="metal">￥{{selectSku.marketPrice}}</span>
-            </dd>
-            <dd class="sale-info-stock metal">库存：{{selectSku.stock}} 货号：{{selectSku.bn}}</dd>
-          </dl>
-          <div class="sale-info-property goods-select">
-            <dl class="border-bottom " v-for="(item, index) in productView.productExtensions.productCategory.salePropertys " :key="index ">
-              <dt>{{item.name}}</dt>
-              <dd>
-                <checker v-model="saleItems[index] " default-item-class="sale-item " @on-change="changSku " selected-item-class="sale-item-selected " disabled-item-class="sale-item-disabled " :radio-required="true ">
-                  <checker-item :value="sale " v-for="sale in item.propertyValues " :key="sale.id "> {{sale.valueAlias}} </checker-item>
-                </checker>
-              </dd>
-            </dl>
 
-          </div>
-          <group class="zkui-product-show-parameter-amount ">
-            <cell title="购买数量 ">
-              <inline-x-number style="display:block; " :min="1 " width="50px " v-model="buyCount" :max="selectSku.stock" button-style="round"></inline-x-number>
-            </cell>
-          </group>
-          <div class="base group-base">
-            <button-tab>
-              <button-tab-item type="warn">
-                <div>
-                  <p>￥127</p>
-                  <span>单独购买</span>
-                </div>
-              </button-tab-item>
-              <button-tab-item type="primary ">
-                <div>
-                  <p>￥126</p>
-                  <span>发起拼单</span>
-                </div>
-              </button-tab-item>
-            </button-tab>
-          </div>
-        </div>
-      </popup>
-    </div>
-    <div v-transfer-dom v-if="!isgroupbuy">
+    <div v-transfer-dom>
       <popup v-model="showSale" class="zk-product-showSale" max-height="80%" is-transparent>
         <div class="close" @click=" showSale = false "></div>
         <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem;">
@@ -137,8 +88,10 @@
           </group>
           <div class="base">
             <button-tab>
-              <button-tab-item type="warn" @click.native="addToCart ">加入购物车</button-tab-item>
-              <button-tab-item type="primary" @click.native="buyProduct ">立即购买</button-tab-item>
+              <button-tab-item type="warn" @click.native="addToCart " v-if="!isgroupbuy"> 加入购物车</button-tab-item>
+              <button-tab-item type="primary" @click.native="buyProduct " v-if="!isgroupbuy"> 立即购买</button-tab-item>
+              <button-tab-item type="warn" @click.native="buyProduct " v-if="isgroupbuy">单独购买</button-tab-item>
+              <button-tab-item type="primary" @click.native="buyProduct " v-if="isgroupbuy">发起拼单</button-tab-item>
             </button-tab>
           </div>
         </div>
@@ -210,6 +163,9 @@
           this.salePropertyTitle = this.salePropertyTitle + element.name + ' '
         })
         this.selectSku = this.productView.productExtensions.productSkus[0] // 根据specSn获取商品的规格
+        if (this.isgroupbuy) {
+          this.selectSku.displayPrice = this.getGroupBuySkuPrice(this.selectSku.id)
+        }
       },
       // 添加到购物车
       async addToCart () {
@@ -266,15 +222,14 @@
             sku = skus[i]
           }
         }
-        if (sku.id === undefined) {
-          // this.$vux.toast.warn('请选择商品规格')
+        if (this.isgroupbuy) {
+          sku.displayPrice = this.getGroupBuySkuPrice(sku.id)
         }
-        // console.log(this.productView.productExtensions.productCategory.salePropertys)
-        // console.log('skus', this.productView.productExtensions.productSkus)
-        // console.log('sku', sku)
-        // console.log('specSn', specSn)
-        // console.log('saleItems', this.saleItems)
         return sku
+      },
+      // 根据skuId，获取拼团显示价格
+      getGroupBuySkuPrice (id) {
+        return '拼团价格'
       },
       // 获取Sku ，用户选择不同的sku
       changSku () {
