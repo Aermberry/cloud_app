@@ -18,16 +18,16 @@
         <span slot="label">客服</span>
       </tabbar-item>
       <tabbar-item v-if="!isGroupBuyProduct">
-        <x-button slot="customer" type="warn" @click.native="showSaleProperty">加入购物车</x-button>
+        <x-button slot="customer" type="warn" @click.native="showSaleProperty(false)">加入购物车</x-button>
       </tabbar-item>
       <tabbar-item v-if="!isGroupBuyProduct">
-        <x-button slot="customer" type="primary" @click.native="showSaleProperty">立即购买</x-button>
+        <x-button slot="customer" type="primary" @click.native="showSaleProperty(false)">立即购买</x-button>
       </tabbar-item>
       <tabbar-item v-if="isGroupBuyProduct">
-        <x-button slot="customer" type="warn" @click.native="showSaleProperty">单独购买</x-button>
+        <x-button slot="customer" type="warn" @click.native="showSaleProperty(false)">单独购买</x-button>
       </tabbar-item>
       <tabbar-item v-if="isGroupBuyProduct">
-        <x-button slot="customer" type="primary" @click.native="showSaleProperty">发起拼单</x-button>
+        <x-button slot="customer" type="primary" @click.native="showSaleProperty(true)">发起拼单</x-button>
       </tabbar-item>
     </tabbar>
   </section>
@@ -115,8 +115,9 @@
           }
         }
       },
-      showSaleProperty () {
-        this.$emit('changeSaleState', 'true')
+      // 将是否拼团的参数传入到父组件中
+      showSaleProperty (isGroupBuyAction) {
+        this.$emit('changeSaleState', isGroupBuyAction)
       }
     }
   }

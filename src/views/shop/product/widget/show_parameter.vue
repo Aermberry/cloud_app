@@ -37,7 +37,7 @@
       <div class="weui-cells-bottom"></div>
     </group>
     <div v-transfer-dom v-if="isGroupBuyProduct">
-      <x-dialog v-model="groupbuyWindow" class="dialog-demo">
+      <x-dialog v-model="groupBuyWindow" class="dialog-demo">
         <div class="groupbuy-dialog">
           <h1 class="gd-title">参与在人旅途的拼单</h1>
           <div class="gd-message">仅剩1个名额,23:58:32:0后结束</div>
@@ -47,9 +47,9 @@
             </div>
           </div>
           <div class="gd-btn">
-            <x-button @click.native="groupbuywSale=true,groupbuyWindow=false">参与拼团</x-button>
+            <x-button @click.native="showSale=true,groupBuyWindow=false,activitySelectId=1">参与拼团</x-button>
           </div>
-          <div @click="groupbuyWindow=false" class="gd-close">
+          <div @click="groupBuyWindow=false" class="gd-close">
             <span class="vux-close"></span>
           </div>
         </div>
@@ -89,9 +89,9 @@
           <div class="base">
             <button-tab>
               <button-tab-item type="warn" @click.native="addToCart" v-if="!isGroupBuyProduct"> 加入购物车</button-tab-item>
-              <button-tab-item type="primary" @click.native="buyProduct(false,0) " v-if="!isGroupBuyProduct"> 立即购买</button-tab-item>
-              <button-tab-item type="warn" @click.native="buyProduct(false,0) " v-if="isGroupBuyProduct">单独购买</button-tab-item>
-              <button-tab-item type="primary" @click.native="buyProduct(true,0) " v-if="isGroupBuyProduct">发起拼单</button-tab-item>
+              <button-tab-item type="primary" @click.native="buyProduct(false) " v-if="!isGroupBuyProduct"> 立即购买</button-tab-item>
+              <button-tab-item type="warn" @click.native="buyProduct(false) " v-if="isGroupBuyProduct  && !isGroupBuy">单独购买</button-tab-item>
+              <button-tab-item type="primary" @click.native="buyProduct(true) " v-if="isGroupBuyProduct && isGroupBuy">发起拼单</button-tab-item>
             </button-tab>
           </div>
         </div>
@@ -135,35 +135,42 @@
         saleItems: [], // 可能存在多个商品规格属性，默认填充四个
         content: '',
         distrue: true,
-        isGroupBuy: false, // 是否为拼团
+        isGroupBuy: false, // 是否为拼团购买，如果是拼团购买，则显示拼团价格
         isGroupBuyProduct: false, // 是否为拼团商品
-        groupbuyWindow: false, // 拼团弹窗
-        groupbuywSale: false
+        activitySelectId: 0, // 拼团时选择的活动Id，为0表示发起拼团
+        groupBuyWindow: false // 拼团弹窗
       }
     },
     created () {
       this.isGroupBuyProduct = this.productView.productActivityExtension.isGroupBuy
     },
     mounted: function () {
+      this.init()
       this.$nextTick(function () {
-        this.$on('childMethod', function () {
+        // 接收父主件的拼团参数
+        this.$on('childMethod', function (isGroupBuyAction) {
+          this.isGroupBuy = isGroupBuyAction // 接收父主件的拼团参数
+          console.info('是否拼团操作', this.isGroupBuy)
           this.showSale = true
         })
       })
-      this.init()
       for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
         this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
       }
     },
     methods: {
       groupBuy () {
-        this.groupbuyWindow = true
+        this.groupBuyWindow = true
       },
       init () {
         this.productView.productExtensions.productCategory.salePropertys.forEach(element => {
           this.salePropertyTitle = this.salePropertyTitle + element.name + ' '
         })
         this.selectSku = this.productView.productExtensions.productSkus[0] // 根据specSn获取商品的规格
+        if (this.isGroupBuy) {
+          this.selectSku.displayPrice = this.getGroupBuySkuPrice(this.selectSku.id)
+          console.info('是否拼团操作', this.selectSku.displayPrice)
+        }
       },
       // 添加到购物车
       async addToCart () {
@@ -184,10 +191,12 @@
           }
         }
       },
-      // 购买商品,isGroupBuy是否为拼团,activityId:参与拼团的活动Id,
-      // (activityId=0，isGroupBuy=true)表示发起拼团 (activityId>0，isGroupBuy=true)参与拼团,isGroupBuy=false，普通购买
-      buyProduct (isGroupBuy, activityId) {
+      // 购买商品,isGroupBuy是否为拼团,activitySelectId:参与拼团的活动Id,
+      // (activitySelectId=0，isGroupBuy=true)表示发起拼团 (activitySelectId>0，isGroupBuy=true)参与拼团,isGroupBuy=false，普通购买
+      buyProduct (isGroupBuy) {
+        this.isGroupBuy = isGroupBuy
         console.info('是否拼团', isGroupBuy)
+        this.groupBuyWindow = false
         helper.checkLogin(true)
         if (this.selectSku.id === undefined) {
           this.$vux.toast.warn('请选择商品规格')
@@ -200,7 +209,7 @@
           Count: this.buyCount,
           ProductId: this.productView.id,
           storeId: this.productView.storeId,
-          activityId: activityId, // 活动id，参与拼团时用到
+          activityId: this.activitySelectId, // 活动id，参与拼团时用到
           isGroupBuy: isGroupBuy, // 是否为拼团
           LoginUserId: this.LoginUser().id
         }]
@@ -236,6 +245,10 @@
       // 获取Sku ，用户选择不同的sku
       changSku () {
         this.selectSku = this.getSku() // 根据specSn获取商品的规格
+        // 如果拼团获取拼团价格
+        if (this.isGroupBuy) {
+          this.selectSku.displayPrice = this.getGroupBuySkuPrice(this.selectSku.id)
+        }
       }
     }
   }
