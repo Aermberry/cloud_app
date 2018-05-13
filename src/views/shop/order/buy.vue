@@ -182,7 +182,7 @@
             TotalCount: this.modelView.totalCount, // 订单总商品
             paymentAmount: this.priceView.totalAmount, // 订单总金额
             orderType: 1, // 订单类型
-            isGroupBuy: this.isGroupBuy, // 是否为拼团购买
+            isGroupBuy: this.isGroupBuy, // 是否为拼团购买/*  */
             sign: this.modelView.sign, // 签名信息
             isFromCart: this.isFromCart, // 是否从购物车购买
             userId: this.LoginUser().id // 下单用户ID
