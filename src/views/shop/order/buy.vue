@@ -208,6 +208,7 @@
         } else {
           buyProductInfo = local.getStore('order_buy') // 刷新时从缓冲中读取数据
         }
+        console.info('购买信息', buyProductInfo)
         if (this.$route.params.isFromCart !== undefined) {
           this.isFromCart = this.$route.params.isFromCart // 记录购买信息是否来自购物车
         }

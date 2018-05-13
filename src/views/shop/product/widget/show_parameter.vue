@@ -47,7 +47,7 @@
             </div>
           </div>
           <div class="gd-btn">
-            <x-button @click.native="showSale=true,groupBuyWindow=false,activitySelectId=1">参与拼团</x-button>
+            <x-button @click.native="showSale=true,groupBuyWindow=false,activitySelectId=1,isGroupBuy=true">参与拼团</x-button>
           </div>
           <div @click="groupBuyWindow=false" class="gd-close">
             <span class="vux-close"></span>
