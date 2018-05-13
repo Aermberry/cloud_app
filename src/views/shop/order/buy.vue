@@ -114,6 +114,7 @@
         userMessages: [], // 留言信息
         isFromCart: false, // 购买信息是否来自购物车，如果是，则需要删除购物车中，相对应的商品数据
         reduceMoneys: [], // 非人民币资产信息
+        isGroupBuy: false, // 是否为拼团购买
         showDelivery: [] // 显示物流快递
       }
     },
@@ -149,6 +150,7 @@
 
             var buyStoreItem = {
               storeId: storeBuyItem.storeId,
+              isGroupBuy: this.isGroupBuy, // 是否为拼图
               deliveryId: this.showDelivery[i], // 运费
               userMessage: this.userMessages[i],
               totalAmount: this.priceView.storePrices[i].totalAmount, // 店铺订单总价格
@@ -180,6 +182,7 @@
             TotalCount: this.modelView.totalCount, // 订单总商品
             paymentAmount: this.priceView.totalAmount, // 订单总金额
             orderType: 1, // 订单类型
+            isGroupBuy: this.isGroupBuy, // 是否为拼团购买
             sign: this.modelView.sign, // 签名信息
             isFromCart: this.isFromCart, // 是否从购物车购买
             userId: this.LoginUser().id // 下单用户ID
@@ -208,7 +211,8 @@
         } else {
           buyProductInfo = local.getStore('order_buy') // 刷新时从缓冲中读取数据
         }
-        console.info('购买信息', buyProductInfo)
+        this.isGroupBuy = buyProductInfo[0].isGroupBuy
+        console.info('是否拼团', this.isGroupBuy)
         if (this.$route.params.isFromCart !== undefined) {
           this.isFromCart = this.$route.params.isFromCart // 记录购买信息是否来自购物车
         }
@@ -220,6 +224,7 @@
         } else {
           var buyInfoInput = {
             loginUserId: this.LoginUser().id,
+            isGroupBuy: this.isGroupBuy,
             productJson: JSON.stringify(buyProductInfo)
           }
           // console.info('购物信息', buyInfoInput)
