@@ -17,16 +17,16 @@
         <m-icon slot="icon" name="zk-service " class="metal"></m-icon>
         <span slot="label">客服</span>
       </tabbar-item>
-      <tabbar-item v-if="!isgroupbuy">
+      <tabbar-item v-if="!isGroupBuyProduct">
         <x-button slot="customer" type="warn" @click.native="showSaleProperty">加入购物车</x-button>
       </tabbar-item>
-      <tabbar-item v-if="!isgroupbuy">
+      <tabbar-item v-if="!isGroupBuyProduct">
         <x-button slot="customer" type="primary" @click.native="showSaleProperty">立即购买</x-button>
       </tabbar-item>
-      <tabbar-item v-if="isgroupbuy">
+      <tabbar-item v-if="isGroupBuyProduct">
         <x-button slot="customer" type="warn" @click.native="showSaleProperty">单独购买</x-button>
       </tabbar-item>
-      <tabbar-item v-if="isgroupbuy">
+      <tabbar-item v-if="isGroupBuyProduct">
         <x-button slot="customer" type="primary" @click.native="showSaleProperty">发起拼单</x-button>
       </tabbar-item>
     </tabbar>
@@ -52,11 +52,11 @@
         hasFavorite: false, // 商品是否收藏
         loginUser: null, // 当前登录用户
         showService: true,
-        isgroupbuy: false
+        isGroupBuyProduct: false // 是否为拼团商品
       }
     },
     created () {
-      this.isgroupbuy = this.productView.productActivityExtension.isGroupBuy
+      this.isGroupBuyProduct = this.productView.productActivityExtension.isGroupBuy
     },
     mounted () {
       this.addFootprint()

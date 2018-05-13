@@ -7,7 +7,7 @@
       <cell :title="productView.detail.productDetailExtension.remark" v-if="productView.detail.productDetailExtension.remark ===''"></cell>
       <div class="weui-cells-bottom"></div>
     </group>
-    <group class="zkui-product-show-groupbuy" v-if="isgroupbuy">
+    <group class="zkui-product-show-groupbuy" v-if="isGroupBuyProduct">
       <cell title="6人在拼团，可直接参与"></cell>
       <div class="groupbuy-box">
         <ul>
@@ -30,13 +30,13 @@
             </div>
           </li>
           <li class="groupbuy-btn">
-            <x-button @click.native="ceshi()">去拼单</x-button>
+            <x-button @click.native="groupBuy()">去拼单</x-button>
           </li>
         </ul>
       </div>
       <div class="weui-cells-bottom"></div>
     </group>
-    <div v-transfer-dom v-if="isgroupbuy">
+    <div v-transfer-dom v-if="isGroupBuyProduct">
       <x-dialog v-model="groupbuyWindow" class="dialog-demo">
         <div class="groupbuy-dialog">
           <h1 class="gd-title">参与在人旅途的拼单</h1>
@@ -88,10 +88,10 @@
           </group>
           <div class="base">
             <button-tab>
-              <button-tab-item type="warn" @click.native="addToCart " v-if="!isgroupbuy"> 加入购物车</button-tab-item>
-              <button-tab-item type="primary" @click.native="buyProduct " v-if="!isgroupbuy"> 立即购买</button-tab-item>
-              <button-tab-item type="warn" @click.native="buyProduct " v-if="isgroupbuy">单独购买</button-tab-item>
-              <button-tab-item type="primary" @click.native="buyProduct " v-if="isgroupbuy">发起拼单</button-tab-item>
+              <button-tab-item type="warn" @click.native="addToCart" v-if="!isGroupBuyProduct"> 加入购物车</button-tab-item>
+              <button-tab-item type="primary" @click.native="buyProduct(false,0) " v-if="!isGroupBuyProduct"> 立即购买</button-tab-item>
+              <button-tab-item type="warn" @click.native="buyProduct(false,0) " v-if="isGroupBuyProduct">单独购买</button-tab-item>
+              <button-tab-item type="primary" @click.native="buyProduct(true,0) " v-if="isGroupBuyProduct">发起拼单</button-tab-item>
             </button-tab>
           </div>
         </div>
@@ -135,13 +135,14 @@
         saleItems: [], // 可能存在多个商品规格属性，默认填充四个
         content: '',
         distrue: true,
-        isgroupbuy: false,
+        isGroupBuy: false, // 是否为拼团
+        isGroupBuyProduct: false, // 是否为拼团商品
         groupbuyWindow: false, // 拼团弹窗
         groupbuywSale: false
       }
     },
     created () {
-      this.isgroupbuy = this.productView.productActivityExtension.isGroupBuy
+      this.isGroupBuyProduct = this.productView.productActivityExtension.isGroupBuy
     },
     mounted: function () {
       this.$nextTick(function () {
@@ -155,7 +156,7 @@
       }
     },
     methods: {
-      ceshi () {
+      groupBuy () {
         this.groupbuyWindow = true
       },
       init () {
@@ -163,9 +164,6 @@
           this.salePropertyTitle = this.salePropertyTitle + element.name + ' '
         })
         this.selectSku = this.productView.productExtensions.productSkus[0] // 根据specSn获取商品的规格
-        if (this.isgroupbuy) {
-          this.selectSku.displayPrice = this.getGroupBuySkuPrice(this.selectSku.id)
-        }
       },
       // 添加到购物车
       async addToCart () {
@@ -186,8 +184,10 @@
           }
         }
       },
-      // 购买商品
-      buyProduct () {
+      // 购买商品,isGroupBuy是否为拼团,activityId:参与拼团的活动Id,
+      // (activityId=0，isGroupBuy=true)表示发起拼团 (activityId>0，isGroupBuy=true)参与拼团,isGroupBuy=false，普通购买
+      buyProduct (isGroupBuy, activityId) {
+        console.info('是否拼团', isGroupBuy)
         helper.checkLogin(true)
         if (this.selectSku.id === undefined) {
           this.$vux.toast.warn('请选择商品规格')
@@ -200,6 +200,8 @@
           Count: this.buyCount,
           ProductId: this.productView.id,
           storeId: this.productView.storeId,
+          activityId: activityId, // 活动id，参与拼团时用到
+          isGroupBuy: isGroupBuy, // 是否为拼团
           LoginUserId: this.LoginUser().id
         }]
         this.showSale = false
@@ -222,7 +224,7 @@
             sku = skus[i]
           }
         }
-        if (this.isgroupbuy) {
+        if (this.isGroupBuy) {
           sku.displayPrice = this.getGroupBuySkuPrice(sku.id)
         }
         return sku
