@@ -31,6 +31,7 @@
 <script>
   import { Popup, Group, Cell, XButton, TransferDom, Radio, MIcon } from 'zkui'
   import apiService from 'src/service/api/pay.api'
+  import local from 'src/service/common/local'
   // import { ZkPassword } from 'widgets'
   export default {
     name: 'zk-pay',
@@ -109,7 +110,7 @@
           amount: this.amount,
           payType: this.selectPayType,
           payId: this.payId,
-          openId: 'oQk981mWBViCsxXdZWWbi2fWVtRA'
+          openId: local.getStore('openid')
         }
 
         // 建议以下代码在一打开页面的时候，判断是否是微信浏览器，是的话，就执行下面代码，获取到code后，调用接口返回openId,前端存储openId

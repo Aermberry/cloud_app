@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from 'src/store/index'
 import helper from 'src/service/common/helper'
+// import local from 'src/service/common/local'
+import api from 'src/service/api/apistore.api'
 // core
 import Common from './core/common' // 通用、、
 import User from './core/User' // 用户
@@ -25,6 +27,7 @@ import mill from './shop/mill'
 // CMS
 import Help from './cms/help' // 帮助
 import Article from './cms/article' // 文章
+// import http from 'src/service/common/http'
 
 Vue.use(Router)
 
@@ -58,6 +61,43 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
+  if (
+    window.localStorage.getItem('code') === 'undefined' ||
+    window.localStorage.getItem('code') === null ||
+    window.localStorage.getItem('code') === ''
+  ) {
+    var querys = window.location.search
+    var num = querys.indexOf('?')
+    var str = querys.substr(num + 1)
+    var arr = str.split('&')
+    for (var i = 0; i < arr.length; i++) {
+      num = arr[i].indexOf('=')
+      if (num > 0) {
+        if (arr[i].substring(0, num) === 'code') {
+          var code = arr[i].substr(num + 1)
+          window.localStorage.setItem('code', code)
+          api.weixinLogin(code)
+          break
+        }
+      }
+    }
+  }
+  if (
+    navigator.userAgent.toLowerCase().match(/MicroMessenger/i)[0] ===
+      'micromessenger' &&
+    (window.localStorage.getItem('code') === 'undefined' ||
+      window.localStorage.getItem('code') === null ||
+      window.localStorage.getItem('code') === '')
+  ) {
+    var url = 'https://open.weixin.qq.com/connect/oauth2/authorize'
+    url += '?appid=wx3845717402bcb006'
+    url += '&redirect_uri=' + encodeURIComponent('http://www.yiqipingou.com/')
+    url += '&response_type=code'
+    url += '&scope=snsapi_base'
+    url += '&state=STATE'
+    url += '#wechat_redirect'
+    window.location.href = url
+  }
   window.document.title = to.meta.title
   var isLogin = store.state.userStore.isLogin // 判断是否登陆
   if (to.meta.login) {

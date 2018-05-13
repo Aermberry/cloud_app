@@ -25,5 +25,11 @@ export default {
       return false
     }
     return true
+  },
+  isWeixin () {
+    return (
+      navigator.userAgent.toLowerCase().match(/MicroMessenger/i)[0] ===
+      'micromessenger'
+    )
   }
 }

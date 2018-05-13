@@ -70,6 +70,7 @@ export default {
     axios.defaults.headers.post['Content-Type'] = 'application/json'
     const instance = axios.create()
     instance.defaults.headers.post['Content-Type'] = 'application/json'
+    instance.defaults.headers.post['Access-Control-Allow-Origin'] = '*'
     if (url.substring(0, 1) !== '/') {
       url = '/' + url
     }
@@ -166,7 +167,8 @@ export default {
       params, // get 请求时带的参数
       timeout: 10000,
       headers: {
-        'X-Requested-With': 'XMLHttpRequest'
+        'X-Requested-With': 'XMLHttpRequest',
+        'Access-Control-Allow-Origin': '*'
       }
     }).then(response => {
       return checkStatus(response)
