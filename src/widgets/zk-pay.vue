@@ -31,7 +31,6 @@
 <script>
   import { Popup, Group, Cell, XButton, TransferDom, Radio, MIcon } from 'zkui'
   import apiService from 'src/service/api/pay.api'
-  import local from 'src/service/common/local'
   // import { ZkPassword } from 'widgets'
   export default {
     name: 'zk-pay',
@@ -82,7 +81,7 @@
       async init () {
         this.userName = this.LoginUser().userName
         let paras = {
-          clientType: 'wapH5', // this.ClientType // 在gloal中获取支付方式列表
+          clientType: this.ClientType(), // this.ClientType // 在gloal中获取支付方式列表
           amount: this.amount,
           payId: this.payId
         }
@@ -110,7 +109,7 @@
           amount: this.amount,
           payType: this.selectPayType,
           payId: this.payId,
-          openId: local.getStore('openid')
+          openId: window.localStorage.getItem('wechat_openId')
         }
 
         // 建议以下代码在一打开页面的时候，判断是否是微信浏览器，是的话，就执行下面代码，获取到code后，调用接口返回openId,前端存储openId
