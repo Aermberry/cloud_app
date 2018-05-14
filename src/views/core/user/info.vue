@@ -12,7 +12,7 @@
           </div>
         </div>
         <cell title="名字 " :value="userInfo.name " is-link @click.native="ceshi('name') "></cell>
-        <cell title="性别 " :value="userInfo.sex" is-link @click.native="ceshi('sex') "></cell>
+        <!-- <cell title="性别 " :value="userInfo.sex" is-link @click.native="ceshi('sex') "></cell> -->
         <cell title="电话 " :value="userInfo.mobile "></cell>
         <cell title="邮箱 " :value="userInfo.email "></cell>
         <cell title="等级 " :value="userInfo.gradeName "></cell>
@@ -21,12 +21,12 @@
         <cell title="是否认证通过" :value="userInfo.isIdentity "></cell>
         <cell title="会员是否是门店" :value=" userInfo.isServiceCenter"></cell>
       </group>
-      <group>
+      <!-- <group>
         <cell title="我的地址 " @click.native="ceshi('address') " is-link></cell>
-      </group>
+      </group> -->
       <group>
-        <cell title="我的二维码 " link="/user/qrcode "></cell>
-        <cell title="我的钱包 " link="/user/account/index "></cell>
+        <cell title="我的二维码 " link="/user/qrcode"></cell>
+        <cell title="我的钱包 " link="/user/account/index"></cell>
       </group>
     </div>
     <!-- 修改头像 -->
@@ -192,9 +192,9 @@
       change (value, label) {
         // console.log('change:', value, label)
         if (value === '男') {
-          this.uGender = '0'
+          this.uGender = 1
         } else if (value === '女') {
-          this.uGender = '1'
+          this.uGender = 2
         }
       },
       ceshi (type) {
@@ -236,6 +236,7 @@
           let userDetail = {
             NickName: this.uName
           }
+          console.log('name', this.uName)
           var response = await userService.update(userDetail)
           console.log(response)
           if (response.data.status === 1) {
@@ -246,18 +247,26 @@
           }
         }
         if (type === 'sex') {
-          let parameter = {
-            Sex: this.uGender
+          var sex
+          if (this.uGender === 1) {
+            sex = {
+              Man: this.uGender
+            }
+          } else {
+            sex = {
+              WoMan: this.uGender
+            }
           }
-          var sexMessage = await userService.update(parameter)
+          console.log('sex', this.uGender)
+          var sexMessage = await userService.update(sex)
           console.log(sexMessage)
           if (sexMessage.data.status === 1) {
             this.showinfoBox = true
             this.showinfoTitle = true
             this.updateGender = false
-            if (this.uGender === '0') {
+            if (this.uGender === 1) {
               this.userInfo.sex = '男'
-            } else if (this.uGender === '1') {
+            } else if (this.uGender === 2) {
               this.userInfo.sex = '女'
             }
           }

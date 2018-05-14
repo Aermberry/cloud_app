@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from 'src/store/index'
 import helper from 'src/service/common/helper'
+import local from 'src/service/common/local'
+import api from 'src/service/api/apistore.api'
 // core
 import Common from './core/common' // 通用、、
 import User from './core/User' // 用户
@@ -59,7 +61,71 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  helper.WechatLogin()
+  var u = navigator.userAgent
+  if (u.indexOf('MicroMessenger') > -1 || u.indexOf('micromessenger') > -1) {
+    try {
+      console.info('当前访问微信浏览器')
+      // 微信浏览器
+      var localCode = local.getStore('Wechat_code') // 微信返回的Code
+      console.info('当前Code', localCode)
+      if (
+        localCode === undefined ||
+        localCode === 'undefined' ||
+        localCode === ''
+      ) {
+        console.info('获取Code')
+        var url = 'https://open.weixin.qq.com/connect/oauth2/authorize'
+        url += '?appid=wx3845717402bcb006'
+        url +=
+          '&redirect_uri=' + encodeURIComponent('http://www.yiqipingou.com/')
+        url += '&response_type=code'
+        url += '&scope=snsapi_base'
+        url += '&state=STATE&connect_redirect=1'
+        url += '#wechat_redirect'
+        window.location.href = url
+        // 获取Url中的Code
+        var querys = window.location.search
+        var num = querys.indexOf('?')
+        var str = querys.substr(num + 1)
+        var arr = str.split('&')
+        for (var i = 0; i < arr.length; i++) {
+          num = arr[i].indexOf('=')
+          if (num > 0) {
+            if (arr[i].substring(0, num) === 'code') {
+              var code = arr[i].substr(num + 1)
+              console.info('微信Code', code)
+              local.setStore('Wechat_code', code)
+              break
+            }
+          }
+        }
+      }
+
+      localCode = local.getStore('Wechat_code') // 重新获取code
+      var localOpenId = local.getStore('Wechat_openId') // openId
+      // 微信使用code登录，获取openId
+      if (
+        localOpenId === undefined ||
+        localOpenId === '' ||
+        localOpenId === 'undefined'
+      ) {
+        var data = {
+          code: localCode
+        }
+        var response = api.weixinLogin(data)
+        console.log('返回结果', response)
+        if (response.data.status === 1) {
+          var openId = response.data.result.session.openid
+          console.info('openId获取成功', openId)
+          local.setStore('Wechat_openId', openId)
+        } else {
+          console.info('失败', response)
+        }
+      }
+    } catch (err) {
+      console.warn(err)
+    }
+  }
   window.document.title = to.meta.title
   var isLogin = store.state.userStore.isLogin // 判断是否登陆
   if (to.meta.login) {

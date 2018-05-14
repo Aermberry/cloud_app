@@ -3,6 +3,7 @@
 
     <zk-head title='修改安全密码' goBack='安全设置'></zk-head>
     <group gap="2rem 0.2rem" id="form">
+      <cell title="初始默认密码为:222222(未进行修改情况下)"></cell>
       <x-input title="原始密码" required type="password" :min="6" :max="16" v-model="passwordInput.lastPassword"></x-input>
       <x-input title="新安全密码" required type="password" :min="6" :max="16" v-model="passwordInput.password"></x-input>
       <x-input title="确认新安全密码" required type="password" :min="6" :max="16" class="border-bottom" v-model="passwordInput.confirmPassword"></x-input>
@@ -15,14 +16,15 @@
 
 <script>
   import apiUser from 'src/service/api/user.api'
-  import { Group, XInput, Agree, Box, XButton } from 'zkui'
+  import { Group, XInput, Agree, Box, XButton, Cell } from 'zkui'
   export default {
     components: {
       Group,
       XInput,
       Agree,
       Box,
-      XButton
+      XButton,
+      Cell
     },
     data () {
       return {
