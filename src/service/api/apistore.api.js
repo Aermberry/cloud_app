@@ -16,7 +16,7 @@ export default {
     return response
   },
   async weixinLogin (data) {
-    var response = await http.get('ApiStore/Login', data)
+    var response = await http.get('ApiStore/WeixinPubLogin', data)
     return response
   }
 }

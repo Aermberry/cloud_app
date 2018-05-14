@@ -38,7 +38,7 @@ export default {
         // 微信使用code登录，获取openId
         if (openId === undefined || openId === null) {
           var data = {
-            jsCode: '021weWEm1DipDi0XvhIm1OqSEm1weWE9'
+            jsCode: code
           }
           api.weixinLogin(data).then(response => {
             console.info('请求数据result', response)
