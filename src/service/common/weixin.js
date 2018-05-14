@@ -28,6 +28,11 @@ export default {
           }
           console.info('微信Code', code)
         }
+
+        //
+        if (code === undefined || code === null) {
+          alert('code获取失败，无法获取openId')
+        }
         // 开始处理openId
         var openId = window.localStorage.getItem('wechat_openId')
         // 微信使用code登录，获取openId
