@@ -124,8 +124,9 @@
         //  url += '#wechat_redirect'//无论直接打开还是做页面302重定向时候，必须带此参数
         //  window.location.href = url
         // }
-
+        console.info('支付提交参数参', paras)
         var response = await apiService.Pay(paras)
+        console.info('支付请求结果',response)
         if (response.data.status === 1) {
           // 如果支付订单类型为商城订单，支付成功以后跳转到我的订单或者订单详情
           if (this.orderType === 'order') {
