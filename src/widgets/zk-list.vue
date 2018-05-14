@@ -107,6 +107,7 @@
           diyKey: this.diykey,
           isLogin: this.isLogin
         }
+        console.info('参数', params)
         var response = await apiService.getList(params) //  通过异步方法获取数据
         console.dir('数据', response) //  调试返回结果，调试完成以后请注释
         let totalSize = response.data.result.totalSize //  获取总页数
