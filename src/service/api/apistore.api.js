@@ -1,5 +1,5 @@
 import http from 'src/service/common/http'
-import local from 'src/service/common/local'
+
 export default {
   //  微信小程序登录
   async miniProgramLogin () {
@@ -15,19 +15,8 @@ export default {
     var response = await http.getLogin('User/Debt/show', data)
     return response
   },
-  async weixinLogin () {
-    var code = window.localStorage.getItem('code')
-    if (code === '') {
-      return
-    }
-    var data = {
-      code: code
-    }
-    var response = await http.get('ApiStore/WeixinPubLogin', data)
-    console.log('-------------------')
-    console.log(response)
-    if (response.data.session.openid) {
-      local.setStore('openid', response.data.session.openid)
-    }
+  async weixinLogin (data) {
+    var response = await http.getLogin('ApiStore/WeixinPubLogin', data)
+    return response
   }
 }

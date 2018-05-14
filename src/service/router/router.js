@@ -62,6 +62,14 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (
+    window.localStorage.getItem('openid') === 'undefined' ||
+    window.localStorage.getItem('openid') == null
+  ) {
+    var codetemp = window.localStorage.getItem('code')
+    api.weixinLogin(codetemp)
+  }
+
+  if (
     window.localStorage.getItem('code') === 'undefined' ||
     window.localStorage.getItem('code') === null ||
     window.localStorage.getItem('code') === ''
@@ -82,22 +90,22 @@ router.beforeEach((to, from, next) => {
       }
     }
   }
-  if (
-    navigator.userAgent.toLowerCase().match(/MicroMessenger/i)[0] ===
-      'micromessenger' &&
-    (window.localStorage.getItem('code') === 'undefined' ||
-      window.localStorage.getItem('code') === null ||
-      window.localStorage.getItem('code') === '')
-  ) {
-    var url = 'https://open.weixin.qq.com/connect/oauth2/authorize'
-    url += '?appid=wx3845717402bcb006'
-    url += '&redirect_uri=' + encodeURIComponent('http://www.yiqipingou.com/')
-    url += '&response_type=code'
-    url += '&scope=snsapi_base'
-    url += '&state=STATE'
-    url += '#wechat_redirect'
-    window.location.href = url
-  }
+  // if (
+  //   navigator.userAgent.toLowerCase().match(/MicroMessenger/i)[0] ===
+  //     'micromessenger' &&
+  //   (window.localStorage.getItem('code') === 'undefined' ||
+  //     window.localStorage.getItem('code') === null ||
+  //     window.localStorage.getItem('code') === '')
+  // ) {
+  //   var url = 'https://open.weixin.qq.com/connect/oauth2/authorize'
+  //   url += '?appid=wx3845717402bcb006'
+  //   url += '&redirect_uri=' + encodeURIComponent('http://www.yiqipingou.com/')
+  //   url += '&response_type=code'
+  //   url += '&scope=snsapi_base'
+  //   url += '&state=STATE&connect_redirect=1'
+  //   url += '#wechat_redirect'
+  //   window.location.href = url
+  // }
   window.document.title = to.meta.title
   var isLogin = store.state.userStore.isLogin // 判断是否登陆
   if (to.meta.login) {
