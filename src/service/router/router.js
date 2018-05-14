@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import store from 'src/store/index'
 import helper from 'src/service/common/helper'
 import local from 'src/service/common/local'
-// import api from 'src/service/api/apistore.api'
+import api from 'src/service/api/apistore.api'
 // core
 import Common from './core/common' // 通用、、
 import User from './core/User' // 用户
@@ -73,16 +73,14 @@ router.beforeEach((to, from, next) => {
       localCode === ''
     ) {
       console.info('获取Code')
-      // var url = 'https://open.weixin.qq.com/connect/oauth2/authorize'
-      // url += '?appid=wx3845717402bcb006'
-      // url += '&redirect_uri=' + encodeURIComponent('http://www.yiqipingou.com/')
-      // url += '&response_type=code'
-      // url += '&scope=snsapi_base'
-      // url += '&state=STATE&connect_redirect=1'
-      // url += '#wechat_redirect'
-      window.location.href =
-        'http://localhost:7001/?code=021OEdtN0OxaM42tcSvN08JrtN0OEdt9&state=STATE'
-
+      var url = 'https://open.weixin.qq.com/connect/oauth2/authorize'
+      url += '?appid=wx3845717402bcb006'
+      url += '&redirect_uri=' + encodeURIComponent('http://www.yiqipingou.com/')
+      url += '&response_type=code'
+      url += '&scope=snsapi_base'
+      url += '&state=STATE&connect_redirect=1'
+      url += '#wechat_redirect'
+      window.location.href = url
       // 获取Url中的Code
       var querys = window.location.search
       var num = querys.indexOf('?')
@@ -98,6 +96,28 @@ router.beforeEach((to, from, next) => {
             break
           }
         }
+      }
+    }
+
+    localCode = local.getStore('Wechat_code') // 重新获取code
+    var localOpenId = local.getStore('Wechat_openId') // openId
+    // 微信使用code登录，获取openId
+    if (
+      localOpenId === undefined ||
+      localOpenId === '' ||
+      localOpenId === 'undefined'
+    ) {
+      var data = {
+        code: localCode
+      }
+      var response = api.weixinLogin(data)
+      console.log('返回结果', response)
+      if (response.data.status === 1) {
+        var openId = response.data.result.session.openid
+        console.info('openId获取成功', openId)
+        local.setStore('Wechat_openId', openId)
+      } else {
+        console.info('失败', response)
       }
     }
   }
