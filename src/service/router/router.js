@@ -59,7 +59,7 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  helper.WechatLogin()
+  helper.WechatLogin() // 微信公众号登录，非一起拼先注释
   window.document.title = to.meta.title
   var isLogin = store.state.userStore.isLogin // 判断是否登陆
   if (to.meta.login) {

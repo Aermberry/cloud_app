@@ -12,7 +12,7 @@
 
 <script>
   import { ZkGroupbuy } from 'widgets'
-  import local from 'src/service/common/local'
+  import api from 'src/service/api/apistore.api'
   export default {
     components: {
       ZkGroupbuy
@@ -30,12 +30,31 @@
     methods: {
       async ceshi () {
         this.clientType = this.ClientType()
-        this.code = local.getStore('Wechat_code')
-        this.openId = local.getStore('Wechat_openId')
+        this.code = window.localStorage.getItem('wechat_code')
+        this.openId = window.localStorage.getItem('wechat_openId')
+        // 开始处理openId
+        var openId = window.localStorage.getItem('wechat_openId')
+        this.openId = openId
+        console.info('openId', openId)
+        // 微信使用code登录，获取openId
+        if (openId === undefined || openId === null) {
+          var data = {
+            jsCode: '021weWEm1DipDi0XvhIm1OqSEm1weWE9'
+          }
+          var response = api.weixinLogin(data)
+          if (response.data.status === 1) {
+            openId = response.data.result.session.openid
+            console.info('openId获取成功', openId)
+            if (openId !== undefined && openId.length > 12) {
+              window.localStorage.setItem('wechat_openId', openId)
+            }
+          } else {
+            console.info('失败', response)
+          }
+        }
       }
     }
   }
-
 </script>
 <style>
   html,
