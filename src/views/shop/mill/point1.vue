@@ -19,25 +19,25 @@
     <div class="point-tab">
       <ul>
         <li>
-          <router-link to="product/list?Keyword=数码家电">数码家电</router-link>
+          <router-link to="/product/list?Keyword=数码家电">数码家电</router-link>
         </li>
         <li>
-          <router-link to="product/list?Keyword=鞋服箱包 ">鞋服箱包 </router-link>
+          <router-link to="/product/list?Keyword=鞋服箱包 ">鞋服箱包 </router-link>
         </li>
         <li>
-          <router-link to="product/list?Keyword= 家居家纺"> 家居家纺</router-link>
+          <router-link to="/product/list?Keyword= 家居家纺"> 家居家纺</router-link>
         </li>
         <li>
-          <router-link to="product/list?Keyword=美妆饰品">美妆饰品 </router-link>
+          <router-link to="/product/list?Keyword=美妆饰品">美妆饰品 </router-link>
         </li>
         <li>
-          <router-link to="product/list?Keyword=粮油速食">粮油速食</router-link>
+          <router-link to="/product/list?Keyword=粮油速食">粮油速食</router-link>
         </li>
         <li>
-          <router-link to="product/list?Keyword=母婴用品">母婴用品 </router-link>
+          <router-link to="/product/list?Keyword=母婴用品">母婴用品 </router-link>
         </li>
         <li>
-          <router-link to="product/list?Keyword= 其他 "> 其他 </router-link>
+          <router-link to="/product/list?Keyword= 其他 "> 其他 </router-link>
         </li>
       </ul>
     </div>
@@ -49,7 +49,7 @@
       </span>
     </div>
     <div class="point-content-box">
-      <zk-product-item :pageSize=2 classIds='' tagsId='13733' diykey='index'></zk-product-item>
+      <zk-product-item :pageSize=2 classIds='' tagsId='13733'></zk-product-item>
     </div>
     <div class="point-title">
       <span class="title-text">
@@ -57,7 +57,7 @@
       </span>
     </div>
     <div class="point-content-box">
-      <zk-product-item :pageSize=2 classIds='' tagsId='13734' diykey='index'></zk-product-item>
+      <zk-product-item :pageSize=2 classIds='' tagsId='13734'></zk-product-item>
     </div>
     <div class="point-title">
       <span class="title-text">
@@ -65,7 +65,7 @@
       </span>
     </div>
     <div class="point-content-box">
-      <zk-product-item :pageSize=2 classIds='' tagsId='13735' diykey='index'></zk-product-item>
+      <zk-product-item :pageSize=2 classIds='' tagsId='13735'></zk-product-item>
     </div>
     <!-- <zk-foot></zk-foot> -->
     <div class="point-foot">
@@ -138,6 +138,40 @@
 
 <style   lang="less">
   .zkui-point {
+    .point-foot {
+      .placeholder {
+        width: 100%;
+        height: 40*@rem;
+      }
+      .footer {
+        position: fixed;
+        z-index: 999;
+        bottom: 0;
+        width: 100%;
+        height: 40*@rem;
+        background: rgba(255, 255, 255, 0.9);
+        border-top: 1px solid rgba(229, 229, 229, 0.4);
+        ul {
+          width: 100%;
+          height: 40*@rem;
+          box-sizing: border-box;
+          .footer_li {
+            float: left;
+            width: 25%;
+            height: 40*@rem;
+            text-align: center;
+            position: relative;
+            .li_svg {
+              padding-top: 0.6*@rem;
+            }
+            .li_text {
+              text-align: center;
+              margin-top: 0.4*@rem;
+            }
+          }
+        }
+      }
+    }
     .vux-tab .vux-tab-item {
       font-size: 0.8rem;
     }

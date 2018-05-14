@@ -1,7 +1,7 @@
 
 <template>
   <section class="zkui-product_list">
-    <zk-head title='商品列表' goBack=''></zk-head>
+    <zk-head :title='headTitle' goBack=''></zk-head>
     <div style="width: 100%;" class="list-fixed">
       <!-- <tab-item  @click.native="sortNum(0)" selected>默认排序</tab-item> -->
       <!-- <tab-item @click.native="sortNum(1)">价格</tab-item> -->
@@ -29,7 +29,7 @@
       <section class="ZKProductItem" v-if="!datashow">
         <div class="zkui-product-item__1 ">
           <ul>
-            <li v-for="(item,index) in dataList" :key="index">
+            <li v-for="(item,index) in dataList" :key="index" :class="{'yqp-item':yqp}">
               <dl>
                 <dt>
                   <router-link :to="'/product/show/'+item.id">
@@ -79,6 +79,8 @@
         styleType: '', // 风格类型, zklist支持多种样式，判断选择哪种样式
         pageIndex: 1, // 从第一页开始加载
         sort: '',
+        headTitle: '商品列表',
+        yqp: false,
         pageSize: 20,
         tabDown: false,
         datashow: true,
@@ -99,10 +101,53 @@
     },
     created () {
       console.log('create', this.$route.query)
+      if (this.$route.query.Keyword !== '') {
+        this.productList.Keyword = this.$route.query.Keyword
+        if (this.$route.query.Keyword === '平债士') {
+          this.headTitle = '平债士专区'
+        }
+        if (this.$route.query.Keyword === '高债士') {
+          this.headTitle = '高债士专区'
+        }
+      }
+      if (this.$route.query.SortOrder !== '') {
+        this.productList.SortOrder = this.$route.query.SortOrder
+      }
+      if (this.$route.query.MinPrice !== '') {
+        this.productList.MinPrice = this.$route.query.MinPrice
+      }
+      if (this.$route.query.MaxPrice !== '') {
+        this.productList.MaxPrice = this.$route.query.MaxPrice
+      }
+      if (this.$route.query.ClassIds !== '') {
+        this.productList.ClassIds = this.$route.query.ClassIds
+      }
+      if (this.$route.query.TagIds !== '') {
+        this.productList.TagIds = this.$route.query.TagIds
+      }
+      if (this.$route.query.ProductIds !== '') {
+        this.productList.ProductIds = this.$route.query.ProductIds
+      }
+      if (this.$route.query.BrandId !== '') {
+        this.productList.BrandId = this.$route.query.BrandId
+      }
+      if (this.$route.query.PriceStyleId !== '') {
+        this.productList.PriceStyleId = this.$route.query.PriceStyleId
+      }
+      if (this.$route.query.OrderType !== '') {
+        this.productList.OrderType = this.$route.query.OrderType
+      }
+      if (this.$route.query.ClasssId !== '') {
+        this.productList.ClasssId = this.$route.query.ClasssId
+      }
     },
     mounted () {
+      if (window.location.href.indexOf('yiqipingou') !== -1) {
+        this.yqp = true
+      } else {
+        this.yqp = false
+      }
       this.upCallback()
-      console.log(this.$route.params)
     },
     methods: {
       async sortNum (id) {
@@ -139,14 +184,6 @@
         }
       },
       async upCallback () {
-        for (var index in this.$route.query) {
-          if (this.$route.query[index] !== '') {
-            this.productList[index] = this.$route.query[index]
-          }
-        }
-        if (this.$route.params.value !== '' || this.$route.params.value !== 'undefined') {
-          this.productList.Keyword = this.$route.params.value
-        }
         console.log('upCallback', this.productList.Keyword)
         let params = {
           SortOrder: this.productList.SortOrder, // 商品排序方式
@@ -263,7 +300,7 @@
           }
           .itemPrice {
             padding-left: 0.3rem;
-            min-height: 3rem;
+            height: 3rem;
             div {
               display: flex;
               color: @brand;
@@ -284,6 +321,17 @@
                 overflow: hidden;
                 font-weight: normal;
               }
+            }
+          }
+        }
+      }
+      li.yqp-item {
+        dl {
+          .itemPrice {
+            height: auto;
+            div {
+              height: 1.5rem;
+              font-size: @h5-font-size;
             }
           }
         }
