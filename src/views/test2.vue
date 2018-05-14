@@ -1,6 +1,7 @@
 <template>
   <div>
-    测试
+    ClientType：
+    <span>{{clientType}}</span>
   </div>
 </template>
 
@@ -15,8 +16,26 @@
     mounted () {
       this.ceshi()
     },
+    data () {
+      return {
+        clientType: ''
+      }
+    },
     methods: {
       async ceshi () {
+        console.info('当前url', this.$route.path, window.location.href)
+        var localUrl = window.location.href // 当前页面url
+        this.clientType = this.ClientType()
+        if (this.ClientType() === 'Wechat') {
+          var url = 'https://open.weixin.qq.com/connect/oauth2/authorize'
+          url += '?appid=wx3845717402bcb006'
+          url += '&redirect_uri=' + encodeURIComponent(localUrl)
+          url += '&response_type=code'
+          url += '&scope=snsapi_base'
+          url += '&state=STATE&connect_redirect=1'
+          url += '#wechat_redirect'
+          window.location.href = url
+        }
         var code = window.localStorage.getItem('code')
         console.info('code', code)
         var data = {
