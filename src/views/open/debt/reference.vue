@@ -7,7 +7,7 @@
       </tab>
       <swiper v-model="index" height="100px" :show-dots="false">
         <swiper-item>
-          <div class="reference-box" v-for="(item,index) in dataList" :key="index">
+          <div class="reference-box" v-for="(item,index) in UserNotice" :key="index">
             <ul>
               <li class="box-left">
                 <div class="left-time">
@@ -27,13 +27,40 @@
               </li>
             </ul>
           </div>
+          <div class="zk-not-data" v-if="showUserNotice">
+            <m-icon name="zk-notdata"></m-icon>
+            <p>暂无数据</p>
+          </div>
         </swiper-item>
         <swiper-item>
-          <div class="tab-swiper vux-center">行业新闻页面</div>
+          <div class="reference-box" v-for="(item,index) in article" :key="index">
+            <ul>
+              <li class="box-left">
+                <div class="left-time">
+                  <p>{{item.extra}}</p>
+                </div>
+              </li>
+              <li class="box-right">
+                <div class="title">
+                  <p>{{item.title}}</p>
+                </div>
+                <div class="introduction ">
+                  <p>{{item.intro}}</p>
+                  <router-link :to="item.url">
+                    点击查看详情
+                  </router-link>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="zk-not-data" v-if="showarticle">
+            <m-icon name="zk-notdata"></m-icon>
+            <p>暂无数据</p>
+          </div>
         </swiper-item>
-        <swiper-item>
+        <!-- <swiper-item>
           <div class="tab-swiper vux-center">公司活动通知页面</div>
-        </swiper-item>
+        </swiper-item> -->
       </swiper>
     </div>
     <zk-foot></zk-foot>
@@ -49,10 +76,13 @@
     },
     data () {
       return {
-        list2: ['公司公告', '行业新闻', '公司活动通知'],
-        demo2: '公司公告页面',
+        list2: ['公司公告', '行业新闻'],
+        demo2: '公司公告',
         index: 0,
-        dataList: ''
+        UserNotice: '',
+        showUserNotice: false,
+        article: '',
+        showarticle: false
       }
     },
     created () {
@@ -62,19 +92,42 @@
     },
     methods: {
       async Getdata () {
-        let par = {
-          dataType: 'topline',
-          diyKey: 'topline'
+        let un = {
+          dataType: 'UserNotice',
+          diyKey: 'UserNotice'
         }
-        var response = await apiService.getList(par)
-        this.dataList = response.data.result.apiDataList
-        console.log('dataList', this.dataList)
+        var response = await apiService.getList(un)
+        this.UserNotice = response.data.result.apiDataList
+        if (this.UserNotice.length === 0) {
+          this.showUserNotice = true
+        }
+        let article = {
+          dataType: 'article',
+          diyKey: 'article'
+        }
+        var articleMessage = await apiService.getList(article)
+        this.article = articleMessage.data.result.apiDataList
+        if (this.article.length === 0) {
+          this.showarticle = true
+        }
       }
     }
   }
 </script>
 <style   lang="less">
   .zkui-debt-reference {
+    .zk-not-data {
+      margin: 0 auto;
+      padding-top: 150*@rem;
+      text-align: center;
+      svg {
+        width: 50*@rem;
+        height: 50*@rem;
+      }
+      p {
+        font-size: @h4-font-size;
+      }
+    }
     .vux-slider {
       overflow: visible;
       .vux-swiper {

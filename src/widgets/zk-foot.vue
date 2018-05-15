@@ -6,9 +6,9 @@
       <ul class="clear">
         <router-link to="/default" tag="li" class="footer_li">
           <section class="li_svg">
-            <m-icon name="zk-home" :class="$route.path.indexOf('default') !== -1 ? 'warning' : 'metal' "></m-icon>
+            <m-icon name="zk-home" :class="$route.path.indexOf('default') !== -1 ? 'brand' : 'metal' "></m-icon>
           </section>
-          <section class="li_text" :class="$route.path.indexOf('default') !== -1 ? 'warning' : 'metal' ">首页</section>
+          <section class="li_text" :class="$route.path.indexOf('default') !== -1 ? 'brand' : 'metal' ">首页</section>
         </router-link>
         <router-link to="/product/class" tag="li" class="footer_li">
           <section class="li_svg">
@@ -19,7 +19,7 @@
         </router-link>
         <router-link to="/order/cart" tag="li" class="footer_li">
           <section class="li_svg">
-            <m-icon name="zk-gs-car" :class="$route.path.indexOf('order') !== -1 ? 'brand' : 'metal' "></m-icon>
+            <m-icon name="zk-cart" :class="$route.path.indexOf('order') !== -1 ? 'brand' : 'metal' "></m-icon>
           </section>
           <section class="li_text" :class="$route.path.indexOf('order') !== -1 ? 'brand' : 'metal' ">购物车</section>
         </router-link>
@@ -49,9 +49,6 @@
 <style scoped  lang="less">
   @import '../assets/css/zkui/theme';
   .zkui-foot {
-    .warning {
-      color: #f99e26;
-    }
     .placeholder {
       width: 100%;
       height: 40*@rem;

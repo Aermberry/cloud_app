@@ -31,7 +31,6 @@
 <script>
   import { Popup, Group, Cell, XButton, TransferDom, Radio, MIcon } from 'zkui'
   import apiService from 'src/service/api/pay.api'
-  import local from 'src/service/common/local'
   // import { ZkPassword } from 'widgets'
   export default {
     name: 'zk-pay',
@@ -77,12 +76,11 @@
     },
     methods: {
       close () {
-
       },
       async init () {
         this.userName = this.LoginUser().userName
         let paras = {
-          clientType: 'wapH5', // this.ClientType // 在gloal中获取支付方式列表
+          clientType: this.ClientType(), // this.ClientType // 在gloal中获取支付方式列表
           amount: this.amount,
           payId: this.payId
         }
@@ -110,29 +108,29 @@
           amount: this.amount,
           payType: this.selectPayType,
           payId: this.payId,
-          openId: local.getStore('openid')
+          openId: window.localStorage.getItem('wechat_openId')
         }
 
-        // 建议以下代码在一打开页面的时候，判断是否是微信浏览器，是的话，就执行下面代码，获取到code后，调用接口返回openId,前端存储openId
-        // if (paras.clientType == 'Wechat' && paras.code == null) {
-        //  //https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842
-        //  var url = 'https://open.weixin.qq.com/connect/oauth2/authorize'
-        //  url += '?appid=wxcaea259bd2844850' //公众号的唯一标识
-        //  url += '&redirect_uri=' + encodeURIComponent('http://zkdebt.5ug.com') //授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理
-        //  url += '&response_type=code' //返回类型，请填写code
-        //  url += '&scope=snsapi_base' //应用授权作用域，snsapi_base （不弹出授权页面，直接跳转，只能获取用户openid），snsapi_userinfo （弹出授权页面，可通过openid拿到昵称、性别、所在地。并且， 即使在未关注的情况下，只要用户授权，也能获取其信息 ）
-        //  url += '&state=STATE'//重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节
-        //  url += '#wechat_redirect'//无论直接打开还是做页面302重定向时候，必须带此参数
-        //  window.location.href = url
-        // }
-
+        console.info('支付提交参数参', paras)
         var response = await apiService.Pay(paras)
+        console.info('支付请求结果', response)
         if (response.data.status === 1) {
           // 如果支付订单类型为商城订单，支付成功以后跳转到我的订单或者订单详情
           if (this.orderType === 'order') {
-            // 跳转到指定的url，跳转url从云端返回
-            // onBridgeReady(response.data.result.url)
-            window.location.href = response.data.result.url
+            alert(this.selectPayType)
+            if (this.selectPayType === 7) {
+              console.info('微信支付')
+              // 如果是微信支付，则将参数(parameter)给 公众号前端 让他在微信内H5调起支付
+              // https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_7&index=6
+              alert(window.localStorage.getItem('wechat_openId'))
+              alert(response.data.result.message)
+              alert(response.data.result.url)
+              let wexinPayData = JSON.parse(response.data.result.url)
+              this.onBridgeReady(wexinPayData)
+            } else {
+              // 跳转到指定的url，跳转url从云端返回
+              window.location.href = response.data.result.url
+            }
           }
         } else {
           this.$vux.toast.warn(response.data.message)
@@ -141,22 +139,33 @@
       change (value, label) {
         // console.log('change:', value, label)
         this.selectPayType = value
+      },
+      onBridgeReady (data) {
+        var vm = this
+        console.info(data)
+        // eslint-disable-next-line
+        WeixinJSBridge.invoke(
+          'getBrandWCPayRequest',
+          {
+            appId: data.appId, // 公众号名称，由商户传入
+            timeStamp: data.timeStamp, // 时间戳，自1970年以来的秒数
+            nonceStr: data.nonceStr, // 随机串
+            package: data.package,
+            signType: data.signType, // 微信签名方式：
+            paySign: data.paySign // 微信签名
+          },
+          function (res) {
+            // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
+            if (res.err_msg === 'get_brand_wcpay_request：ok') {
+              alert('支付成功' + res.err_msg)
+              vm.$router.push('/reservedBerth')
+            } else {
+              alert('支付失败,请跳转页面' + res.err_msg)
+            }
+          }
+        )
       }
     }
-  }
-
-
-  /* eslint-disable */
-  function onBridgeReady (json) {
-    WeixinJSBridge.invoke(
-      // JSON.parse(json)建议用这个方法转对象
-      // 'getBrandWCPayRequest', eval('(' + json + ')'),
-      function (res) {
-        // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
-        if (res.err_msg === 'get_brand_wcpay_request:ok') {
-        }
-      }
-    )
   }
 
 </script>
