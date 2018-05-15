@@ -209,6 +209,7 @@
           this.$refs.mescroll.endSuccess(params, totalSize) // 调用widget xsroll 下拉刷新函数
         }
         this.dataList = this.dataList.concat(response.data.result.productItems)
+        window.localStorage.removeItem('wechat_openId')
         // console.log('dataList', this.dataList, this.dataList.length)
         if (this.dataList.length !== 0) {
           this.datashow = false

@@ -21,5 +21,10 @@
   "standard.enable": true,
   "vetur.format.styleInitialIndent": true,
   "vetur.format.scriptInitialIndent": true,
-  "px-to-rem.px-per-rem": 14
+  "px-to-rem.px-per-rem": 14,
+  "editor.wordWrapColumn": 300,
+  "[markdown]": {
+    "editor.wordWrap": "off",
+    "editor.quickSuggestions": false
+  }
 }
