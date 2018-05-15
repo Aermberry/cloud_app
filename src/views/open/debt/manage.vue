@@ -357,7 +357,6 @@
     },
     mounted () {
       this.GetData()
-      this.detele()
     },
     methods: {
       async GetData () {
