@@ -31,6 +31,7 @@
 <script>
   import { Popup, Group, Cell, XButton, TransferDom, Radio, MIcon } from 'zkui'
   import apiService from 'src/service/api/pay.api'
+  import weixin from 'src/service/common/weixin'
   // import { ZkPassword } from 'widgets'
   export default {
     name: 'zk-pay',
@@ -117,16 +118,9 @@
         if (response.data.status === 1) {
           // 如果支付订单类型为商城订单，支付成功以后跳转到我的订单或者订单详情
           if (this.orderType === 'order') {
-            alert(this.selectPayType)
             if (this.selectPayType === 7) {
-              console.info('微信支付')
-              // 如果是微信支付，则将参数(parameter)给 公众号前端 让他在微信内H5调起支付
-              // https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_7&index=6
-              alert(window.localStorage.getItem('wechat_openId'))
-              alert(response.data.result.message)
-              alert(response.data.result.url)
-              let wexinPayData = JSON.parse(response.data.result.url)
-              this.onBridgeReady(wexinPayData)
+              // 微信支付
+              weixin.onBridgeReady(response)
             } else {
               // 跳转到指定的url，跳转url从云端返回
               window.location.href = response.data.result.url
@@ -139,31 +133,6 @@
       change (value, label) {
         // console.log('change:', value, label)
         this.selectPayType = value
-      },
-      onBridgeReady (data) {
-        var vm = this
-        console.info(data)
-        // eslint-disable-next-line
-        WeixinJSBridge.invoke(
-          'getBrandWCPayRequest',
-          {
-            appId: data.appId, // 公众号名称，由商户传入
-            timeStamp: data.timeStamp, // 时间戳，自1970年以来的秒数
-            nonceStr: data.nonceStr, // 随机串
-            package: data.package,
-            signType: data.signType, // 微信签名方式：
-            paySign: data.paySign // 微信签名
-          },
-          function (res) {
-            // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
-            if (res.err_msg === 'get_brand_wcpay_request：ok') {
-              alert('支付成功' + res.err_msg)
-              vm.$router.push('/reservedBerth')
-            } else {
-              alert('支付失败,请跳转页面' + res.err_msg)
-            }
-          }
-        )
       }
     }
   }
