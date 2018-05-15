@@ -117,11 +117,12 @@
         if (response.data.status === 1) {
           // 如果支付订单类型为商城订单，支付成功以后跳转到我的订单或者订单详情
           if (this.orderType === 'order') {
+            alert(this.selectPayType)
             if (this.selectPayType === 7) {
               console.info('微信支付')
               // 如果是微信支付，则将参数(parameter)给 公众号前端 让他在微信内H5调起支付
               // https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_7&index=6
-              alert('openId', window.localStorage.getItem('wechat_openId'))
+              alert(window.localStorage.getItem('wechat_openId'))
               alert(response.data.result.message)
               alert(response.data.result.url)
               let wexinPayData = JSON.parse(response.data.result.url)
