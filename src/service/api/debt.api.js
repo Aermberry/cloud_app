@@ -40,5 +40,9 @@ export default {
   async planStatus (data) {
     var response = await http.get('User/Debt/Count', data)
     return response
+  },
+  async delete (data) {
+    var response = await http.getLogin('/User/Debt/Delete ', data)
+    return response
   }
 }

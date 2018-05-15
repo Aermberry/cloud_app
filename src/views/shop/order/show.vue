@@ -76,8 +76,8 @@
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">订单编号:{{data.serial}}</label>
           </div>
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">订单编号:{{data.serial}}</label>
+          <div class="weui-form-preview__item" v-for="(item,index) in this.data.orderDeliverys" :key="index">
+            <label class="weui-form-preview__label">物流编号:{{item.expressNumber}}({{item.name}})</label>
           </div>
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">创建时间: {{data.createTime}}</label>
@@ -141,7 +141,7 @@
         }
         var showData = await orderService.show(par)
         this.data = showData.data.result
-        console.log(this.data)
+        console.log('data', this.data)
         if (this.data.orderStatus === 1) {
           this.state = '待付款'
           this.showPay = true
@@ -211,7 +211,7 @@
     .zkui-order-show-price {
       .vux-form-preview {
         .weui-form-preview__bd {
-          padding: 5*@rem 10*@rem;
+          padding: 5 * @rem 10 * @rem;
           line-height: 1.5;
           .weui-form-preview__item {
             .weui-form-preview__label {
@@ -227,11 +227,17 @@
             }
           }
           .reality-payment {
-            margin-top: 5*@rem;
+            margin-top: 5 * @rem;
             .weui-form-preview__label,
             .weui-form-preview__value {
               font-size: @h5-font-size;
               font-weight: @font-weight-normal;
+              word-break: break-all;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 2;
+              overflow: hidden;
             }
           }
         }
@@ -245,7 +251,7 @@
     .zkui-order-information {
       .vux-form-preview {
         .weui-form-preview__bd {
-          padding: 5*@rem 10*@rem;
+          padding: 5 * @rem 10 * @rem;
           line-height: 1.5;
           .weui-form-preview__item {
             .weui-form-preview__label,
@@ -363,8 +369,8 @@
         position: absolute;
         top: 50%;
         left: 0;
-        width: 40*@rem;
-        height: 40*@rem;
+        width: 40 * @rem;
+        height: 40 * @rem;
         transform: translatey(-50%);
         svg {
           width: 100%;

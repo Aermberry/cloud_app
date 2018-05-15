@@ -49,7 +49,7 @@
       </span>
     </div>
     <div class="point-content-box">
-      <zk-product-item :pageSize=2 classIds='' tagsId='13733'></zk-product-item>
+      <zk-product-item :pageSize=2 classIds='' tagIds='13733' diykey=''></zk-product-item>
     </div>
     <div class="point-title">
       <span class="title-text">
@@ -57,7 +57,7 @@
       </span>
     </div>
     <div class="point-content-box">
-      <zk-product-item :pageSize=2 classIds='' tagsId='13734'></zk-product-item>
+      <zk-product-item :pageSize=2 classIds='' tagIds='13734' diykey=''></zk-product-item>
     </div>
     <div class="point-title">
       <span class="title-text">
@@ -65,7 +65,7 @@
       </span>
     </div>
     <div class="point-content-box">
-      <zk-product-item :pageSize=2 classIds='' tagsId='13735'></zk-product-item>
+      <zk-product-item :pageSize=2 classIds='' tagIds='13735' diykey=''></zk-product-item>
     </div>
     <!-- <zk-foot></zk-foot> -->
     <div class="point-foot">
@@ -141,32 +141,32 @@
     .point-foot {
       .placeholder {
         width: 100%;
-        height: 40*@rem;
+        height: 40 * @rem;
       }
       .footer {
         position: fixed;
         z-index: 999;
         bottom: 0;
         width: 100%;
-        height: 40*@rem;
+        height: 40 * @rem;
         background: rgba(255, 255, 255, 0.9);
         border-top: 1px solid rgba(229, 229, 229, 0.4);
         ul {
           width: 100%;
-          height: 40*@rem;
+          height: 40 * @rem;
           box-sizing: border-box;
           .footer_li {
             float: left;
             width: 25%;
-            height: 40*@rem;
+            height: 40 * @rem;
             text-align: center;
             position: relative;
             .li_svg {
-              padding-top: 0.6*@rem;
+              padding-top: 0.6 * @rem;
             }
             .li_text {
               text-align: center;
-              margin-top: 0.4*@rem;
+              margin-top: 0.4 * @rem;
             }
           }
         }

@@ -12,6 +12,7 @@
       <box gap="2rem 0.6rem">
         <x-button type="primary" @click.native="save" action-type="button"> 保存</x-button>
       </box>
+      <button @click="ceshi">qwewqeqweqwe</button>
     </group>
   </section>
 </template>
@@ -39,7 +40,6 @@
     },
     mounted () {
       this.GetData()
-      console.info('路由', this.$route)
     },
     created () {
       if (this.$route.params.id !== undefined) {
@@ -47,6 +47,9 @@
       }
     },
     methods: {
+      ceshi () {
+        console.log(this.addressValue)
+      },
       async GetData () {
         this.addressData = address.addressData
         var id = this.$route.params.id

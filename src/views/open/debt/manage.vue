@@ -58,7 +58,7 @@
                   </group> -->
                   <group class="product-option">
                     <cell>
-                      <x-button mini plain v-if="item.type===1">取消订单</x-button>
+                      <x-button mini plain v-if="item.type===1" @click.native="detele(item.id)">取消订单</x-button>
                     </cell>
                   </group>
                 </div>
@@ -357,6 +357,7 @@
     },
     mounted () {
       this.GetData()
+      this.detele()
     },
     methods: {
       async GetData () {
@@ -406,6 +407,14 @@
         if (this.stayEvaluate.length === 0) {
           this.showof[4] = true
         }
+      },
+      async detele (id) {
+        console.log('id', id)
+        let par = {
+          EntityId: id
+        }
+        var response = await apiService.delete(par)
+        console.log(response)
       }
 
     }
@@ -415,11 +424,11 @@
   .zkui-manage {
     .zk-not-data {
       margin: 0 auto;
-      padding-top: 150*@rem;
+      padding-top: 150 * @rem;
       text-align: center;
       svg {
-        width: 50*@rem;
-        height: 50*@rem;
+        width: 50 * @rem;
+        height: 50 * @rem;
       }
       p {
         font-size: @h4-font-size;
@@ -441,7 +450,7 @@
     .vux-slider {
       .vux-swiper {
         min-height: 78vh !important;
-        padding-bottom: 20*@rem;
+        padding-bottom: 20 * @rem;
       }
     }
     .weui-cells {
@@ -459,7 +468,7 @@
       .zkui-order-list-content {
         height: 80vh;
         overflow-y: auto;
-        padding-bottom: 10*@rem;
+        padding-bottom: 10 * @rem;
         .zkui-order-list-box-item {
           border-bottom: 8px solid rgba(229, 229, 229, 0.5);
           .box-title {
@@ -479,7 +488,7 @@
             }
           }
           .product-option {
-            padding-right: 10*@rem;
+            padding-right: 10 * @rem;
             .weui-cells:after {
               content: none;
             }
@@ -577,11 +586,11 @@
     }
     .zk-not-data {
       margin: 0 auto;
-      padding-top: 150*@rem;
+      padding-top: 150 * @rem;
       text-align: center;
       svg {
-        width: 50*@rem;
-        height: 50*@rem;
+        width: 50 * @rem;
+        height: 50 * @rem;
       }
       p {
         font-size: @h4-font-size;

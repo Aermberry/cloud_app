@@ -140,6 +140,7 @@
       if (this.$route.query.ClasssId !== '') {
         this.productList.ClasssId = this.$route.query.ClasssId
       }
+      console.log('create', this.$route.query)
     },
     mounted () {
       if (window.location.href.indexOf('yiqipingou') !== -1) {
@@ -158,7 +159,7 @@
           MinPrice: this.productList.MinPrice, // 最低价格
           MaxPrice: this.productList.MaxPrice, // 最高价格
           ClassIds: this.productList.ClassIds, // 商品分类Id
-          TagId: this.productList.TagIds, // 商品标签ID
+          TagIds: this.productList.TagIds, // 商品标签ID
           ProductIds: this.productList.ProductIds, // 商品Id
           BrandId: this.productList.BrandId, // 商品品牌Id
           PriceStyleId: this.productList.PriceStyleId, //  商品模式
@@ -184,14 +185,14 @@
         }
       },
       async upCallback () {
-        console.log('upCallback', this.productList.Keyword)
+        console.log('upCallback', this.productList)
         let params = {
           SortOrder: this.productList.SortOrder, // 商品排序方式
           Keyword: this.productList.Keyword, // 搜索关键字
           MinPrice: this.productList.MinPrice, // 最低价格
           MaxPrice: this.productList.MaxPrice, // 最高价格
           ClassIds: this.productList.ClassIds, // 商品分类Id
-          TagId: this.productList.TagIds, // 商品标签ID
+          TagIds: this.productList.TagIds, // 商品标签ID
           ProductIds: this.productList.ProductIds, // 商品Id
           BrandId: this.productList.BrandId, // 商品品牌Id
           PriceStyleId: this.productList.PriceStyleId, //  商品模式
@@ -272,7 +273,7 @@
         width: 47%;
         margin: 2% 0 0 2%;
         padding-bottom: 0.3rem;
-        border-radius: 2*@rem;
+        border-radius: 2 * @rem;
         border: 1px solid rgba(229, 229, 229, 0.4);
 
         dl {

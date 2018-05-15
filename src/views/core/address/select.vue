@@ -56,6 +56,7 @@
           this.selectType = true // 选择地址模式
         }
         var response = await apiUser.GetAddress()
+        console.log('获取地址', response)
         if (response.data.status === 1) {
           this.viewModel = response.data.result
           this.viewModel.forEach(element => {
@@ -73,6 +74,7 @@
           id: id
         }
         var response = await apiUser.SingleAddress(param)
+        console.log('select', response)
         if (response.data.status === 1) {
           local.setLoginStore('default_address', response.data.result) // 将地址信息写到缓存中
         }
@@ -94,10 +96,10 @@
 
 <style scoped  lang="less">
   .user_address {
-    padding-bottom: 35*@rem;
+    padding-bottom: 35 * @rem;
     body {
       background: @gray-100;
-      padding-bottom: 50*@rem;
+      padding-bottom: 50 * @rem;
     }
     .address_name {
       font-size: 1.2rem;

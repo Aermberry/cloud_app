@@ -308,13 +308,13 @@
           console.info('店铺最终购买数据', storeItem.storeName, this.productSkuChecks[i])
         }
         console.info('总数据', this.viewModel, '格式', buyProductInfo)
-        this.$router.push({
-          name: 'order_buy',
-          params: {
-            buyInfo: buyProductInfo,
-            isFromCart: true // 购买信息来自购物车
-          }
-        })
+        // this.$router.push({
+        //   name: 'order_buy',
+        //   params: {
+        //     buyInfo: buyProductInfo,
+        //     isFromCart: true // 购买信息来自购物车
+        //   }
+        // })
       }
     },
     watch: {
@@ -329,7 +329,7 @@
 </script>
 <style  lang="less">
   .zkui-order-cart {
-    padding-bottom: 50*@rem;
+    padding-bottom: 50 * @rem;
     .flex {
       display: -moz-box;
       display: -ms-flexbox;
@@ -345,7 +345,7 @@
     }
     .zkui-order-cart-box {
       .cart_item-box {
-        border-bottom: 8*@rem solid rgba(229, 229, 229, 0.5);
+        border-bottom: 8 * @rem solid rgba(229, 229, 229, 0.5);
         .weui-cells_checkbox {
           .vux-checklist-icon-checked::before {
             margin-left: 0.5rem;
@@ -375,7 +375,7 @@
         background: @white;
         h2 {
           line-height: 3.5rem;
-          padding-left: 5*@rem;
+          padding-left: 5 * @rem;
           color: @black;
           font-size: @h5-font-size;
         }
@@ -451,15 +451,15 @@
                   align-items: flex-end;
                 }
                 span.price_old {
-                  padding-left: 5*@rem;
+                  padding-left: 5 * @rem;
                   text-decoration: line-through;
                   color: @gray-500;
                 }
                 span.price_num {
                   text-align: right;
                   color: @gray-500;
-                  padding-right: 10*@rem;
-                  padding-left: 10*@rem;
+                  padding-right: 10 * @rem;
+                  padding-left: 10 * @rem;
                   .vux-number-round {
                     height: 1.3rem;
                     font-size: 10px;
@@ -527,7 +527,7 @@
             display: block;
             line-height: 3.5rem;
             text-align: right;
-            padding-right: 5*@rem;
+            padding-right: 5 * @rem;
           }
         }
         .bar-right {

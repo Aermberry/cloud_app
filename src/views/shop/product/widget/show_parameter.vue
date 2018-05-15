@@ -195,6 +195,7 @@
           this.showSale = true
         })
       })
+      console.log('qqqqqqqqqqqqqqqqqqqqqqqqq', this.selectSku.id)
       for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
         this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
       }
@@ -281,7 +282,8 @@
       },
       // 根据skuId，获取拼团显示价格
       getGroupBuySkuPrice (id) {
-        return '拼团价格'
+        console.log(id)
+        return '100'
       },
       // 获取Sku ，用户选择不同的sku
       changSku () {
@@ -307,11 +309,11 @@
     }
     .weui-cells-top {
       background-color: #efefef;
-      margin-bottom: -2*@rem;
+      margin-bottom: -2 * @rem;
       border: 1px solid white;
     }
     .weui-cells-bottom {
-      height: 5*@rem;
+      height: 5 * @rem;
       background-color: #efefef;
       // border: 1px solid white;
     }
@@ -319,7 +321,7 @@
       text-align: center;
     }
     .weui-cells__content {
-      min-height: 240*@rem;
+      min-height: 240 * @rem;
     }
     .weui-cell__ft {
       font-weight: @font-weight-normal;
@@ -337,8 +339,8 @@
       dd {
         float: right;
         width: 65%;
-        margin-right: 15*@rem;
-        padding-top: 2*@rem;
+        margin-right: 15 * @rem;
+        padding-top: 2 * @rem;
         font-weight: @font-weight-normal;
       }
       dd.sale-info-name {
@@ -408,8 +410,8 @@
         overflow-y: auto;
         dt {
           width: 100%;
-          height: 28*@rem;
-          padding: 8*@rem 0 0 1.25rem;
+          height: 28 * @rem;
+          padding: 8 * @rem 0 0 1.25rem;
           font-weight: bold;
         }
         dd:after {
@@ -424,14 +426,14 @@
           width: 100%;
           .vux-checker-box {
             float: left;
-            margin-left: 8*@rem;
+            margin-left: 8 * @rem;
           }
           .sale-item {
             background-color: #ddd;
             color: #222;
-            padding: 4*@rem 8*@rem;
-            margin: 0 5*@rem 5*@rem 0;
-            border-radius: 4*@rem;
+            padding: 4 * @rem 8 * @rem;
+            margin: 0 5 * @rem 5 * @rem 0;
+            border-radius: 4 * @rem;
             font-weight: @font-weight-normal;
             font-size: @h6-font-size;
           }
@@ -497,8 +499,8 @@
     position: fixed;
     width: 100%;
     overflow-y: auto;
-    height: 40*@rem;
-    line-height: 40*@rem;
+    height: 40 * @rem;
+    line-height: 40 * @rem;
     text-align: center;
     z-index: 5;
     background-color: white;
@@ -507,10 +509,10 @@
     font-size: @h4-font-size;
   }
   .goods-title-pla {
-    height: 40*@rem;
+    height: 40 * @rem;
   }
   .goods-item {
-    padding-bottom: 20*@rem;
+    padding-bottom: 20 * @rem;
     height: 16.5rem;
     overflow-y: auto;
     .weui-cells {
@@ -603,7 +605,7 @@
   }
   .zkui-product-show-groupbuy {
     .weui-cells-bottom {
-      height: 5*@rem;
+      height: 5 * @rem;
       background-color: #efefef;
       // border: 1px solid white;
     }

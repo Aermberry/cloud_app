@@ -69,6 +69,7 @@
           this.selectType = true // 选择地址模式
         }
         var response = await apiUser.GetAddress()
+        console.log(response)
         if (response.data.status === 1) {
           this.viewModel = response.data.result
           console.log(this.viewModel)
@@ -161,10 +162,10 @@
 
 <style scoped  lang="less">
   .user_address {
-    padding-bottom: 35*@rem;
+    padding-bottom: 35 * @rem;
     body {
       background: @gray-100;
-      padding-bottom: 50*@rem;
+      padding-bottom: 50 * @rem;
     }
     .vux-checker-box {
       padding-bottom: 10rem;

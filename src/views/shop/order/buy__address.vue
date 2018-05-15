@@ -39,6 +39,9 @@
       Group,
       Cell
     },
+    created () {
+      console.log('default_address', local.getLoginStore('default_address'))
+    },
     mounted () {
       this.GetData()
     },
@@ -127,8 +130,8 @@
         position: absolute;
         top: 50%;
         left: 0;
-        width: 40*@rem;
-        height: 40*@rem;
+        width: 40 * @rem;
+        height: 40 * @rem;
         transform: translatey(-50%);
         svg {
           width: 100%;

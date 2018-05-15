@@ -9,7 +9,7 @@
 
     <div class="zk-class-tab">
       <tab :line-width=2 active-color='#0090ff' v-model="index" class="zk-class-tab-left">
-        <tab-item class="vux-center" :selected="demo2 === item" v-for="(item, index) in list2" @click="demo2 = item" :key="index">{{item}}</tab-item>
+        <tab-item class="vux-center" :selected="demo2 === item" v-for="(item, index) in list2" @click="demo2 = item" :key="index" @on-item-click="handler">{{item}}</tab-item>
       </tab>
       <swiper v-model="index" height="100px" :show-dots="false" class="zk-class-tab-right">
         <swiper-item v-for="(items, indexs) in listDatas" :key="indexs">
@@ -55,10 +55,7 @@
         list2: [],
         list: [],
         demo2: '',
-        index: 3,
-        getBarWidth: function (index) {
-          return (index + 1) * 22 + 'px'
-        }
+        index: 3
       }
     },
     mounted () {
@@ -73,8 +70,8 @@
           this.list2.push(this.listDatas[i].name)
         }
       },
-      menu () {
-
+      handler () {
+        console.log(this.index)
       },
       switchTabItem (index) {
         console.log('on-before-index-change', index)

@@ -203,7 +203,6 @@
         }
       },
       async GetData () {
-        console.info('购物车', this.$route.params.isFromCart)
         var buyProductInfo = ''
         if (this.$route.params.buyInfo !== undefined) {
           buyProductInfo = this.$route.params.buyInfo
@@ -212,7 +211,6 @@
           buyProductInfo = local.getStore('order_buy') // 刷新时从缓冲中读取数据
         }
         this.isGroupBuy = buyProductInfo[0].isGroupBuy
-        console.info('是否拼团', this.isGroupBuy)
         if (this.$route.params.isFromCart !== undefined) {
           this.isFromCart = this.$route.params.isFromCart // 记录购买信息是否来自购物车
         }
@@ -407,14 +405,14 @@
       height: 100%;
       align-items: center;
       span {
-        padding-left: 10*@rem;
+        padding-left: 10 * @rem;
         height: 100%;
         line-height: 4.16666667rem;
       }
       .money {
         color: @danger;
         font-size: @h4-font-size;
-        margin-right: 5*@rem;
+        margin-right: 5 * @rem;
       }
       .total-amount {
         color: #adb5bd;
@@ -473,7 +471,7 @@
                 width: 6.5rem;
                 height: 6.5rem;
                 margin-top: 0.8rem;
-                margin-left: 10*@rem;
+                margin-left: 10 * @rem;
                 img {
                   width: 100%;
                   height: 100%;
@@ -503,8 +501,8 @@
                 div.price-box {
                   width: 95%;
                   position: absolute;
-                  left: 10*@rem;
-                  bottom: 10*@rem;
+                  left: 10 * @rem;
+                  bottom: 10 * @rem;
                   height: 2rem;
                   vertical-align: bottom;
                   align-items: flex-end;
@@ -515,7 +513,7 @@
                     font-family: Helvetica;
                   }
                   span.price_old {
-                    padding-left: 5*@rem;
+                    padding-left: 5 * @rem;
                     text-decoration: line-through;
                     color: @gray-500;
                     font-family: Helvetica;
@@ -523,7 +521,7 @@
                   span.price_num {
                     text-align: right;
                     color: @gray-500;
-                    padding-left: 10*@rem;
+                    padding-left: 10 * @rem;
                     font-family: Helvetica;
                     .vux-number-round {
                       height: 1.3rem;

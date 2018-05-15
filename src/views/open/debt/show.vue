@@ -206,21 +206,35 @@
     },
     methods: {
       change (value, label) {
-        // console.log('change:', value, label)
         this.subscript = value
       },
       async sumbit () {
-        // console.log(this.modelView)
-        // console.log(this.modelView.debtSolutions[this.radio001.indexOf(this.subscript)].id)
+        var buyProductInfo = []
+        for (var i = 0; i < this.modelView.debtSolutions[this.radio001.indexOf(this.subscript)].debtProducts.length; i++) {
+          var info = this.modelView.debtSolutions[this.radio001.indexOf(this.subscript)].debtProducts[i]
+          var buyItem = {
+            ProductSkuId: info.debtProductSkus[0].skuId,
+            Count: 1,
+            ProductId: info.productId,
+            storeId: 2,
+            LoginUserId: this.LoginUser().id
+          }
+          buyProductInfo.push(buyItem)
+        }
+        console.log(buyProductInfo)
         let parameter = {
           AdminPlanId: this.modelView.debtSolutions[this.radio001.indexOf(this.subscript)].id,
           Signature: this.screenName
         }
         var message = await apiService.Solution(parameter)
-        // console.log(message)
-        if (message.data.result === true) {
-          this.$vux.toast.success('提交成功')
-        }
+        console.log(message)
+        this.$vux.toast.success('提交成功')
+        this.$router.push({
+          name: 'order_buy',
+          params: {
+            buyInfo: buyProductInfo
+          }
+        })
       },
       async GetData () {
         let params = {
@@ -228,6 +242,7 @@
         }
         var response = await apiService.show(params)
         this.modelView = response.data.result
+        console.log('modelView', this.modelView)
         for (var i = 0; i < this.modelView.debtSolutions.length; i++) {
           if (this.modelView.debtSolutions[i].isDefault === true) {
             this.radio001[i] = '方案' + (i + 1) + ' 将债条转化为云债金分解平债'
@@ -263,7 +278,7 @@
       width: 100%;
       .zkui-order-list-content {
         overflow-y: auto;
-        padding-bottom: 10*@rem;
+        padding-bottom: 10 * @rem;
         .zkui-order-list-box-item {
           border-bottom: 8px solid rgba(229, 229, 229, 0.5);
           .box-title {
@@ -283,7 +298,7 @@
             }
           }
           .product-option {
-            padding-right: 10*@rem;
+            padding-right: 10 * @rem;
             .weui-cells:after {
               content: none;
             }

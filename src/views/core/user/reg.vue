@@ -6,7 +6,7 @@
       <x-input title="推荐人" required :min="2" :max="12" v-model="user.parentUserName"></x-input>
     </group>
     <group gap="2rem 0.2rem" id="form">
-      <x-input title="用户名" required :min="2" :max="12" v-model="user.username"></x-input>
+      <x-input title="用户名" required placeholder="请输入您的用户名( 字母数字组合)" :min="2" :max="12" v-model="user.username"></x-input>
       <x-input title="手机号" required placeholder="请输入您的手机号" mask="99999999999" v-model="user.mobile" :max="13" is-type="mobile"></x-input>
       <zk-phone-verifiy v-model="user.mobileVerifiyCode" :mobile="user.mobile"></zk-phone-verifiy>
       <x-input title="密码" required type="password" :min="6" :max="16" v-model="user.password"></x-input>
@@ -124,7 +124,7 @@
       .weui-footer {
         margin: 0 auto;
         .weui-footer__links {
-          margin: 15*@rem 10*@rem 0 0;
+          margin: 15 * @rem 10 * @rem 0 0;
           text-align: right;
         }
       }
