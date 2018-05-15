@@ -47,7 +47,7 @@
             </div>
           </div>
           <div class="gd-btn">
-            <x-button @click.native="showSale=true,groupBuyWindow=false,activitySelectId=1,isGroupBuy=true">参与拼团</x-button>
+            <x-button @click.native="showgroupBuy=true,groupBuyWindow=false,activitySelectId=1,isGroupBuy=true">参与拼团</x-button>
           </div>
           <div @click="groupBuyWindow=false" class="gd-close">
             <span class="vux-close"></span>
@@ -55,8 +55,48 @@
         </div>
       </x-dialog>
     </div>
+    <div v-transfer-dom v-if="isGroupBuyProduct">
+      <popup v-model="showgroupBuy" class="zk-product-showSale" max-height="80%" is-transparent>
+        <div class="close" @click=" showgroupBuy = false "></div>
+        <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem;">
+          <dl class="sale-info goods-information">
+            <dt class="sale-info-img">
+              <img :src="productView.thumbnailUrl" />
+            </dt>
+            <dd class="sale-info-name">{{productView.name}}</dd>
+            <dd class="sale-info-price brand">￥{{selectSku.displayPrice}}
+              <span class="metal">￥{{selectSku.marketPrice}}</span>
+            </dd>
+            <dd class="sale-info-stock metal">库存：{{selectSku.stock}} 货号：{{selectSku.bn}}</dd>
+          </dl>
+          <div class="sale-info-property goods-select">
+            <dl class="border-bottom " v-for="(item, index) in productView.productExtensions.productCategory.salePropertys " :key="index ">
+              <dt>{{item.name}}</dt>
+              <dd>
+                <checker v-model="saleItems[index] " default-item-class="sale-item " @on-change="changSku " selected-item-class="sale-item-selected " disabled-item-class="sale-item-disabled " :radio-required="true ">
+                  <checker-item :value="sale " v-for="sale in item.propertyValues " :key="sale.id "> {{sale.valueAlias}} </checker-item>
+                </checker>
+              </dd>
+            </dl>
 
-    <div v-transfer-dom>
+          </div>
+          <group class="zkui-product-show-parameter-amount ">
+            <cell title="购买数量 ">
+              <inline-x-number style="display:block; " :min="1 " width="50px " v-model="buyCount" :max="selectSku.stock" button-style="round"></inline-x-number>
+            </cell>
+          </group>
+          <div class="base">
+            <button-tab>
+              <!-- <button-tab-item type="warn" @click.native="addToCart" v-if="!isGroupBuyProduct"> 加入购物车</button-tab-item>
+              <button-tab-item type="primary" @click.native="buyProduct(false) " v-if="!isGroupBuyProduct"> 立即购买</button-tab-item> -->
+              <button-tab-item type="warn" @click.native="buyProduct(false) " v-if="isGroupBuyProduct  && !isGroupBuy">单独购买</button-tab-item>
+              <button-tab-item type="primary" @click.native="buyProduct(true) " v-if="isGroupBuyProduct && isGroupBuy">发起拼单</button-tab-item>
+            </button-tab>
+          </div>
+        </div>
+      </popup>
+    </div>
+    <div v-transfer-dom v-if="!isGroupBuyProduct">
       <popup v-model="showSale" class="zk-product-showSale" max-height="80%" is-transparent>
         <div class="close" @click=" showSale = false "></div>
         <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem;">
@@ -90,8 +130,8 @@
             <button-tab>
               <button-tab-item type="warn" @click.native="addToCart" v-if="!isGroupBuyProduct"> 加入购物车</button-tab-item>
               <button-tab-item type="primary" @click.native="buyProduct(false) " v-if="!isGroupBuyProduct"> 立即购买</button-tab-item>
-              <button-tab-item type="warn" @click.native="buyProduct(false) " v-if="isGroupBuyProduct  && !isGroupBuy">单独购买</button-tab-item>
-              <button-tab-item type="primary" @click.native="buyProduct(true) " v-if="isGroupBuyProduct && isGroupBuy">发起拼单</button-tab-item>
+              <!-- <button-tab-item type="warn" @click.native="buyProduct(false) " v-if="isGroupBuyProduct  && !isGroupBuy">单独购买</button-tab-item>
+              <button-tab-item type="primary" @click.native="buyProduct(true) " v-if="isGroupBuyProduct && isGroupBuy">发起拼单</button-tab-item> -->
             </button-tab>
           </div>
         </div>
@@ -138,7 +178,8 @@
         isGroupBuy: false, // 是否为拼团购买，如果是拼团购买，则显示拼团价格
         isGroupBuyProduct: false, // 是否为拼团商品
         activitySelectId: 0, // 拼团时选择的活动Id，为0表示发起拼团
-        groupBuyWindow: false // 拼团弹窗
+        groupBuyWindow: false, // 拼团弹窗
+        showgroupBuy: false // 显示拼团规格选择窗口
       }
     },
     created () {

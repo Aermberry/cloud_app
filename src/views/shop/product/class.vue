@@ -55,7 +55,7 @@
         list2: [],
         list: [],
         demo2: '',
-        index: 1,
+        index: 3,
         getBarWidth: function (index) {
           return (index + 1) * 22 + 'px'
         }
@@ -68,9 +68,7 @@
       async  getData () {
         let response = await apiService.class()
         this.listDatas = response.data.result
-        console.log(this.listDatas)
         this.demo2 = this.listDatas[0].name
-        console.dir(this.listDatas) // 通过这个来查看数据结构
         for (var i = 0; i < this.listDatas.length; i++) {
           this.list2.push(this.listDatas[i].name)
         }

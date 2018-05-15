@@ -77,6 +77,9 @@
             <label class="weui-form-preview__label">订单编号:{{data.serial}}</label>
           </div>
           <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label">订单编号:{{data.serial}}</label>
+          </div>
+          <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">创建时间: {{data.createTime}}</label>
           </div>
         </div>
@@ -138,6 +141,7 @@
         }
         var showData = await orderService.show(par)
         this.data = showData.data.result
+        console.log(this.data)
         if (this.data.orderStatus === 1) {
           this.state = '待付款'
           this.showPay = true
@@ -150,7 +154,6 @@
         }
       },
       pay () {
-        console.log(123, this.data)
         var buyProductInfo = []
         console.log(this.data.productSkuItems[0].productId)
         var buyItem = {

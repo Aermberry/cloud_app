@@ -35,8 +35,8 @@
         <m-icon name="zk-trumpet"></m-icon>
       </div>
     </group-title>
-    <zk-product-item :pageSize=4 classIds='' :pagination=6 tagsId='' diykey='index'></zk-product-item>
-
+    <!-- <zk-product-item :pageSize=4 classIds='' :pagination=6 tagsId='' diykey='index'></zk-product-item> -->
+    <zk-singlead diykey="SingleAd3Config"></zk-singlead>
     <zk-foot></zk-foot>
     <!-- <zkdebt-foot></zkdebt-foot> -->
   </section>
@@ -44,7 +44,7 @@
 
 <script>
   import apiService from 'src/service/api/user.api'
-  import { ZkSwiper, ZkGrid, ZkProductItem, ZkdebtFoot } from 'widgets'
+  import { ZkSwiper, ZkGrid, ZkProductItem, ZkdebtFoot, ZkSinglead } from 'widgets'
   import { Search, Grid, GridItem, Swiper, Box, GroupTitle, MIcon, SwiperItem } from 'zkui'
   export default {
     components: {
@@ -59,7 +59,8 @@
       ZkProductItem,
       ZkdebtFoot,
       MIcon,
-      SwiperItem
+      SwiperItem,
+      ZkSinglead
     },
     data () {
       return {
@@ -153,8 +154,8 @@
 
     .index-qrcode {
       display: block;
-      width: 30*@rem;
-      height: 30*@rem;
+      width: 30 * @rem;
+      height: 30 * @rem;
       overflow: hidden;
       margin-top: 0.3rem;
       margin-right: 0.5rem;
@@ -169,7 +170,7 @@
       flex: 1;
     }
     .index-qrcode > div {
-      margin: 10px 0 0 5*@rem;
+      margin: 10px 0 0 5 * @rem;
     }
 
     .scroller {

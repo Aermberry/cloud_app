@@ -123,7 +123,7 @@
         }
         var response = await apiService.apply(par)
         if (response.data.status === 1) {
-          this.messageSuccess('债事申请成功')
+          this.messageSuccess('您的备案已经成功提交，我们将在1-7工作日为您审核，请耐心等待，如有疑问请联系客服热线：400 138 7677')
         } else {
           this.$vux.toast.warn(response.data.message)
         }
