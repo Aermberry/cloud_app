@@ -140,7 +140,7 @@
       clear: both;
     }
     ul {
-      padding-bottom: 10*@rem;
+      padding-bottom: 10 * @rem;
     }
     li {
       display: block;
@@ -149,7 +149,7 @@
       // height: 20rem;
       margin: 2% 0 0 2%;
       padding-bottom: 0.3rem;
-      border-radius: 2*@rem;
+      border-radius: 2 * @rem;
       border: 1px solid rgba(229, 229, 229, 0.4);
 
       dl {
