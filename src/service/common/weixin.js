@@ -37,9 +37,10 @@ export default {
     }
   },
   getCode () {
+    var retrunUrl = window.location.href
     var url = 'https://open.weixin.qq.com/connect/oauth2/authorize'
     url += '?appid=wx3845717402bcb006'
-    url += '&redirect_uri=' + encodeURIComponent('http://www.yiqipingou.com/')
+    url += '&redirect_uri=' + encodeURIComponent(retrunUrl)
     url += '&response_type=code'
     url += '&scope=snsapi_base'
     url += '&state=STATE&connect_redirect=1'
@@ -47,7 +48,7 @@ export default {
     window.location.href = url
     // 获取Url中的Code,长度不够是不保存
     var code = this.getQueryString('code')
-    // alert('code' + code)
+    alert('code' + code)
     if (code >= 12) {
       window.localStorage.setItem('wechat_code', code)
     } else {
