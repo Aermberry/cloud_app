@@ -45,10 +45,10 @@ export default {
     url += '&scope=snsapi_base'
     url += '&state=STATE&connect_redirect=1'
     url += '#wechat_redirect'
-    //  window.location.href = url
+    window.location.href = url
     // 获取Url中的Code,长度不够是不保存
     // var code = this.getQueryString('code')
-    var code = this.getQueryString(url, 'code')
+    var code = this.getQueryString('code')
     alert('code' + code)
     if (code >= 12) {
       window.localStorage.setItem('wechat_code', code)
@@ -65,11 +65,12 @@ export default {
       return response.data.result
     }
   },
-  getQueryString (url, name) {
-    // var querys = window.location.search
-    var querys
-    querys = 'http://www.yiqipingou.com/?code=081Du20u0OUokb1OjB0u0XCr0u0Du20I&state=STATE'
-    querys = url
+  getQueryString (name) {
+    var querys = window.location.search
+    alert('跳转url')
+    alert(querys)
+    // querys = 'http://www.yiqipingou.com/?code=081Du20u0OUokb1OjB0u0XCr0u0Du20I&state=STATE'
+    // querys = url
     var num = querys.indexOf('?')
     var str = querys.substr(num + 1)
     var arr = str.split('&')

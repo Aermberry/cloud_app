@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from 'src/store/index'
 import helper from 'src/service/common/helper'
-import weixin from 'src/service/common/weixin'
+// import weixin from 'src/service/common/weixin'
 
 // core
 import Common from './core/common' // 通用、、
@@ -62,7 +62,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   //  微信公众号登录
-  weixin.WechatLogin().then()
+  // weixin.WechatLogin().then()
   window.document.title = to.meta.title
   var isLogin = store.state.userStore.isLogin // 判断是否登陆
   if (to.meta.login) {
