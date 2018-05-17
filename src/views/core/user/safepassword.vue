@@ -44,7 +44,7 @@
         } else {
           this.$vux.toast.warn(response.data.message)
           this.passwordInput = {
-            type: '1',
+            type: '2',
             lastPassword: '',
             password: '',
             confirmPassword: ''
