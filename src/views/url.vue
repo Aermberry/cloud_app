@@ -1,421 +1,83 @@
 <template>
+  <div>
+    ClientType：
+    <span>{{clientType}}</span>
+    Code:
+    <span>{{code}}</span>
 
-  <section class="user">
-    <zk-head></zk-head>
-    <div class="weui-cells">
-
-      <router-link to="/User/QrCode">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">二维码名片</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/User/Tree">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">组织架构图</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/User/Adduser">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">注册会员</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/User/Recuser">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">我的会员</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/User/Security">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">安全设置</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/User/Info">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">账户信息</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/Order/List">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">我的订单</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/User/Account/Index">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">钱包</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/User/Account/Transfer">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">转账</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/User/Account/TransferBill">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">转账记录</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/User/Account/Recharge">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">充值</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/User/Account/RechargeBill">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">充值记录</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/User/Account/WithDraw">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">提现</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/User/Account/WithDrawBill">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">提现记录</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/User/Account/BankCard/Index">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">我的银行卡</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/User/Account/FinanceBill">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">财务记录</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/User/Reward/FenRun">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">我的分润</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/User/Favorite/Index">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">我的收藏</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/User/address/Index">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">收货地址</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/order/cart">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">购物车</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/User/Account/RechargeBillView">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">充值详情</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/User/Account/TransferBillView">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">转账详情</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/User/Account/WithDrawBillView">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">提现详情</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/order/buyfromproduct">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">提交订单</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/Pay/Index">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">支付订单</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/User/address/Edit">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">地址编辑</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/userplan/apply">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">债事申请</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/userplan/show">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">债事展示</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-      <router-link to="/User/Identity/Index">
-        <div class="weui-cell weui-cell_access">
-          <div class="cell-icon">
-            <svg>
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#productline-blue"></use>
-            </svg>
-          </div>
-          <div class="weui-cell__bd">
-            <span style="vertical-align: middle">实名认证</span>
-          </div>
-          <div class="weui-cell__ft"></div>
-        </div>
-      </router-link>
-
-    </div>
-
-    <zk-foot></zk-foot>
-  </section>
-</template>m-icon/index
+    OpenId:
+    <span>{{openId}}</span>
+  </div>
+</template>
 
 <script>
-
+  import { ZkGroupbuy } from 'widgets'
+  import api from 'src/service/api/apistore.api'
+  export default {
+    components: {
+      ZkGroupbuy
+    },
+    mounted () {
+      this.ceshi()
+    },
+    data () {
+      return {
+        clientType: '',
+        code: '',
+        openId: ''
+      }
+    },
+    methods: {
+      ceshi () {
+        this.clientType = this.ClientType()
+        this.code = window.localStorage.getItem('wechat_code')
+        this.openId = window.localStorage.getItem('wechat_openId')
+        // 开始处理openId
+        var openId = window.localStorage.getItem('wechat_openId')
+        this.openId = openId
+        console.info('openId', openId)
+        // 微信使用code登录，获取openId
+        if (openId === undefined || openId === null) {
+          var data = {
+            jsCode: '021weWEm1DipDi0XvhIm1OqSEm1weWE9'
+          }
+          api.weixinLogin(data).then(response => {
+            console.info('请求数据result', response)
+            if (response.data.status === 1) {
+              openId = response.data.result.session.openid
+              console.info('openId获取成功', openId)
+              if (openId !== undefined && openId.length > 12) {
+                window.localStorage.setItem('wechat_openId', openId)
+              }
+            } else {
+              console.info('失败', response)
+              alert(response.data.message)
+            }
+          })
+        }
+      }
+    }
+  }
 </script>
+<style>
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+  #app {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+</style>
+
+

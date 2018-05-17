@@ -105,35 +105,59 @@
             ￥{{storePrices[storeIndex].totalAmount}}
           </div>
         </div>
+        <div class="order-pay" v-for="(money,moneyIndex) in modelView.allowMoneys" :key="moneyIndex" @on-change="countPrice()">
+          <div class="pay-serve">
+            <ul class="switch">
+              <li class="switch-left">
+                <p class="switch-left-top">{{money.title}}</p>
+                <p class="switch-left-bottom">{{money.description}}</p>
+              </li>
+              <li class="switch-right">
+                <el-switch v-model="reduceMoneys[moneyIndex]" active-color="#e60044" inactive-color="#adb5bd" @change="countPrice()">
+                </el-switch>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="pay-serve-message" v-if="priceView.feeAmount">
+          <ul>
+            <li class=" messahe-left ">
+              服务费:
+            </li>
+            <li class="messahe-right ">
+              {{priceView.feeAmount}}元
+            </li>
+          </ul>
+        </div>
       </div>
 
-      <div class="order-payInfo">
-        <div class="payInfo-wrapper">
-          <div class="payInfo-shadow">
-            <div class="order-realpay">
-              <div class="realpay-left">
+      <div class="order-payInfo ">
+        <div class="payInfo-wrapper ">
+          <div class="payInfo-shadow ">
+            <div class="order-realpay ">
+              <div class="realpay-left ">
                 <p>实付款：</p>
               </div>
-              <div class="realpay-right">
+              <div class="realpay-right ">
                 <p>￥{{priceView.totalAmount}}</p>
               </div>
             </div>
-            <div class="order-confirmAddr">
-              <div class="confirmAddr-left">寄送至：</div>
-              <div class="confirmAddr-right">{{addressM.Message}}</div>
+            <div class="order-confirmAddr ">
+              <div class="confirmAddr-left ">寄送至：</div>
+              <div class="confirmAddr-right ">{{addressM.Message}}</div>
             </div>
-            <div class="confirmAddr-addr-user">
-              <div class="addr-user-left">
+            <div class="confirmAddr-addr-user ">
+              <div class="addr-user-left ">
                 收件人：
               </div>
-              <div class="addr-user-right">
-                {{addressM.addressee}} 136448444965
+              <div class="addr-user-right ">
+                {{addressM.addressee}}
               </div>
             </div>
           </div>
         </div>
-        <div class="paybutton">
-          <el-button type="primary">提交订单</el-button>
+        <div class="paybutton ">
+          <el-button type="primary ">提交订单</el-button>
         </div>
       </div>
     </div>
@@ -148,6 +172,7 @@
     },
     data () {
       return {
+        value2: false,
         modelView: '',
         priceView: '', // 价格显示模型
         storePrices: [], // 店铺价格显示
@@ -300,6 +325,7 @@
               reduceMoneys.push(reduceMoneyItem)
             }
           }
+          console.log('reduceMoneys', reduceMoneys)
           var buyInput = {
             reduceMoneysJson: JSON.stringify(reduceMoneys),
             StoreOrderJson: JSON.stringify(storeBuyItems),
@@ -363,6 +389,7 @@
             reduceMoneys.push(reduceMoneyItem)
           }
         }
+        console.log('reduceMoneys', reduceMoneys)
         var priceInput = {
           sign: this.modelView.sign, // 传递签名
           loginUserId: this.LoginUser().id, // 用户Id
@@ -380,6 +407,7 @@
           this.priceView = priceResponse.data.result
           this.storePrices = this.priceView.storePrices
           this.asyncFlag = true
+          console.log('priceView', this.priceView)
         }
       }
     }
@@ -645,10 +673,35 @@
           }
         }
       }
+      .pay-serve-message {
+        min-height: 35px;
+        border-bottom: 1px solid @white;
+        background-color: #f2f7ff;
+        position: relative;
+        ul {
+          position: absolute;
+          top: 0;
+          right: 0;
+          display: flex;
+          height: 100%;
+          li {
+            height: 100%;
+            line-height: 35px;
+            font-size: 14px;
+            min-width: 100px;
+            text-align: center;
+          }
+          li.messahe-left {
+            text-align: right;
+          }
+        }
+      }
       .order-pay {
         background-color: #f2f7ff;
         height: 50px;
         display: flex;
+        border-bottom: 1px solid @white;
+        position: relative;
         .pay-placeholder {
           flex: 1;
         }
@@ -665,6 +718,40 @@
           align-items: center;
           color: @brand;
           padding-right: 10px;
+        }
+        .pay-serve {
+          position: absolute;
+          height: 100%;
+          top: 0;
+          right: 0;
+          .switch {
+            display: flex;
+            height: 100%;
+            .switch-left {
+              padding: 10px 0;
+              p {
+                height: 15px;
+                line-height: 15px;
+              }
+              .switch-left-top {
+                font-size: 14px;
+              }
+              .switch-left-bottom {
+                font-size: 12px;
+                color: @gray-600;
+              }
+            }
+            .switch-right {
+              width: 100px;
+              position: relative;
+              .el-switch {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+              }
+            }
+          }
         }
       }
       .order-payInfo {

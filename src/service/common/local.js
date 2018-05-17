@@ -18,6 +18,20 @@ export default {
       return JSON.parse(data)
     }
   },
+  // 缓存中是否有值
+  hasValue (name) {
+    if (!name) return false
+    var data = window.localStorage.getItem(name)
+    if (
+      data === undefined ||
+      data === null ||
+      data === 'undefined' ||
+      data === 'null'
+    ) {
+      return false
+    }
+    return true
+  },
 
   //  删除localStorage
   removeStore (name) {

@@ -70,7 +70,7 @@ exports.install = function (Vue, options) {
       client = 'WapH5' // android终端或者uc浏览器
       return client
     }
-    return 'Wechat'
+    return client
     //     app = navigator.appVersion
     //   return {
     //     // trident: u.indexOf('Trident') > -1,  // IE内核

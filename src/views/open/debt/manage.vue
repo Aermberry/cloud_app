@@ -74,19 +74,11 @@
                   <div class="zkui-order-list-product">
                     <ul class="flex">
                       <li class="left-img">
-                        <!-- <router-link :to="item.url">
-                          <img :src="item.image" alt="">
-                        </router-link> -->
                         <router-link to="">
                           <img :src="item.image" alt="">
                         </router-link>
                       </li>
                       <li class="flex_one center-content">
-                        <!-- <router-link :to="item.url">
-                          <p>
-                            {{item.title}}
-                          </p>
-                        </router-link> -->
                         <router-link to="">
                           <p>
                             {{item.title}}
@@ -99,25 +91,13 @@
                       <li class="left-price">
                         <ul>
                           <li class="price_now">￥{{item.extra}}</li>
-                          <!-- <li class="price_old">￥69.00</li> -->
-                          <!-- <li class="price_count">x 60</li> -->
                         </ul>
                       </li>
                     </ul>
-
                   </div>
-                  <!-- <group class="list-aggregate">
-                    <cell>
-                      共
-                      <span class="num">789</span> 件商品 合计：
-                      <span class="num">￥456</span>
-                      (含运费
-                      <span class="num">￥123</span>)
-                    </cell>
-                  </group> -->
                   <group class="product-option">
                     <cell>
-                      <x-button mini plain>取消订单</x-button>
+                      <x-button mini plain @click.native="detele(item.id)">取消订单</x-button>
                     </cell>
                   </group>
                 </div>
@@ -176,7 +156,6 @@
                   </group> -->
                   <group class="product-option">
                     <cell>
-                      <x-button mini plain>取消订单</x-button>
                     </cell>
                   </group>
                 </div>
@@ -235,7 +214,7 @@
                   </group> -->
                   <group class="product-option">
                     <cell>
-                      <x-button mini plain>取消订单</x-button>
+                      <!-- <x-button mini plain>取消订单</x-button> -->
                     </cell>
                   </group>
                 </div>
@@ -294,7 +273,7 @@
                   </group> -->
                   <group class="product-option">
                     <cell>
-                      <x-button mini plain>取消订单</x-button>
+                      <!-- <x-button mini plain>取消订单</x-button> -->
                     </cell>
                   </group>
                 </div>
@@ -365,7 +344,7 @@
         }
         let response = await apiService.list(params)
         this.all = response.data.result
-        console.log(this.all)
+        console.log('response', response)
         if (this.all.length === 0) {
           this.showof[0] = true
         }
@@ -413,7 +392,11 @@
           EntityId: id
         }
         var response = await apiService.delete(par)
-        console.log(response)
+        if (response.data.status === 1) {
+          this.$vux.toast.success(response.data.message)
+          this.GetData()
+          console.log(response)
+        }
       }
 
     }

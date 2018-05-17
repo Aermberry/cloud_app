@@ -47,7 +47,7 @@
             </div>
           </div>
           <div class="gd-btn">
-            <x-button @click.native="showgroupBuy=true,groupBuyWindow=false,activitySelectId=1,isGroupBuy=true">参与拼团</x-button>
+            <x-button @click.native="showgroupBuy=true,groupBuyWindow=false,activitySelectId=productView.productActivityExtension.activitys[0].key,isGroupBuy=true">参与拼团</x-button>
           </div>
           <div @click="groupBuyWindow=false" class="gd-close">
             <span class="vux-close"></span>
@@ -184,18 +184,19 @@
     },
     created () {
       this.isGroupBuyProduct = this.productView.productActivityExtension.isGroupBuy
+      this.isGroupBuy = this.productView.productActivityExtension.isGroupBuy
     },
     mounted: function () {
       this.init()
       this.$nextTick(function () {
         // 接收父主件的拼团参数
         this.$on('childMethod', function (isGroupBuyAction) {
-          this.isGroupBuy = isGroupBuyAction // 接收父主件的拼团参数
-          console.info('是否拼团操作', this.isGroupBuy)
+          // this.isGroupBuy = isGroupBuyAction // 接收父主件的拼团参数
+          // console.info('是否拼团操作', this.isGroupBuy)
           this.showSale = true
         })
       })
-      console.log('qqqqqqqqqqqqqqqqqqqqqqqqq', this.selectSku.id)
+      console.log('productView', this.productView)
       for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
         this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
       }
@@ -211,7 +212,7 @@
         this.selectSku = this.productView.productExtensions.productSkus[0] // 根据specSn获取商品的规格
         if (this.isGroupBuy) {
           this.selectSku.displayPrice = this.getGroupBuySkuPrice(this.selectSku.id)
-          console.info('是否拼团操作', this.selectSku.displayPrice)
+          // console.info('是否拼团操作', this.selectSku.displayPrice)
         }
       },
       // 添加到购物车
@@ -282,8 +283,14 @@
       },
       // 根据skuId，获取拼团显示价格
       getGroupBuySkuPrice (id) {
-        console.log(id)
-        return '100'
+        var price
+        for (var i = 0; i < this.productView.productActivityExtension.activitys[0].value.SkuProducts.length; i++) {
+          let info = this.productView.productActivityExtension.activitys[0].value.SkuProducts
+          if (info[i].Id === id) {
+            price = info[i].Price
+          }
+        }
+        return price
       },
       // 获取Sku ，用户选择不同的sku
       changSku () {
@@ -709,11 +716,11 @@
       }
     }
     .gd-close {
-      background: @gray-300;
+      // background: @gray-300;
       border-radius: 50%;
       position: absolute;
-      top: -0.5rem;
-      right: -0.5rem;
+      top: 0rem;
+      right: 0rem;
     }
     .weui-dialog {
       overflow: visible;
