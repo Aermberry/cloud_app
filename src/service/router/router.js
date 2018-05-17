@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import store from 'src/store/index'
 import helper from 'src/service/common/helper'
 import weixin from 'src/service/common/weixin'
+
 // core
 import Common from './core/common' // 通用、、
 import User from './core/User' // 用户
@@ -60,7 +61,8 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  weixin.WechatLogin() // 微信公众号登录，非一起拼先注释
+  //  微信公众号登录
+  weixin.WechatLogin().then()
   window.document.title = to.meta.title
   var isLogin = store.state.userStore.isLogin // 判断是否登陆
   if (to.meta.login) {

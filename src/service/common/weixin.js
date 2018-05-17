@@ -1,61 +1,71 @@
 import api from 'src/service/api/apistore.api'
+import apiCommon from 'src/service/api/common.api'
+import local from 'src/service/common/local'
 // import weui from 'weui.js'
 export default {
   // 微信登录
-  WechatLogin () {
+  async WechatLogin () {
     var u = navigator.userAgent
     if (u.indexOf('MicroMessenger') > -1 || u.indexOf('micromessenger') > -1) {
+      var appConfig = await this.getWeChatPayConfig()
+      console.info(appConfig)
+      if (!appConfig.isEnable) {
+        return // 后台未启用微信支付
+      }
       try {
         var openId = window.localStorage.getItem('wechat_openId')
         if (openId === undefined || openId === null || openId === 'null') {
-          var code = this.getCode()
+          var code = this.getCode(appConfig.appId)
           // 获取openId
           var data = {
             jsCode: code
           }
-          api.weixinLogin(data).then(response => {
-            console.info('请求数据result', response)
-            if (response.data.status === 1) {
-              openId = response.data.result.session.openid
-              console.info('openId获取成功', openId)
-              // alert('openId获取成功', openId)
-              if (openId !== undefined && openId !== null) {
-                if (openId.length > 12) {
-                  window.localStorage.setItem('wechat_openId', openId)
-                }
+          var response = await api.weixinLogin(data)
+          if (response.data.status === 1) {
+            openId = response.data.result.session.openid
+            if (openId !== undefined && openId !== null) {
+              if (openId.length > 12) {
+                window.localStorage.setItem('wechat_openId', openId)
               }
-            } else {
-              console.info('失败', response)
-              //  alert(response.data.message)
             }
-          })
+          } else {
+            alert(response.data.message)
+          }
         }
       } catch (err) {
-        console.warn(err)
-        //  alert('获取OpenId异常' + err)
+        alert('获取OpenId异常' + err)
       }
     }
   },
-  getCode () {
+  getCode (appId) {
     var retrunUrl = window.location.href
     var url = 'https://open.weixin.qq.com/connect/oauth2/authorize'
-    url += '?appid=wx3845717402bcb006'
+    url += '?appid=' + appId
     url += '&redirect_uri=' + encodeURIComponent(retrunUrl)
     url += '&response_type=code'
     url += '&scope=snsapi_base'
     url += '&state=STATE&connect_redirect=1'
     url += '#wechat_redirect'
-    window.location.href = url
+    //  window.location.href = url
     // 获取Url中的Code,长度不够是不保存
+    alert(url)
     var code = this.getQueryString('code')
     alert('code' + code)
     if (code >= 12) {
       window.localStorage.setItem('wechat_code', code)
-    } else {
-      // alert('code获取失败')
-      this.getCode()
     }
     return code
+  },
+  // 获取微信公众号支付
+  async getWeChatPayConfig () {
+    if (local.hasValue('WeChatPaymentConfig')) {
+      console('缓存中读取配置')
+      return local.getStore('WeChatPaymentConfig')
+    } else {
+      var response = await apiCommon.GetConfigValue('WeChatPaymentConfig')
+      console('数据库中读取配置')
+      local.setStore('WeChatPaymentConfig', response.data.result)
+    }
   },
   getQueryString (name) {
     var querys = window.location.search

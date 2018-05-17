@@ -7,6 +7,7 @@ export default {
       data = JSON.stringify(data)
       //  console.log("setStore"+name)
     }
+
     window.localStorage.setItem(name, data)
   },
 
@@ -17,6 +18,23 @@ export default {
     if (data) {
       return JSON.parse(data)
     }
+  },
+  // 缓存中是否有值
+  hasValue (name) {
+    if (!name) return false
+    var data = window.localStorage.getItem(name)
+    if (
+      data === undefined ||
+      data === null ||
+      data === 'undefined' ||
+      data === 'null'
+    ) {
+      return false
+    }
+    if (data.length < 1) {
+      return false
+    }
+    return true
   },
 
   //  删除localStorage
