@@ -7,7 +7,6 @@ export default {
       data = JSON.stringify(data)
       //  console.log("setStore"+name)
     }
-
     window.localStorage.setItem(name, data)
   },
 
@@ -29,9 +28,6 @@ export default {
       data === 'undefined' ||
       data === 'null'
     ) {
-      return false
-    }
-    if (data.length < 1) {
       return false
     }
     return true

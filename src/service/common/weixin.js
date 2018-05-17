@@ -13,16 +13,14 @@ export default {
         return // 后台未启用微信支付
       }
       try {
-        var openId = window.localStorage.getItem('wechat_openId')
-        if (openId === undefined || openId === null || openId === 'null') {
+        if (!local.hasValue('wechat_openId')) {
           var code = this.getCode(appConfig.appId)
-          // 获取openId
           var data = {
             jsCode: code
           }
           var response = await api.weixinLogin(data)
           if (response.data.status === 1) {
-            openId = response.data.result.session.openid
+            var openId = response.data.result.session.openid
             if (openId !== undefined && openId !== null) {
               if (openId.length > 12) {
                 window.localStorage.setItem('wechat_openId', openId)
@@ -46,9 +44,10 @@ export default {
     url += '&scope=snsapi_base'
     url += '&state=STATE&connect_redirect=1'
     url += '#wechat_redirect'
+    alert('网址')
     //  window.location.href = url
     // 获取Url中的Code,长度不够是不保存
-    alert(url)
+    console.info(url)
     var code = this.getQueryString('code')
     alert('code' + code)
     if (code >= 12) {
@@ -59,11 +58,9 @@ export default {
   // 获取微信公众号支付
   async getWeChatPayConfig () {
     if (local.hasValue('WeChatPaymentConfig')) {
-      console('缓存中读取配置')
       return local.getStore('WeChatPaymentConfig')
     } else {
       var response = await apiCommon.GetConfigValue('WeChatPaymentConfig')
-      console('数据库中读取配置')
       local.setStore('WeChatPaymentConfig', response.data.result)
     }
   },
