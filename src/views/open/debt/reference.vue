@@ -107,6 +107,7 @@
         }
         var articleMessage = await apiService.getList(article)
         this.article = articleMessage.data.result.apiDataList
+        console.log(this.article)
         if (this.article.length === 0) {
           this.showarticle = true
         }
@@ -118,11 +119,11 @@
   .zkui-debt-reference {
     .zk-not-data {
       margin: 0 auto;
-      padding-top: 150*@rem;
+      padding-top: 150 * @rem;
       text-align: center;
       svg {
-        width: 50*@rem;
-        height: 50*@rem;
+        width: 50 * @rem;
+        height: 50 * @rem;
       }
       p {
         font-size: @h4-font-size;

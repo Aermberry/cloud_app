@@ -22,10 +22,10 @@
           <router-link to="/product/list?Keyword=汽车">汽车</router-link>
         </li>
         <li>
-          <router-link to="/product/list?Keyword=房产 ">房产 </router-link>
+          <router-link to="/product/list?Keyword=房产">房产 </router-link>
         </li>
         <li>
-          <router-link to="/product/list?Keyword= 艺术品"> 艺术品</router-link>
+          <router-link to="/product/list?Keyword=艺术品"> 艺术品</router-link>
         </li>
         <li>
           <router-link to="/product/list?Keyword=原材料">原材料 </router-link>
@@ -37,13 +37,13 @@
           <router-link to="/product/list?Keyword=成品">成品 </router-link>
         </li>
         <li>
-          <router-link to="/product/list?Keyword= 矿产"> 矿产 </router-link>
+          <router-link to="/product/list?Keyword=矿产"> 矿产 </router-link>
         </li>
         <li>
-          <router-link to="/product/list?Keyword= 机器设备"> 机器设备 </router-link>
+          <router-link to="/product/list?Keyword=机器设备"> 机器设备 </router-link>
         </li>
         <li>
-          <router-link to="/product/list?Keyword= 其他 "> 其他 </router-link>
+          <router-link to="/product/list?Keyword=其他"> 其他 </router-link>
         </li>
       </ul>
     </div>
@@ -243,32 +243,32 @@
     .point-foot {
       .placeholder {
         width: 100%;
-        height: 40*@rem;
+        height: 40 * @rem;
       }
       .footer {
         position: fixed;
         z-index: 999;
         bottom: 0;
         width: 100%;
-        height: 40*@rem;
+        height: 40 * @rem;
         background: rgba(255, 255, 255, 0.9);
         border-top: 1px solid rgba(229, 229, 229, 0.4);
         ul {
           width: 100%;
-          height: 40*@rem;
+          height: 40 * @rem;
           box-sizing: border-box;
           .footer_li {
             float: left;
             width: 25%;
-            height: 40*@rem;
+            height: 40 * @rem;
             text-align: center;
             position: relative;
             .li_svg {
-              padding-top: 0.6*@rem;
+              padding-top: 0.6 * @rem;
             }
             .li_text {
               text-align: center;
-              margin-top: 0.4*@rem;
+              margin-top: 0.4 * @rem;
             }
           }
         }

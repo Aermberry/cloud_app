@@ -22,10 +22,10 @@
           <router-link to="/product/list?Keyword=数码家电">数码家电</router-link>
         </li>
         <li>
-          <router-link to="/product/list?Keyword=鞋服箱包 ">鞋服箱包 </router-link>
+          <router-link to="/product/list?Keyword=鞋服箱包">鞋服箱包 </router-link>
         </li>
         <li>
-          <router-link to="/product/list?Keyword= 家居家纺"> 家居家纺</router-link>
+          <router-link to="/product/list?Keyword=家居家纺"> 家居家纺</router-link>
         </li>
         <li>
           <router-link to="/product/list?Keyword=美妆饰品">美妆饰品 </router-link>
@@ -37,7 +37,7 @@
           <router-link to="/product/list?Keyword=母婴用品">母婴用品 </router-link>
         </li>
         <li>
-          <router-link to="/product/list?Keyword= 其他 "> 其他 </router-link>
+          <router-link to="/product/list?Keyword=其他"> 其他 </router-link>
         </li>
       </ul>
     </div>

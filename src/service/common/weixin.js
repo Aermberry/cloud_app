@@ -28,7 +28,7 @@ export default {
               }
             }
           } else {
-            alert(response.data.message)
+            alert('获取code失败' + response.data.message)
           }
         }
       } catch (err) {
@@ -45,11 +45,10 @@ export default {
     url += '&scope=snsapi_base'
     url += '&state=STATE&connect_redirect=1'
     url += '#wechat_redirect'
-    alert('网址')
     //  window.location.href = url
     // 获取Url中的Code,长度不够是不保存
-    console.info(url)
-    var code = this.getQueryString('code')
+    // var code = this.getQueryString('code')
+    var code = this.getQueryString(url, 'code')
     alert('code' + code)
     if (code >= 12) {
       window.localStorage.setItem('wechat_code', code)
@@ -63,11 +62,14 @@ export default {
     } else {
       var response = await apiCommon.GetConfigValue('WeChatPaymentConfig')
       local.setStore('WeChatPaymentConfig', response.data.result)
+      return response.data.result
     }
   },
-  getQueryString (name) {
-    var querys = window.location.search
-    // querys = 'http://www.yiqipingou.com/?code=081Du20u0OUokb1OjB0u0XCr0u0Du20I&state=STATE'
+  getQueryString (url, name) {
+    // var querys = window.location.search
+    var querys
+    querys = 'http://www.yiqipingou.com/?code=081Du20u0OUokb1OjB0u0XCr0u0Du20I&state=STATE'
+    querys = url
     var num = querys.indexOf('?')
     var str = querys.substr(num + 1)
     var arr = str.split('&')
@@ -89,8 +91,7 @@ export default {
     console.info('支付参数', data)
     // eslint-disable-next-line
     WeixinJSBridge.invoke(
-      'getBrandWCPayRequest',
-      {
+      'getBrandWCPayRequest', {
         appId: data.appId, // 公众号名称，由商户传入
         timeStamp: data.timeStamp, // 时间戳，自1970年以来的秒数
         nonceStr: data.nonceStr, // 随机串

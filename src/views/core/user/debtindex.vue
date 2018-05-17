@@ -111,14 +111,14 @@
             <span>实名认证</span>
           </p>
         </router-link>
-        <router-link to="/" class="weui-grid" style="width: 25%;">
+        <a class="weui-grid" style="width: 25%;" target="_blank" href="mqqwpa://im/chat?chat_type=wpa&uin=2387837329&version=1&src_type=web&web_src=lvlingseeds.com">
           <div class="weui-grid__icon">
             <img src="../../../assets/images/debticon/联系小云.png" alt="">
           </div>
           <p class="weui-grid__label">
             <span>联系小云</span>
           </p>
-        </router-link>
+        </a>
       </div>
     </div>
     <group>
@@ -207,7 +207,7 @@
     background: #f8f8f8;
     .zkui-head-bg {
       width: 100%;
-      height: 85*@rem;
+      height: 85 * @rem;
       position: absolute;
       top: 0;
       left: 0;
@@ -220,7 +220,7 @@
     .zkui-core-user-head {
       // background: @brand;
       position: relative;
-      height: 85*@rem;
+      height: 85 * @rem;
       z-index: 99;
       .interests {
         display: block;
@@ -246,7 +246,7 @@
       }
       .head-top {
         width: 100%;
-        height: 30*@rem;
+        height: 30 * @rem;
         display: flex;
         justify-content: flex-end;
         align-items: center;
@@ -262,8 +262,8 @@
         -webkit-box-align: center;
         align-items: center;
         .portrait {
-          width: 80*@rem;
-          height: 80*@rem;
+          width: 80 * @rem;
+          height: 80 * @rem;
           border-radius: 50%;
           border: 0.1rem solid #fff;
           margin: 0 0.5rem;
@@ -345,7 +345,7 @@
           border-top: none;
         }
         .weui-cell {
-          padding: 5*@rem 10*@rem;
+          padding: 5 * @rem 10 * @rem;
         }
       }
     }
