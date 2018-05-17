@@ -9,11 +9,12 @@ export default {
     if (u.indexOf('MicroMessenger') > -1 || u.indexOf('micromessenger') > -1) {
       var appConfig = await this.getWeChatPayConfig()
       console.info(appConfig)
-      if (!appConfig.isEnable) {
-        return // 后台未启用微信支付
-      }
+      // if (!appConfig.isEnable) {
+      //   return // 后台未启用微信支付
+      // }
       try {
         if (!local.hasValue('wechat_openId')) {
+          alert('获取code')
           var code = this.getCode(appConfig.appId)
           var data = {
             jsCode: code
