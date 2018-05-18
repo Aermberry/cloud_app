@@ -100,7 +100,6 @@
       }
     },
     created () {
-      console.log('create', this.$route.query)
       if (this.$route.query.Keyword !== '') {
         this.productList.Keyword = this.$route.query.Keyword
         if (this.$route.query.Keyword === '平债士') {
@@ -140,7 +139,6 @@
       if (this.$route.query.ClasssId !== '') {
         this.productList.ClasssId = this.$route.query.ClasssId
       }
-      console.log('create', this.$route.query)
     },
     mounted () {
       if (window.location.href.indexOf('yiqipingou') !== -1) {
@@ -148,10 +146,10 @@
       } else {
         this.yqp = false
       }
-      this.upCallback()
     },
     methods: {
       async sortNum (id) {
+        console.log('sortNum', this.productList.Keyword)
         let params = {
           SortOrder: id,
           Keyword: this.productList.Keyword, // 搜索关键字
@@ -167,6 +165,7 @@
           pageIndex: this.pageIndex, // 当前第页,下拉一次增加一次
           pageSize: this.pageSize // 每页显示的数量 建议20
         }
+        console.log('sortNum', params)
         // this.sort = id
         let response = await apiService.list(params) // 通过异步方法获取数据
         let totalSize = response.data.result.totalSize // 获取总页数
@@ -183,6 +182,7 @@
         }
       },
       async upCallback () {
+        console.log('upCallback', this.productList)
         let params = {
           SortOrder: this.productList.SortOrder, // 商品排序方式
           Keyword: this.productList.Keyword, // 搜索关键字
@@ -198,18 +198,17 @@
           pageIndex: this.pageIndex, // 当前第页,下拉一次增加一次
           pageSize: this.pageSize // 每页显示的数量 建议20
         }
+        console.log('upCallback', params)
         console.log('参数', this.productList, params)
         let response = await apiService.list(params) // 通过异步方法获取数据
-        console.log('response', response)
         let totalSize = response.data.result.totalSize // 获取总页数
-        console.log('totalSize', totalSize)
         this.styleType = response.data.result.styleType // 选择何种风格
         if (this.pageIndex < totalSize) {
           this.$refs.mescroll.endSuccess(params, totalSize) // 调用widget xsroll 下拉刷新函数
         }
         this.dataList = this.dataList.concat(response.data.result.productItems)
-        window.localStorage.removeItem('wechat_openId')
-        // console.log('dataList', this.dataList, this.dataList.length)
+        // window.localStorage.removeItem('wechat_openId')
+
         if (this.dataList.length !== 0) {
           this.datashow = false
         }
