@@ -152,7 +152,6 @@
     },
     methods: {
       async sortNum (id) {
-        console.log('sortNum', this.productList.Keyword)
         let params = {
           SortOrder: id,
           Keyword: this.productList.Keyword, // 搜索关键字
@@ -168,7 +167,6 @@
           pageIndex: this.pageIndex, // 当前第页,下拉一次增加一次
           pageSize: this.pageSize // 每页显示的数量 建议20
         }
-        console.log('sortNum', params)
         // this.sort = id
         let response = await apiService.list(params) // 通过异步方法获取数据
         let totalSize = response.data.result.totalSize // 获取总页数
@@ -185,7 +183,6 @@
         }
       },
       async upCallback () {
-        console.log('upCallback', this.productList)
         let params = {
           SortOrder: this.productList.SortOrder, // 商品排序方式
           Keyword: this.productList.Keyword, // 搜索关键字
@@ -201,10 +198,11 @@
           pageIndex: this.pageIndex, // 当前第页,下拉一次增加一次
           pageSize: this.pageSize // 每页显示的数量 建议20
         }
-        console.log('upCallback', params)
         console.log('参数', this.productList, params)
         let response = await apiService.list(params) // 通过异步方法获取数据
+        console.log('response', response)
         let totalSize = response.data.result.totalSize // 获取总页数
+        console.log('totalSize', totalSize)
         this.styleType = response.data.result.styleType // 选择何种风格
         if (this.pageIndex < totalSize) {
           this.$refs.mescroll.endSuccess(params, totalSize) // 调用widget xsroll 下拉刷新函数

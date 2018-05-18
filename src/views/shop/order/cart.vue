@@ -308,13 +308,13 @@
           console.info('店铺最终购买数据', storeItem.storeName, this.productSkuChecks[i])
         }
         console.info('总数据', this.viewModel, '格式', buyProductInfo)
-        // this.$router.push({
-        //   name: 'order_buy',
-        //   params: {
-        //     buyInfo: buyProductInfo,
-        //     isFromCart: true // 购买信息来自购物车
-        //   }
-        // })
+        this.$router.push({
+          name: 'order_buy',
+          params: {
+            buyInfo: buyProductInfo,
+            isFromCart: true // 购买信息来自购物车
+          }
+        })
       }
     },
     watch: {
