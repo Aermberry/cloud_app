@@ -12,7 +12,7 @@
       <x-input title="密码" required type="password" :min="6" :max="16" v-model="user.password"></x-input>
       <x-input title="确认密码" required type="password" :min="6" :max="16" class="border-bottom" v-model="user.confirmPassword"></x-input>
     </group>
-    <label role="checkbox" class="el-checkbox " :class="{'is-checked':checked}" @click.native="checker">
+    <label role="checkbox" class="el-checkbox " :class="{'is-checked':checked}" @click="checker">
       <span aria-checked="mixed" class="el-checkbox__input " :class="{'is-checked':checked}">
         <span class="el-checkbox__inner"></span><input type="checkbox" class="el-checkbox__original" value=""></span>
       <span class="el-checkbox__label">
@@ -22,7 +22,7 @@
     </label>
 
     <box gap="3rem 1rem">
-      <x-button @click.native="reg" type="primary" action-type="button">注册会员</x-button>
+      <x-button @click.native="reg" type="primary" action-type="button" :disabled="disabledB">注册会员</x-button>
     </box>
     <div class="weui-msg__extra-area">
       <div class="weui-footer">
@@ -50,6 +50,7 @@
     },
     data () {
       return {
+        disabledB: true, // 判断是否同意了条框
         user: {
           username: '',
           password: '',
@@ -59,24 +60,28 @@
           parentUserName: '',
           mobile: ''
         },
-        checked: true,
+        checked: false,
         showParent: false
       }
     },
     mounted () {
       this.GetData()
     },
-
     methods: {
       checker () {
         this.checked = !this.checked
+        if (this.checked === true) {
+          this.disabledB = false
+        } else {
+          this.disabledB = true
+        }
       },
       GetData () {
         if (this.$route.query.userName !== undefined) {
           window.localStorage.setItem('qrcode_username', this.$route.query.userName)
         }
         let qrcodeUserName = window.localStorage.getItem('qrcode_username')
-        console.info('推荐人', qrcodeUserName)
+        // console.info('推荐人', qrcodeUserName)
         if (qrcodeUserName !== '' && qrcodeUserName !== 'undefined') {
           this.user.parentUserName = qrcodeUserName
           this.showParent = true

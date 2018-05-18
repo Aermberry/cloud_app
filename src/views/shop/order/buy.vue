@@ -251,8 +251,10 @@
       },
       // 获取价格,更改店铺运费方式，修改地址时候，会修改价格
       async getPrice () {
+        console.log('defaultAddress', local.getLoginStore('default_address'))
         var defaultAddress = local.getLoginStore('default_address') // 刷新时从缓冲中读取地址
         if (defaultAddress !== undefined) {
+          console.log('defaultAddress', defaultAddress)
           this.addressId = defaultAddress.id
         } else {
           this.$vux.toast.warn('请先添加地址')

@@ -40,7 +40,6 @@
       Cell
     },
     created () {
-      console.log('default_address', local.getLoginStore('default_address'))
     },
     mounted () {
       this.GetData()

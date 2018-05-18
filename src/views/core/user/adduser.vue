@@ -24,7 +24,7 @@
       </span>
     </label>
     <box gap="3rem 1rem">
-      <x-button @click.native="reg" type="primary" action-type="button">注册会员</x-button>
+      <x-button @click.native="reg" type="primary" action-type="button" :disabled="disabledB">注册会员</x-button>
     </box>
   </section>
 </template>
@@ -47,6 +47,7 @@
     },
     data () {
       return {
+        disabledB: true, // 判断是否同意了条框
         user: {
           username: '',
           password: '',
@@ -69,6 +70,11 @@
     methods: {
       checker () {
         this.checked = !this.checked
+        if (this.checked === true) {
+          this.disabledB = false
+        } else {
+          this.disabledB = true
+        }
       },
       async GetData () {
         this.user.parentUserName = this.LoginUser().userName

@@ -18,6 +18,7 @@
         </li>
       </ul>
     </div>
+    <div class="gs-top-placeholder"></div>
     <div class="point-tab">
       <ul>
         <li>
@@ -124,13 +125,11 @@
       async GetData () {
         var response = await apiService.getLink('GSSingleAd3Config')
         this.imgData = response.data.result
-        console.log(this.imgData)
         for (var i = 0; i < this.imgData.length; i++) {
           if (this.imgData[i].imageUrl !== '' && this.imgData[i].imageUrl !== 'undefined') {
             this.poster[i] = this.imgData[i].imageUrl
           }
         }
-        console.log(this.poster)
         var gsimg = await apiService.getLink('GSSingleAd4Config')
         this.bottomBanner = gsimg.data.result
         var setMessage = await common.GetConfigValue('WebSiteConfig')
@@ -147,6 +146,9 @@
       width: 100%;
       height: 3rem;
       background: #f99e26;
+      position: fixed;
+      top: 0;
+      left: 0;
       ul {
         display: flex;
         height: 3rem;
@@ -196,6 +198,9 @@
           }
         }
       }
+    }
+    .gs-top-placeholder {
+      height: 3rem;
     }
     .point-tab {
       width: 100%;
@@ -252,6 +257,92 @@
       img {
         width: 100%;
         height: 100%;
+      }
+    }
+    .zkui-product-item__1 {
+      background: #ffffff;
+      overflow: hidden;
+      ul::after {
+        content: '';
+        display: block;
+        clear: both;
+      }
+      ul {
+        display: flex;
+        padding-bottom: 10 * @rem;
+        overflow: auto;
+      }
+      li {
+        display: block;
+        float: left;
+        // height: 20rem;
+        margin: 2% 0 0 2%;
+        padding-bottom: 0.3rem;
+        border-radius: 2 * @rem;
+        border: 1px solid rgba(229, 229, 229, 0.4);
+
+        dl {
+          width: 10rem;
+          a {
+            display: block;
+            img {
+              width: 100%;
+              display: block;
+            }
+          }
+
+          .itemTitle {
+            a {
+              display: block;
+              margin: 0.3rem 0.3rem 0.1rem 0.3rem;
+              word-break: break-all;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 2;
+              overflow: hidden;
+              color: @black;
+              font-size: 14px;
+              height: 40px;
+            }
+          }
+          .itemPrice {
+            padding-left: 0.3rem;
+            height: 3rem;
+            div {
+              display: flex;
+              color: @brand;
+              height: 2.5rem;
+              margin-left: -0.2rem;
+              font-size: @h6-font-size;
+              flex-wrap: wrap;
+              span {
+                padding-left: 5px;
+                text-decoration: line-through;
+                color: @gray-600;
+                font-size: @h6-font-size;
+                word-break: break-all;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 1;
+                overflow: hidden;
+                font-weight: normal;
+              }
+            }
+          }
+        }
+      }
+      li.yqp-item {
+        dl {
+          .itemPrice {
+            height: auto;
+            div {
+              height: 1.5rem;
+              font-size: @h5-font-size;
+            }
+          }
+        }
       }
     }
   }
