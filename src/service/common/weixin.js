@@ -1,7 +1,7 @@
 import api from 'src/service/api/apistore.api'
 import apiCommon from 'src/service/api/common.api'
 import local from 'src/service/common/local'
-// import weui from 'weui.js'
+
 export default {
   // 微信登录
   async WechatLogin () {
@@ -15,26 +15,53 @@ export default {
       try {
         if (!local.hasValue('wechat_openId')) {
           alert('获取code')
-          var code = this.getCode(appConfig.appId)
-          var data = {
-            jsCode: code
-          }
-          var response = await api.weixinLogin(data)
-          if (response.data.status === 1) {
-            var openId = response.data.result.session.openid
-            if (openId !== undefined && openId !== null) {
-              if (openId.length > 12) {
-                window.localStorage.setItem('wechat_openId', openId)
-              }
+          var code = this.getCodeCycle(appConfig.appId) // 循环三次获取code
+          if (code.length > 12) {
+            var data = {
+              jsCode: code
             }
-          } else {
-            alert('获取code失败' + response.data.message)
+            var response = await api.weixinLogin(data)
+            if (response.data.status === 1) {
+              var openId = response.data.result.session.openid
+              if (openId !== undefined && openId !== null) {
+                if (openId.length > 12) {
+                  window.localStorage.setItem('wechat_openId', openId)
+                }
+              }
+            } else {
+              alert('获取openId失败' + response.data.message)
+            }
           }
         }
       } catch (err) {
         alert('获取OpenId异常' + err)
       }
     }
+  },
+  // 循环三次获取code
+  getCodeCycle (appId) {
+    var code = this.getCode(appId) // 第一次获取code
+    if (code === null || code === undefined) {
+      alert('第二次获取code')
+      code = this.getCode(appId) // 第二次获取code
+    }
+    if (code.length <= 12) {
+      alert('code长度不够，获取code')
+      code = this.getCode(appId) // 第三次获取code
+    }
+    if (code === null || code === undefined) {
+      alert('第三次获取code')
+      code = this.getCode(appId) // 第三次获取code
+    }
+    if (code.length <= 12) {
+      alert('code长度不够，获取code')
+      code = this.getCode(appId) // 第三次获取code
+    }
+    alert('code' + code)
+    if (code.length >= 12) {
+      window.localStorage.setItem('wechat_code', code)
+    }
+    return code
   },
   getCode (appId) {
     // var retrunUrl = window.location.href
@@ -47,13 +74,7 @@ export default {
     url += '&state=STATE&connect_redirect=1'
     url += '#wechat_redirect'
     window.location.href = url
-    // 获取Url中的Code,长度不够是不保存
-    // var code = this.getQueryString('code')
     var code = this.getQueryString('code')
-    alert('code' + code)
-    if (code >= 12) {
-      window.localStorage.setItem('wechat_code', code)
-    }
     return code
   },
   // 获取微信公众号支付
@@ -68,8 +89,6 @@ export default {
   },
   getQueryString (name) {
     var querys = window.location.search
-    alert('跳转url')
-    alert(querys)
     // querys = 'http://www.yiqipingou.com/?code=081Du20u0OUokb1OjB0u0XCr0u0Du20I&state=STATE'
     // querys = url
     var num = querys.indexOf('?')
@@ -93,7 +112,8 @@ export default {
     console.info('支付参数', data)
     // eslint-disable-next-line
     WeixinJSBridge.invoke(
-      'getBrandWCPayRequest', {
+      'getBrandWCPayRequest',
+      {
         appId: data.appId, // 公众号名称，由商户传入
         timeStamp: data.timeStamp, // 时间戳，自1970年以来的秒数
         nonceStr: data.nonceStr, // 随机串
