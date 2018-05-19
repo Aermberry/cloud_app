@@ -21,29 +21,9 @@
     <div class="gs-top-placeholder"></div>
     <div class="point-tab">
       <ul>
-        <li>
-          <router-link to="">
-            限时秒杀
-          </router-link>
-        </li>
-        <li>
-          <router-link to="">
-            进口美妆
-          </router-link>
-        </li>
-        <li>
-          <router-link to="">
-            母婴用品
-          </router-link>
-        </li>
-        <li>
-          <router-link to="">
-            休闲零食
-          </router-link>
-        </li>
-        <li>
-          <router-link to="">
-            洗涤用品
+        <li v-for="(item,index) in classDatas" :key="index">
+          <router-link :to="'/product/list?ClassIds='+item.id">
+            {{item.name}}
           </router-link>
         </li>
       </ul>
@@ -55,9 +35,9 @@
         母婴专区
         <span>Baby area</span>
       </div>
-      <div class="item-img">
-        <img :src="poster[0]" alt="">
-      </div>
+      <router-link :to="posterUrl[0]" class="item-img">
+        <img :src="posterImg[0]" alt="">
+      </router-link>
       <zk-product-item :pageSize=8 classIds='' tagIds='107' diykey=''></zk-product-item>
     </div>
     <div class="gs-item">
@@ -65,9 +45,9 @@
         美妆护肤
         <span>Cosmetics area</span>
       </div>
-      <div class="item-img">
-        <img :src="poster[1]" alt="">
-      </div>
+      <router-link :to="posterUrl[1]" class="item-img">
+        <img :src="posterImg[1]" alt="">
+      </router-link>
       <zk-product-item :pageSize=8 classIds='' tagIds='108' diykey=''></zk-product-item>
     </div>
     <div class="gs-item">
@@ -75,9 +55,9 @@
         家庭用品
         <span>Household product</span>
       </div>
-      <div class="item-img">
-        <img :src="poster[2]" alt="">
-      </div>
+      <router-link :to="posterUrl[2]" class="item-img">
+        <img :src="posterImg[2]" alt="">
+      </router-link>
       <zk-product-item :pageSize=8 classIds='' tagIds='109' diykey=''></zk-product-item>
     </div>
     <div class="gs-item">
@@ -85,9 +65,9 @@
         进口零食
         <span>Snack area</span>
       </div>
-      <div class="item-img">
-        <img :src="poster[3]" alt="">
-      </div>
+      <router-link :to="posterUrl[3]" class="item-img">
+        <img :src="posterImg[3]" alt="">
+      </router-link>
       <zk-product-item :pageSize=8 classIds='' tagIds='110' diykey=''></zk-product-item>
     </div>
     <div class="ga-bottom">
@@ -100,6 +80,7 @@
 <script>
   import common from 'src/service/api/common.api'
   import apiService from 'src/service/api/diy.api'
+  import apiproduct from 'src/service/api/product.api'
   import { ZkSwiper, ZkGrid, ZkProductItem } from 'widgets'
   import { MIcon } from 'zkui'
   export default {
@@ -115,7 +96,9 @@
         message: '',
         Ilogo: '',
         bottomBanner: '',
-        poster: ['', '', '', '']
+        posterImg: [],
+        posterUrl: [],
+        classDatas: ''
       }
     },
     mounted () {
@@ -123,13 +106,19 @@
     },
     methods: {
       async GetData () {
+        let classList = await apiproduct.class()
+        this.classDatas = classList.data.result
         var response = await apiService.getLink('GSSingleAd3Config')
         this.imgData = response.data.result
         for (var i = 0; i < this.imgData.length; i++) {
           if (this.imgData[i].imageUrl !== '' && this.imgData[i].imageUrl !== 'undefined') {
-            this.poster[i] = this.imgData[i].imageUrl
+            this.posterImg.push(this.imgData[i].imageUrl)
+          }
+          if (this.imgData[i].url !== '' && this.imgData[i].url !== 'undefined') {
+            this.posterUrl.push(this.imgData[i].url)
           }
         }
+        console.log('this.posterUrl.', this.posterUrl)
         var gsimg = await apiService.getLink('GSSingleAd4Config')
         this.bottomBanner = gsimg.data.result
         var setMessage = await common.GetConfigValue('WebSiteConfig')
@@ -218,7 +207,7 @@
           text-align: center;
           a {
             display: block;
-            min-width: 4rem;
+            min-width: 5rem;
             margin: 0 0.5rem;
             line-height: 2.6rem;
             color: @gray-600;
@@ -243,8 +232,9 @@
         }
       }
       .item-img {
+        display: block;
         width: 100%;
-        height: 220px;
+        height: 180px;
         img {
           width: 100%;
           height: 100%;

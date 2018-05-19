@@ -59,7 +59,6 @@
       }
     },
     created () {
-      console.log(this.index)
     },
     mounted () {
       this.getData()
