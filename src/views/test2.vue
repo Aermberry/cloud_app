@@ -19,9 +19,12 @@
 
     },
     mounted () {
+        this.ceshi()
     },
     methods: {
-
+ ceshi () {
+        window.localStorage.removeItem('wechat_openId')
+      }
     }
   }
 </script>
