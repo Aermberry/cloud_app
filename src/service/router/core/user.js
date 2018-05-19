@@ -24,7 +24,7 @@ export default [
   {
     path: '/user/login',
     meta: {
-      title: '会员中心'
+      title: '登录'
     },
     name: 'user_login',
     component: function (resolve) {

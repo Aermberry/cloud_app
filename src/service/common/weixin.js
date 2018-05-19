@@ -38,7 +38,7 @@ export default {
   },
   getCode (appId) {
     // var retrunUrl = window.location.href
-    var retrunUrl = 'http://www.yiqipingou.com/open'
+    var retrunUrl = 'http://www.yiqipingou.com'
     var url = 'https://open.weixin.qq.com/connect/oauth2/authorize'
     url += '?appid=' + appId
     url += '&redirect_uri=' + encodeURIComponent(retrunUrl)
@@ -93,8 +93,7 @@ export default {
     console.info('支付参数', data)
     // eslint-disable-next-line
     WeixinJSBridge.invoke(
-      'getBrandWCPayRequest',
-      {
+      'getBrandWCPayRequest', {
         appId: data.appId, // 公众号名称，由商户传入
         timeStamp: data.timeStamp, // 时间戳，自1970年以来的秒数
         nonceStr: data.nonceStr, // 随机串

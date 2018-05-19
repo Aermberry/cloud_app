@@ -302,8 +302,8 @@
     }
     .index-qrcode {
       display: block;
-      width: 30*@rem;
-      height: 30*@rem;
+      width: 30 * @rem;
+      height: 30 * @rem;
       overflow: hidden;
       margin-top: 0.3rem;
       margin-right: 0.5rem;
@@ -317,7 +317,7 @@
       flex: 1;
     }
     .index-qrcode > div {
-      margin: 10px 0 0 5*@rem;
+      margin: 10px 0 0 5 * @rem;
     }
     .scroller {
       .mescroll-upwarp {

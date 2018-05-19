@@ -58,7 +58,7 @@
       <div class="item-img">
         <img :src="poster[0]" alt="">
       </div>
-      <zk-product-item :pageSize=2 classIds='' tagIds='107' diykey=''></zk-product-item>
+      <zk-product-item :pageSize=8 classIds='' tagIds='107' diykey=''></zk-product-item>
     </div>
     <div class="gs-item">
       <div class="item-title">
@@ -68,7 +68,7 @@
       <div class="item-img">
         <img :src="poster[1]" alt="">
       </div>
-      <zk-product-item :pageSize=2 classIds='' tagIds='108' diykey=''></zk-product-item>
+      <zk-product-item :pageSize=8 classIds='' tagIds='108' diykey=''></zk-product-item>
     </div>
     <div class="gs-item">
       <div class="item-title">
@@ -78,7 +78,7 @@
       <div class="item-img">
         <img :src="poster[2]" alt="">
       </div>
-      <zk-product-item :pageSize=2 classIds='' tagIds='109' diykey=''></zk-product-item>
+      <zk-product-item :pageSize=8 classIds='' tagIds='109' diykey=''></zk-product-item>
     </div>
     <div class="gs-item">
       <div class="item-title">
@@ -88,7 +88,7 @@
       <div class="item-img">
         <img :src="poster[3]" alt="">
       </div>
-      <zk-product-item :pageSize=2 classIds='' tagIds='110' diykey=''></zk-product-item>
+      <zk-product-item :pageSize=8 classIds='' tagIds='110' diykey=''></zk-product-item>
     </div>
     <div class="ga-bottom">
       <img v-for="(item,index) in bottomBanner" :key="index" :src="item.imageUrl" alt="">
