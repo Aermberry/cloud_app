@@ -1,6 +1,7 @@
 import api from 'src/service/api/apistore.api'
 import apiCommon from 'src/service/api/common.api'
 import local from 'src/service/common/local'
+import helper from 'src/service/common/helper'
 
 export default {
   // 微信登录
@@ -16,28 +17,33 @@ export default {
         if (!local.hasValue('wechat_openId')) {
           alert('获取code')
           var code = this.getCodeCycle(appConfig.appId) // 循环三次获取code
-          if (code.length > 12) {
-            var data = {
-              jsCode: code
-            }
-            var response = await api.weixinLogin(data)
-            if (response.data.status === 1) {
-              var openId = response.data.result.session.openid
-              if (openId !== undefined && openId !== null) {
-                if (openId.length > 12) {
-                  window.localStorage.setItem('wechat_openId', openId)
-                }
-              }
-            } else {
-              alert('获取openId失败' + response.data.message)
-            }
-          }
+
         }
       } catch (err) {
         alert('获取OpenId异常' + err)
       }
     }
   },
+  // 循环三次获取openId,直到成功
+  getOpenIdCycle (code) {
+    if (code.length > 12) {
+      var data = {
+        jsCode: code
+      }
+      var response = await api.weixinLogin(data)
+      if (response.data.status === 1) {
+        var openId = response.data.result.session.openid
+        if (openId !== undefined && openId !== null) {
+          if (openId.length > 12) {
+            window.localStorage.setItem('wechat_openId', openId)
+          }
+        }
+      } else {
+        alert('获取openId失败' + response.data.message)
+      }
+    }
+  }
+  }
   // 循环三次获取code
   getCodeCycle (appId) {
     var code = this.getCode(appId) // 第一次获取code

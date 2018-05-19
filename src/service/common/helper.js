@@ -25,5 +25,26 @@ export default {
       return false
     }
     return true
+  },
+  // 判断字符串是否为空或null,undefined
+  isNullOrEmpty (str) {
+    if (str === undefined) {
+      return true
+    }
+    if (str === null) {
+      return true
+    }
+    if (str === 'null') {
+      return true
+    }
+    if (str === 'undefined') {
+      return true
+    }
+    if (str === '') {
+      return true
+    }
+    var regu = '^[ ]+$'
+    var re = new RegExp(regu)
+    return re.test(str)
   }
 }

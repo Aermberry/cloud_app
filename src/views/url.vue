@@ -36,25 +36,6 @@
         var openId = window.localStorage.getItem('wechat_openId')
         this.openId = openId
         console.info('openId', openId)
-        // 微信使用code登录，获取openId
-        if (openId === undefined || openId === null) {
-          var data = {
-            jsCode: '021weWEm1DipDi0XvhIm1OqSEm1weWE9'
-          }
-          api.weixinLogin(data).then(response => {
-            console.info('请求数据result', response)
-            if (response.data.status === 1) {
-              openId = response.data.result.session.openid
-              console.info('openId获取成功', openId)
-              if (openId !== undefined && openId.length > 12) {
-                window.localStorage.setItem('wechat_openId', openId)
-              }
-            } else {
-              console.info('失败', response)
-              alert(response.data.message)
-            }
-          })
-        }
       }
     }
   }
