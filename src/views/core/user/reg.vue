@@ -22,7 +22,7 @@
     </label>
 
     <box gap="3rem 1rem">
-      <x-button @click.native="reg" type="primary" action-type="button" :disabled="disabledB">注册会员</x-button>
+      <x-button @click.native="reg" type="primary" action-type="button">注册会员</x-button>
     </box>
     <div class="weui-msg__extra-area">
       <div class="weui-footer">
@@ -61,7 +61,7 @@
           openId: '', // 微信openId
           mobile: ''
         },
-        checked: false,
+        checked: true,
         showParent: false
       }
     },
@@ -94,6 +94,7 @@
         var response = await apiUser.reg(this.user)
         if (response.data.status === 1) {
           this.$vux.toast.success('注册成功')
+          window.localStorage.setItem('wechat_autoLoginByOpenId', true)
           this.$router.push({
             name: 'user_login'
           }

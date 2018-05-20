@@ -41,10 +41,13 @@ export default {
 
   async weixinLogin (openId) {
     var user = local.getStore('user')
-    if (user === undefined || user === null || user.id < 1) {
-      var response = await apiUser.loginByOpenId(openId)
-      if (response.data.status === 1) {
-        local.setStore('user', response.data.result)
+    var autoLogin = window.localStorage.getItem('wechat_autoLoginByOpenId') // 是否自动登录
+    if (autoLogin === undefined || autoLogin === null || autoLogin === 'true') {
+      if (user === undefined || user === null || user.id < 1) {
+        var response = await apiUser.loginByOpenId(openId)
+        if (response.data.status === 1) {
+          local.setStore('user', response.data.result)
+        }
       }
     }
   },

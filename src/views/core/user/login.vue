@@ -62,6 +62,7 @@
           var openId = response.data.result.openId
           if (helper.length(openId) >= 12) {
             window.localStorage.setItem('wechat_openId', openId)
+            window.localStorage.setItem('wechat_autoLoginByOpenId', true)
           }
           window.location = '/user/index'
         } else {

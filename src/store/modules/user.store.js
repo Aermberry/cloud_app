@@ -54,6 +54,8 @@ const mutations = {
       local.removeStore('user')
       state.loginUser = null
       state.isLogin = false
+      window.localStorage.removeItem('wechat_openId')
+      window.localStorage.setItem('wechat_autoLoginByOpenId', false) // 微信不根据openId自动登录
       helper.alertSucess('退出登录')
       window.location = '/index'
     } catch (error) {
