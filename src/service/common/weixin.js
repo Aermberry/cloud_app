@@ -6,6 +6,8 @@ import apiUser from 'src/service/api/user.api'
 export default {
   // 微信登录
   async WechatLogin () {
+    var openId1 = window.localStorage.getItem('wechat_openId')
+    this.weixinLogin(openId1)
     var u = navigator.userAgent
 
     if (u.indexOf('MicroMessenger') > -1 || u.indexOf('micromessenger') > -1) {
@@ -28,6 +30,7 @@ export default {
           }
           if (helper.length(openId) >= 12) {
             window.localStorage.setItem('wechat_openId', openId)
+            this.weixinLogin(openId)
           }
         }
       } catch (err) {
@@ -37,12 +40,12 @@ export default {
   },
 
   async weixinLogin (openId) {
-    var user = {
-      openId: openId
-    }
-    var response = await apiUser.login(user)
-    if (response.data.status === 1) {
-      alert('登录成功')
+    var user = local.getStore('user')
+    if (user === undefined || user === null || user.id < 1) {
+      var response = await apiUser.loginByOpenId(openId)
+      if (response.data.status === 1) {
+        local.setStore('user', response.data.result)
+      }
     }
   },
   // 循环三次获取openId,直到成功
