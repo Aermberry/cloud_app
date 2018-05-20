@@ -24,6 +24,7 @@
 <script>
   import { mapActions } from 'vuex'
   import { Group, XInput, Box, XButton, Cell } from 'zkui'
+  import apiUser from 'src/service/api/user.api'
   export default {
     components: {
       Group,
@@ -37,7 +38,8 @@
         password1: '',
         user: {
           username: '',
-          password: ''
+          password: '',
+          openId: ''
         }
       }
     },
@@ -49,9 +51,17 @@
     mounted () {
     },
     methods: {
-      login () {
+      async  login () {
         this.user.password = this.password1
-        this.$store.dispatch('UserLogin', this.user)
+        this.user.openId = window.localStorage.getItem('wechat_openId')
+        var response = await apiUser.login(this.user)
+        if (response.data.status === 1) {
+          this.$vux.toast.success('登录成功')
+          this.$store.dispatch('UserLogin', response.data.result)
+          window.location = '/user/index'
+        } else {
+          this.$vux.toast.warn(response.data.message)
+        }
       }
     }
   }
@@ -78,7 +88,7 @@
       .weui-footer {
         margin: 0 auto;
         .weui-footer__links {
-          margin: 15*@rem 10*@rem 0 0;
+          margin: 15 * @rem 10 * @rem 0 0;
           text-align: right;
         }
       }

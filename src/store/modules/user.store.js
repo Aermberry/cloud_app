@@ -1,5 +1,5 @@
 import * as types from 'src/store/mutation-types'
-import apiUser from 'src/service/api/user.api'
+
 import helper from 'src/service/common/helper'
 import local from 'src/service/common/local'
 
@@ -36,37 +36,18 @@ const state = {
 
 // actions
 const actions = {
-  startListeningToAuth ({
-    commit
-  }, user) {
+  startListeningToAuth ({ commit }, user) {
     commit(types.USER_LOGIN, {
       user
     })
   }
 }
 
-
 // mutations
 const mutations = {
   [types.USER_LOGIN] (state, user) {
-    apiUser.login(user).then(function (response) {
-      try {
-        if (response.data.status === 1) {
-          local.setStore('user', response.data.result)
-          state.loginUser = user
-          // helper.alertSucess('登录成功')
-          //  this.$message('登录成功')
-          window.location = '/user/index'
-        } else {
-          helper.alertError(response.data.message)
-          console.log('登陆失败')
-        }
-      } catch (ex) {
-        helper.alertError('登录失败，服务器异常')
-        // this.$message('登录失败，服务器异常')
-        state.loginUser = null
-      }
-    })
+    local.setStore('user', user)
+    state.loginUser = user
   },
   [types.USER_LOGOUT] (state) {
     try {

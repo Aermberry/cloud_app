@@ -58,6 +58,7 @@
           confirmPassword: '',
           mobileVerifiyCode: '',
           parentUserName: '',
+          openId: '', // 微信openId
           mobile: ''
         },
         checked: false,
@@ -89,6 +90,7 @@
       },
       async reg () {
         this.user.mobile = this.user.mobile.replace(/\s+/g, '')
+        this.user.openId = window.localStorage.getItem('wechat_openId')
         var response = await apiUser.reg(this.user)
         if (response.data.status === 1) {
           this.$vux.toast.success('注册成功')

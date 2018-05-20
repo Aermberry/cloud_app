@@ -2,7 +2,7 @@ import api from 'src/service/api/apistore.api'
 import apiCommon from 'src/service/api/common.api'
 import local from 'src/service/common/local'
 import helper from 'src/service/common/helper'
-
+import apiUser from 'src/service/api/user.api'
 export default {
   // 微信登录
   async WechatLogin () {
@@ -33,6 +33,16 @@ export default {
       } catch (err) {
         //  alert('获取OpenId异常' + err)
       }
+    }
+  },
+
+  async weixinLogin (openId) {
+    var user = {
+      openId: openId
+    }
+    var response = await apiUser.login(user)
+    if (response.data.status === 1) {
+      alert('登录成功')
     }
   },
   // 循环三次获取openId,直到成功

@@ -131,6 +131,7 @@
       this.GetData()
     },
     methods: {
+
       async GetData () {
         let style = {
           DataType: 'topline'
