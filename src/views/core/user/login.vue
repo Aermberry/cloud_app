@@ -25,6 +25,7 @@
   import { mapActions } from 'vuex'
   import { Group, XInput, Box, XButton, Cell } from 'zkui'
   import apiUser from 'src/service/api/user.api'
+  import helper from 'src/service/common/helper'
   export default {
     components: {
       Group,
@@ -58,6 +59,10 @@
         if (response.data.status === 1) {
           this.$vux.toast.success('登录成功')
           this.$store.dispatch('UserLogin', response.data.result)
+          var openId = response.data.result.openId
+          if (helper.length(openId) >= 12) {
+            window.localStorage.setItem('wechat_openId', openId)
+          }
           window.location = '/user/index'
         } else {
           this.$vux.toast.warn(response.data.message)
