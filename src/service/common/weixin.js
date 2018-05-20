@@ -31,7 +31,7 @@ export default {
           }
         }
       } catch (err) {
-        alert('获取OpenId异常' + err)
+        //  alert('获取OpenId异常' + err)
       }
     }
   },
