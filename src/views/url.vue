@@ -12,7 +12,6 @@
 
 <script>
   import { ZkGroupbuy } from 'widgets'
-  import api from 'src/service/api/apistore.api'
   export default {
     components: {
       ZkGroupbuy

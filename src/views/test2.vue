@@ -19,11 +19,12 @@
 
     },
     mounted () {
-        this.ceshi()
+      this.ceshi()
     },
     methods: {
- ceshi () {
+      ceshi () {
         window.localStorage.removeItem('wechat_openId')
+        window.localStorage.removeItem('wechat_code')
       }
     }
   }

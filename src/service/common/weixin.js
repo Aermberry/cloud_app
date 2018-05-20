@@ -7,17 +7,28 @@ export default {
   // 微信登录
   async WechatLogin () {
     var u = navigator.userAgent
+
     if (u.indexOf('MicroMessenger') > -1 || u.indexOf('micromessenger') > -1) {
-      var appConfig = await this.getWeChatPayConfig()
-      console.info(appConfig)
-      // if (!appConfig.isEnable) {
-      //   return // 后台未启用微信支付
-      // }
       try {
         if (!local.hasValue('wechat_openId')) {
-          alert('获取code')
-          var code = this.getCodeCycle(appConfig.appId) // 循环三次获取code
-
+          // 循环获取openId
+          var appConfig = await this.getWeChatPayConfig()
+          console.info(appConfig)
+          // if (!appConfig.isEnable) {
+          //   return // 后台未启用微信公众号支付
+          // }
+          // alert('开始获取openId' + appConfig.returnUrl)
+          window.location.href = appConfig.returnUrl
+          var openId = await this.getOpenIdCycle(appConfig)
+          let i = 1
+          while (helper.length(openId) < 12 && i < 5) {
+            //  alert('获取opneId,第' + i + '次' + openId)
+            openId = await this.getOpenIdCycle(appConfig)
+            i++
+          }
+          if (helper.length(openId) >= 12) {
+            window.localStorage.setItem('wechat_openId', openId)
+          }
         }
       } catch (err) {
         alert('获取OpenId异常' + err)
@@ -25,8 +36,9 @@ export default {
     }
   },
   // 循环三次获取openId,直到成功
-  getOpenIdCycle (code) {
-    if (code.length > 12) {
+  async getOpenIdCycle (appConfig) {
+    var code = this.getCodeCycle(appConfig)
+    if (helper.length(code) > 12) {
       var data = {
         jsCode: code
       }
@@ -34,46 +46,37 @@ export default {
       if (response.data.status === 1) {
         var openId = response.data.result.session.openid
         if (openId !== undefined && openId !== null) {
-          if (openId.length > 12) {
-            window.localStorage.setItem('wechat_openId', openId)
+          if (helper.length(openId) > 12) {
+            //  alert('open获取成功' + openId)
+            return openId
           }
         }
       } else {
         alert('获取openId失败' + response.data.message)
       }
     }
-  }
-  }
+    return ''
+  },
   // 循环三次获取code
-  getCodeCycle (appId) {
-    var code = this.getCode(appId) // 第一次获取code
-    if (code === null || code === undefined) {
-      alert('第二次获取code')
-      code = this.getCode(appId) // 第二次获取code
+  getCodeCycle (appConfig) {
+    var code = this.getCode(appConfig) // 第一次获取code
+    let i = 1
+    while (helper.length(code) < 12 && i < 5) {
+      // alert('获取code,第' + i + '次' + code)
+      code = this.getCode(appConfig) // 第二次获取code
+      i++
     }
-    if (code.length <= 12) {
-      alert('code长度不够，获取code')
-      code = this.getCode(appId) // 第三次获取code
-    }
-    if (code === null || code === undefined) {
-      alert('第三次获取code')
-      code = this.getCode(appId) // 第三次获取code
-    }
-    if (code.length <= 12) {
-      alert('code长度不够，获取code')
-      code = this.getCode(appId) // 第三次获取code
-    }
-    alert('code' + code)
-    if (code.length >= 12) {
+    if (helper.length(code) >= 12) {
       window.localStorage.setItem('wechat_code', code)
     }
     return code
   },
-  getCode (appId) {
+  getCode (appConfig) {
     // var retrunUrl = window.location.href
-    var retrunUrl = 'http://www.yiqipingou.com'
+    var retrunUrl = appConfig.returnUrl
+    // var retrunUrl = 'http://www.yiqipingou.com'
     var url = 'https://open.weixin.qq.com/connect/oauth2/authorize'
-    url += '?appid=' + appId
+    url += '?appid=' + appConfig.appId
     url += '&redirect_uri=' + encodeURIComponent(retrunUrl)
     url += '&response_type=code'
     url += '&scope=snsapi_base'
@@ -85,13 +88,9 @@ export default {
   },
   // 获取微信公众号支付
   async getWeChatPayConfig () {
-    if (local.hasValue('WeChatPaymentConfig')) {
-      return local.getStore('WeChatPaymentConfig')
-    } else {
-      var response = await apiCommon.GetConfigValue('WeChatPaymentConfig')
-      local.setStore('WeChatPaymentConfig', response.data.result)
-      return response.data.result
-    }
+    var response = await apiCommon.GetConfigValue('WeChatPaymentConfig')
+    console.info('微信配置', response)
+    return response.data.result
   },
   getQueryString (name) {
     var querys = window.location.search
