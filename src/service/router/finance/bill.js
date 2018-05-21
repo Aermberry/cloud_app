@@ -81,9 +81,24 @@ export default [{
       title: '我的银行卡',
       login: true
     },
-    name: 'account_bankcard',
+    name: 'account_mybankcard',
     component: function (resolve) {
       require(['src/views/finance/account/bankcard/index'], resolve)
+    }
+  },
+  {
+    path: '/user/account/bankcard/add',
+    meta: {
+      title: '操作银行卡',
+      login: true
+    },
+    params: {
+      operation: '',
+      id: ''
+    },
+    name: 'account_addbankcard',
+    component: function (resolve) {
+      require(['src/views/finance/account/bankcard/add'], resolve)
     }
   },
   {

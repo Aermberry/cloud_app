@@ -40,5 +40,25 @@ export default {
   bankCardList: function (data) {
     var response = http.getLogin('/BankCard/GetList', data)
     return response
+  },
+  // 添加银行卡
+  bankCardAdd: function (data) {
+    var response = http.postLogin('/BankCard/Add', data)
+    return response
+  },
+  // 删除银行卡
+  bankCardDelete: function (data) {
+    var response = http.deleteLogin('/BankCard/Delete', data)
+    return response
+  },
+  // 更改银行卡
+  bankCardUpdate: function (data) {
+    var response = http.putLogin('/BankCard/Update', data)
+    return response
+  },
+  // 获取单个银行卡
+  bankCardSingle: function (data) {
+    var response = http.getLogin('/BankCard/get', data)
+    return response
   }
 }

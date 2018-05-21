@@ -4,8 +4,14 @@ import axios from 'axios'
 import store from 'src/store/index'
 import helper from 'src/service/common/helper'
 // import qs from 'qs'
-import { baseUrl, key, projectId } from 'src/service/config/env'
-import { md5 } from 'zkui' // md5 函数
+import {
+  baseUrl,
+  key,
+  projectId
+} from 'src/service/config/env'
+import {
+  md5
+} from 'zkui' // md5 函数
 const timestamp = Math.round(new Date().getTime() / 1000)
 
 axios.interceptors.request.use(
@@ -138,7 +144,7 @@ export default {
     }
     var loginuserid = loginUser.id
     var token = url.toLowerCase() + timestamp + loginUser.userName.toLowerCase()
-    console.info('前台taoken', token)
+    // console.info('前台taoken', token)
     token = md5(token)
     params = {
       ...params,
