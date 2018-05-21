@@ -160,7 +160,7 @@
   }
 </script>
 
-<style scoped  lang="less">
+<style  lang="less">
   .user_address {
     padding-bottom: 35 * @rem;
     body {

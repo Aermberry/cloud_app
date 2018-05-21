@@ -1,5 +1,4 @@
-export default [
-  {
+export default [{
     path: '/user/account/index',
     meta: {
       title: '钱包',
