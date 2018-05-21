@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div>没想到把 </div>
   </div>
 </template>
 
@@ -9,8 +8,7 @@
     components: {
     },
     data () {
-      return {
-      }
+      return {}
     },
     created () {
     },
