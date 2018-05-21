@@ -150,10 +150,10 @@ export default {
         ) {
           window.location.href = response.data.result.url
         } else {
-          alert('支付失败' + res.err_msg)
-          alert(window.localStorage.getItem('wechat_openId'))
-          alert(response.data.result.message)
-          alert(response.data.result.url)
+          // alert('支付失败' + res.err_msg)
+          // alert(window.localStorage.getItem('wechat_openId'))
+          // alert(response.data.result.message)
+          // alert(response.data.result.url)
           window.location.href = response.data.result.url
         }
       }
