@@ -129,7 +129,6 @@
             this.addressId = defaultAddress.id
           } else {
             this.$vux.toast.warn('请先添加地址')
-            return
           }
           var storeBuyItems = []
           for (var i = 0; i < this.modelView.storeItems.length; i++) {
@@ -226,10 +225,11 @@
             isGroupBuy: this.isGroupBuy,
             productJson: JSON.stringify(buyProductInfo)
           }
-          // console.info('购物信息', buyInfoInput)
+          console.info('购物信息', buyInfoInput)
           var response = await apiService.buyProduct(buyInfoInput)
           if (response.data.status !== 1) {
-            this.messageWarn(response.data.message)
+            console.info('服务器返回', response.data.message)
+            this.$vux.toast.warn(response.data.message)
           } else {
             this.modelView = response.data.result
             // 初始运费模板
@@ -252,14 +252,12 @@
       },
       // 获取价格,更改店铺运费方式，修改地址时候，会修改价格
       async getPrice () {
-        console.log('defaultAddress', local.getLoginStore('default_address'))
         var defaultAddress = local.getLoginStore('default_address') // 刷新时从缓冲中读取地址
         if (defaultAddress !== undefined) {
           console.log('defaultAddress', defaultAddress)
           this.addressId = defaultAddress.id
         } else {
           this.$vux.toast.warn('请先添加地址')
-          return
         }
         var storeDelivery = []
         for (var i = 0; i < this.modelView.storeItems.length; i++) {
@@ -294,7 +292,6 @@
             console.warn(priceResponse.data.message)
             this.GetData() // 缓存对象不存在，重新请求一次数据库
           }
-          // this.messageWarn(priceResponse.data.message)
         } else {
           this.priceView = priceResponse.data.result
           this.storePrices = this.priceView.storePrices

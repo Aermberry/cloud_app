@@ -227,10 +227,6 @@
           }
         }
       },
-      // async ceshi () {
-      //   var defaultAddress = local.getLoginStore('default_address')
-      //   console.log('defaultAddress', defaultAddress)
-      // },
       async GetData () {
         var buyProductInfo = ''
         // console.log('this.$route.params.buyInfo', this.$route.params.buyInfo)
@@ -280,8 +276,7 @@
           if (defaultAddress !== undefined) {
             this.addressId = defaultAddress.id
           } else {
-            this.$message.error('请先添加地址')
-            return
+            this.$vux.toast.warn('请先添加地址')
           }
           var storeBuyItems = []
           for (var i = 0; i < this.modelView.storeItems.length; i++) {
@@ -366,8 +361,7 @@
         if (defaultAddress !== undefined) {
           this.addressId = defaultAddress.id
         } else {
-          this.$message.error('请先添加地址')
-          return
+          this.$vux.toast.warn('请先添加地址')
         }
         var storeDelivery = []
         for (var i = 0; i < this.modelView.storeItems.length; i++) {

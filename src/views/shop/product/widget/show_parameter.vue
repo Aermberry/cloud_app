@@ -285,7 +285,7 @@
       getGroupBuySkuPrice (id) {
         var price = 0
         var activitys = this.productView.productActivityExtension.activitys // 所有活动
-        var groupBuyActivity = ''
+        var groupBuyActivity
         activitys.forEach(element => {
           if (element.key === 'ZKCloud.App.Shop.Activitys.Modules.GroupBuy.Model.GroupBuyActivity') {
             groupBuyActivity = element.value
@@ -298,7 +298,6 @@
             }
           })
         }
-        console.info('拼团价格', price)
         return price
       },
       // 获取Sku ，用户选择不同的sku
