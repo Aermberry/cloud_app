@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="add_addressBtn">
-      <x-button type="warn" @click.native="operation('添加')">添加地址</x-button>
+      <x-button type="warn" @click.native="operation('添加')">添加银行卡</x-button>
     </div>
     <zk-foot></zk-foot>
   </section>

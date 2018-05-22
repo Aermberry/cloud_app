@@ -31,9 +31,24 @@ export default {
     var response = http.getLogin('/user/account/withdraw', data)
     return response
   },
+  //  获取允许提现的账户类型
+  GetAccountType: function (data) {
+    var response = http.getLogin('/WithDraw/GetAccountType', data)
+    return response
+  },
+  //  用户申请提现
+  WithDrawAdd: function (data) {
+    var response = http.postLogin('/WithDraw/Add', data)
+    return response
+  },
+  //  获取提现详情
+  WithDrawGet: function (data) {
+    var response = http.getLogin('/WithDraw/Get', data)
+    return response
+  },
   // 获取银行卡类型
   bankCardType: function (data) {
-    var response = http.getLogin('/BankCard/GetBankType', data)
+    var response = http.get('/BankCard/GetBankType', data)
     return response
   },
   // 获取银行卡列表

@@ -104,6 +104,7 @@
         }
         var bankList = await apiUser.bankCardType()
         this.bankList = bankList.data.result
+        console.log('this.bankList', this.bankList)
       }
     }
   }

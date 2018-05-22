@@ -59,12 +59,25 @@
 </template>
 
 <script>
-  // import apiUser from 'src/service/api/user.api'
+  import apiUser from 'src/service/api/account.api'
   export default {
     data () {
       return {
         title: '提现详情',
         goBack: '提现记录'
+      }
+    },
+    mounted () {
+      this.Getdate()
+    },
+    methods: {
+      async Getdate () {
+        let par = {
+
+          id: 2
+        }
+        var data = await apiUser.WithDrawGet(par)
+        console.log(data)
       }
     }
   }

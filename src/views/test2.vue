@@ -4,11 +4,13 @@
 </template>
 
 <script>
+  import { } from 'zkui'
   export default {
     components: {
     },
     data () {
-      return {}
+      return {
+      }
     },
     created () {
     },
