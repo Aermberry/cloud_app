@@ -22,15 +22,15 @@ if (process.env.NODE_ENV === 'development') {
   // baseUrl = 'http://admin.czhait.com'
   // baseUrl = 'http://zkgs.5ug.com'
   // baseUrl = 'http://zkqd.5ug.com'
-  // baseUrl = 'http://zqingchun.yiqipingou.com/'
-  baseUrl = 'http://ceshi.5ug.com'
+  baseUrl = 'http://zqingchun.yiqipingou.com/'
+  //  baseUrl = 'http://ceshi.5ug.com'
   //  baseUrl = 'http://localhost:9011'
   //  baseUrl = 'http://zkdebt.5ug.com'
 } else {
   // baseUrl = 'http://zkdebt.5ug.com'
   // baseUrl = 'http://admin.czhait.com
   // baseUrl = 'http://zkqd.5ug.com/'
-  baseUrl = 'http://zqingchun.yiqipingou.com/'
+  baseUrl = 'http://ceshi.5ug.com'
 }
 export {
   baseUrl,

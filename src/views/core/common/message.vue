@@ -31,7 +31,8 @@
       return {
         type: 'success',
         message: '',
-        iconClass: 'weui-icon-success weui-icon_msg'
+        iconClass: 'weui-icon-success weui-icon_msg',
+        title: ''
       }
     },
     mounted () {

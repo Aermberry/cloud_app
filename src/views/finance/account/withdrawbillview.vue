@@ -7,78 +7,86 @@
         <div class="weui-form-preview__hd">
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">金额</label>
-            <em class="weui-form-preview__value zkui-reward-show-price">¥1000.00</em>
+            <em class="weui-form-preview__value zkui-reward-show-price">¥{{datalist.amount}}</em>
           </div>
         </div>
         <div class="weui-form-preview__bd">
           <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label">发起时间</label>
+            <span class="weui-form-preview__value">{{datalist.createTime}}</span>
+          </div>
+          <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label">到账时间</label>
+            <span class="weui-form-preview__value">{{datalist.payTime}}</span>
+          </div>
+          <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label">提现账户</label>
+            <span class="weui-form-preview__value">{{datalist.moneyTypeName}}</span>
+          </div>
+          <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">手续费</label>
-            <span class="weui-form-preview__value">50.00</span>
-          </div>
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">总金额</label>
-            <span class="weui-form-preview__value">1000</span>
-          </div>
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">流水号</label>
-            <span class="weui-form-preview__value">0000000000</span>
-          </div>
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">账户名称</label>
-            <span class="weui-form-preview__value">提现账户</span>
-          </div>
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">账户余额</label>
-            <span class="weui-form-preview__value">2000</span>
-          </div>
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">操作类型</label>
-            <span class="weui-form-preview__value">提现</span>
-          </div>
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">货币类型</label>
-            <span class="weui-form-preview__value">人民币</span>
-          </div>
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">币种类型</label>
-            <span class="weui-form-preview__value">提现账户</span>
-          </div>
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">账户状态</label>
-            <span class="weui-form-preview__value">成功</span>
-          </div>
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">描述</label>
-            <span class="weui-form-preview__value">杨大哥（杨大哥）申请提现账户提现1000</span>
+            <span class="weui-form-preview__value">{{datalist.fee}}</span>
           </div>
         </div>
       </div>
     </div>
+    <group>
+      <x-button type="primary" action-type="button" @click.native="deleteT(datalist.id)"> 删除</x-button>
+    </group>
     <!--<zk-foot></zk-foot>-->
   </section>
 </template>
 
 <script>
+  import { Group, XButton, Box } from 'zkui'
   import apiUser from 'src/service/api/account.api'
   export default {
+    components: {
+      Group,
+      XButton,
+      Box
+    },
     data () {
       return {
         title: '提现详情',
-        goBack: '提现记录'
+        datalist: ''
       }
     },
     mounted () {
       this.Getdate()
     },
     methods: {
+      async deleteT (tid) {
+        let par = {
+          id: tid
+        }
+        console.log(tid)
+        var deleteM = await apiUser.WithDrawDelete(par)
+        if (deleteM.data.status === 1) {
+          this.$vux.toast.success(deleteM.data.message)
+          this.$router.push({
+            name: 'account_withdrawbill'
+          })
+        } else {
+          this.$vux.toast.warn(deleteM.data.message)
+        }
+      },
       async Getdate () {
         let par = {
-
-          id: 2
+          id: this.$route.params.id
         }
         var data = await apiUser.WithDrawGet(par)
-        console.log(data)
+        this.datalist = data.data.result
+        console.log('deleteM', this.datalist)
       }
     }
   }
 </script>
+<style lang="less">
+  .zkui-user-account-withdrawbillview {
+    .weui-btn {
+      height: 3rem;
+      font-size: @h4-font-size;
+    }
+  }
+</style>

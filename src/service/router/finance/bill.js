@@ -135,7 +135,7 @@ export default [{
     }
   },
   {
-    path: '/user/account/withdrawbillview',
+    path: '/user/account/withdrawbillview/:id',
     meta: {
       title: '提现详情',
       login: true

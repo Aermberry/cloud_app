@@ -204,6 +204,7 @@
       },
       async GetData () {
         var buyProductInfo = ''
+        console.log('this.$route.params.buyInfo', this.$route.params.buyInfo)
         if (this.$route.params.buyInfo !== undefined) {
           buyProductInfo = this.$route.params.buyInfo
           local.setStore('order_buy', buyProductInfo) // 将购买信息写到缓存中

@@ -46,6 +46,11 @@ export default {
     var response = http.getLogin('/WithDraw/Get', data)
     return response
   },
+  // 删除用户提现
+  WithDrawDelete: function (data) {
+    var response = http.deleteLogin('/WithDraw/Delete', data)
+    return response
+  },
   // 获取银行卡类型
   bankCardType: function (data) {
     var response = http.get('/BankCard/GetBankType', data)
