@@ -4,7 +4,7 @@
       <div class="weui-cells-top"></div>
       <cell :title="salePropertyTitle" @click.native="showSale = true" is-link :value="selectSku.propertyValueDesc"></cell>
       <cell title="商品参数" @click.native="showParameter = true" is-link class="border-bottom"></cell>
-      <cell :title="'备注：'+productView.detail.productDetailExtension.remark" v-if="productView.detail.productDetailExtension.remark!==''"></cell>
+      <cell :title="'备注：'+productView.detail.productDetailExtension.remark" v-if="productView.detail.productDetailExtension.remark!==''&&productView.detail.productDetailExtension.remark!==null"></cell>
       <div class="weui-cells-bottom"></div>
     </group>
     <group class="zkui-product-show-groupbuy" v-if="isGroupBuyProduct">

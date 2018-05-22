@@ -355,7 +355,6 @@
     data () {
       return {
         saleItems: [], // 商品规格
-        num1: 1,
         tabbarList: 1,
         productClass: '',
         productShow: '',
