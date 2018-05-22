@@ -192,7 +192,7 @@
         // 接收父主件的拼团参数
         this.$on('childMethod', function (isGroupBuyAction) {
           // this.isGroupBuy = isGroupBuyAction // 接收父主件的拼团参数
-          // console.info('是否拼团操作', this.isGroupBuy)
+          //  console.info('是否拼团操作', this.isGroupBuy)
           this.showSale = true
         })
       })
@@ -283,13 +283,22 @@
       },
       // 根据skuId，获取拼团显示价格
       getGroupBuySkuPrice (id) {
-        var price
-        for (var i = 0; i < this.productView.productActivityExtension.activitys[0].value.SkuProducts.length; i++) {
-          let info = this.productView.productActivityExtension.activitys[0].value.SkuProducts
-          if (info[i].Id === id) {
-            price = info[i].Price
+        var price = 0
+        var activitys = this.productView.productActivityExtension.activitys // 所有活动
+        var groupBuyActivity = ''
+        activitys.forEach(element => {
+          if (element.key === 'ZKCloud.App.Shop.Activitys.Modules.GroupBuy.Model.GroupBuyActivity') {
+            groupBuyActivity = element.value
           }
+        })
+        if (groupBuyActivity !== undefined) {
+          groupBuyActivity.SkuProducts.forEach(r => {
+            if (r.Id === id) {
+              price = r.GroupBuyDisplayPrice
+            }
+          })
         }
+        console.info('拼团价格', price)
         return price
       },
       // 获取Sku ，用户选择不同的sku

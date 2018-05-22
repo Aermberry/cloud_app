@@ -28,7 +28,7 @@
     },
     mounted () {
       this.ceshi()
-      console.log('detail.mobileIntro', this.productView.detail.mobileIntro)
+      //  console.log('detail.mobileIntro', this.productView.detail.mobileIntro)
       this.imgV = this.slide1
     },
     methods: {
