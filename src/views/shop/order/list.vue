@@ -284,6 +284,58 @@
               <m-icon name="zk-notdata"></m-icon>
               <p>暂无数据</p>
             </div>
+            <!-- 待分享 -->
+            <div class="zkui-order-list-box" v-if="i===5&&!allShow[4]">
+              <div class="zkui-order-list-content">
+                <div class="zkui-order-list-box-item" v-for="(items,indexs) in stayShare" :key="indexs">
+                  <group class="box-title">
+                    <cell :title="items.storeName" :value="items.orderStatuName"></cell>
+                  </group>
+                  <div class="zkui-order-list-product" v-for="(itemss,indexss) in items.outOrderProducts" :key="indexss">
+                    <ul class="flex">
+                      <li class="left-img">
+                        <router-link :to="'/order/show?id='+items.id">
+                          <img :src="itemss.thumbnailUrl" alt="">
+                        </router-link>
+                      </li>
+                      <li class="flex_one center-content">
+                        <router-link :to="'/order/show?id='+items.id">
+                          <p>
+                            {{itemss.name}}
+                          </p>
+                        </router-link>
+                        <span>
+                          {{itemss.propertyValueDesc}}
+                        </span>
+                      </li>
+                      <li class="left-price">
+                        <ul>
+                          <li class="price_now">￥{{itemss.price}}</li>
+                          <!-- <li class="price_old">￥69.00</li> -->
+                          <li class="price_count">x {{itemss.buyCount}}</li>
+                        </ul>
+                      </li>
+                    </ul>
+                    <group class="list-aggregate">
+                      <cell>
+                        共
+                        <span class="num">{{items.totalCount}}</span> 件商品 合计：
+                        <span class="num">￥{{items.paymentAmount}}</span>(含运费
+                        <span class="num">￥{{items.expressAmount}}</span>)
+                      </cell>
+                    </group>
+                    <group class="product-option">
+                      <cell>
+                      </cell>
+                    </group>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="zk-not-data" v-if="i===5&&allShow[4]">
+              <m-icon name="zk-notdata"></m-icon>
+              <p>暂无数据</p>
+            </div>
           </div>
         </swiper-item>
       </swiper>
@@ -338,7 +390,7 @@
         maskValue: '', // 安全密码
         cid: '', // 当前确认下单的id
         show: false,
-        list2: ['全部', '待付款', '待发货', '待收货', '待评价'],
+        list2: ['全部', '待付款', '待发货', '待收货', '待评价', '待分享'],
         demo2: '全部',
         index: 4,
         showView: 0,
@@ -347,14 +399,16 @@
         stayShipments: [], // 待发货2
         stayTake: [], // 待收货3
         stayEvaluate: [], // 待评价4
+        stayShare: [], // 待分享10
         allState: {
           Payment: [],
           Shipments: [],
           Take: [],
-          Evaluate: []
+          Evaluate: [],
+          Share: []
         }, // 记录是否需要付款
         showBox: false, // 判断总数据是否为空
-        allShow: [false, false, false, false]
+        allShow: [false, false, false, false, false]
       }
     },
     created () {
@@ -417,6 +471,7 @@
       },
       async GetData () {
         var reponse = await orderService.list()
+        console.log('reponse', reponse)
         this.data = reponse.data.result
         console.log(this.data)
         if (this.data.length === 0) {
@@ -447,7 +502,14 @@
           } else {
             this.allState.Evaluate[i] = false
           }
+          if (this.data[i].orderStatus === 10) {
+            this.stayShare.push(this.data[i])
+            this.allState.Share[i] = true
+          } else {
+            this.allState.Share[i] = false
+          }
         }
+        console.log('this.stayShare', this.stayShare)
         if (this.stayPayment.length === 0) {
           this.allShow[0] = true
         }
@@ -459,6 +521,9 @@
         }
         if (this.stayEvaluate.length === 0) {
           this.allShow[3] = true
+        }
+        if (this.stayShare.length === 0) {
+          this.allShow[4] = true
         }
       }
     }
@@ -482,7 +547,7 @@
     .vux-slider {
       .vux-swiper {
         min-height: 78vh !important;
-        padding-bottom: 20*@rem;
+        padding-bottom: 20 * @rem;
       }
     }
     .weui-cells {
@@ -500,7 +565,7 @@
       .zkui-order-list-content {
         height: 80vh;
         overflow-y: auto;
-        padding-bottom: 10*@rem;
+        padding-bottom: 10 * @rem;
         .zkui-order-list-box-item {
           border-bottom: 8px solid rgba(229, 229, 229, 0.5);
           .box-title {
@@ -520,7 +585,7 @@
             }
           }
           .product-option {
-            padding-right: 10*@rem;
+            padding-right: 10 * @rem;
             .weui-cells:after {
               content: none;
             }
@@ -618,11 +683,11 @@
     }
     .zk-not-data {
       margin: 0 auto;
-      padding-top: 150*@rem;
+      padding-top: 150 * @rem;
       text-align: center;
       svg {
-        width: 50*@rem;
-        height: 50*@rem;
+        width: 50 * @rem;
+        height: 50 * @rem;
       }
       p {
         font-size: @h4-font-size;

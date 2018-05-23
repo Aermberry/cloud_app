@@ -2,35 +2,35 @@
   <div>
     <group class="zkui-product-show-parameter">
       <div class="weui-cells-top"></div>
-      <cell :title="salePropertyTitle" @click.native="showSale = true" is-link :value="selectSku.propertyValueDesc"></cell>
+      <cell :title="salePropertyTitle" @click.native="showSale = true, showgroupBuy=true,isInitiateGroup=true" is-link :value="selectSku.propertyValueDesc"></cell>
       <cell title="商品参数" @click.native="showParameter = true" is-link class="border-bottom"></cell>
       <cell :title="'备注：'+productView.detail.productDetailExtension.remark" v-if="productView.detail.productDetailExtension.remark!==''&&productView.detail.productDetailExtension.remark!==null"></cell>
       <div class="weui-cells-bottom"></div>
     </group>
     <group class="zkui-product-show-groupbuy" v-if="isGroupBuyProduct">
-      <cell title="6人在拼团，可直接参与"></cell>
+      <cell :title="groupBuyLength+'人在拼团，可直接参与'"></cell>
       <div class="groupbuy-box">
-        <ul>
+        <ul v-for="(item,index) in groupBuyRecord" :key="index">
           <li class="groupbuy-img">
-            <img src="" alt="">
+            <img :src="item.users[0].avator" alt="">
           </li>
           <li class="groupbuy-name">
-            <span>杨雨</span>
+            <span>{{item.users[0].userName}}</span>
           </li>
           <li class="groupbuy-message">
             <div class="message-box">
               <div class="message-top">
                 还差
-                <span>1人</span>
+                <span>{{item.remainCount-item.totalCount}}人</span>
                 拼成
               </div>
               <div class="meassge-bottom">
-                剩余23：58：32：0
+                剩余{{item.remainTime}}
               </div>
             </div>
           </li>
           <li class="groupbuy-btn">
-            <x-button @click.native="groupBuy()">去拼单</x-button>
+            <x-button @click.native="groupBuy(item.activityRecordId,item.users[0].userName,item.remainTime,(item.remainCount-item.totalCount))" type="primary" :disabled="(item.remainCount-item.totalCount)===0">去拼单</x-button>
           </li>
         </ul>
       </div>
@@ -39,15 +39,15 @@
     <div v-transfer-dom v-if="isGroupBuyProduct">
       <x-dialog v-model="groupBuyWindow" class="dialog-demo">
         <div class="groupbuy-dialog">
-          <h1 class="gd-title">参与在人旅途的拼单</h1>
-          <div class="gd-message">仅剩1个名额,23:58:32:0后结束</div>
+          <h1 class="gd-title">参与{{groupBuyWindowMessage.name}}的拼单</h1>
+          <div class="gd-message">仅剩{{groupBuyWindowMessage.places}}个名额,<br>{{groupBuyWindowMessage.time}}后结束</div>
           <div class="gd-img-box">
             <div class="gd-img">
               <img src="" alt="">
             </div>
           </div>
           <div class="gd-btn">
-            <x-button @click.native="showgroupBuy=true,groupBuyWindow=false,activitySelectId=productView.productActivityExtension.activitys[0].key,isGroupBuy=true">参与拼团</x-button>
+            <x-button @click.native="showgroupBuy=true,groupBuyWindow=false,isGroupBuy=true,isInitiateGroup=false">参与拼团</x-button>
           </div>
           <div @click="groupBuyWindow=false" class="gd-close">
             <span class="vux-close"></span>
@@ -78,7 +78,6 @@
                 </checker>
               </dd>
             </dl>
-
           </div>
           <group class="zkui-product-show-parameter-amount ">
             <cell title="购买数量 ">
@@ -90,7 +89,7 @@
               <!-- <button-tab-item type="warn" @click.native="addToCart" v-if="!isGroupBuyProduct"> 加入购物车</button-tab-item>
               <button-tab-item type="primary" @click.native="buyProduct(false) " v-if="!isGroupBuyProduct"> 立即购买</button-tab-item> -->
               <button-tab-item type="warn" @click.native="buyProduct(false) " v-if="isGroupBuyProduct  && !isGroupBuy">单独购买</button-tab-item>
-              <button-tab-item type="primary" @click.native="buyProduct(true) " v-if="isGroupBuyProduct && isGroupBuy">发起拼单</button-tab-item>
+              <button-tab-item type="primary" @click.native="buyProduct(true) " v-if="isGroupBuyProduct && isGroupBuy">开始拼单</button-tab-item>
             </button-tab>
           </div>
         </div>
@@ -119,7 +118,6 @@
                 </checker>
               </dd>
             </dl>
-
           </div>
           <group class="zkui-product-show-parameter-amount ">
             <cell title="购买数量 ">
@@ -176,11 +174,18 @@
         saleItems: [], // 可能存在多个商品规格属性，默认填充四个
         content: '',
         distrue: true,
+        isInitiateGroup: true, // 判断是发起拼团还是参与拼团
         isGroupBuy: false, // 是否为拼团购买，如果是拼团购买，则显示拼团价格
         isGroupBuyProduct: false, // 是否为拼团商品
         activitySelectId: 0, // 拼团时选择的活动Id，为0表示发起拼团
         groupBuyWindow: false, // 拼团弹窗
+        groupBuyWindowMessage: {
+          name: '',
+          time: '',
+          places: ''
+        },
         groupBuyRecord: '', // 商品拼团记录
+        groupBuyLength: '', // 拼团数量
         showgroupBuy: false // 显示拼团规格选择窗口
       }
     },
@@ -193,9 +198,11 @@
       this.$nextTick(function () {
         // 接收父主件的拼团参数
         this.$on('childMethod', function (isGroupBuyAction) {
-          // this.isGroupBuy = isGroupBuyAction // 接收父主件的拼团参数
-          //  console.info('是否拼团操作', this.isGroupBuy)
+          this.isGroupBuy = isGroupBuyAction // 接收父主件的拼团参数
+          console.info('是否拼团操作', this.isGroupBuy)
           this.showSale = true
+          this.showgroupBuy = true
+          console.log('showSale', this.showSale)
         })
       })
       console.log('productView', this.productView)
@@ -204,8 +211,13 @@
       }
     },
     methods: {
-      groupBuy () {
+      groupBuy (id, name, time, places) {
         this.groupBuyWindow = true
+        this.activitySelectId = id
+        console.log('this.activitySelectId', id, name, time, places)
+        this.groupBuyWindowMessage.name = name
+        this.groupBuyWindowMessage.time = time
+        this.groupBuyWindowMessage.places = places
       },
       async init () {
         this.productView.productExtensions.productCategory.salePropertys.forEach(element => {
@@ -220,6 +232,7 @@
           if (responseRecord.data.status === 1) {
             this.groupBuyRecord = responseRecord.data.result
             console.info('拼团记录', this.groupBuyRecord)
+            this.groupBuyLength = this.groupBuyRecord.length
           }
           // console.info('是否拼团操作', this.selectSku.displayPrice)
         }
@@ -246,6 +259,11 @@
       // 购买商品,isGroupBuy是否为拼团,activitySelectId:参与拼团的活动Id,
       // (activitySelectId=0，isGroupBuy=true)表示发起拼团 (activitySelectId>0，isGroupBuy=true)参与拼团,isGroupBuy=false，普通购买
       buyProduct (isGroupBuy) {
+        // 是发起拼团把activitySelectId变为0
+        if (this.isInitiateGroup === true) {
+          this.activitySelectId = 0
+        }
+        console.log('this.activitySelectId', this.activitySelectId)
         this.isGroupBuy = isGroupBuy
         console.info('是否拼团', isGroupBuy)
         this.groupBuyWindow = false
@@ -261,7 +279,7 @@
           Count: this.buyCount,
           ProductId: this.productView.id,
           storeId: this.productView.storeId,
-          activityId: this.activitySelectId, // 活动id，参与拼团时用到
+          activityRecordId: this.activitySelectId, // 活动id，参与拼团时用到
           isGroupBuy: isGroupBuy, // 是否为拼团
           LoginUserId: this.LoginUser().id
         }]
@@ -692,8 +710,6 @@
 
           button {
             height: 2.6rem;
-            background: @brand;
-            color: @white;
           }
         }
       }

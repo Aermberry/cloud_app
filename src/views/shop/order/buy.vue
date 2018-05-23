@@ -232,6 +232,7 @@
             this.$vux.toast.warn(response.data.message)
           } else {
             this.modelView = response.data.result
+            console.log('modelView', this.modelView)
             // 初始运费模板
             for (var i = 0; i < this.modelView.storeItems.length; i++) {
               this.showDelivery[i] = this.modelView.storeItems[i].expressTemplates[0].key
