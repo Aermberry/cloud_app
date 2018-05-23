@@ -156,6 +156,7 @@
 <script>
   import { Group, Checker, CheckerItem, Divider, GroupTitle, Cell, TransferDom, Popup, XButton, XSwitch, InlineXNumber, ButtonTab, ButtonTabItem, XDialog } from 'zkui'
   import userService from 'src/service/api/user.api'
+  import productService from 'src/service/api/product.api'
   import helper from 'src/service/common/helper'
   export default {
     components: {
@@ -179,6 +180,7 @@
         isGroupBuyProduct: false, // 是否为拼团商品
         activitySelectId: 0, // 拼团时选择的活动Id，为0表示发起拼团
         groupBuyWindow: false, // 拼团弹窗
+        groupBuyRecord: '', // 商品拼团记录
         showgroupBuy: false // 显示拼团规格选择窗口
       }
     },
@@ -205,13 +207,20 @@
       groupBuy () {
         this.groupBuyWindow = true
       },
-      init () {
+      async init () {
         this.productView.productExtensions.productCategory.salePropertys.forEach(element => {
           this.salePropertyTitle = this.salePropertyTitle + element.name + ' '
         })
         this.selectSku = this.productView.productExtensions.productSkus[0] // 根据specSn获取商品的规格
+        // 如果是拼团操作
         if (this.isGroupBuy) {
           this.selectSku.displayPrice = this.getGroupBuySkuPrice(this.selectSku.id)
+          // 获取拼团记录
+          var responseRecord = await productService.groupBuyRecord(this.productView.id)
+          if (responseRecord.data.status === 1) {
+            this.groupBuyRecord = responseRecord.data.result
+            console.info('拼团记录', this.groupBuyRecord)
+          }
           // console.info('是否拼团操作', this.selectSku.displayPrice)
         }
       },
