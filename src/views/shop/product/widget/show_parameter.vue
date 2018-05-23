@@ -8,7 +8,7 @@
       <div class="weui-cells-bottom"></div>
     </group>
     <group class="zkui-product-show-groupbuy" v-if="isGroupBuyProduct">
-      <cell :title="groupBuyLength+'人在拼团，可直接参与'"></cell>
+      <cell :title="groupBuyLength+'人在拼团，可直接参与'" v-if="groupBuyLength>0"></cell>
       <div class="groupbuy-box">
         <ul v-for="(item,index) in groupBuyRecord" :key="index">
           <li class="groupbuy-img">
@@ -21,7 +21,7 @@
             <div class="message-box">
               <div class="message-top">
                 还差
-                <span>{{item.remainCount-item.totalCount}}人</span>
+                <span>{{item.remainCount}}人</span>
                 拼成
               </div>
               <div class="meassge-bottom">

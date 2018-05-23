@@ -115,6 +115,7 @@
         isFromCart: false, // 购买信息是否来自购物车，如果是，则需要删除购物车中，相对应的商品数据
         reduceMoneys: [], // 非人民币资产信息
         isGroupBuy: false, // 是否为拼团购买
+        activityRecordId: 0, // 拼团活动Id
         showDelivery: [] // 显示物流快递
       }
     },
@@ -150,6 +151,7 @@
             var buyStoreItem = {
               storeId: storeBuyItem.storeId,
               isGroupBuy: this.isGroupBuy, // 是否为拼图
+              activityRecordId: this.activityRecordId,
               deliveryId: this.showDelivery[i], // 运费
               userMessage: this.userMessages[i],
               totalAmount: this.priceView.storePrices[i].totalAmount, // 店铺订单总价格
@@ -177,6 +179,7 @@
             StoreOrderJson: JSON.stringify(storeBuyItems),
             addressId: this.addressId, // 选择地址Id
             payType: 3, // 支付方式
+            activityRecordId: this.activityRecordId, // 拼团活动Id
             totalAmount: this.priceView.totalAmount, // 订单总金额
             TotalCount: this.modelView.totalCount, // 订单总商品
             paymentAmount: this.priceView.totalAmount, // 订单总金额
@@ -211,6 +214,7 @@
           buyProductInfo = local.getStore('order_buy') // 刷新时从缓冲中读取数据
         }
         this.isGroupBuy = buyProductInfo[0].isGroupBuy
+        this.activityRecordId = buyProductInfo[0].activityRecordId
         if (this.$route.params.isFromCart !== undefined) {
           this.isFromCart = this.$route.params.isFromCart // 记录购买信息是否来自购物车
         }
