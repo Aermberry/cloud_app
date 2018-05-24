@@ -80,5 +80,35 @@ export default {
   bankCardSingle: function (data) {
     var response = http.getLogin('/BankCard/get', data)
     return response
+  },
+  // 获取允许充值的账户类型
+  AccountType: function (data) {
+    var response = http.getLogin('/Recharge/GetAccountType', data)
+    return response
+  },
+  // 线下充值
+  AddOffOnline: function (data) {
+    var response = http.postLogin('/Recharge/AddOffOnline', data)
+    return response
+  },
+  // 线上充值
+  AddOnline: function (data) {
+    var response = http.postLogin('/Recharge/AddOnline', data)
+    return response
+  },
+  // 获取用户所有充值数据
+  UserList: function (data) {
+    var response = http.getLogin('/Recharge/GetUserList', data)
+    return response
+  },
+  // 删除用户充值
+  RechargeDelete: function (data) {
+    var response = http.deleteLogin('/Recharge/Delete', data)
+    return response
+  },
+  // 获取充值详情
+  RechargeGet: function (data) {
+    var response = http.getLogin('/Recharge/Get', data)
+    return response
   }
 }

@@ -91,13 +91,13 @@
           }
           this.bankcard.push(arr)
         }
-        console.log('bankcard', this.bankcard)
+        // console.log('bankcard', this.bankcard)
         if (this.bankcard.length === 0) {
           this.bankcardShow = true
         }
         // 提示文字
         var hintText = await common.GetConfigValue('WithdRawConfig')
-        console.log('hintText', hintText)
+        // console.log('hintText', hintText)
         this.hintText = hintText.data.result
       },
       async sumbit () {
