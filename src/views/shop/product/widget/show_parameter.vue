@@ -30,7 +30,7 @@
             </div>
           </li>
           <li class="groupbuy-btn">
-            <x-button @click.native="groupBuy(item.activityRecordId,item.users[0].userName,item.remainTime,(item.remainCount-item.totalCount))" type="primary" :disabled="(item.remainCount-item.totalCount)===0">去拼单</x-button>
+            <x-button @click.native="groupBuy(item.activityRecordId,item.users[0].userName,item.remainTime,item.remainCount)" type="primary" :disabled="item.remainCount===0">去拼单</x-button>
           </li>
         </ul>
       </div>
