@@ -47,7 +47,7 @@
             </div>
           </div>
           <div class="gd-btn">
-            <x-button @click.native="showgroupBuy=true,groupBuyWindow=false,isGroupBuy=true,isInitiateGroup=false">参与拼团</x-button>
+            <x-button @click.native="showgroupBuy=true,groupBuyWindow=false,isInitiateGroup=false">参与拼团</x-button>
           </div>
           <div @click="groupBuyWindow=false" class="gd-close">
             <span class="vux-close"></span>
@@ -191,7 +191,6 @@
     },
     created () {
       this.isGroupBuyProduct = this.productView.productActivityExtension.isGroupBuy
-      this.isGroupBuy = this.productView.productActivityExtension.isGroupBuy
     },
     mounted: function () {
       this.init()
@@ -202,10 +201,8 @@
           console.info('是否拼团操作', this.isGroupBuy)
           this.showSale = true
           this.showgroupBuy = true
-          console.log('showSale', this.showSale)
         })
       })
-      console.log('productView', this.productView)
       for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
         this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
       }
@@ -225,7 +222,7 @@
         })
         this.selectSku = this.productView.productExtensions.productSkus[0] // 根据specSn获取商品的规格
         // 如果是拼团操作
-        if (this.isGroupBuy) {
+        if (this.isGroupBuyProduct) {
           this.selectSku.displayPrice = this.getGroupBuySkuPrice(this.selectSku.id)
           // 获取拼团记录
           var responseRecord = await productService.groupBuyRecord(this.productView.id)
@@ -264,7 +261,7 @@
           this.activitySelectId = 0
         }
         console.log('this.activitySelectId', this.activitySelectId)
-        this.isGroupBuy = isGroupBuy
+        // this.isGroupBuy = isGroupBuy
         console.info('是否拼团', isGroupBuy)
         this.groupBuyWindow = false
         helper.checkLogin(true)
@@ -284,6 +281,7 @@
           LoginUserId: this.LoginUser().id
         }]
         this.showSale = false
+        console.log(buyProductInfo)
         this.$router.push({
           name: 'order_buy',
           params: {

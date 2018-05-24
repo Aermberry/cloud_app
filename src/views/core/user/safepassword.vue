@@ -5,8 +5,8 @@
     <group gap="2rem 0.2rem" id="form">
       <cell title="初始支付密码与账号注册密码一致"></cell>
       <x-input title="原始密码" required type="password" :min="6" :max="16" v-model="passwordInput.lastPassword"></x-input>
-      <x-input title="新安全密码" required type="password" :min="6" :max="16" v-model="passwordInput.password"></x-input>
-      <x-input title="确认新安全密码" required type="password" :min="6" :max="16" class="border-bottom" v-model="passwordInput.confirmPassword"></x-input>
+      <x-input title="新安全密码" required type="password" :min="6" :max="6" v-model="passwordInput.password"></x-input>
+      <x-input title="确认新安全密码" required type="password" :min="6" :max="6" class="border-bottom" v-model="passwordInput.confirmPassword"></x-input>
     </group>
     <box gap="3rem 1rem">
       <x-button @click.native="reg" type="primary" action-type="button">修改安全密码</x-button>
