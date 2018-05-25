@@ -22,6 +22,51 @@
       </div>
     </div>
     <divider class="divider-bg "></divider>
+    <!-- 待分享box -->
+    <div class="share-box" v-if="data.orderStatus === 10">
+      <div class="share-title">
+        <ul>
+          <li class="title-left">
+            <m-icon name="zk-masses"></m-icon>
+          </li>
+          <li class="title-center">
+            <p>待分享，还差5人，剩余23:57:06</p>
+          </li>
+        </ul>
+      </div>
+      <div class="share-content">
+        <div class="content-left">
+          <ul class="portrait-box">
+            <li>
+              <img src="" alt="">
+            </li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </div>
+        <div class="content-right">
+          <x-button type="primary" action-type="button" @click.native="popupShare=!popupShare">邀请好友</x-button>
+        </div>
+      </div>
+    </div>
+    <!-- 待分享弹出框 -->
+    <div class="popup-share" v-if="popupShare">
+      <div class="popup-share-box">
+        <h1>还差5人,赶快邀请好友来拼单吧</h1>
+        <ul class="share-mode-box">
+          <li>
+            <div class="weixin-icon">
+              <m-icon name="zk-weixin"></m-icon>
+            </div>
+            <p>点击右上角分享给微信好友</p>
+          </li>
+        </ul>
+        <span class="vux-close" @click="popupShare=!popupShare"></span>
+      </div>
+    </div>
+    <divider class="divider-bg "></divider>
     <group class="order_show-title">
       <cell :title="data.storeName" :value="state"></cell>
     </group>
@@ -114,7 +159,8 @@
         viewModel: '', // 数据模型
         data: '',
         state: '',
-        showPay: false
+        showPay: false,
+        popupShare: false
       }
     },
     mounted () {
@@ -151,6 +197,8 @@
           this.state = '待收货'
         } else if (this.data.orderStatus === 4) {
           this.state = '待评价'
+        } else if (this.data.orderStatus === 10) {
+          this.state = '待分享'
         }
       },
       pay () {
@@ -383,6 +431,106 @@
         width: 6rem;
         height: 2rem;
         line-height: 2rem;
+      }
+    }
+    .share-box {
+      .share-title {
+        height: 3rem;
+        line-height: 3rem;
+        ul {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          .title-left {
+            width: 4rem;
+            position: relative;
+            svg {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+            }
+          }
+          .title-center {
+            flex: 1;
+          }
+        }
+      }
+      .share-content {
+        padding-left: 3rem;
+        display: flex;
+        .content-left {
+          flex: 1;
+          .portrait-box {
+            width: 100%;
+            li {
+              float: left;
+              width: 3rem;
+              height: 3rem;
+              border: 1px dashed rgba(229, 229, 229, 0.9);
+              border-radius: 50%;
+              margin-right: 0.5rem;
+              margin-bottom: 0.5rem;
+              img {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+              }
+            }
+          }
+        }
+        .content-right {
+          padding: 0 1rem;
+        }
+      }
+    }
+    .popup-share {
+      width: 100%;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      .popup-share-box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: @white;
+        width: 22rem;
+        height: 12rem;
+        border-radius: 10px;
+        padding: 1rem;
+        h1 {
+          font-size: @h4-font-size;
+          text-align: center;
+        }
+        .share-mode-box {
+          margin-top: 2rem;
+          display: flex;
+          li {
+            flex: 1;
+            margin-right: 0.5rem;
+            .weixin-icon {
+              width: 3rem;
+              margin: 0 auto;
+              svg {
+                width: 3rem;
+                height: 3rem;
+              }
+            }
+            p {
+              text-align: center;
+              color: @gray-600;
+            }
+          }
+        }
+        .vux-close {
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
       }
     }
   }

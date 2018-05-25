@@ -2,11 +2,12 @@
   <div>
     <group class="zkui-product-show-parameter">
       <div class="weui-cells-top"></div>
-      <cell :title="salePropertyTitle" @click.native="showSale = true, showgroupBuy=true,isInitiateGroup=true" is-link :value="selectSku.propertyValueDesc"></cell>
+      <cell :title="salePropertyTitle" @click.native="specification()" is-link :value="selectSku.propertyValueDesc"></cell>
       <cell title="商品参数" @click.native="showParameter = true" is-link class="border-bottom"></cell>
       <cell :title="'备注：'+productView.detail.productDetailExtension.remark" v-if="productView.detail.productDetailExtension.remark!==''&&productView.detail.productDetailExtension.remark!==null"></cell>
       <div class="weui-cells-bottom"></div>
     </group>
+    <!-- 拼团列表 -->
     <group class="zkui-product-show-groupbuy" v-if="isGroupBuyProduct">
       <cell :title="groupBuyLength+'人在拼团，可直接参与'" v-if="groupBuyLength>0"></cell>
       <div class="groupbuy-box">
@@ -25,22 +26,27 @@
                 拼成
               </div>
               <div class="meassge-bottom">
-                剩余{{item.remainTime}}
+                剩余
+                <!-- {{item.remainTime}} -->
+                <zk-timedown @time-end="message = '倒计时结束'" :endTime='time[index]'></zk-timedown>
               </div>
             </div>
           </li>
           <li class="groupbuy-btn">
-            <x-button @click.native="groupBuy(item.activityRecordId,item.users[0].userName,item.remainTime,item.remainCount)" type="primary" :disabled="item.remainCount===0">去拼单</x-button>
+            <x-button @click.native="groupBuy(item.activityRecordId,item.users[0].userName,item.remainTime,item.remainCount)" type="primary" :disabled="item.users[0].userName===LoginUser().userName">去拼单</x-button>
           </li>
         </ul>
       </div>
       <div class="weui-cells-bottom"></div>
     </group>
+    <!-- 拼团弹窗 -->
     <div v-transfer-dom v-if="isGroupBuyProduct">
       <x-dialog v-model="groupBuyWindow" class="dialog-demo">
         <div class="groupbuy-dialog">
           <h1 class="gd-title">参与{{groupBuyWindowMessage.name}}的拼单</h1>
-          <div class="gd-message">仅剩{{groupBuyWindowMessage.places}}个名额,<br>{{groupBuyWindowMessage.time}}后结束</div>
+          <div class="gd-message">仅剩{{groupBuyWindowMessage.places}}个名额,<br>{{groupBuyWindowMessage.time}}后结束
+            <!-- <zk-timedown @time-end="message = '倒计时结束'" :endTime='groupBuyWindowMessage.time'></zk-timedown> -->
+          </div>
           <div class="gd-img-box">
             <div class="gd-img">
               <img src="" alt="">
@@ -55,6 +61,7 @@
         </div>
       </x-dialog>
     </div>
+    <!-- 拼团规格 -->
     <div v-transfer-dom v-if="isGroupBuyProduct">
       <popup v-model="showgroupBuy" class="zk-product-showSale" max-height="80%" is-transparent>
         <div class="close" @click=" showgroupBuy = false "></div>
@@ -95,6 +102,7 @@
         </div>
       </popup>
     </div>
+    <!-- 单独购买规格 -->
     <div v-transfer-dom v-if="!isGroupBuyProduct">
       <popup v-model="showSale" class="zk-product-showSale" max-height="80%" is-transparent>
         <div class="close" @click=" showSale = false "></div>
@@ -135,6 +143,7 @@
         </div>
       </popup>
     </div>
+    <!-- 商品参数 -->
     <div v-transfer-dom>
       <popup v-model="showParameter " class="showParameter " max-height="70%" is-transparent>
         <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem; ">
@@ -156,9 +165,10 @@
   import userService from 'src/service/api/user.api'
   import productService from 'src/service/api/product.api'
   import helper from 'src/service/common/helper'
+  import { ZkTimedown } from 'widgets'
   export default {
     components: {
-      Group, Cell, TransferDom, Popup, XButton, XSwitch, GroupTitle, InlineXNumber, ButtonTab, ButtonTabItem, Checker, CheckerItem, Divider, XDialog
+      ZkTimedown, Group, Cell, TransferDom, Popup, XButton, XSwitch, GroupTitle, InlineXNumber, ButtonTab, ButtonTabItem, Checker, CheckerItem, Divider, XDialog
     },
     directives: {
       TransferDom
@@ -186,7 +196,10 @@
         },
         groupBuyRecord: '', // 商品拼团记录
         groupBuyLength: '', // 拼团数量
-        showgroupBuy: false // 显示拼团规格选择窗口
+        showgroupBuy: false, // 显示拼团规格选择窗口
+        message: '正在倒计时',
+        endTime: '2018-05-25 11:51:00',
+        time: ['2018-05-25 23:51:00', '2018-05-25 22:51:00', '2018-05-25 21:51:00']
       }
     },
     created () {
@@ -208,6 +221,15 @@
       }
     },
     methods: {
+      specification () {
+        if (this.isGroupBuyProduct === false) {
+          this.showSale = true
+        } else {
+          this.showgroupBuy = true
+          this.isInitiateGroup = true
+          this.isGroupBuy = true
+        }
+      },
       groupBuy (id, name, time, places) {
         this.groupBuyWindow = true
         this.activitySelectId = id
@@ -215,6 +237,7 @@
         this.groupBuyWindowMessage.name = name
         this.groupBuyWindowMessage.time = time
         this.groupBuyWindowMessage.places = places
+        this.isGroupBuy = true
       },
       async init () {
         this.productView.productExtensions.productCategory.salePropertys.forEach(element => {
@@ -681,7 +704,7 @@
           }
         }
         .groupbuy-message {
-          width: 9rem;
+          width: 10rem;
           height: 4rem;
           position: relative;
           .message-box {
