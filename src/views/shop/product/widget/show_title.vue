@@ -43,7 +43,6 @@
     },
     props: ['productView'],
     mounted () {
-      console.log('title', this.productView)
     }
   }
 </script>

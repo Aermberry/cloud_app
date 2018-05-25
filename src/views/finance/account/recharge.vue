@@ -38,12 +38,13 @@
     },
     mounted () {
       this.GetDate()
+      console.log('1', this.rechargeTypeList)
+      console.log('2', this.bankCardList)
     },
     methods: {
       async GetDate () {
         // 获取账户类型
         var AccountType = await apiUser.AccountType()
-        console.log('AccountType', AccountType)
         for (var i in AccountType.data.result) {
           let arr = {
             'name': AccountType.data.result[i],
@@ -54,22 +55,24 @@
         // 获取用户银行卡
         var response = await apiUser.bankCardList()
         this.bankCardmessage = response.data.result
-        console.log('bankCardmessage', this.bankCardmessage)
         for (var a = 0; a < this.bankCardmessage.length; a++) {
+          let num = a
+          String(num)
+          console.log('a', typeof (num), a)
           let arr = {
             'name': this.bankCardmessage[a].bankTypeName,
             'value': a
           }
           this.bankCardList.push(arr)
         }
-        console.log('this.bankCardList', this.bankCardList)
       },
       async sumbitR () {
         this.message.rechargeType = this.rechargeTypeValue[0]
         this.message.bankNumber = this.bankCardmessage[this.bankCardValue[0]].bankNumber
         this.message.bankType = this.bankCardmessage[this.bankCardValue[0]].bankType
-        console.log('this.bankCardList[bankCardValue[0]].value', this.bankCardList[this.bankCardValue[0]].value, this.bankCardList[this.bankCardValue[0]].name)
-        console.log('message', this.message)
+        console.log('this.message', this.message)
+        var addOnline = await apiUser.AddOnline(this.message)
+        console.log('addOnline', addOnline)
       },
       onChange (val) {
         console.log('val change', val)
