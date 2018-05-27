@@ -44,9 +44,6 @@
     methods: {
       async add () {
         this.backMessage.BankType = this.bType[0]
-        // if (this.operation === '添加') {
-
-        // }
         if (this.operation === '编辑') {
           let params = {
             UserId: this.LoginUser().id,
@@ -59,21 +56,18 @@
           var update = await apiUser.bankCardUpdate(params)
           console.log('update', update)
           if (update.data.status === 1) {
-            this.$vux.toast.success(update.data.message)
-            // this.$router.push({
-            //   name: 'account_mybankcard'
-            // })
-            this.messageSuccess(update.data.message)
+            this.$vux.toast.success('成功')
+            this.$router.push({
+              name: 'account_mybankcard'
+            })
           } else {
             this.$vux.toast.warn(update.data.message)
           }
         } else {
-          console.log(typeof (this.backMessage.BankType))
-
           var add = await apiUser.bankCardAdd(this.backMessage)
           console.log(add)
           if (add.data.status === 1) {
-            this.$vux.toast.success(add.data.message)
+            this.$vux.toast.success('成功')
             this.$router.push({
               name: 'account_mybankcard'
             })
@@ -107,7 +101,6 @@
         }
         var bankList = await apiUser.bankCardType()
         this.bankList = bankList.data.result
-        console.log('this.bankList', this.bankList)
       }
     }
   }

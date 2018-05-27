@@ -68,7 +68,10 @@ export default {
   },
   // 删除银行卡
   bankCardDelete: function (data) {
-    var response = http.deleteLogin('/BankCard/Delete', data)
+    let paras = {
+      id: data
+    }
+    var response = http.deleteLogin('/BankCard/Delete', paras)
     return response
   },
   // 更改银行卡

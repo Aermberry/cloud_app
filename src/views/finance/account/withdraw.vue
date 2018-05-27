@@ -14,7 +14,7 @@
       <x-input title="申请提现金额" type="text" required v-model="withdraw.amount"></x-input>
       <x-input title="支付密码" type="password" :min="6" :max="6" required v-model="withdraw.payPassword"></x-input>
       <x-input title="用户留言" type="text" v-model="withdraw.userRemark"></x-input>
-      <cell :title="hintText.canNotWithRawIntro"></cell>
+
       <cell :title="hintText.withdRawIntro"></cell>
       <box gap="2rem 0.6rem">
         <x-button type="primary" action-type="button" @click.native="sumbit"> 提交</x-button>

@@ -14,8 +14,6 @@
         </div>
         <div class="weui-form-preview__ft">
           <div class="editor_default">
-            <!-- <div class="vux-checker-item vux-tap-active check-icon-item check-icon-item-selected">
-              <i class="weui-icon weui_icon_success weui-icon-success"></i> 默认地址</div> -->
             {{item.bankTypeName}}
           </div>
           <div class="editor_delete">
@@ -65,10 +63,11 @@
         })
       },
       async deleteD (id) {
+        console.info('id', id)
         var deleteMsg = await apiUser.bankCardDelete(id)
         if (deleteMsg.data.status === 1) {
-          this.$vux.toast.success(deleteMsg.data.message)
           this.getData()
+          this.$vux.toast.success('删除成功')
         } else {
           this.$vux.toast.warn(deleteMsg.data.message)
         }
