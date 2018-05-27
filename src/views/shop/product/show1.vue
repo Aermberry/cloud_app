@@ -50,9 +50,9 @@
       },
       // URL发生变化时操作的事件
       // async  fetchData () {
-      //   // var a = setTimeout(function () {
-      //   //   this.$router.go(0)
-      //   // }, 100)
+      //   var a = setTimeout(function () {
+      //     this.$router.go(0)
+      //   }, 100)
       //   let params = {
       //     id: this.$route.params.id // 获取URL当中的Id参数
       //   }

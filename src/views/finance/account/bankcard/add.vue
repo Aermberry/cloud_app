@@ -38,6 +38,11 @@
         }
       }
     },
+    created () {
+      if (this.$route.params.operation === '编辑') {
+        this.bankTitle = '编辑银行卡'
+      }
+    },
     mounted () {
       this.getData()
     },
@@ -79,7 +84,6 @@
       async getData () {
         console.log(this.$route.params)
         if (this.$route.params.operation === '编辑') {
-          this.bankTitle = '编辑银行卡'
           this.operation = this.$route.params.operation
           let params = {
             id: this.$route.params.id

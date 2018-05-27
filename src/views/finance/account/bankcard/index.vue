@@ -75,6 +75,7 @@
       async getData () {
         var response = await apiUser.bankCardList()
         this.dataList = response.data.result
+        console.log(this.dataList)
       }
     }
   }

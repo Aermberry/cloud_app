@@ -19,6 +19,7 @@ import ZkdebtFoot from 'src/widgets/zkdebt-foot' // 云债通专用底部
 import ZkNotdata from 'src/widgets/zk-notdata' // 暂无数据
 import ZkSinglead from 'src/widgets/zk-singleAd' // 广告图
 import ZkGroupbuy from 'src/widgets/zk-groupbuy' // 拼团
+import ZkTimedown from 'src/widgets/zk-tiemdown' // 倒计时
 
 export {
   ZkSwiper,
@@ -36,5 +37,6 @@ export {
   ZkdebtFoot,
   ZkNotdata,
   ZkSinglead,
-  ZkGroupbuy
+  ZkGroupbuy,
+  ZkTimedown
 }
