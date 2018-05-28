@@ -139,6 +139,10 @@
       if (this.$route.query.ClasssId !== '') {
         this.productList.ClasssId = this.$route.query.ClasssId
       }
+      if (this.$route.params.value !== '') {
+        this.productList.Keyword = this.$route.params.value
+      }
+      console.log('this.$route.params', this.$route.params)
     },
     mounted () {
       if (window.location.href.indexOf('yiqipingou') !== -1) {
