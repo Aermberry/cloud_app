@@ -5,7 +5,7 @@
       <div slot="content" class="card-demo-flex card-demo-content01">
         <div class="border-right card-item" v-for="(list, index) in listDatas" :key="index">
           <span>
-            <countup :end-val="(list.amount)"></countup>
+            <countup :end-val="(list.amount)" :duration="3" :decimals="2"></countup>
           </span>
           <br/> {{list.moneyTypeName}}
         </div>
@@ -63,11 +63,11 @@
     overflow: hidden;
   }
   .card-padding {
-    padding: 15*@rem;
+    padding: 15 * @rem;
   }
   .card-demo-flex > div {
     text-align: center;
-    font-size: 12*@rem;
+    font-size: 12 * @rem;
     width: 25%;
     float: left;
     padding: 0.5rem 0 0.5rem 0;
