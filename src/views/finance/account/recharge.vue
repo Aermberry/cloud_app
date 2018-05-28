@@ -57,7 +57,6 @@
         var response = await apiUser.bankCardList()
         this.bankCardmessage = response.data.result
         console.log('this.bankCardmessage ', this.bankCardmessage)
-
         for (var a = 0; a < this.bankCardmessage.length; a++) {
           console.log('this.type ', typeof (this.bankCardmessage[a].bankType))
           let str = String(this.bankCardmessage[a].bankType)

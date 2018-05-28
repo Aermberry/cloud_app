@@ -2,6 +2,7 @@
   <section class="zkui-user-identity-index">
 
     <zk-head title='实名认证' goBack='会员中心'></zk-head>
+    <cell :title="isdefeated" v-if="identityStatus===4"></cell>
     <div v-if='identityStatus===1 || identityStatus===4|| identityStatus===0'>
       <div class="weui-cells weui-cells_form">
 
@@ -45,7 +46,7 @@
             <label class="weui-label">真实姓名</label>
           </div>
           <div class="weui-cell__bd">
-            <input class="weui-input" type="text" pattern="[0-9]*" placeholder="请输入真实姓名" v-model="identity.RealName">
+            <input class="weui-input" type="text" placeholder="请输入真实姓名" v-model="identity.RealName">
           </div>
         </div>
 
@@ -139,7 +140,8 @@
           RealName: '',
           Sex: 1
         },
-        identityStatus: 0 // 实名认证状态
+        identityStatus: 0, // 实名认证状态
+        isdefeated: ''
       }
     },
     mounted () {
@@ -151,10 +153,14 @@
           LoginUserId: this.LoginUser().userId
         }
         var repsonse = await apiUser.getIdentity(para)
+        console.log('resssss', repsonse)
         if (repsonse.data.status === 1) {
           this.identityStatus = repsonse.data.result.identityStatus
         } else {
           this.$vux.toast.warn(repsonse.data.message)
+        }
+        if (this.identityStatus === 4) {
+          this.isdefeated = repsonse.data.result.checkRemark
         }
       },
       async apipost () {
