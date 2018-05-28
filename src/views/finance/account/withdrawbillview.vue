@@ -73,7 +73,6 @@
     methods: {
       async Getdate () {
         let par = {
-
           id: 2
         }
         var data = await apiUser.WithDrawGet(par)
