@@ -12,11 +12,15 @@
         </div>
         <div class="weui-form-preview__bd">
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">发起时间</label>
+            <label class="weui-form-preview__label">状态</label>
+            <span class="weui-form-preview__value">{{datalist.status}}</span>
+          </div>
+          <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label">申请时间</label>
             <span class="weui-form-preview__value">{{datalist.createTime}}</span>
           </div>
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">到账时间</label>
+            <label class="weui-form-preview__label">支付时间</label>
             <span class="weui-form-preview__value">{{datalist.payTime}}</span>
           </div>
           <div class="weui-form-preview__item">
@@ -31,7 +35,7 @@
       </div>
     </div>
     <group>
-      <x-button type="primary" action-type="button" @click.native="deleteT(datalist.id)"> 删除</x-button>
+      <x-button type="primary" action-type="button" @click.native="deleteT(datalist.id)" v-if="datalist.status=='待处理'"> 删除</x-button>
     </group>
     <!--<zk-foot></zk-foot>-->
   </section>

@@ -59,7 +59,6 @@
             BankAddress: this.backMessage.BankAddress
           }
           var update = await apiUser.bankCardUpdate(params)
-          console.log('update', update)
           if (update.data.status === 1) {
             this.$vux.toast.success('成功')
             this.$router.push({
