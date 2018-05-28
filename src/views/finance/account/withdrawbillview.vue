@@ -7,49 +7,33 @@
         <div class="weui-form-preview__hd">
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">金额</label>
-            <em class="weui-form-preview__value zkui-reward-show-price">¥1000.00</em>
+            <em class="weui-form-preview__value zkui-reward-show-price">¥{{data.amount}}</em>
           </div>
         </div>
         <div class="weui-form-preview__bd">
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">手续费</label>
-            <span class="weui-form-preview__value">50.00</span>
+            <label class="weui-form-preview__label">手续费：</label>
+            <span class="weui-form-preview__value">¥{{data.fee}}</span>
           </div>
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">总金额</label>
-            <span class="weui-form-preview__value">1000</span>
+            <label class="weui-form-preview__label">账户类型</label>
+            <span class="weui-form-preview__value">{{data.moneyTypeName}}</span>
           </div>
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">流水号</label>
-            <span class="weui-form-preview__value">0000000000</span>
+            <label class="weui-form-preview__label">提现状态：</label>
+            <span class="weui-form-preview__value">{{data.status}}</span>
           </div>
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">账户名称</label>
-            <span class="weui-form-preview__value">提现账户</span>
+            <label class="weui-form-preview__label">用户名称:</label>
+            <span class="weui-form-preview__value">{{data.userName}}</span>
           </div>
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">账户余额</label>
-            <span class="weui-form-preview__value">2000</span>
+            <label class="weui-form-preview__label">创建时间：</label>
+            <span class="weui-form-preview__value">{{data.createTime}}</span>
           </div>
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">操作类型</label>
-            <span class="weui-form-preview__value">提现</span>
-          </div>
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">货币类型</label>
-            <span class="weui-form-preview__value">人民币</span>
-          </div>
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">币种类型</label>
-            <span class="weui-form-preview__value">提现账户</span>
-          </div>
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">账户状态</label>
-            <span class="weui-form-preview__value">成功</span>
-          </div>
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">描述</label>
-            <span class="weui-form-preview__value">杨大哥（杨大哥）申请提现账户提现1000</span>
+            <label class="weui-form-preview__label">到账时间：</label>
+            <span class="weui-form-preview__value">{{data.payTime}}</span>
           </div>
         </div>
       </div>
@@ -64,18 +48,21 @@
     data () {
       return {
         title: '提现详情',
-        goBack: '提现记录'
+        goBack: '提现记录',
+        data: ''
       }
     },
     mounted () {
       this.Getdate()
+      console.log(this.$route.params.id)
     },
     methods: {
       async Getdate () {
         let par = {
-          id: 2
+          id: this.$route.params.id
         }
         var data = await apiUser.WithDrawGet(par)
+        this.data = data.data.result
         console.log(data)
       }
     }

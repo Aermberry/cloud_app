@@ -72,6 +72,7 @@
           this.init() //  点击以后，才请求支付
           this.showPupop = true
           this.goBack = payBack
+          console.log('zk-pay', payId, amount, orderType, orderIds, payBack)
         })
       })
     },

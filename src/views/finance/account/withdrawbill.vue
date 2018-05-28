@@ -10,7 +10,7 @@
 
 <script>
   import { ZkList } from 'widgets'
-  import apiUser from 'src/service/api/account.api'
+  // import apiUser from 'src/service/api/account.api'
   export default {
     components: {
       ZkList
@@ -20,13 +20,13 @@
       }
     },
     mounted () {
-      this.getData()
+      // this.getData()
     },
     methods: {
-      async getData () {
-        var list = await apiUser.withdraw()
-        console.log('list', list)
-      }
+      // async getData () {
+      //   var list = await apiUser.withdraw()
+      //   console.log('list', list)
+      // }
     }
   }
 </script>

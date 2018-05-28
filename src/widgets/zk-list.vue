@@ -109,7 +109,7 @@
         }
         console.info('参数', params)
         var response = await apiService.getList(params) //  通过异步方法获取数据
-        console.dir('数据', response) //  调试返回结果，调试完成以后请注释
+        console.dir('数据', response.data.result) //  调试返回结果，调试完成以后请注释
         let totalSize = response.data.result.totalSize //  获取总页数
 
         // this.styleType = response.data.result.styleType // 选择何种风格
@@ -117,6 +117,7 @@
           this.$refs.mescroll.endSuccess(params, totalSize) // 调用widget xsroll 下拉刷新函数
         }
         this.dataList = this.dataList.concat(response.data.result.apiDataList)
+        console.dir('数据', this.dataLis)
         if (this.dataList.length === 0) {
           this.notDataf = false
           this.notDatas = false
@@ -145,11 +146,11 @@
   @import '../assets/css/zkui/theme';
   .zk-not-data {
     margin: 0 auto;
-    padding-top: 150*@rem;
+    padding-top: 150 * @rem;
     text-align: center;
     svg {
-      width: 50*@rem;
-      height: 50*@rem;
+      width: 50 * @rem;
+      height: 50 * @rem;
     }
     p {
       font-size: @h4-font-size;
@@ -168,8 +169,8 @@
     .weui-media-box__hd {
       margin: 10px auto;
       .brand {
-        width: 50*@rem;
-        height: 50*@rem;
+        width: 50 * @rem;
+        height: 50 * @rem;
         padding-top: 0.1rem;
         border-radius: 50%;
       }
