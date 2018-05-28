@@ -3,7 +3,7 @@
     <zk-head :title="bankTitle"></zk-head>
     <group>
       <x-input title="持卡人姓名" required type="text" v-model="backMessage.BankName"></x-input>
-      <popup-picker title="银行类型" :data="bankList" :columns="1" v-model="bType"></popup-picker>
+      <popup-picker title="银行类型" :data="bankList" show-name :columns="1" v-model="bType"></popup-picker>
       <x-input title="银行卡号" required type="text" :min="19" :max="19" v-model="backMessage.BankNumber"></x-input>
       <x-textarea title="开户行地址" :max="20" v-model="backMessage.BankAddress"></x-textarea>
       <box gap="2rem 0.6rem">

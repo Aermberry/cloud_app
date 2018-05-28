@@ -46,6 +46,11 @@ export default {
     var response = http.getLogin('/WithDraw/Get', data)
     return response
   },
+  // 删除用户提现
+  WithDrawDelete: function (data) {
+    var response = http.deleteLogin('/WithDraw/Delete', data)
+    return response
+  },
   // 获取银行卡类型
   bankCardType: function (data) {
     var response = http.get('/BankCard/GetBankType', data)
@@ -63,7 +68,10 @@ export default {
   },
   // 删除银行卡
   bankCardDelete: function (data) {
-    var response = http.deleteLogin('/BankCard/Delete', data)
+    let paras = {
+      id: data
+    }
+    var response = http.deleteLogin('/BankCard/Delete', paras)
     return response
   },
   // 更改银行卡
@@ -74,6 +82,36 @@ export default {
   // 获取单个银行卡
   bankCardSingle: function (data) {
     var response = http.getLogin('/BankCard/get', data)
+    return response
+  },
+  // 获取允许充值的账户类型
+  AccountType: function (data) {
+    var response = http.getLogin('/Recharge/GetAccountType', data)
+    return response
+  },
+  // 线下充值
+  AddOffOnline: function (data) {
+    var response = http.postLogin('/Recharge/AddOffOnline', data)
+    return response
+  },
+  // 线上充值
+  AddOnline: function (data) {
+    var response = http.postLogin('/Recharge/AddOnline', data)
+    return response
+  },
+  // 获取用户所有充值数据
+  UserList: function (data) {
+    var response = http.getLogin('/Recharge/GetUserList', data)
+    return response
+  },
+  // 删除用户充值
+  RechargeDelete: function (data) {
+    var response = http.deleteLogin('/Recharge/Delete', data)
+    return response
+  },
+  // 获取充值详情
+  RechargeGet: function (data) {
+    var response = http.getLogin('/Recharge/Get', data)
     return response
   }
 }
