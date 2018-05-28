@@ -71,10 +71,11 @@
           this.accountBox.push(arr)
         }
         var cartlist = await apiAccount.bankCardList()
+        console.log('cartlist', cartlist)
         for (var i = 0; i < cartlist.data.result.length; i++) {
           var bankItem = cartlist.data.result[i]
           var bankItemName = '***' + bankItem.bankNumber
-          this.bankname.push(bankItem.bankTypeName + bankItemName.slice(3))
+          this.bankname.push(cartlist.data.result[i].bankName + '[' + bankItem.bankTypeName + bankItemName.slice(3) + ']')
           this.banknId.push(bankItem.id)
         }
         for (var b = 0; b < this.bankname.length; b++) {
