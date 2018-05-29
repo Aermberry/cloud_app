@@ -157,7 +157,7 @@
           </div>
         </div>
         <div class="paybutton ">
-          <el-button type="primary ">提交订单</el-button>
+          <el-button type="primary" @click="buy()">提交订单</el-button>
         </div>
       </div>
     </div>
@@ -339,9 +339,9 @@
             isFromCart: this.isFromCart, // 是否从购物车购买
             userId: this.LoginUser().id // 下单用户ID
           }
-          // console.info('购买格式', buyInput)
+          console.info('购买格式', buyInput)
           var response = await apiService.Buy(buyInput)
-          console.dir(response)
+          console.dir('response-buy', response)
           if (response.data.status === 1) {
             var buyOutput = response.data.result
             console.log(buyOutput)
@@ -351,6 +351,7 @@
               orderType: 'order',
               orderIds: response.data.result.orderIds
             }
+            console.log('payMessage', this.payMessage)
             // this.$refs.show_pay.$emit('payMethod', buyOutput.payId, buyOutput.payAmount, 'order', response.data.result.orderIds) // 唤起支付窗口
           } else {
             this.$message.error(response.data.message)

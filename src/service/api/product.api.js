@@ -30,5 +30,10 @@ export default {
   footprint (data) {
     var response = http.getLogin('/product/FootprintProduct', data)
     return response
+  },
+  // 拼团
+  groupBuyRecord (data) {
+    var response = http.getLogin('/GroupBuy/ProductRecord', data)
+    return response
   }
 }

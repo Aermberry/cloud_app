@@ -1,46 +1,101 @@
 <template>
-  <x-scroll class="scroller" :upCallback="upCallback" ref="mescroll" warpId="index_scroll" id="index_scroll">
-    <section class="ZKProductItem" v-if="styleType == 1">
-      <div class="zkui-product-item__1 ">
-        <ul>
-          <li v-for="(item,index) in dataList" :key="index" :class="{'yqp-item':yqp}">
-            <dl>
-              <dt>
-                <router-link :to="showUrl+item.id">
-                  <x-img :src="item.thumbnailUrl" :alt="item.thumbnailUrl"></x-img>
-                </router-link>
-              </dt>
-              <dd class="itemTitle">
-                <router-link :to="showUrl+item.id">
-                  {{item.name}}
-                </router-link>
-              </dd>
-              <dd class="itemPrice">
-                <div>
-                  ￥{{item.displayPrice}}
-                  <span v-if="item.marketPrice!==0">￥{{item.marketPrice}}</span>
+  <div class="zk-groupbuy">
+    <x-scroll class="scroller" :upCallback="upCallback" ref="mescroll" warpId="index_scroll" id="index_scroll">
+      <section class="ZKProductItem" v-if="styleType == 1">
+        <!-- <div class="zkui-product-item__1 ">
+          <ul>
+            <li v-for="(item,index) in dataList" :key="index" :class="{'yqp-item':yqp}">
+              <dl>
+                <dt>
+                  <router-link :to="showUrl+item.id">
+                    <x-img :src="item.thumbnailUrl" :alt="item.thumbnailUrl"></x-img>
+                  </router-link>
+                </dt>
+                <dd class="itemTitle">
+                  <router-link :to="showUrl+item.id">
+                    {{item.name}}
+                  </router-link>
+                </dd>
+                <dd class="itemPrice">
+                  <div>
+                    ￥{{item.displayPrice}}
+                    <span v-if="item.marketPrice!==0">￥{{item.marketPrice}}</span>
+                  </div>
+                </dd>
+                <dd class="itembuy">
+                  <x-button :link="showUrl+item.id">去拼团</x-button>
+                </dd>
+              </dl>
+            </li>
+          </ul>
+        </div> -->
+        <group class="order_buy_product ">
+          <!-- <cell class="border-bottom"> </cell> -->
+          <div class="item-contnet">
+            <ul>
+              <li class="zkui-order-cart-item" v-for="(item,index) in dataList" :key="index">
+                <div class="order-cart-commodity">
+                  <div class="demo-content " style="height: 7.8rem;">
+                    <ul class="flex order-cart-commodity-box">
+                      <li class="flex_one">
+                        <div class="order-cart-commodit-into flex">
+                          <div class="order-cart-commodity-into_left">
+                            <router-link :to="showUrl+item.id">
+                              <img :src="item.thumbnailUrl" alt="">
+                            </router-link>
+                          </div>
+                          <div class="flex_one order-cart-commodity-into_right ">
+                            <router-link :to="showUrl+item.id">
+                              <p> {{item.name}}</p>
+                            </router-link>
+                            <span></span>
+                            <div class="price-box">
+                              <p class="price_now">￥{{item.displayPrice}}</p>
+                              <div class="flex">
+                                <span class="price_old flex_one "> ￥{{item.marketPrice}} </span>
+                                <x-button type="primary" :link="showUrl+item.id">去拼团</x-button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-              </dd>
-              <dd class="itembuy">
-                <x-button :link="showUrl+item.id">去拼团</x-button>
-              </dd>
-            </dl>
-          </li>
-        </ul>
-      </div>
-    </section>
-  </x-scroll>
+              </li>
+            </ul>
+          </div>
+        </group>
+      </section>
+    </x-scroll>
+  </div>
 </template>
 
 <script>
-  import { XImg, XScroll, XButton } from 'zkui'
+  import { XImg, XScroll, Tabbar, TabbarItem, Group, Cell, MIcon, XButton, CellFormPreview, CellBox, Panel, InlineXNumber, XTextarea, Picker, Popup, TransferDom, PopupRadio, Divider, XSwitch } from 'zkui'
   import apiService from 'src/service/api/product.api'
   export default {
     name: 'zk-product-item',
     components: {
       XImg,
       XScroll,
-      XButton
+      XButton,
+      Tabbar,
+      TabbarItem,
+      Group,
+      Cell,
+      MIcon,
+      CellFormPreview,
+      CellBox,
+      Panel,
+      InlineXNumber,
+      XTextarea,
+      Picker,
+      Popup,
+      TransferDom,
+      PopupRadio,
+      Divider,
+      XSwitch
     },
     props: {
       classIds: {
@@ -133,95 +188,201 @@
 </script>
 
 <style lang="less">
-  #index_scroll {
-    .mescroll-upwarp {
-      display: none;
+  .zk-groupbuy {
+    .order_buy_product {
+      .weui-cells {
+        margin-top: 0;
+      }
     }
-  }
-  .zkui-product-item__1 {
-    background: #ffffff;
-    ul::after {
-      content: '';
-      display: block;
-      clear: both;
+    #index_scroll {
+      .mescroll-upwarp {
+        display: none;
+      }
     }
-    ul {
-      padding-bottom: 10*@rem;
-    }
-    li {
-      display: block;
-      float: left;
-      width: 47%;
-      // height: 20rem;
-      margin: 2% 0 0 2%;
-      padding-bottom: 0.3rem;
-      border-radius: 2*@rem;
-      border: 1px solid rgba(229, 229, 229, 0.4);
+    .zkui-product-item__1 {
+      background: #ffffff;
+      ul::after {
+        content: '';
+        display: block;
+        clear: both;
+      }
+      ul {
+        padding-bottom: 10 * @rem;
+      }
+      li {
+        display: block;
+        float: left;
+        width: 47%;
+        // height: 20rem;
+        margin: 2% 0 0 2%;
+        padding-bottom: 0.3rem;
+        border-radius: 2 * @rem;
+        border: 1px solid rgba(229, 229, 229, 0.4);
 
-      dl {
-        a {
-          display: block;
-          img {
-            width: 100%;
-            display: block;
-          }
-        }
-
-        .itemTitle {
+        dl {
           a {
             display: block;
-            margin: 0.3rem 0.3rem 0.1rem 0.3rem;
-            word-break: break-all;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            overflow: hidden;
-            color: @black;
-            font-size: 14px;
-            height: 40px;
+            img {
+              width: 100%;
+              display: block;
+            }
           }
-        }
-        .itemPrice {
-          padding-left: 0.3rem;
-          div {
-            display: flex;
-            color: @brand;
-            margin-left: -0.2rem;
-            font-size: @h5-font-size;
-            flex-wrap: wrap;
-            span {
-              padding-left: 5px;
-              text-decoration: line-through;
-              color: @gray-600;
-              font-size: @h6-font-size;
+
+          .itemTitle {
+            a {
+              display: block;
+              margin: 0.3rem 0.3rem 0.1rem 0.3rem;
               word-break: break-all;
               text-overflow: ellipsis;
               display: -webkit-box;
               -webkit-box-orient: vertical;
-              -webkit-line-clamp: 1;
+              -webkit-line-clamp: 2;
               overflow: hidden;
-              font-weight: normal;
+              color: @black;
+              font-size: 14px;
+              height: 40px;
+            }
+          }
+          .itemPrice {
+            padding-left: 0.3rem;
+            div {
+              display: flex;
+              color: @brand;
+              margin-left: -0.2rem;
+              font-size: @h5-font-size;
+              flex-wrap: wrap;
+              span {
+                padding-left: 5px;
+                text-decoration: line-through;
+                color: @gray-600;
+                font-size: @h6-font-size;
+                word-break: break-all;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 1;
+                overflow: hidden;
+                font-weight: normal;
+              }
+            }
+          }
+          .itembuy {
+            .weui-btn {
+              width: 50%;
+              background: @brand;
+              color: @white;
+              margin-right: 0;
             }
           }
         }
-        .itembuy {
-          .weui-btn {
-            width: 50%;
-            background: @brand;
-            color: @white;
-            margin-right: 0;
+      }
+      li.yqp-item {
+        dl {
+          .itemPrice {
+            height: auto;
+            div {
+              height: 1.5rem;
+              font-size: @h5-font-size;
+            }
           }
         }
       }
     }
-    li.yqp-item {
-      dl {
-        .itemPrice {
-          height: auto;
-          div {
-            height: 1.5rem;
-            font-size: @h5-font-size;
+    .item-contnet {
+      .weui-cells {
+        margin-top: 0;
+      }
+      .weui-cells_checkbox {
+        .cart_item-title {
+          padding: 0.3rem 0;
+        }
+      }
+      ul {
+        .zkui-order-cart-item {
+          border-bottom: 1px solid #e5e5e5;
+          padding-bottom: 0.5rem;
+          .order-cart-commodity {
+            height: 7.8rem;
+            .order-cart-commodit-into {
+              height: 100%;
+              .order-cart-commodity-into_left {
+                width: 6.5rem;
+                height: 6.5rem;
+                margin-top: 0.8rem;
+                margin-left: 10 * @rem;
+                img {
+                  width: 100%;
+                  height: 100%;
+                }
+              }
+              .order-cart-commodity-into_right {
+                margin-top: 0.8rem;
+                padding: 0 0.8rem;
+                position: relative;
+                p {
+                  font-size: @h5-font-size;
+                  color: @black;
+                  font-family: Helvetica;
+                  word-break: break-all;
+                  text-overflow: ellipsis;
+                  display: -webkit-box;
+                  -webkit-box-orient: vertical;
+                  -webkit-line-clamp: 2;
+                  overflow: hidden;
+                }
+                span {
+                  font-size: 0.8rem;
+                  color: @gray-500;
+                  font-family: Helvetica;
+                }
+                div.price-box {
+                  width: 95%;
+                  position: absolute;
+                  left: 10 * @rem;
+                  bottom: 10 * @rem;
+                  height: 2rem;
+                  vertical-align: bottom;
+                  align-items: flex-end;
+                  p.price_now {
+                    color: @danger;
+                    font-size: @h5-font-size;
+                    font-weight: bold;
+                    font-family: Helvetica;
+                  }
+                  span.price_old {
+                    padding-left: 5 * @rem;
+                    text-decoration: line-through;
+                    color: @gray-500;
+                    font-family: Helvetica;
+                  }
+                  .weui-btn {
+                    width: 8rem;
+                    height: 2rem;
+                    line-height: 2rem;
+                  }
+                  span.price_num {
+                    text-align: right;
+                    color: @gray-500;
+                    padding-left: 10 * @rem;
+                    font-family: Helvetica;
+                    .vux-number-round {
+                      height: 1.3rem;
+                      div {
+                        display: block;
+                        .vux-number-selector-sub {
+                          position: relative;
+                          svg {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }

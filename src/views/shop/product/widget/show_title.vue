@@ -52,7 +52,7 @@
   @import '../../../../assets/css/zkui/mixin';
   .zkui-product-show-title {
     background: #fff;
-    padding: 0.5rem 10px 0 10*@rem;
+    padding: 0.5rem 10px 0 10 * @rem;
     .vux-no-group-title {
       margin-top: 0 !important;
     }
@@ -61,11 +61,11 @@
       .zkui-product-show-title-price_symbol {
         color: @brand;
         font-size: @h4-font-size;
-        padding-top: 1*@rem;
+        padding-top: 1 * @rem;
         font-weight: @font-weight-normal;
       }
       .zkui-product-show-title-price_old {
-        padding-left: 5*@rem;
+        padding-left: 5 * @rem;
         text-decoration: line-through;
         font-weight: @font-weight-normal;
         color: @gray-600;
@@ -73,7 +73,7 @@
       .zkui-product-show-title-storename {
         background: @brand;
         color: @white;
-        padding: 1*@rem 5*@rem;
+        padding: 1 * @rem 5 * @rem;
       }
     }
     .zkui-product-show-title-right {
@@ -86,7 +86,7 @@
   }
   .zkui-product-show-title-content {
     background: #fff;
-    padding: 0 10px 0.2rem 10*@rem;
+    padding: 0 10px 0.2rem 10 * @rem;
     border-bottom: 1px solid #e5e5e5;
     font-weight: @font-weight-normal;
     font-weight: 400;
@@ -95,7 +95,7 @@
     .zkui-product-show-title-storename {
       background: @brand;
       color: @white;
-      padding: 1*@rem 5*@rem;
+      padding: 1 * @rem 5 * @rem;
     }
   }
 
@@ -117,7 +117,7 @@
       -webkit-flex: 1;
       flex: 1;
       text-align: right;
-      padding-right: 10*@rem;
+      padding-right: 10 * @rem;
     }
     .zkui-product-show-serve-item-more_icon {
       display: inline-block;
