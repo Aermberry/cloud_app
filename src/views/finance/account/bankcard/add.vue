@@ -44,6 +44,7 @@
     methods: {
       async add () {
         this.backMessage.BankType = this.bType[0]
+        console.log('this.operation', this.operation)
         if (this.operation === '添加') {
           console.log(typeof (this.backMessage.BankType))
 
@@ -80,7 +81,7 @@
         }
       },
       async getData () {
-        console.log(this.$route.params)
+        console.log('this.$route.params', this.$route.params)
         if (this.$route.params.operation === '编辑') {
           this.bankTitle = '编辑银行卡'
           this.operation = this.$route.params.operation
@@ -99,8 +100,6 @@
           } else {
             this.$vux.toast.warn(Single.data.message)
           }
-        } else {
-          this.operation = this.$route.params.operation
         }
         var bankList = await apiUser.bankCardType()
         this.bankList = bankList.data.result

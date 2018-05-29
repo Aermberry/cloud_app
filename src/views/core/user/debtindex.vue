@@ -4,7 +4,7 @@
       <img :src="topImg" alt="">
     </div>
     <div class="zkui-core-user-head">
-      <router-link to="/user/debt/interests" class="interests">
+      <router-link to="/user/debt/interests" class="interests" v-if="false">
         权益中心
         <m-icon name="arrows-right"></m-icon>
       </router-link>
@@ -188,8 +188,11 @@
       async ceshi () {
         var response2 = await apiService.getLink('SingleAd2Config')
         this.imgData = response2.data.result
-        this.topImg = this.imgData[0].imageUrl
-        console.log(this.topImg)
+        console.log('imgData', this.imgData)
+        if (this.imgData[0].imageUrl !== '') {
+          this.topImg = this.imgData[0].imageUrl
+          console.log(this.topImg)
+        }
       },
       async GetData () {
         var reponse = await userService.view(this.data)
