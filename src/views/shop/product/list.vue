@@ -100,15 +100,18 @@
       }
     },
     created () {
-      if (this.$route.query.Keyword !== '') {
-        this.productList.Keyword = this.$route.query.Keyword
-        if (this.$route.query.Keyword === '平债士') {
-          this.headTitle = '平债士专区'
-        }
-        if (this.$route.query.Keyword === '高债士') {
-          this.headTitle = '高债士专区'
-        }
-      }
+      console.log('this.$route.query', this.$route.query)
+      // if (this.$route.query.Keyword !== '') {
+      //   console.log('this.$route.query.Keyword', this.$route.query.Keyword)
+
+      //   if (this.$route.query.Keyword === '平债士') {
+      //     this.headTitle = '平债士专区'
+      //   }
+      //   if (this.$route.query.Keyword === '高债士') {
+      //     this.headTitle = '高债士专区'
+      //   }
+      //   this.productList.Keyword = '半成品'
+      // }
       if (this.$route.query.SortOrder !== '') {
         this.productList.SortOrder = this.$route.query.SortOrder
       }
@@ -142,7 +145,6 @@
       if (this.$route.params.value !== '') {
         this.productList.Keyword = this.$route.params.value
       }
-      console.log('this.$route.params', this.$route.params)
     },
     mounted () {
       if (window.location.href.indexOf('yiqipingou') !== -1) {
@@ -184,6 +186,15 @@
         }
       },
       async upCallback () {
+        if (this.$route.query.Keyword !== '') {
+          if (this.$route.query.Keyword === '平债士') {
+            this.headTitle = '平债士专区'
+          }
+          if (this.$route.query.Keyword === '高债士') {
+            this.headTitle = '高债士专区'
+          }
+          this.productList.Keyword = this.$route.query.Keyword
+        }
         let params = {
           SortOrder: this.productList.SortOrder, // 商品排序方式
           Keyword: this.productList.Keyword, // 搜索关键字
@@ -199,6 +210,7 @@
           pageIndex: this.pageIndex, // 当前第页,下拉一次增加一次
           pageSize: this.pageSize // 每页显示的数量 建议20
         }
+        console.log('upCallback', params)
         let response = await apiService.list(params) // 通过异步方法获取数据
         let totalSize = response.data.result.totalSize // 获取总页数
         this.styleType = response.data.result.styleType // 选择何种风格
