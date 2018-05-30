@@ -100,7 +100,6 @@
       }
     },
     created () {
-      console.log('this.$route.query', this.$route.query)
       // if (this.$route.query.Keyword !== '') {
       //   console.log('this.$route.query.Keyword', this.$route.query.Keyword)
 
@@ -186,15 +185,21 @@
         }
       },
       async upCallback () {
-        if (this.$route.query.Keyword !== '') {
-          if (this.$route.query.Keyword === '平债士') {
-            this.headTitle = '平债士专区'
-          }
-          if (this.$route.query.Keyword === '高债士') {
-            this.headTitle = '高债士专区'
-          }
+        if (this.$route.params.value !== '' && this.$route.params.value !== undefined) {
+          this.productList.Keyword = this.$route.params.value
+        } else {
           this.productList.Keyword = this.$route.query.Keyword
         }
+        // if (this.$route.query.Keyword !== '') {
+        //   if (this.$route.query.Keyword === '平债士') {
+        //     this.headTitle = '平债士专区'
+        //   }
+        //   if (this.$route.query.Keyword === '高债士') {
+        //     this.headTitle = '高债士专区'
+        //   }
+        //   console.log('undefined')
+        //   this.productList.Keyword = this.$route.query.Keyword
+        // }
         let params = {
           SortOrder: this.productList.SortOrder, // 商品排序方式
           Keyword: this.productList.Keyword, // 搜索关键字

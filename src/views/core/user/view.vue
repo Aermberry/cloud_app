@@ -1,32 +1,32 @@
 <template>
   <section class="zkui-finance-view">
 
-    <zk-head title='财务详情' goBack='财务记录'></zk-head>
+    <zk-head title='会员信息'></zk-head>
     <div class="weui-cells">
       <div class="weui-form-preview">
         <div class="weui-form-preview__hd">
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">用户名</label>
-            <em class="weui-form-preview__value zkui-reward-show-price brand">{{modelView.userName}} </em>
+            <em class="weui-form-preview__value zkui-reward-show-price brand">{{modelView.userName}}</em>
           </div>
         </div>
         <div class="weui-form-preview__bd">
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">编号</label>
-            <span class="weui-form-preview__value"> </span>
+            <label class="weui-form-preview__label">姓名</label>
+            <span class="weui-form-preview__value">{{modelView.name}}</span>
           </div>
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">账户</label>
-            <span class="weui-form-preview__value"> </span>
+            <label class="weui-form-preview__label">手机号</label>
+            <span class="weui-form-preview__value">{{modelView.mobile}}</span>
           </div>
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">描述</label>
-            <span class="weui-form-preview__value"></span>
+            <label class="weui-form-preview__label">等级</label>
+            <span class="weui-form-preview__value">{{modelView.gradeName}}</span>
           </div>
-          <div class="weui-form-preview__item">
+          <!-- <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">时间</label>
             <span class="weui-form-preview__value"></span>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
