@@ -118,7 +118,7 @@
             <dd class="sale-info-stock metal">库存：{{selectSku.stock}} 货号：{{selectSku.bn}}</dd>
           </dl>
           <div class="sale-info-property goods-select">
-            <dl class="border-bottom " v-for="(item, index) in productView.productExtensions.productCategory.salePropertys " :key="index ">
+            <dl class="border-bottom " v-for="(item, index) in productView.productExtensions.productCategory.salePropertys" :key="index ">
               <dt>{{item.name}}</dt>
               <dd>
                 <checker v-model="saleItems[index] " default-item-class="sale-item " @on-change="changSku " selected-item-class="sale-item-selected " disabled-item-class="sale-item-disabled " :radio-required="true ">
@@ -199,13 +199,19 @@
         showgroupBuy: false, // 显示拼团规格选择窗口
         message: '正在倒计时',
         endTime: '2018-05-25 11:51:00',
-        time: ['2018-05-25 23:51:00', '2018-05-25 22:51:00', '2018-05-25 21:51:00']
+        time: ['2018-05-25 23:51:00', '2018-05-25 22:51:00', '2018-05-25 21:51:00'],
+        showSku: {
+          one: [],
+          two: [],
+          three: []
+        }
       }
     },
     created () {
       this.isGroupBuyProduct = this.productView.productActivityExtension.isGroupBuy
     },
     mounted: function () {
+      console.log('productView', this.productView)
       this.init()
       this.$nextTick(function () {
         // 接收父主件的拼团参数
@@ -219,6 +225,13 @@
       for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
         this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
       }
+      // for (var qw = 0; qw < this.productView.productExtensions.productCategory.salePropertys.length; qw++) {
+      //   let name = this.productView.productExtensions.productCategory.salePropertys[qw].name
+      //   console.log('this.productView.productExtensions.productCategory.salePropertys.length', this.productView.productExtensions.productCategory.salePropertys.length)
+      //   for (var qe = 0; qe < this.productView.productExtensions.productCategory.salePropertys[qw].propertyValues.length; qe++) {
+      //  }
+      // }
+      // console.log('this.showSku', this.showSku.one)
     },
     methods: {
       specification () {
@@ -322,6 +335,8 @@
         this.saleItems.forEach(element => {
           specSn += element.id + '|'
         })
+        console.log('this.saleItems', this.saleItems)
+        console.log('specSn', specSn)
         var skus = this.productView.productExtensions.productSkus
         var sku = ''
         for (var i = 0; i < skus.length; i++) {
