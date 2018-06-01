@@ -21,7 +21,59 @@
         </div>
       </div>
     </div>
-    <divider class="divider-bg "></divider>
+    <divider class="divider-bg"></divider>
+    <div class="stayShare" v-if="data.orderStatus === 10">
+      <div class="stitle flex">
+        <div class="stitle-left">
+          <m-icon name="zk-cart"></m-icon>
+        </div>
+        <div class="stitle-right">
+          待分享,还差5人,剩余23:57:06
+        </div>
+      </div>
+      <div class="scontent flex">
+        <div class="scontent-left">
+          <ul class="flex">
+            <li>
+              ?
+            </li>
+            <li>
+              ?
+            </li>
+            <li>
+              ?
+            </li>
+            <li>
+              ?
+            </li>
+            <li>
+              ?
+            </li>
+          </ul>
+        </div>
+        <div class="scontent-right">
+          <x-button type="primary" @click.native="showStayshare=!showStayshare">邀请好友</x-button>
+        </div>
+      </div>
+    </div>
+    <div class="stayShare-popup" v-if="showStayshare">
+      <div class="popup-box">
+        <span class="vux-close" @click="showStayshare=!showStayshare"></span>
+        <div class="p-title">还差
+          <span>5</span>人,赶快邀请好友来拼单吧
+        </div>
+        <div class="p-content">
+          <ul class="flex">
+            <li>
+              <m-icon name="zk-vx" class="icon"></m-icon>
+              <p>点击右上角分享给微信好友</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+    <divider class="divider-bg " v-if="data.orderStatus === 10"></divider>
     <group class="order_show-title">
       <cell :title="data.storeName" :value="state"></cell>
     </group>
@@ -114,7 +166,8 @@
         viewModel: '', // 数据模型
         data: '',
         state: '',
-        showPay: false
+        showPay: false,
+        showStayshare: false
       }
     },
     mounted () {
@@ -151,6 +204,8 @@
           this.state = '待收货'
         } else if (this.data.orderStatus === 4) {
           this.state = '待评价'
+        } else if (this.data.orderStatus === 10) {
+          this.state = '待分享'
         }
       },
       pay () {
@@ -193,6 +248,109 @@
       -moz-box-flex: 1;
       -webkit-flex: 1;
       flex: 1;
+    }
+    .stayShare {
+      .stitle {
+        height: 2.5rem;
+        padding: 0 1.25rem;
+        .stitle-left {
+          width: 2rem;
+          position: relative;
+          svg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: @brand;
+          }
+        }
+        .stitle-right {
+          flex: 1;
+          color: @gray-600;
+          line-height: 2.5rem;
+          padding-left: 1.25rem;
+        }
+      }
+      .scontent {
+        padding: 0.5rem;
+        min-height: 2rem;
+        padding-left: 4rem;
+        .scontent-left {
+          flex: 1;
+          .flex {
+            li {
+              width: 2.5rem;
+              height: 2.5rem;
+              border: 2px dashed #e5e5e5;
+              border-radius: 50%;
+              margin-right: 0.5rem;
+              line-height: 2.5rem;
+              text-align: center;
+              color: #e5e5e5;
+              font-size: @h4-font-size;
+              font-weight: bold;
+            }
+          }
+        }
+        .scontent-right {
+          width: 7rem;
+        }
+      }
+    }
+    .stayShare-popup {
+      width: 100%;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 8888;
+      background: rgba(0, 0, 0, 0.8);
+      .popup-box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        background: white;
+        min-height: 3rem;
+        border-radius: 10px;
+        padding: 2rem;
+        .vux-close {
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
+        .p-title {
+          height: 2.5rem;
+          color: @black;
+          font-size: @h4-font-size;
+          font-weight: bold;
+          text-align: center;
+          span {
+            font-size: @h4-font-size;
+            font-weight: bold;
+            color: @brand;
+          }
+        }
+        .p-content {
+          .flex {
+            li {
+              flex: 1;
+              svg {
+                display: block;
+                margin: 0 auto;
+                width: 3.5rem;
+                height: 3.5rem;
+              }
+              p {
+                text-align: center;
+                color: @gray-600;
+                margin-top: 0.5rem;
+              }
+            }
+          }
+        }
+      }
     }
     .weui-cells {
       margin-top: 0;

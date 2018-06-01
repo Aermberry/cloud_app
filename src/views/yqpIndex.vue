@@ -39,13 +39,13 @@
     </div>
     <zk-grid diykey="grid_index" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
     <zk-singlead diykey="index_single_ad"></zk-singlead>
-    <!-- <group-title class="flex">
+    <group class="flex">
       <div class="fashion-title">
         拼团
       </div>
-    </group-title>
-    <zk-groupbuy :pageSize=4 classIds='' :pagination=6 tagsId='' diykey='index'></zk-groupbuy> -->
-    <group-title class="flex">
+    </group>
+    <zk-groupbuy :pageSize=4 classIds='' :pagination=6 tagsId='' diykey='index'></zk-groupbuy>
+    <group class="flex">
       <div class="fashion-title">
         流行单品
       </div>
@@ -60,7 +60,7 @@
           </swiper-item>
         </swiper>
       </div>
-    </group-title>
+    </group>
 
     <zk-product-item :pageSize=4 classIds='' :pagination=6 tagsId='' diykey='index'></zk-product-item>
     <div class="yqp-more">

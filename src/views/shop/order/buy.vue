@@ -204,6 +204,7 @@
       },
       async GetData () {
         var buyProductInfo = ''
+        console.info('this.$route.params.buyInfo', this.$route.params.buyInfo)
         if (this.$route.params.buyInfo !== undefined) {
           buyProductInfo = this.$route.params.buyInfo
           local.setStore('order_buy', buyProductInfo) // 将购买信息写到缓存中
@@ -225,8 +226,9 @@
             isGroupBuy: this.isGroupBuy,
             productJson: JSON.stringify(buyProductInfo)
           }
-          // console.info('购物信息', buyInfoInput)
+          console.info('购物信息', buyInfoInput)
           var response = await apiService.buyProduct(buyInfoInput)
+          console.log('response', response)
           if (response.data.status !== 1) {
             this.messageWarn(response.data.message)
           } else {
