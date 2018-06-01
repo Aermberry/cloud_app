@@ -225,13 +225,6 @@
       for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
         this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
       }
-      // for (var qw = 0; qw < this.productView.productExtensions.productCategory.salePropertys.length; qw++) {
-      //   let name = this.productView.productExtensions.productCategory.salePropertys[qw].name
-      //   console.log('this.productView.productExtensions.productCategory.salePropertys.length', this.productView.productExtensions.productCategory.salePropertys.length)
-      //   for (var qe = 0; qe < this.productView.productExtensions.productCategory.salePropertys[qw].propertyValues.length; qe++) {
-      //  }
-      // }
-      // console.log('this.showSku', this.showSku.one)
     },
     methods: {
       specification () {
@@ -353,6 +346,7 @@
       getGroupBuySkuPrice (id) {
         var price = 0
         var activitys = this.productView.productActivityExtension.activitys // 所有活动
+        console.log('activitys', activitys)
         var groupBuyActivity
         activitys.forEach(element => {
           if (element.key === 'ZKCloud.App.Shop.Activitys.Modules.GroupBuy.Model.GroupBuyActivity') {
