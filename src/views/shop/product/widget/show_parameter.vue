@@ -144,7 +144,7 @@
       </popup>
     </div>
     <!-- 商品参数 -->
-    <div v-transfer-dom v-if="showService">
+    <div v-transfer-dom>
       <popup v-model="showParameter " class="showParameter " max-height="70%" is-transparent>
         <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem; ">
           <div class="goods-title">商品参数</div>
@@ -199,13 +199,12 @@
         showgroupBuy: false, // 显示拼团规格选择窗口
         message: '正在倒计时',
         endTime: '2018-05-25 11:51:00',
-        time: ['2019-05-25 23:51:00', '2019-05-25 22:51:00', '2019-05-25 21:51:00'],
+        time: ['2018-05-25 23:51:00', '2018-05-25 22:51:00', '2018-05-25 21:51:00'],
         showSku: {
           one: [],
           two: [],
           three: []
-        },
-        showService: true
+        }
       }
     },
     created () {
@@ -222,12 +221,6 @@
           this.showSale = true
           this.showgroupBuy = true
         })
-
-        if (window.location.host.indexOf('yiqipingou') !== -1) {
-          this.showService = true
-        } else {
-          this.showService = false
-        }
       })
       for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
         this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
@@ -298,7 +291,6 @@
       // (activitySelectId=0，isGroupBuy=true)表示发起拼团 (activitySelectId>0，isGroupBuy=true)参与拼团,isGroupBuy=false，普通购买
       buyProduct (isGroupBuy) {
         // 是发起拼团把activitySelectId变为0
-        console.log('this.isInitiateGroup', this.isInitiateGroup)
         if (this.isInitiateGroup === true) {
           this.activitySelectId = 0
         }
@@ -345,6 +337,7 @@
             sku = skus[i]
           }
         }
+        console.log('this.sku', sku)
         if (this.isGroupBuy) {
           sku.displayPrice = this.getGroupBuySkuPrice(sku.id)
         }
@@ -372,10 +365,14 @@
       },
       // 获取Sku ，用户选择不同的sku
       changSku () {
+        console.info('zhugantai', this.isGroupBuy)
         this.selectSku = this.getSku() // 根据specSn获取商品的规格
+        // this.selectSku = this.getSku() // 根据specSn获取商品的规格
         // 如果拼团获取拼团价格
         if (this.isGroupBuy) {
           this.selectSku.displayPrice = this.getGroupBuySkuPrice(this.selectSku.id)
+        } else {
+          this.selectSku = this.getSku()
         }
       }
     }
@@ -723,11 +720,10 @@
           padding-left: 0.5rem;
           span {
             font-size: @h4-font-size;
-            overflow: hidden;
           }
         }
         .groupbuy-message {
-          width: 11rem;
+          width: 10rem;
           height: 4rem;
           position: relative;
           .message-box {
