@@ -113,5 +113,15 @@ export default {
   RechargeGet: function (data) {
     var response = http.getLogin('/Recharge/Get', data)
     return response
+  },
+  // 转账
+  TransferAdd: function (data) {
+    var response = http.postLogin('/Transfer/Add', data)
+    return response
+  },
+  // 转账类型
+  GetTransferConfis: function (data) {
+    var response = http.getLogin('/Transfer/GetTransferConfis', data)
+    return response
   }
 }

@@ -15,13 +15,14 @@
       <x-input title="密码" required type="password" :min="6" :max="16" v-model="user.password"></x-input>
       <x-input title="确认密码" required type="password" :min="6" :max="16" class="border-bottom" v-model="user.confirmPassword"></x-input>
     </group>
-    <label role="checkbox" class="el-checkbox " :class="{'is-checked':checked}" @click="checker">
-      <span aria-checked="mixed" class="el-checkbox__input " :class="{'is-checked':checked}">
+    <label role="checkbox" class="el-checkbox " :class="{'is-checked':checkeded}">
+      <span aria-checked="mixed" class="el-checkbox__input " :class="{'is-checked':checkeded}">
         <span class="el-checkbox__inner"></span><input type="checkbox" class="el-checkbox__original" value=""></span>
       <span class="el-checkbox__label">
         已阅读并同意
         <router-link to="/user/agreement" class="">《服务条款》</router-link>
       </span>
+      <div class="close-box" @click="checker"></div>
     </label>
     <box gap="3rem 1rem">
       <x-button @click.native="reg" type="primary" action-type="button" :disabled="disabledB">注册会员</x-button>
@@ -60,7 +61,7 @@
           serviceCenter: '', // 门店或服务中心
           parentUserName: ''
         },
-        checked: false,
+        checkeded: false,
         userConfig: '' // 会员配置
       }
     },
@@ -69,8 +70,8 @@
     },
     methods: {
       checker () {
-        this.checked = !this.checked
-        if (this.checked === true) {
+        this.checkeded = !this.checkeded
+        if (this.checkeded === true) {
           this.disabledB = false
         } else {
           this.disabledB = true
@@ -111,6 +112,14 @@
   .zkui-user-adduser {
     .el-checkbox {
       padding: 0.5em 1.25rem;
+      position: relative;
+      .close-box {
+        width: 55%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
     }
     .el-checkbox__input.is-checked .el-checkbox__inner,
     .el-checkbox__input.is-indeterminate .el-checkbox__inner {

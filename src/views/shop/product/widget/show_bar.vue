@@ -24,10 +24,10 @@
         <x-button slot="customer" type="primary" @click.native="showSaleProperty(false)">立即购买</x-button>
       </tabbar-item>
       <tabbar-item v-if="isGroupBuyProduct">
-        <x-button slot="customer" type="warn" @click.native="showSaleProperty(false)">单独购买</x-button>
+        <x-button slot="customer" type="warn" @click.native="showSaleProperty(false)" class="isGroupBuyProduct">￥{{alonePrice}}<br>单独购买</x-button>
       </tabbar-item>
       <tabbar-item v-if="isGroupBuyProduct">
-        <x-button slot="customer" type="primary" @click.native="showSaleProperty(true)">发起拼单</x-button>
+        <x-button slot="customer" type="primary" @click.native="showSaleProperty(true)" class="isGroupBuyProduct">￥{{groupBuyProductPrice}}<br>发起拼单</x-button>
       </tabbar-item>
     </tabbar>
   </section>
@@ -52,7 +52,9 @@
         hasFavorite: false, // 商品是否收藏
         loginUser: null, // 当前登录用户
         showService: true,
-        isGroupBuyProduct: false // 是否为拼团商品
+        isGroupBuyProduct: false, // 是否为拼团商品
+        alonePrice: '',
+        groupBuyProductPrice: ''
       }
     },
     created () {
@@ -61,6 +63,7 @@
     mounted () {
       this.addFootprint()
       this.getFavorite()
+      this.Getdata()
       this.loginUser = this.LoginUser()
       if (window.location.host.indexOf('yiqipingou') !== -1) {
         this.showService = true
@@ -69,6 +72,10 @@
       }
     },
     methods: {
+      Getdata () {
+        this.alonePrice = this.productView.productExtensions.productSkus[0].displayPrice
+        this.groupBuyProductPrice = this.productView.productActivityExtension.activitys[0].value.SkuProducts[0].GroupBuyDisplayPrice
+      },
       addFootprint () { // 添加足迹
         let params = {
           entityId: this.productView.id, // 获取商品ID
@@ -161,6 +168,9 @@
         height: 3.5rem;
         white-space: nowrap;
         border-radius: 0px;
+      }
+      .isGroupBuyProduct {
+        line-height: 1.5rem;
       }
       .groupbuy-bar {
         width: 100%;

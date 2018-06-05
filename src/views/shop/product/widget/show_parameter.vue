@@ -144,7 +144,7 @@
       </popup>
     </div>
     <!-- 商品参数 -->
-    <div v-transfer-dom>
+    <div v-transfer-dom v-if="productView.productExtensions.productCategory.displayPropertys.length===0">
       <popup v-model="showParameter " class="showParameter " max-height="70%" is-transparent>
         <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem; ">
           <div class="goods-title">商品参数</div>
