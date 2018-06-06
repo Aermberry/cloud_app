@@ -28,7 +28,8 @@ export default [{
   {
     path: '/order/list',
     meta: {
-      title: '我的订单'
+      title: '我的订单',
+      login: true
     },
     name: 'order_list',
     component: function (resolve) {
@@ -38,7 +39,8 @@ export default [{
   {
     path: '/order/show',
     meta: {
-      title: '订单详情'
+      title: '订单详情',
+      login: true
     },
     params: {
       showId: ''
@@ -50,7 +52,8 @@ export default [{
   }, {
     path: '/order/evaluate',
     meta: {
-      title: '发表评价'
+      title: '发表评价',
+      login: true
     },
     name: 'order_evaluate',
     component: function (resolve) {

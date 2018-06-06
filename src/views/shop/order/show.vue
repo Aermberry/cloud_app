@@ -36,6 +36,7 @@
           <ul class="flex">
             <li>
               ?
+              <img :src="OrderGroupUser.avator" alt="">
             </li>
             <li>
               ?
@@ -167,7 +168,8 @@
         data: '',
         state: '',
         showPay: false,
-        showStayshare: false
+        showStayshare: false,
+        OrderGroupUser: ''
       }
     },
     mounted () {
@@ -212,6 +214,7 @@
         }
         var OrderGroupUser = await orderService.OrderGroupUser(oId)
         console.log('OrderGroupUser', OrderGroupUser)
+        this.OrderGroupUser = OrderGroupUser.data.result[0]
       },
       pay () {
         var buyProductInfo = []
@@ -294,6 +297,14 @@
               color: #e5e5e5;
               font-size: @h4-font-size;
               font-weight: bold;
+              position: relative;
+              img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+              }
             }
           }
         }
