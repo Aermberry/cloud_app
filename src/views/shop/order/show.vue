@@ -207,6 +207,11 @@
         } else if (this.data.orderStatus === 10) {
           this.state = '待分享'
         }
+        let oId = {
+          orderId: this.data.id
+        }
+        var OrderGroupUser = await orderService.OrderGroupUser(oId)
+        console.log('OrderGroupUser', OrderGroupUser)
       },
       pay () {
         var buyProductInfo = []

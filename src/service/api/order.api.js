@@ -33,7 +33,12 @@ export default {
   },
   //  确认收货
   Confirm (data) {
-    var response = http.postLogin('order/Confirm', data)
+    var response = http.postLogin('/order/Confirm', data)
+    return response
+  },
+  // 拼团记录
+  OrderGroupUser (data) {
+    var response = http.getLogin('/GroupBuy/OrderGroupUser', data)
     return response
   }
 }
