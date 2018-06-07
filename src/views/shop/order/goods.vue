@@ -99,6 +99,7 @@
             padding-left: 0.5rem;
             .message-title {
               display: block;
+              color: @black;
               font-weight: @font-weight-bold;
               margin-bottom: 0.5rem;
             }

@@ -14,7 +14,7 @@
         <cell title="名字 " :value="userInfo.name " is-link @click.native="ceshi('name') "></cell>
         <!-- <cell title="性别 " :value="userInfo.sex" is-link @click.native="ceshi('sex') "></cell> -->
         <cell title="电话 " :value="userInfo.mobile "></cell>
-        <cell title="邮箱 " :value="userInfo.email "></cell>
+        <cell title="邮箱 " :value="userInfo.email " is-link @click.native="ceshi('email') "></cell>
         <cell title="等级 " :value="userInfo.gradeName "></cell>
         <cell title="推荐人 " :value="userInfo.parentUserName  "></cell>
         <cell title="门店名" :value="userInfo.serviceCenterName"></cell>
@@ -50,6 +50,20 @@
       </x-header>
       <group>
         <x-input is-type="china-name" v-model="uName"></x-input>
+      </group>
+    </div>
+    <!-- 修改邮箱 -->
+    <div class="set-gender" v-if="updateEmail">
+      <x-header :right-options="{showMore:false }" :left-options="{showBack: false}" @on-click-more=" showMenus=true ">
+        {{infoTitle}}
+        <div class="showback" @click="showback()">
+        </div>
+        <div class="accomplish" @click="accomplish('email')">
+          完成
+        </div>
+      </x-header>
+      <group>
+        <x-input is-type="email" v-model="uEmail"></x-input>
       </group>
     </div>
     <!-- 修改性别 -->
@@ -160,11 +174,13 @@
         updateMobile: false, // 修改电话
         updateGender: false, // 修改性别
         updateAddress: false, // 修改地址
+        updateEmail: false, // 修改邮箱
         addressBox: false, // 修改地址里的盒子
         addressString: '',
         uName: '',
         uMobile: '',
         uGender: '',
+        uEmail: '',
         menus: {
           menu1: 'Take Photo',
           menu2: 'Choose from photos'
@@ -199,8 +215,8 @@
       },
       ceshi (type) {
         if (type === 'portrait') {
-          this.showinfoBox = false
-          this.showinfoTitle = false
+          this.showinfoBox = false // 个人信息盒子
+          this.showinfoTitle = false // 个人信息头部
           this.portrait = false
           this.infoTitle = '个人头像'
         }
@@ -223,6 +239,13 @@
           this.updateAddress = true
           this.infoTitle = '我的地址'
         }
+        if (type === 'email') {
+          this.showinfoBox = false
+          this.showinfoTitle = false
+          this.updateEmail = true
+          this.infoTitle = '设置邮箱'
+          this.uEmail = this.userInfo.email
+        }
         // if (type === 'phone') {
         //   this.showinfoBox = false
         //   this.showinfoTitle = false
@@ -233,6 +256,21 @@
       },
       async accomplish (type) {
         if (type === 'name') {
+          let userDetail = {
+            NickName: this.uName
+          }
+          console.log('name', this.uName)
+          var nameResponse = await userService.update(userDetail)
+          console.log(nameResponse)
+          if (nameResponse.data.status === 1) {
+            this.userInfo.name = this.uName
+            this.showinfoBox = true
+            this.showinfoTitle = true
+            this.updateName = false
+            this.$vux.tosst.success('修改成功')
+          }
+        }
+        if (type === 'email') {
           let userDetail = {
             NickName: this.uName
           }
