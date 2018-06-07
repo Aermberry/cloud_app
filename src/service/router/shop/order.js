@@ -14,6 +14,7 @@ export default [{
     params: {
       buyInfo: '',
       isFromCart: false,
+      isFromOrder: false,
       selectId: ''
     },
     meta: {

@@ -32,6 +32,7 @@
 <script>
   import { XScroll } from 'zkui'
   import apiService from 'src/service/api/product.api'
+  import local from 'src/service/common/local'
   export default {
     data () {
       return {
@@ -45,8 +46,12 @@
       XScroll
     },
     mounted () {
+      this.data()
     },
     methods: {
+      data () {
+        local.setStore('goods', 'true')
+      },
       async upCallback () {
         let params = {
           pageIndex: this.pageIndex,
