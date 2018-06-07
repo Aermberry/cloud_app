@@ -113,6 +113,7 @@
         addressId: '00000000-0000-0000-0000-000000000000', // 地址选择，默认为空,
         userMessages: [], // 留言信息
         isFromCart: false, // 购买信息是否来自购物车，如果是，则需要删除购物车中，相对应的商品数据
+        isFromOrder: false, // 是否从订购页面来
         reduceMoneys: [], // 非人民币资产信息
         isGroupBuy: false, // 是否为拼团购买
         showDelivery: [] // 显示物流快递
@@ -185,6 +186,7 @@
             isGroupBuy: this.isGroupBuy, // 是否为拼团购买/*  */
             sign: this.modelView.sign, // 签名信息
             isFromCart: this.isFromCart, // 是否从购物车购买
+            isFromOrder: this.isFromOrder, // 是否从订货页面来
             userId: this.LoginUser().id // 下单用户ID
           }
           // console.info('购买格式', buyInput)
@@ -215,6 +217,10 @@
         if (this.$route.params.isFromCart !== undefined) {
           this.isFromCart = this.$route.params.isFromCart // 记录购买信息是否来自购物车
         }
+        if (this.$route.params.isFromOrder !== undefined) {
+          this.isFromOrder = this.$route.params.isFromOrder // 是否从订货页面来
+        }
+
         if (buyProductInfo === undefined) {
           this.$vux.toast.warn('暂无商品，清先购买商品')
           this.$router.push({
