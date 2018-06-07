@@ -71,7 +71,7 @@
               <img :src="productView.thumbnailUrl" />
             </dt>
             <dd class="sale-info-name">{{productView.name}}</dd>
-            <dd class="sale-info-price brand">￥{{selectSku.displayPrice}}
+            <dd class="sale-info-price brand">￥{{selectSkuDisplayPrice}}
               <span class="metal">￥{{selectSku.marketPrice}}</span>
             </dd>
             <dd class="sale-info-stock metal">库存：{{selectSku.stock}} 货号：{{selectSku.bn}}</dd>
@@ -112,7 +112,7 @@
               <img :src="productView.thumbnailUrl" />
             </dt>
             <dd class="sale-info-name">{{productView.name}}</dd>
-            <dd class="sale-info-price brand">￥{{selectSku.displayPrice}}
+            <dd class="sale-info-price brand">￥{{selectSkuDisplayPrice}}
               <span class="metal">￥{{selectSku.marketPrice}}</span>
             </dd>
             <dd class="sale-info-stock metal">库存：{{selectSku.stock}} 货号：{{selectSku.bn}}</dd>
@@ -180,6 +180,7 @@
         showSale: false, // 显示规格选择窗口
         salePropertyTitle: '请选择：',
         selectSku: '', // 选择的商品Sku
+        selectSkuDisplayPrice: '', // 选择sku的显示价格
         buyCount: 1, // 商品购买数量
         saleItems: [], // 可能存在多个商品规格属性，默认填充四个
         content: '',
@@ -211,13 +212,12 @@
       this.isGroupBuyProduct = this.productView.productActivityExtension.isGroupBuy
     },
     mounted: function () {
-      console.log('productView', this.productView)
       this.init()
       this.$nextTick(function () {
         // 接收父主件的拼团参数
         this.$on('childMethod', function (isGroupBuyAction) {
           this.isGroupBuy = isGroupBuyAction // 接收父主件的拼团参数
-          console.info('是否拼团操作', this.isGroupBuy)
+          this.selectSku = this.getSku()
           this.showSale = true
           this.showgroupBuy = true
         })
@@ -249,23 +249,19 @@
         this.productView.productExtensions.productCategory.salePropertys.forEach(element => {
           this.salePropertyTitle = this.salePropertyTitle + element.name + ' '
         })
-        this.selectSku = this.productView.productExtensions.productSkus[0] // 根据specSn获取商品的规格
+        var productViewTemp = this.productView
+        this.selectSku = productViewTemp.productExtensions.productSkus[0] // 根据specSn获取商品的规格
+
         // 如果是拼团操作
         if (this.isGroupBuyProduct) {
-          this.selectSku.displayPrice = this.getGroupBuySkuPrice(this.selectSku.id)
-          // 获取拼团记录
-          console.log('this.productView.id', this.productView.id)
           let par = {
             productId: this.productView.id
           }
           var responseRecord = await productService.groupBuyRecord(par)
-          console.log('responseRecord', responseRecord)
           if (responseRecord.data.status === 1) {
             this.groupBuyRecord = responseRecord.data.result
-            console.info('拼团记录', this.groupBuyRecord)
             this.groupBuyLength = this.groupBuyRecord.length
           }
-          console.info('是否拼团操作', this.selectSku.displayPrice)
         }
       },
       // 添加到购物车
@@ -290,13 +286,9 @@
       // 购买商品,isGroupBuy是否为拼团,activitySelectId:参与拼团的活动Id,
       // (activitySelectId=0，isGroupBuy=true)表示发起拼团 (activitySelectId>0，isGroupBuy=true)参与拼团,isGroupBuy=false，普通购买
       buyProduct (isGroupBuy) {
-        // 是发起拼团把activitySelectId变为0
         if (this.isInitiateGroup === true) {
           this.activitySelectId = 0
         }
-        console.log('this.activitySelectId', this.activitySelectId)
-        // this.isGroupBuy = isGroupBuy
-        console.info('是否拼团', isGroupBuy)
         this.groupBuyWindow = false
         helper.checkLogin(true)
         if (this.selectSku.id === undefined) {
@@ -328,18 +320,21 @@
         this.saleItems.forEach(element => {
           specSn += element.id + '|'
         })
-        console.log('this.saleItems', this.saleItems)
-        console.log('specSn', specSn)
-        var skus = this.productView.productExtensions.productSkus
+        var productViewTemps = this.productView
+        var skus = productViewTemps.productExtensions.productSkus
         var sku = ''
         for (var i = 0; i < skus.length; i++) {
           if (skus[i].specSn === specSn) {
             sku = skus[i]
+            console.info('是否为拼团操作', this.isGroupBuy)
+            if (this.isGroupBuy) {
+              this.selectSkuDisplayPrice = this.getGroupBuySkuPrice(skus[i].id)
+              console.info('拼团显示价格', this.selectSkuDisplayPrice)
+            } else {
+              console.info('非拼团Sku', skus[i])
+              this.selectSkuDisplayPrice = skus[i].displayPrice
+            }
           }
-        }
-        console.log('this.sku', sku)
-        if (this.isGroupBuy) {
-          sku.displayPrice = this.getGroupBuySkuPrice(sku.id)
         }
         return sku
       },
@@ -347,7 +342,6 @@
       getGroupBuySkuPrice (id) {
         var price = 0
         var activitys = this.productView.productActivityExtension.activitys // 所有活动
-        console.log('activitys', activitys)
         var groupBuyActivity
         activitys.forEach(element => {
           if (element.key === 'ZKCloud.App.Shop.Activitys.Modules.GroupBuy.Model.GroupBuyActivity') {
@@ -365,15 +359,7 @@
       },
       // 获取Sku ，用户选择不同的sku
       changSku () {
-        console.info('zhugantai', this.isGroupBuy)
         this.selectSku = this.getSku() // 根据specSn获取商品的规格
-        // this.selectSku = this.getSku() // 根据specSn获取商品的规格
-        // 如果拼团获取拼团价格
-        if (this.isGroupBuy) {
-          this.selectSku.displayPrice = this.getGroupBuySkuPrice(this.selectSku.id)
-        } else {
-          this.selectSku = this.getSku()
-        }
       }
     }
   }
