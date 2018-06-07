@@ -163,6 +163,7 @@
 <script>
   import { Group, Checker, CheckerItem, Divider, GroupTitle, Cell, TransferDom, Popup, XButton, XSwitch, InlineXNumber, ButtonTab, ButtonTabItem, XDialog } from 'zkui'
   import userService from 'src/service/api/user.api'
+  import local from 'src/service/common/local'
   import productService from 'src/service/api/product.api'
   import helper from 'src/service/common/helper'
   import { ZkTimedown } from 'widgets'
@@ -190,6 +191,7 @@
         isGroupBuyProduct: false, // 是否为拼团商品
         activitySelectId: 0, // 拼团时选择的活动Id，为0表示发起拼团
         groupBuyWindow: false, // 拼团弹窗
+        isFromOrder: false, // 是否从订货页面来
         groupBuyWindowMessage: {
           name: '',
           time: '',
@@ -224,7 +226,6 @@
       for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
         this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
       }
-      console.log('productView.productExtensions.productCategory.displayPropertys ', this.productView.productExtensions.productCategory.displayPropertys)
     },
     methods: {
       specification () {
@@ -262,6 +263,11 @@
             this.groupBuyRecord = responseRecord.data.result
             this.groupBuyLength = this.groupBuyRecord.length
           }
+        }
+        if (local.getStore('goods') === true) {
+          this.isFromOrder = local.getStore('goods')
+          console.log('this.isFromOrder', this.isFromOrder)
+          local.removeStore('goods')
         }
       },
       // 添加到购物车
@@ -311,7 +317,8 @@
         this.$router.push({
           name: 'order_buy',
           params: {
-            buyInfo: buyProductInfo
+            buyInfo: buyProductInfo,
+            isFromOrder: this.isFromOrder
           }
         })
       },

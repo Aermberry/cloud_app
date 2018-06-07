@@ -221,7 +221,6 @@
           // this.isFromOrder = this.$route.params.isFromOrder // 是否从订货页面来
           this.isFromOrder = true
         }
-
         if (buyProductInfo === undefined) {
           this.$vux.toast.warn('暂无商品，清先购买商品')
           this.$router.push({
