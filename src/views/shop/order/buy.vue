@@ -1,6 +1,14 @@
 <template>
   <section class="zkui_order_buy">
     <buy-address></buy-address>
+    <div class="isFromOrder-warm" v-if="isFromOrder===true">
+      <div class="warm-icon">
+        <m-icon name="zk-warm"></m-icon>
+      </div>
+      <div class="warm-text">
+        虚拟库存：付款后，把货存在上级那代管。下级下单可直接转上级发货，省去自己发货，减少物流成本。
+      </div>
+    </div>
     <group class="order_buy_product " v-for="(store,storeIndex) in modelView.storeItems " :key="storeIndex">
       <cell :title="store.storeName" class="border-bottom"> </cell>
       <div class="item-contnet">
@@ -39,7 +47,7 @@
           </li>
         </ul>
       </div>
-      <popup-radio title="请选择 " :options="store.expressTemplates" v-model="showDelivery[storeIndex]" @on-change="countPrice()">
+      <popup-radio title="请选择 " :options="store.expressTemplates" v-model="showDelivery[storeIndex]" @on-change="countPrice()" v-if="isFromOrder===false">
         <p slot="popup-header" class="border-bottom popup-header">选择快递方式</p>
       </popup-radio>
       <x-textarea title="卖家留言 " placeholder="填写内容已和卖家协商确认 " :show-counter="false " :rows="1" autosize v-model="userMessages[storeIndex]"></x-textarea>
@@ -315,6 +323,24 @@
 <style  lang="less">
   .zkui_order_buy {
     margin-bottom: 2.5rem;
+    .isFromOrder-warm {
+      display: flex;
+      padding: 0.5rem 1rem;
+      background: #fceec7;
+      .warm-icon {
+        svg {
+          width: 1rem;
+          height: 1rem;
+          color: #f56e01;
+        }
+      }
+      .warm-text {
+        padding-left: 0.5rem;
+        flex: 1;
+        color: #f56e01;
+        font-size: @h6-font-size;
+      }
+    }
     .weui-cells {
       margin-top: 0;
     }
