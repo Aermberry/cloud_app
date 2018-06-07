@@ -10,6 +10,7 @@
           <div class="portrait-right ">
             <img :src="userInfo.avator " alt=" ">
           </div>
+
         </div>
         <cell title="名字 " :value="userInfo.name " is-link @click.native="ceshi('name') "></cell>
         <!-- <cell title="性别 " :value="userInfo.sex" is-link @click.native="ceshi('sex') "></cell> -->
@@ -37,6 +38,7 @@
         </div>
       </x-header>
       <img :src="userInfo.avator " alt=" ">
+      <zk-upload :fileCount="1" :max="1" savePath="identity" :size="5*1024" ref="uploadFile"></zk-upload>
     </div>
     <!-- 修改姓名 -->
     <div class="set-name" v-if="updateName">
@@ -122,6 +124,7 @@
   import userService from 'src/service/api/user.api'
   import { ZkCell, ZkAddress } from 'src/widgets/'
   import address from 'src/service/common/address'
+  import { ZkUpload } from 'widgets'
   import { MIcon, Group, Cell, XHeader, Actionsheet, TransferDom, ButtonTab, ButtonTabItem, XInput, Radio, PopupPicker, XTextarea } from 'zkui'
   export default {
     directives: {
@@ -140,11 +143,13 @@
       Radio,
       ZkAddress,
       PopupPicker,
-      XTextarea
+      XTextarea,
+      ZkUpload
     },
     //  https://segmentfault.com/q/1010000012824355 参考这个实现方式，更为优雅
     data () {
       return {
+        avatorImage: [],
         radio001: ['男', '女'],
         viewModel: '',
         addressData: [], // 地址数据

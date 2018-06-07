@@ -62,9 +62,9 @@
           </div>
         </div>
 
-        <zk-upload :fileCount="1" savePath="identity" :size="5*1024" ref="uploadFile">证件正面照</zk-upload>
-        <zk-upload :fileCount="1" savePath="identity" :size="5*1024" ref="uploadFile">证件反面照</zk-upload>
-        <zk-upload :fileCount="1" savePath="identity" :size="5*1024" ref="uploadFile">个人手持证件正面照</zk-upload>
+        <zk-upload :fileCount="1" :max="1" savePath="identity" :size="5*1024" ref="uploadFile">证件正面照</zk-upload>
+        <zk-upload :fileCount="1" :max="1" savePath="identity" :size="5*1024" ref="uploadFile">证件反面照</zk-upload>
+        <zk-upload :fileCount="1" :max="1" savePath="identity" :size="5*1024" ref="uploadFile">个人手持证件正面照</zk-upload>
       </div>
       <div class="weui-btn-area btn-name">
         <a class="weui-btn weui-btn_primary" @click="apipost" href="javascript:" id="showTooltips">确定</a>
