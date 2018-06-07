@@ -59,6 +59,25 @@ export default [{
     component: function (resolve) {
       require(['src/views/shop/order/evaluate'], resolve)
     }
+  }, {
+    path: '/order/goods',
+    meta: {
+      title: '订货下单',
+      login: true
+    },
+    name: 'order_goods',
+    component: function (resolve) {
+      require(['src/views/shop/order/goods'], resolve)
+    }
+  }, {
+    path: '/order/UserStock',
+    meta: {
+      title: '我的库存',
+      login: true
+    },
+    name: 'order_UserStock',
+    component: function (resolve) {
+      require(['src/views/shop/order/UserStock'], resolve)
+    }
   }
-
 ]

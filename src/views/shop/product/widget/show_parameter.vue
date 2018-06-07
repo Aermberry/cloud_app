@@ -3,7 +3,7 @@
     <group class="zkui-product-show-parameter">
       <div class="weui-cells-top"></div>
       <cell :title="salePropertyTitle" @click.native="specification()" is-link :value="selectSku.propertyValueDesc"></cell>
-      <cell title="商品参数" @click.native="showParameter = true" is-link class="border-bottom"></cell>
+      <cell title="商品参数" @click.native="showParameter = true" is-link class="border-bottom" v-if="productView.productExtensions.productCategory.displayPropertys.length!==0"></cell>
       <cell :title="'备注：'+productView.detail.productDetailExtension.remark" v-if="productView.detail.productDetailExtension.remark!==''&&productView.detail.productDetailExtension.remark!==null"></cell>
       <div class="weui-cells-bottom"></div>
     </group>
@@ -144,7 +144,7 @@
       </popup>
     </div>
     <!-- 商品参数 -->
-    <div v-transfer-dom v-if="productView.productExtensions.productCategory.displayPropertys.length===0">
+    <div v-transfer-dom>
       <popup v-model="showParameter " class="showParameter " max-height="70%" is-transparent>
         <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem; ">
           <div class="goods-title">商品参数</div>
@@ -217,7 +217,6 @@
         // 接收父主件的拼团参数
         this.$on('childMethod', function (isGroupBuyAction) {
           this.isGroupBuy = isGroupBuyAction // 接收父主件的拼团参数
-          this.selectSku = this.getSku()
           this.showSale = true
           this.showgroupBuy = true
         })
@@ -225,6 +224,7 @@
       for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
         this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
       }
+      console.log('productView.productExtensions.productCategory.displayPropertys ', this.productView.productExtensions.productCategory.displayPropertys)
     },
     methods: {
       specification () {
