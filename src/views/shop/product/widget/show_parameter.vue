@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="zkui-product-parameter">
     <group class="zkui-product-show-parameter">
       <div class="weui-cells-top"></div>
       <cell :title="salePropertyTitle" @click.native="specification()" is-link :value="selectSku.propertyValueDesc"></cell>
@@ -368,421 +368,423 @@
 <style   lang="less">
   @import '../../../../assets/css/zkui/theme';
   @import '../../../../assets/css/zkui/mixin';
-  .zkui-product-show-parameter {
-    .vux-label {
-      font-weight: @font-weight-normal;
+  .zkui-product-parameter {
+    .zkui-product-show-parameter {
+      .vux-label {
+        font-weight: @font-weight-normal;
+      }
+      .weui-cells {
+        margin-top: 0;
+      }
+      .weui-cells-top {
+        background-color: #efefef;
+        margin-bottom: -2 * @rem;
+        border: 1px solid white;
+      }
+      .weui-cells-bottom {
+        height: 5 * @rem;
+        background-color: #efefef;
+        // border: 1px solid white;
+      }
+      .weui-cells__title {
+        text-align: center;
+      }
+      .weui-cells__content {
+        min-height: 240 * @rem;
+      }
+      .weui-cell__ft {
+        font-weight: @font-weight-normal;
+      }
     }
-    .weui-cells {
-      margin-top: 0;
+
+    .zk-product-showSale {
+      .sale-info:after {
+        content: none;
+        display: block;
+        clear: both;
+      }
+      .sale-info {
+        min-height: 8rem;
+        dd {
+          float: right;
+          width: 65%;
+          margin-right: 15 * @rem;
+          padding-top: 2 * @rem;
+          font-weight: @font-weight-normal;
+        }
+        dd.sale-info-name {
+          color: @black;
+          font-family: Helvetica;
+          font-size: @h5-font-size;
+        }
+        .sale-info-price {
+          font-weight: bold;
+          font-size: @h4-font-size;
+          span {
+            text-decoration: line-through;
+            font-weight: 100;
+            color: @gray-600;
+            font-family: Helvetica;
+            font-weight: @font-weight-normal;
+          }
+        }
+        .sale-info-stock {
+          color: @gray-600;
+        }
+        .sale-info-close {
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          -moz-border-radius: 50%;
+          -webkit-border-radius: 50%;
+          border: 1px solid #5f646e;
+          display: inline-block;
+          position: absolute;
+          right: 5px;
+          top: 4px;
+          padding: 0.32rem;
+        }
+        .sale-info-close::after {
+          content: '\2716'; //特殊字符或形状，一个勾
+          color: #5f646e;
+          font-size: 12px;
+          position: absolute;
+          right: 5px;
+          padding-top: 0.4rem;
+        }
+        dt {
+          float: left;
+          width: 6.5rem;
+          height: 6.5rem;
+          margin-left: 1rem;
+          img {
+            border-radius: 0.2rem;
+            width: 90%;
+            height: 90%;
+          }
+        }
+      }
+
+      .sale-info-property {
+        height: 12rem;
+        overflow-y: auto;
+        width: 100%;
+        dl:after {
+          bottom: none;
+          top: 0;
+        }
+        dl {
+          width: 100%;
+          min-height: 5rem;
+          overflow-y: auto;
+          dt {
+            width: 100%;
+            height: 28 * @rem;
+            padding: 8 * @rem 0 0 1.25rem;
+            font-weight: bold;
+          }
+          dd:after {
+            content: '';
+            display: block;
+            visibility: hidden;
+            width: 0;
+            height: 0;
+            clear: both;
+          }
+          dd {
+            width: 100%;
+            .vux-checker-box {
+              float: left;
+              margin-left: 8 * @rem;
+            }
+            .sale-item {
+              background-color: #ddd;
+              color: #222;
+              padding: 4 * @rem 8 * @rem;
+              margin: 0 5 * @rem 5 * @rem 0;
+              border-radius: 4 * @rem;
+              font-weight: @font-weight-normal;
+              font-size: @h6-font-size;
+            }
+            .sale-item-selected {
+              background-color: @brand;
+              color: #fff;
+            }
+            .sale-item-disabled {
+              color: #999;
+            }
+          }
+        }
+      }
+      .group-base {
+        .vux-button-group > a {
+          height: auto;
+          line-height: normal;
+          padding: 0.5rem 0;
+        }
+        .vux-button-group > a.vux-button-tab-item-first:after {
+          content: none;
+        }
+        .vux-button-group > a.vux-button-tab-item-last:after {
+          content: none;
+        }
+      }
     }
-    .weui-cells-top {
-      background-color: #efefef;
-      margin-bottom: -2 * @rem;
-      border: 1px solid white;
+    .zkui-product-show-parameter-amount:after {
+      content: ' ';
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      height: 0.08333333rem;
+      border-bottom: 1px solid #c7c7c7;
+      color: #c7c7c7;
+      -webkit-transform-origin: 0 100%;
+      transform-origin: 0 100%;
+      -webkit-transform: scaleY(0.5);
+      transform: scaleY(0.5);
     }
-    .weui-cells-bottom {
-      height: 5 * @rem;
-      background-color: #efefef;
-      // border: 1px solid white;
+    .zkui-product-show-parameter-amount {
+      position: relative;
+      height: 3.3rem;
+      .vux-label {
+        font-weight: @font-weight-bold;
+      }
+      .vux-number-input {
+        font-weight: @font-weight-normal;
+      }
+      .weui-cells {
+        margin-top: 0;
+      }
+      .weui-cells:before {
+        border-top: 0;
+      }
+      .vux-number-input {
+        font-size: @h4-font-size;
+      }
     }
-    .weui-cells__title {
+
+    .goods-title {
+      position: fixed;
+      width: 100%;
+      overflow-y: auto;
+      height: 40 * @rem;
+      line-height: 40 * @rem;
       text-align: center;
+      z-index: 5;
+      background-color: white;
+      border-bottom: 1px solid #e5e5e5;
+      color: @black;
+      font-size: @h4-font-size;
     }
-    .weui-cells__content {
-      min-height: 240 * @rem;
+    .goods-title-pla {
+      height: 40 * @rem;
+    }
+    .goods-item {
+      padding-bottom: 20 * @rem;
+      height: 16.5rem;
+      overflow-y: auto;
+      .weui-cells {
+        margin-top: 0;
+      }
+    }
+    .goods-information {
+      padding-top: 1rem;
+      justify-content: center;
+      padding-right: 1.25rem;
+      color: #999999;
+      min-height: 40px;
+      z-index: 5;
+      background-color: white;
+      position: relative;
+    }
+    .goods-information:after {
+      content: ' ';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      height: 0.08333333rem;
+      border-bottom: 1px solid #c7c7c7;
+      color: #c7c7c7;
+      -webkit-transform-origin: 0 100%;
+      transform-origin: 0 100%;
+      -webkit-transform: scaleY(0.5);
+      transform: scaleY(0.5);
+    }
+    .base {
+      width: 100%;
+      height: auto;
+      overflow-y: auto;
+      min-height: 40px;
+      z-index: 5;
+      background-color: white;
+      button {
+        border-radius: 0;
+      }
     }
     .weui-cell__ft {
       font-weight: @font-weight-normal;
     }
-  }
-
-  .zk-product-showSale {
-    .sale-info:after {
-      content: none;
-      display: block;
-      clear: both;
+    .close {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 25px;
+      height: 25px;
+      background: @brand;
+      border-radius: 25px;
+      // box-shadow: 2px 2px 5px 0px @black;
+      cursor: pointer;
+      z-index: 9999;
     }
-    .sale-info {
-      min-height: 8rem;
-      dd {
-        float: right;
-        width: 65%;
-        margin-right: 15 * @rem;
-        padding-top: 2 * @rem;
-        font-weight: @font-weight-normal;
+
+    .close:hover {
+      background: red;
+    }
+    .close:before {
+      position: absolute;
+      content: '';
+      width: 15px;
+      height: 5px;
+      background: white;
+      transform: rotate(45deg);
+      top: 10px;
+      left: 5px;
+    }
+    .close:after {
+      content: '';
+      position: absolute;
+      width: 15px;
+      height: 5px;
+      background: white;
+      transform: rotate(-45deg);
+      top: 10px;
+      left: 5px;
+    }
+    .base {
+      .vux-button-tab-item-first {
+        background: @actionsheet-label-warn-color !important;
+        color: @white !important;
       }
-      dd.sale-info-name {
-        color: @black;
-        font-family: Helvetica;
-        font-size: @h5-font-size;
+      .vux-button-tab-item-last {
+        color: @white !important;
+        background: @brand!important;
       }
-      .sale-info-price {
-        font-weight: bold;
-        font-size: @h4-font-size;
-        span {
-          text-decoration: line-through;
-          font-weight: 100;
-          color: @gray-600;
-          font-family: Helvetica;
-          font-weight: @font-weight-normal;
+    }
+    .zkui-product-show-groupbuy {
+      .weui-cells-bottom {
+        height: 5 * @rem;
+        background-color: #efefef;
+        // border: 1px solid white;
+      }
+      .weui-cells {
+        margin-top: 0;
+      }
+      .weui-cells:before {
+        content: none;
+      }
+      .groupbuy-box {
+        max-height: 10rem;
+        overflow: auto;
+        ul {
+          display: flex;
+          height: 4rem;
+          border-top: 1px solid rgba(229, 229, 229, 0.7);
+          .groupbuy-img {
+            width: 4rem;
+            height: 4rem;
+            padding: 0.4rem;
+            img {
+              width: 3.4rem;
+              height: 3.4rem;
+              border-radius: 50%;
+            }
+          }
+          .groupbuy-name {
+            flex: 1;
+            line-height: 4rem;
+            padding-left: 0.5rem;
+            span {
+              font-size: @h4-font-size;
+            }
+          }
+          .groupbuy-message {
+            width: 10rem;
+            height: 4rem;
+            position: relative;
+            .message-box {
+              position: absolute;
+              top: 50%;
+              left: 0;
+              transform: translatey(-50%);
+              .message-top {
+                font-size: @h5-font-size;
+                span {
+                  font-size: @h5-font-size;
+                  color: @brand;
+                }
+              }
+              .meassge-bottom {
+                font-size: @h6-font-size;
+                color: @gray-600;
+              }
+            }
+          }
+          .groupbuy-btn {
+            height: 4rem;
+            padding: 0.7rem 0.5rem;
+
+            button {
+              height: 2.6rem;
+            }
+          }
         }
       }
-      .sale-info-stock {
+    }
+    .groupbuy-dialog {
+      padding: 1.5rem;
+      position: relative;
+      .gd-title {
+        text-align: center;
+        font-weight: normal;
+        font-size: @h4-font-size;
+        margin-bottom: 0.5rem;
+      }
+      .gd-message {
+        font-size: @h5-font-size;
         color: @gray-600;
       }
-      .sale-info-close {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        -moz-border-radius: 50%;
-        -webkit-border-radius: 50%;
-        border: 1px solid #5f646e;
-        display: inline-block;
-        position: absolute;
-        right: 5px;
-        top: 4px;
-        padding: 0.32rem;
-      }
-      .sale-info-close::after {
-        content: '\2716'; //特殊字符或形状，一个勾
-        color: #5f646e;
-        font-size: 12px;
-        position: absolute;
-        right: 5px;
-        padding-top: 0.4rem;
-      }
-      dt {
-        float: left;
-        width: 6.5rem;
-        height: 6.5rem;
-        margin-left: 1rem;
-        img {
-          border-radius: 0.2rem;
-          width: 90%;
-          height: 90%;
-        }
-      }
-    }
-
-    .sale-info-property {
-      height: 12rem;
-      overflow-y: auto;
-      width: 100%;
-      dl:after {
-        bottom: none;
-        top: 0;
-      }
-      dl {
-        width: 100%;
-        min-height: 5rem;
-        overflow-y: auto;
-        dt {
-          width: 100%;
-          height: 28 * @rem;
-          padding: 8 * @rem 0 0 1.25rem;
-          font-weight: bold;
-        }
-        dd:after {
-          content: '';
-          display: block;
-          visibility: hidden;
-          width: 0;
-          height: 0;
-          clear: both;
-        }
-        dd {
-          width: 100%;
-          .vux-checker-box {
-            float: left;
-            margin-left: 8 * @rem;
-          }
-          .sale-item {
-            background-color: #ddd;
-            color: #222;
-            padding: 4 * @rem 8 * @rem;
-            margin: 0 5 * @rem 5 * @rem 0;
-            border-radius: 4 * @rem;
-            font-weight: @font-weight-normal;
-            font-size: @h6-font-size;
-          }
-          .sale-item-selected {
-            background-color: @brand;
-            color: #fff;
-          }
-          .sale-item-disabled {
-            color: #999;
-          }
-        }
-      }
-    }
-    .group-base {
-      .vux-button-group > a {
-        height: auto;
-        line-height: normal;
-        padding: 0.5rem 0;
-      }
-      .vux-button-group > a.vux-button-tab-item-first:after {
-        content: none;
-      }
-      .vux-button-group > a.vux-button-tab-item-last:after {
-        content: none;
-      }
-    }
-  }
-  .zkui-product-show-parameter-amount:after {
-    content: ' ';
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    height: 0.08333333rem;
-    border-bottom: 1px solid #c7c7c7;
-    color: #c7c7c7;
-    -webkit-transform-origin: 0 100%;
-    transform-origin: 0 100%;
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5);
-  }
-  .zkui-product-show-parameter-amount {
-    position: relative;
-    height: 3.3rem;
-    .vux-label {
-      font-weight: @font-weight-bold;
-    }
-    .vux-number-input {
-      font-weight: @font-weight-normal;
-    }
-    .weui-cells {
-      margin-top: 0;
-    }
-    .weui-cells:before {
-      border-top: 0;
-    }
-    .vux-number-input {
-      font-size: @h4-font-size;
-    }
-  }
-
-  .goods-title {
-    position: fixed;
-    width: 100%;
-    overflow-y: auto;
-    height: 40 * @rem;
-    line-height: 40 * @rem;
-    text-align: center;
-    z-index: 5;
-    background-color: white;
-    border-bottom: 1px solid #e5e5e5;
-    color: @black;
-    font-size: @h4-font-size;
-  }
-  .goods-title-pla {
-    height: 40 * @rem;
-  }
-  .goods-item {
-    padding-bottom: 20 * @rem;
-    height: 16.5rem;
-    overflow-y: auto;
-    .weui-cells {
-      margin-top: 0;
-    }
-  }
-  .goods-information {
-    padding-top: 1rem;
-    justify-content: center;
-    padding-right: 1.25rem;
-    color: #999999;
-    min-height: 40px;
-    z-index: 5;
-    background-color: white;
-    position: relative;
-  }
-  .goods-information:after {
-    content: ' ';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    height: 0.08333333rem;
-    border-bottom: 1px solid #c7c7c7;
-    color: #c7c7c7;
-    -webkit-transform-origin: 0 100%;
-    transform-origin: 0 100%;
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5);
-  }
-  .base {
-    width: 100%;
-    height: auto;
-    overflow-y: auto;
-    min-height: 40px;
-    z-index: 5;
-    background-color: white;
-    button {
-      border-radius: 0;
-    }
-  }
-  .weui-cell__ft {
-    font-weight: @font-weight-normal;
-  }
-  .close {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 25px;
-    height: 25px;
-    background: @brand;
-    border-radius: 25px;
-    // box-shadow: 2px 2px 5px 0px @black;
-    cursor: pointer;
-    z-index: 9999;
-  }
-
-  .close:hover {
-    background: red;
-  }
-  .close:before {
-    position: absolute;
-    content: '';
-    width: 15px;
-    height: 5px;
-    background: white;
-    transform: rotate(45deg);
-    top: 10px;
-    left: 5px;
-  }
-  .close:after {
-    content: '';
-    position: absolute;
-    width: 15px;
-    height: 5px;
-    background: white;
-    transform: rotate(-45deg);
-    top: 10px;
-    left: 5px;
-  }
-  .base {
-    .vux-button-tab-item-first {
-      background: @actionsheet-label-warn-color !important;
-      color: @white !important;
-    }
-    .vux-button-tab-item-last {
-      color: @white !important;
-      background: @brand!important;
-    }
-  }
-  .zkui-product-show-groupbuy {
-    .weui-cells-bottom {
-      height: 5 * @rem;
-      background-color: #efefef;
-      // border: 1px solid white;
-    }
-    .weui-cells {
-      margin-top: 0;
-    }
-    .weui-cells:before {
-      content: none;
-    }
-    .groupbuy-box {
-      max-height: 10rem;
-      overflow: auto;
-      ul {
-        display: flex;
-        height: 4rem;
-        border-top: 1px solid rgba(229, 229, 229, 0.7);
-        .groupbuy-img {
-          width: 4rem;
-          height: 4rem;
-          padding: 0.4rem;
+      .gd-img-box {
+        .gd-img {
+          width: 7.2rem;
+          min-width: 2rem;
+          margin: 0 auto;
+          height: 3.4rem;
           img {
             width: 3.4rem;
             height: 3.4rem;
-            border-radius: 50%;
-          }
-        }
-        .groupbuy-name {
-          flex: 1;
-          line-height: 4rem;
-          padding-left: 0.5rem;
-          span {
-            font-size: @h4-font-size;
-          }
-        }
-        .groupbuy-message {
-          width: 10rem;
-          height: 4rem;
-          position: relative;
-          .message-box {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            transform: translatey(-50%);
-            .message-top {
-              font-size: @h5-font-size;
-              span {
-                font-size: @h5-font-size;
-                color: @brand;
-              }
-            }
-            .meassge-bottom {
-              font-size: @h6-font-size;
-              color: @gray-600;
-            }
-          }
-        }
-        .groupbuy-btn {
-          height: 4rem;
-          padding: 0.7rem 0.5rem;
-
-          button {
-            height: 2.6rem;
+            margin-right: 0.2rem;
           }
         }
       }
-    }
-  }
-  .groupbuy-dialog {
-    padding: 1.5rem;
-    position: relative;
-    .gd-title {
-      text-align: center;
-      font-weight: normal;
-      font-size: @h4-font-size;
-      margin-bottom: 0.5rem;
-    }
-    .gd-message {
-      font-size: @h5-font-size;
-      color: @gray-600;
-    }
-    .gd-img-box {
-      .gd-img {
-        width: 7.2rem;
-        min-width: 2rem;
-        margin: 0 auto;
-        height: 3.4rem;
-        img {
-          width: 3.4rem;
-          height: 3.4rem;
-          margin-right: 0.2rem;
+      .gd-btn {
+        button {
+          height: 3rem;
+          background: @brand;
+          color: @white;
         }
       }
-    }
-    .gd-btn {
-      button {
-        height: 3rem;
-        background: @brand;
-        color: @white;
+      .gd-close {
+        // background: @gray-300;
+        border-radius: 50%;
+        position: absolute;
+        top: 0rem;
+        right: 0rem;
       }
-    }
-    .gd-close {
-      // background: @gray-300;
-      border-radius: 50%;
-      position: absolute;
-      top: 0rem;
-      right: 0rem;
-    }
-    .weui-dialog {
-      overflow: visible;
+      .weui-dialog {
+        overflow: visible;
+      }
     }
   }
 </style>
