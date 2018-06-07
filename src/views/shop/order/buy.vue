@@ -1,6 +1,5 @@
 <template>
   <section class="zkui_order_buy">
-    <buy-address></buy-address>
     <div class="isFromOrder-warm" v-if="isFromOrder===true">
       <div class="warm-icon">
         <m-icon name="zk-warm"></m-icon>
@@ -9,6 +8,8 @@
         虚拟库存：付款后，把货存在上级那代管。下级下单可直接转上级发货，省去自己发货，减少物流成本。
       </div>
     </div>
+    <buy-address></buy-address>
+
     <group class="order_buy_product " v-for="(store,storeIndex) in modelView.storeItems " :key="storeIndex">
       <cell :title="store.storeName" class="border-bottom"> </cell>
       <div class="item-contnet">
@@ -222,11 +223,9 @@
           buyProductInfo = local.getStore('order_buy') // 刷新时从缓冲中读取数据
         }
         this.isGroupBuy = buyProductInfo[0].isGroupBuy
+        this.isFromOrder = buyProductInfo[0].isFromOrder
         if (this.$route.params.isFromCart !== undefined) {
           this.isFromCart = this.$route.params.isFromCart // 记录购买信息是否来自购物车
-        }
-        if (this.$route.params.isFromOrder !== undefined) {
-          this.isFromOrder = this.$route.params.isFromOrder // 是否从订货页面来
         }
         if (buyProductInfo === undefined) {
           this.$vux.toast.warn('暂无商品，清先购买商品')
