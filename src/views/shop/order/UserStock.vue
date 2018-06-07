@@ -17,6 +17,7 @@
 
 <script>
   import { } from 'zkui'
+  import userService from 'src/service/api/user.api'
   export default {
     data () {
       return {
@@ -25,8 +26,17 @@
     components: {
     },
     mounted () {
+      this.Getdata()
     },
     methods: {
+      async Getdata () {
+        let par = {
+          UserId: this.LoginUser().id
+        }
+        console.log('this.LoginUser().id', this.LoginUser().id)
+        var response = await userService.userStock(par)
+        console.log('response', response)
+      }
     }
   }
 </script>

@@ -13,17 +13,9 @@
                 {{item.name}}
               </router-link>
               <p class="selling">售价：{{item.displayPrice}}</p>
-              <p class="purchasing ">进货价：￥60.00</p>
+              <!-- <p class="purchasing ">进货价：￥60.00</p> -->
             </div>
-          </div>
-          <div class="item-bottom">
-            <div class="bottom-box">
-              <router-link to="">
-                <m-icon name="zk-test"></m-icon>
-                <p>中央文案</p>
-              </router-link>
-            </div>
-            <div class="bottom-box">
+            <div class="top-right">
               <router-link :to=" '/product/show/'+item.id">
                 <m-icon name="zkui-cart_ok"></m-icon>
                 <p>立即订货</p>
@@ -32,6 +24,7 @@
           </div>
         </div>
       </div>
+      <zk-foot></zk-foot>
     </section>
   </x-scroll>
 </template>
@@ -112,25 +105,23 @@
               color: @success;
             }
           }
-        }
-        .item-bottom {
-          border-top: 1px solid rgba(229, 229, 229, 0.7);
-          margin: 0 1rem;
-          display: flex;
-          div.bottom-box {
-            flex: 1;
-            padding: 0.2rem;
+          .top-right {
+            width: 4rem;
+            height: 4rem;
             a {
+              width: 100%;
+              height: 100%;
               display: block;
-            }
-            svg {
-              display: block;
-              margin: 0 auto;
-            }
-            p {
-              text-align: center;
-              font-size: @h6-font-size;
-              color: @gray-600;
+              padding-top: 0.5rem;
+              svg {
+                display: block;
+                margin: 0 auto;
+              }
+              p {
+                text-align: center;
+                font-size: @h6-font-size;
+                color: @gray-600;
+              }
             }
           }
         }

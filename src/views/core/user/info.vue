@@ -267,7 +267,7 @@
             this.showinfoBox = true
             this.showinfoTitle = true
             this.updateName = false
-            this.$vux.tosst.success('修改成功')
+            this.$vux.toast.success('修改成功')
           }
         }
         if (type === 'email') {
