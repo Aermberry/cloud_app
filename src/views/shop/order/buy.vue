@@ -218,8 +218,7 @@
           this.isFromCart = this.$route.params.isFromCart // 记录购买信息是否来自购物车
         }
         if (this.$route.params.isFromOrder !== undefined) {
-          // this.isFromOrder = this.$route.params.isFromOrder // 是否从订货页面来
-          this.isFromOrder = true
+          this.isFromOrder = this.$route.params.isFromOrder // 是否从订货页面来
         }
         if (buyProductInfo === undefined) {
           this.$vux.toast.warn('暂无商品，清先购买商品')
