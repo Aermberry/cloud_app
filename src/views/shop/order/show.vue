@@ -12,6 +12,42 @@
       </div>
 
       <div class="weui-form-preview__hd">
+        <label class="weui-form-preview__label address_name" style="width:12rem">销售人：杨雨</label>
+        <em class="weui-form-preview__value">{{viewModel.mobile}}</em>
+        <div class="weui-form-preview__item">
+          <span class="weui-form-preview__value address_particulars address_name">
+            联系电话：1376198489484
+          </span>
+        </div>
+      </div>
+      <div class="address-right-icon">
+        <m-icon name="zk-fixation-phone" class="icon"></m-icon>
+      </div>
+    </div>
+    <div class="vux-form-preview weui-form-preview zkui_order_buy-address">
+      <div class="address-left-icon">
+        <m-icon name="zk-orderaddress" class="icon"></m-icon>
+      </div>
+
+      <div class="weui-form-preview__hd">
+        <label class="weui-form-preview__label address_name" style="width:12rem">发货人：{{viewModel.name}}</label>
+        <em class="weui-form-preview__value">{{viewModel.mobile}}</em>
+        <div class="weui-form-preview__item">
+          <span class="weui-form-preview__value address_particulars address_name">
+            联系电话：1376198489484
+          </span>
+        </div>
+      </div>
+      <div class="address-right-icon">
+        <m-icon name="zk-fixation-phone" class="icon"></m-icon>
+      </div>
+    </div>
+    <div class="vux-form-preview weui-form-preview zkui_order_buy-address">
+      <div class="address-left-icon">
+        <m-icon name="zk-orderaddress" class="icon"></m-icon>
+      </div>
+
+      <div class="weui-form-preview__hd">
         <label class="weui-form-preview__label address_name" style="width:12rem">收货人：{{viewModel.name}}</label>
         <em class="weui-form-preview__value">{{viewModel.mobile}}</em>
         <div class="weui-form-preview__item">
@@ -121,7 +157,7 @@
         </li>
       </ul>
     </div>
-
+    <x-textarea title="卖家留言 " placeholder="填写内容已和卖家协商确认 " :show-counter="false " :rows="1"></x-textarea>
     <divider class="divider-bg "></divider>
     <div class="zkui-order-information">
       <div class="vux-form-preview weui-form-preview">
@@ -152,7 +188,7 @@
   // import orderService from 'src/service/api/order.api'
   import apiUser from 'src/service/api/user.api'
   import orderService from 'src/service/api/order.api'
-  import { Divider, Group, Cell, XButton, Box } from 'zkui'
+  import { Divider, Group, Cell, XButton, Box, XTextarea } from 'zkui'
   import local from 'src/service/common/local'
   export default {
     components: {
@@ -160,7 +196,8 @@
       Group,
       Cell,
       XButton,
-      Box
+      Box,
+      XTextarea
     },
     data () {
       return {
@@ -542,13 +579,26 @@
       .address-left-icon {
         position: absolute;
         top: 50%;
-        left: 0;
-        width: 40 * @rem;
-        height: 40 * @rem;
+        left: 0.8rem;
+        width: 20 * @rem;
+        height: 20 * @rem;
         transform: translatey(-50%);
         svg {
           width: 100%;
           height: 100%;
+        }
+      }
+      .address-right-icon {
+        position: absolute;
+        top: 50%;
+        right: 0.5rem;
+        width: 20 * @rem;
+        height: 20 * @rem;
+        transform: translatey(-50%);
+        svg {
+          width: 100%;
+          height: 100%;
+          color: @success;
         }
       }
     }

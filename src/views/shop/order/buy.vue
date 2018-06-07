@@ -1,5 +1,6 @@
 <template>
   <section class="zkui_order_buy">
+    <buy-address></buy-address>
     <div class="isFromOrder-warm" v-if="isFromOrder===true">
       <div class="warm-icon">
         <m-icon name="zk-warm"></m-icon>
@@ -8,8 +9,6 @@
         虚拟库存：付款后，把货存在上级那代管。下级下单可直接转上级发货，省去自己发货，减少物流成本。
       </div>
     </div>
-    <buy-address></buy-address>
-
     <group class="order_buy_product " v-for="(store,storeIndex) in modelView.storeItems " :key="storeIndex">
       <cell :title="store.storeName" class="border-bottom"> </cell>
       <div class="item-contnet">
@@ -215,7 +214,6 @@
       },
       async GetData () {
         var buyProductInfo = ''
-        console.info('this.$route.params.buyInfo', this.$route.params.buyInfo)
         if (this.$route.params.buyInfo !== undefined) {
           buyProductInfo = this.$route.params.buyInfo
           local.setStore('order_buy', buyProductInfo) // 将购买信息写到缓存中
@@ -227,12 +225,25 @@
         if (this.$route.params.isFromCart !== undefined) {
           this.isFromCart = this.$route.params.isFromCart // 记录购买信息是否来自购物车
         }
+        if (this.$route.params.isFromOrder !== undefined) {
+          this.isFromOrder = this.$route.params.isFromOrder// 是否从订货页面来
+          local.setStore('isFromOrder', this.$route.params.isFromOrder)
+        } else {
+          this.isFromOrder = local.getStore('isFromOrder')
+        }
         if (buyProductInfo === undefined) {
           this.$vux.toast.warn('暂无商品，清先购买商品')
           this.$router.push({
             name: 'commont_index'
           })
         } else {
+          if (this.$route.params.isFromOrder !== undefined) {
+            this.isFromOrder = this.$route.params.isFromOrder
+            local.setStore('isFromOrder', this.$route.params.isFromOrder)
+          } else {
+            this.isFromOrder = local.getStore('isFromOrder')
+          }
+
           var buyInfoInput = {
             loginUserId: this.LoginUser().id,
             isGroupBuy: this.isGroupBuy,
