@@ -13,7 +13,8 @@
       </div>
     </div>
     <div class="zkui-product-show-title-content">
-      <span class="zkui-product-show-title-storename left">{{productView.store}}</span>{{productView.name}}
+      <!-- <span class="zkui-product-show-title-storename left">{{productView.store}}</span>-->
+      {{productView.name}}
     </div>
 
     <!-- <group>
