@@ -215,17 +215,29 @@
     },
     mounted: function () {
       this.init()
+      console.log('productView', this.productView)
       this.$nextTick(function () {
         // 接收父主件的拼团参数
+        for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
+          this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
+        }
+        console.log(this.saleItems)
         this.$on('childMethod', function (isGroupBuyAction) {
           this.isGroupBuy = isGroupBuyAction // 接收父主件的拼团参数
           this.showSale = true
           this.showgroupBuy = true
+          if (isGroupBuyAction === true) {
+            console.log('this.isGroupBuy === true', isGroupBuyAction)
+            this.selectSkuDisplayPrice = this.getGroupBuySkuPrice(this.productView.productActivityExtension.activitys[0].value.SkuProducts[0].Id)
+            console.log('this.isGroupBuy === true', this.selectSkuDisplayPrice)
+          } else {
+            this.selectSkuDisplayPrice = this.productView.productExtensions.productSkus[0].displayPrice
+            for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
+              this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
+            }
+          }
         })
       })
-      for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
-        this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
-      }
     },
     methods: {
       specification () {
