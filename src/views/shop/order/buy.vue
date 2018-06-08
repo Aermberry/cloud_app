@@ -213,6 +213,7 @@
         }
       },
       async GetData () {
+        console.log('this.$route.params.buyInfo', this.$route.params.buyInfo)
         var buyProductInfo = ''
         if (this.$route.params.buyInfo !== undefined) {
           buyProductInfo = this.$route.params.buyInfo

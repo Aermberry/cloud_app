@@ -216,11 +216,11 @@
     mounted: function () {
       this.init()
       console.log('productView', this.productView)
+      for (var b = 0; b < this.productView.productExtensions.productCategory.salePropertys.length; b++) {
+        this.saleItems[b] = this.productView.productExtensions.productCategory.salePropertys[b].propertyValues[0]
+      }
       this.$nextTick(function () {
         // 接收父主件的拼团参数
-        for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
-          this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
-        }
         console.log(this.saleItems)
         this.$on('childMethod', function (isGroupBuyAction) {
           this.isGroupBuy = isGroupBuyAction // 接收父主件的拼团参数
@@ -230,6 +230,9 @@
             console.log('this.isGroupBuy === true', isGroupBuyAction)
             this.selectSkuDisplayPrice = this.getGroupBuySkuPrice(this.productView.productActivityExtension.activitys[0].value.SkuProducts[0].Id)
             console.log('this.isGroupBuy === true', this.selectSkuDisplayPrice)
+            for (var a = 0; a < this.productView.productExtensions.productCategory.salePropertys.length; a++) {
+              this.saleItems[a] = this.productView.productExtensions.productCategory.salePropertys[a].propertyValues[0]
+            }
           } else {
             this.selectSkuDisplayPrice = this.productView.productExtensions.productSkus[0].displayPrice
             for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
