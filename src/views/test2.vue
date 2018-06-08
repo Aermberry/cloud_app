@@ -1,29 +1,42 @@
 <template>
   <div>
-    <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-      <img v-if="imageUrl" :src="imageUrl" class="avatar">
-      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+    <el-upload class="avatar-uploader" :action="actionUrl" :show-file-list="false " :on-success="handleAvatarSuccess " :before-upload="beforeAvatarUpload ">
+      <img v-if="imageUrl " :src="imageUrl " class="avatar ">
+      <i v-else class="el-icon-plus avatar-uploader-icon "></i>
     </el-upload>
+    <div @click="ceshi">123</div>
   </div>
 </template>
 
 <script>
+  import { baseUrl } from 'src/service/config/env'
   import { } from 'zkui'
   export default {
     components: {
     },
     data () {
       return {
-        imageUrl: ''
+        imageUrl: '',
+        actionUrl: '',
+        imageName: ''
       }
     },
     created () {
     },
     mounted () {
+      this.data()
     },
     methods: {
+      data () {
+        this.actionUrl = baseUrl + '/api//common/upload'
+      },
+      ceshi () {
+      },
       handleAvatarSuccess (res, file) {
+        console.log(res, file)
         this.imageUrl = URL.createObjectURL(file.raw)
+        this.imageName = res.result.saveFileName
+        console.log('imageName', this.imageName)
       },
       beforeAvatarUpload (file) {
         const isJPG = file.type === 'image/jpeg'

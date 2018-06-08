@@ -10,7 +10,6 @@
           <div class="portrait-right ">
             <img :src="userInfo.avator " alt=" ">
           </div>
-
         </div>
         <cell title="名字 " :value="userInfo.name " is-link @click.native="ceshi('name') "></cell>
         <!-- <cell title="性别 " :value="userInfo.sex" is-link @click.native="ceshi('sex') "></cell> -->
@@ -32,13 +31,21 @@
     </div>
     <!-- 修改头像 -->
     <div class="show-portrait " v-if="!portrait ">
-      <x-header :right-options="{showMore: true}" :left-options="{showBack: false}" @on-click-more=" showMenus=true ">
+      <x-header :right-options="{showMore: false}" :left-options="{showBack: false}" @on-click-more=" showMenus=true ">
         {{infoTitle}}
         <div class="showback" @click="showback()">
         </div>
+        <div class="accomplish" @click="accomplish('avatar')">
+          完成
+        </div>
       </x-header>
-      <img :src="userInfo.avator " alt=" ">
-      <zk-upload :fileCount="1" :max="1" savePath="identity" :size="5*1024" ref="uploadFile"></zk-upload>
+      <div class="avatar-box">
+        <!-- <img :src="userInfo.avator" alt=" " class="avator" v-if="this.imageName === ''"> -->
+        <el-upload class="avatar-uploader" :action="actionUrl" :show-file-list="false " :on-success="handleAvatarSuccess " :before-upload="beforeAvatarUpload ">
+          <img v-if="imageUrl " :src="imageUrl " class="avatar ">
+          <i v-else class="el-icon-plus avatar-uploader-icon "></i>
+        </el-upload>
+      </div>
     </div>
     <!-- 修改姓名 -->
     <div class="set-name" v-if="updateName">
@@ -125,6 +132,7 @@
   import { ZkCell, ZkAddress } from 'src/widgets/'
   import address from 'src/service/common/address'
   import { ZkUpload } from 'widgets'
+  import { baseUrl } from 'src/service/config/env'
   import { MIcon, Group, Cell, XHeader, Actionsheet, TransferDom, ButtonTab, ButtonTabItem, XInput, Radio, PopupPicker, XTextarea } from 'zkui'
   export default {
     directives: {
@@ -190,7 +198,10 @@
           menu1: 'Take Photo',
           menu2: 'Choose from photos'
         },
-        showMenus: false
+        showMenus: false,
+        imageUrl: '',
+        actionUrl: '', // 后台地址
+        imageName: '' // 上传的头像
       }
     },
     mounted () {
@@ -207,6 +218,7 @@
           this.updateName = false
           this.updateGender = false
           this.updateAddress = false
+          this.updateEmail = false
           this.addressBox = false
         }
       },
@@ -260,6 +272,25 @@
         // }
       },
       async accomplish (type) {
+        if (type === 'avatar') {
+          let par = {
+            Avator: this.imageName
+          }
+          this.portrait = true
+          console.log('type', type)
+          console.log('par', par)
+          var avatorResponse = await userService.update(par)
+          console.log('avatorResponse', avatorResponse)
+          if (avatorResponse.data.status === 1) {
+            this.userInfo.avator = this.imageName
+            this.showinfoBox = true
+            this.showinfoTitle = true
+            this.portrait = true
+            this.$vux.toast.success('修改成功')
+          } else {
+            this.$vux.toast.warm('修改失败')
+          }
+        }
         if (type === 'name') {
           let userDetail = {
             NickName: this.uName
@@ -273,20 +304,26 @@
             this.showinfoTitle = true
             this.updateName = false
             this.$vux.toast.success('修改成功')
+          } else {
+            this.$vux.toast.warm('修改失败')
           }
         }
         if (type === 'email') {
           let userDetail = {
-            NickName: this.uName
+            Email: this.uEmail
           }
-          console.log('name', this.uName)
+          console.log('uEmail', this.uEmail)
+          console.log('userDetail', userDetail)
           var response = await userService.update(userDetail)
-          console.log(response)
+          console.log('response-email', response)
           if (response.data.status === 1) {
-            this.userInfo.name = this.uName
+            this.userInfo.email = this.uEmail
             this.showinfoBox = true
             this.showinfoTitle = true
-            this.updateName = false
+            this.updateEmail = false
+            this.$vux.toast.success('修改成功')
+          } else {
+            this.$vux.toast.warm('修改失败')
           }
         }
         if (type === 'sex') {
@@ -314,38 +351,6 @@
             }
           }
         }
-        if (type === 'address') {
-          this.showinfoBox = true
-          this.showinfoTitle = true
-          this.updateAddress = false
-        }
-        if (type === 'addressBox') {
-          let parameter = {
-            Address: this.addressInput,
-            RegionId: this.addressString
-
-          }
-          var addressBoxMessage = await userService.update(parameter)
-          console.log(addressBoxMessage)
-          if (addressBoxMessage.data.status === 1) {
-            this.userInfo.address = this.addressInput
-            this.addressBox = false
-          }
-        }
-        // if (type === 'phone') {
-        //   let userDetail = {
-        //     nickName: this.uMobile
-        //   }
-        //   console.log(this.uMobile)
-        //   var moblieM = await userService.update(userDetail)
-        //   console.log(moblieM)
-        //   if (moblieM.data.status === 1) {
-        //     this.userInfo.mobile = this.uMobile
-        //     this.showinfoBox = true
-        //     this.showinfoTitle = true
-        //     this.updateMobile = false
-        //   }
-        // }
       },
       aBox () {
         this.addressInput = this.userInfo.address
@@ -356,6 +361,7 @@
         this.addressString = this.addressValue[2]
       },
       async GetData () {
+        this.actionUrl = baseUrl + '/api//common/upload'
         this.addressData = address.addressData
         var reponse = await userService.view(this.data)
         console.log(reponse)
@@ -386,6 +392,24 @@
           this.userInfo.sex = '女'
         }
         console.log(this.viewModel.sex, this.userInfo.sex)
+      },
+      handleAvatarSuccess (res, file) {
+        console.log(res, file)
+        this.imageUrl = URL.createObjectURL(file.raw)
+        this.imageName = res.result.saveFileName
+        console.log('this.imageName ', this.imageName)
+      },
+      beforeAvatarUpload (file) {
+        const isJPG = file.type === 'image/jpeg'
+        const isLt2M = file.size / 1024 / 1024 < 2
+
+        if (!isJPG) {
+          this.$message.error('上传头像图片只能是 JPG 格式!')
+        }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!')
+        }
+        return isJPG && isLt2M
       }
     }
   }
@@ -446,8 +470,14 @@
     }
     .show-portrait {
       width: 100%;
-      img {
+      img.avator {
         width: 100%;
+      }
+      .avatar-box {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
       }
     }
     .vux-header {
@@ -478,5 +508,28 @@
         transform: translateY(-50%);
       }
     }
+  }
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409eff;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
   }
 </style>
