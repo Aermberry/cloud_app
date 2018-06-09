@@ -43,14 +43,14 @@
       }
     },
     created () {
+      this.GetData()
       console.log('create', this.$route.query)
     },
     mounted () {
-      this.upCallback()
       console.log(this.$route.params)
     },
     methods: {
-      async sortNum (id) {
+      async GetData (id) {
         let params = {
           SortOrder: id,
           Keyword: this.productList.Keyword, // 搜索关键字
@@ -68,58 +68,7 @@
         }
         // this.sort = id
         let response = await apiService.list(params) // 通过异步方法获取数据
-        let totalSize = response.data.result.totalSize // 获取总页数
-        this.styleType = response.data.result.styleType // 选择何种风格
-        if (this.pageIndex < totalSize) {
-          this.$refs.mescroll.endSuccess(params, totalSize) // 调用widget xsroll 下拉刷新函数
-        }
-        this.dataList = response.data.result.productItems
-        if (this.dataList.length !== 0) {
-          this.datashow = false
-        }
-        if (this.pageIndex < totalSize) {
-          this.pageIndex = this.pageIndex + 1 // 下拉时是自动增加一页
-        }
-      },
-      async upCallback () {
-        for (var index in this.$route.query) {
-          if (this.$route.query[index] !== '') {
-            this.productList[index] = this.$route.query[index]
-          }
-        }
-        if (this.$route.params.value !== '' || this.$route.params.value !== 'undefined') {
-          this.productList.Keyword = this.$route.params.value
-        }
-        let params = {
-          SortOrder: this.productList.SortOrder, // 商品排序方式
-          Keyword: this.productList.Keyword, // 搜索关键字
-          MinPrice: this.productList.MinPrice, // 最低价格
-          MaxPrice: this.productList.MaxPrice, // 最高价格
-          ClassIds: this.productList.ClassIds, // 商品分类Id
-          TagId: this.productList.TagIds, // 商品标签ID
-          ProductIds: this.productList.ProductIds, // 商品Id
-          BrandId: this.productList.BrandId, // 商品品牌Id
-          PriceStyleId: this.productList.PriceStyleId, //  商品模式
-          OrderType: this.productList.OrderType, // 排序方式
-          ClasssId: this.productList.ClasssId,
-          pageIndex: this.pageIndex, // 当前第页,下拉一次增加一次
-          pageSize: this.pageSize // 每页显示的数量 建议20
-        }
-        console.log('参数', this.productList, params)
-        let response = await apiService.list(params) // 通过异步方法获取数据
-        let totalSize = response.data.result.totalSize // 获取总页数
-        this.styleType = response.data.result.styleType // 选择何种风格
-        if (this.pageIndex < totalSize) {
-          this.$refs.mescroll.endSuccess(params, totalSize) // 调用widget xsroll 下拉刷新函数
-        }
-        this.dataList = this.dataList.concat(response.data.result.productItems)
-        // console.log('dataList', this.dataList, this.dataList.length)
-        if (this.dataList.length !== 0) {
-          this.datashow = false
-        }
-        if (this.pageIndex < totalSize) {
-          this.pageIndex = this.pageIndex + 1 // 下拉时是自动增加一页
-        }
+        console.info('商品分类', response)
       }
     }
   }
