@@ -7,10 +7,10 @@ function isMobile () {
   return flag
 }
 if (isMobile()) {
-  equipment = 'views'
+  equipment = 'pages'
 } else {
-  // equipment = 'pages'
-  equipment = 'views' // 只为调试方便
+  equipment = 'pages'
+  // equipment = 'views' // 只为调试方便
 }
 export default {
   equipment

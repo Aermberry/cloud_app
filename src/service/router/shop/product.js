@@ -20,7 +20,7 @@ export default [{
     },
     name: 'product_list',
     component: function (resolve) {
-      require(['src/views/shop/product/list.vue'], resolve)
+      require(['src/' + equipment.equipment + '/shop/product/list.vue'], resolve)
     }
   },
   {

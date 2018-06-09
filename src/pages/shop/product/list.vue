@@ -1,58 +1,7 @@
 
 <template>
   <section class="zkui-product_list">
-    <zk-head title='商品列表' goBack=''></zk-head>
-    <div style="width: 100%;" class="list-fixed">
-      <!-- <tab-item  @click.native="sortNum(0)" selected>默认排序</tab-item> -->
-      <!-- <tab-item @click.native="sortNum(1)">价格</tab-item> -->
-      <!-- <tab-item @click.native="sortNum(2)">商品添加时间</tab-item> -->
-      <!-- <tab-item @click.native="sortNum(3)">人气</tab-item> -->
-      <!-- <tab-item @click.native="sortNum(4)">销售数量</tab-item> -->
-      <!-- <tab-item @click.native="sortNum(5)">喜欢数量</tab-item> -->
-      <!-- <tab-item @click.native="sortNum(6)">收藏数量</tab-item> -->
-      <tab :animate="false">
-        <tab-item active-class="active-6-1" selected @click.native="tabDown=!tabDown">默认排序
-          <m-icon name="zk-arrowsDown" class="icon"></m-icon>
-          <ul v-show="tabDown">
-            <li @click="sortNum(2)">最新</li>
-            <li @click="sortNum(5)">最热</li>
-            <li @click="sortNum(6)">关注</li>
-          </ul>
-        </tab-item>
-        <tab-item active-class="active-6-2" @click.native="sortNum(1)">价格</tab-item>
-        <tab-item active-class="active-6-3" @click.native="sortNum(3)">人气</tab-item>
-        <tab-item active-class="active-6-4" @click.native="sortNum(4)">销量</tab-item>
-      </tab>
-    </div>
-    <div class="placeholder"></div>
-    <x-scroll class="scroller" :upCallback="upCallback" ref="mescroll" warpId="index_scroll" id="index_scroll">
-      <section class="ZKProductItem" v-if="!datashow">
-        <div class="zkui-product-item__1 ">
-          <ul>
-            <li v-for="(item,index) in dataList" :key="index">
-              <dl>
-                <dt>
-                  <router-link :to="'/product/show/'+item.id">
-                    <x-img :src="item.thumbnailUrl" :alt="item.thumbnailUrl"></x-img>
-                  </router-link>
-                </dt>
-                <dd class="itemTitle">
-                  <router-link :to="'/product/show/'+item.id">
-                    {{item.name}}
-                  </router-link>
-                </dd>
-                <dd class="itemPrice">
-                  <p>{{item.displayPrice}}</p>
-                  <span v-if="item.marketPrice!==0">￥{{item.marketPrice}}</span>
-                </dd>
-              </dl>
-            </li>
-          </ul>
-        </div>
-        <zk-foot></zk-foot>
-      </section>
-    </x-scroll>
-    <zk-notdata v-if="datashow"></zk-notdata>
+    ssssssssssssssss
   </section>
 </template>
 <script>
@@ -227,7 +176,7 @@
         height: 20rem;
         margin: 2% 0 0 2%;
         padding-bottom: 0.3rem;
-        border-radius: 2*@rem;
+        border-radius: 2 * @rem;
         border: 1px solid rgba(229, 229, 229, 0.4);
 
         dl {
@@ -255,7 +204,7 @@
             }
           }
           .itemPrice {
-            padding-left: 10*@rem;
+            padding-left: 10 * @rem;
             min-height: 3rem;
             p {
               color: @brand;
