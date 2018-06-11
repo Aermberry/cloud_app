@@ -282,7 +282,7 @@
           var avatorResponse = await userService.update(par)
           console.log('avatorResponse', avatorResponse)
           if (avatorResponse.data.status === 1) {
-            this.userInfo.avator = this.imageName
+            this.userInfo.avator = baseUrl + this.imageName
             this.showinfoBox = true
             this.showinfoTitle = true
             this.portrait = true
@@ -441,9 +441,9 @@
         line-height: 3rem;
       }
       .portrait-right {
-        width: 3.5rem;
+        width: 4rem;
         height: 3rem;
-        padding-right: 0.5rem;
+        padding-right: 1rem;
         position: relative;
         img {
           width: 100%;
