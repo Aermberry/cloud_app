@@ -39,13 +39,13 @@
     </div>
     <zk-grid diykey="grid_index" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
     <zk-singlead diykey="index_single_ad"></zk-singlead>
-    <group class="flex">
+    <group-title class="flex">
       <div class="fashion-title">
         拼团
       </div>
-    </group>
+    </group-title>
     <zk-groupbuy :pageSize=4 classIds='' :pagination=6 tagsId='' diykey='index'></zk-groupbuy>
-    <group class="flex">
+    <group-title class="flex">
       <div class="fashion-title">
         流行单品
       </div>
@@ -60,8 +60,7 @@
           </swiper-item>
         </swiper>
       </div>
-    </group>
-
+    </group-title>
     <zk-product-item :pageSize=4 classIds='' :pagination=6 tagsId='' diykey='index'></zk-product-item>
     <div class="yqp-more">
       <router-link to="/product/list?SortOrder=2">查看更多 </router-link>
