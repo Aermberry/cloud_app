@@ -252,7 +252,6 @@
           }
           console.info('购物信息', buyInfoInput)
           var response = await apiService.buyProduct(buyInfoInput)
-          console.log('response', response)
           if (response.data.status !== 1) {
             this.messageWarn(response.data.message)
           } else {
@@ -277,7 +276,6 @@
       },
       // 获取价格,更改店铺运费方式，修改地址时候，会修改价格
       async getPrice () {
-        console.log('defaultAddress', local.getLoginStore('default_address'))
         var defaultAddress = local.getLoginStore('default_address') // 刷新时从缓冲中读取地址
         if (defaultAddress !== undefined) {
           console.log('defaultAddress', defaultAddress)

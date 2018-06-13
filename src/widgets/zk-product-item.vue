@@ -68,7 +68,7 @@
         default: '' // 默认Diy方式
       },
       pagination: {
-        type: Number
+        type: Number // 显示多少页
       }
     },
     data () {

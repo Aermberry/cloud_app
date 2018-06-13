@@ -41,7 +41,7 @@ export default [{
   {
     path: '/cztIndex', // 云债通首页
     meta: {
-      title: '首页'
+      title: '云债通首页'
     },
     name: 'czt',
     component: function (resolve) {
@@ -51,7 +51,7 @@ export default [{
   {
     path: '/yqpIndex', // 一起拼首页
     meta: {
-      title: '首页'
+      title: '一起拼首页'
     },
     name: 'yqp',
     component: function (resolve) {
@@ -61,11 +61,21 @@ export default [{
   {
     path: '/gsIndex', // 港生首页
     meta: {
-      title: '首页'
+      title: '港生首页'
     },
     name: 'gs',
     component: function (resolve) {
       require(['src/views/gsIndex'], resolve)
+    }
+  },
+  {
+    path: '/zmIndex', // 中酶首页
+    meta: {
+      title: '中酶首页'
+    },
+    name: 'gs',
+    component: function (resolve) {
+      require(['src/views/zmIndex'], resolve)
     }
   },
   {
