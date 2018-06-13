@@ -1,12 +1,11 @@
 <template>
-  <div class="zkui-pc-productshow auto">
+  <div class="zkui-pc-productshow">
     <header class="productshow-top-box">
-      世界，你好
       <div class="wrap">
-        <a href="#">匠芯首页</a>
+        <a href="#" class="l-logo">匠芯首页</a>
         <ul>
           <li>
-            <a href="#">
+            <a href="#" >
               登陆
             </a>
           </li>
@@ -40,38 +39,61 @@
 </template>
 <script>
 
+
 </script>
+
+
 <style lang="less" scoped>
   // Public style
+  *{
+    margin: 0;
+    padding: 0;
+  }
   .auto {
     margin: 0 auto;
-    width: 1200;
+    width: 1200px;
   }
+
   .fl {
     float: left;
   }
+
   .fr {
     float: right;
   }
+
   .clearfix:after {
     content: '';
     display: table;
     clear: both;
-  }
-  a {
-    font-size: 10px;
-  }
-  // Private style
-
+  } // Private style
   .zkui-pc-productshow {
     header {
-      height: 50px;
-      width: 100%;
-      background-color: red;
-      font-size: 8px;
-      .wrap{
-        a {
-          // font-size: 10px;
+      .wrap {
+        // position: relative;
+        height: 10px;
+        width: 100%;
+        background-color: #f2f2f2;
+        background-color: black;
+
+        .l-logo {
+          // position: absolute;
+          left: 0;
+          // display:inline-block;
+          background-color:pink;
+          font-size: 8px;
+          color: #000000;
+        }
+        ul {
+          background-color:green;
+          // position: absolute;
+          right: 0;
+          li {
+            display: inline;
+            a{
+              font-size: 10px;
+            }
+          }
         }
       }
     }
