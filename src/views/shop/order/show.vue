@@ -6,7 +6,7 @@
         <cell title="地址" value="请选择地址" is-link svg='zk-orderaddress'> </cell>
       </group>
     </div> -->
-    <div class="vux-form-preview weui-form-preview zkui_order_buy-address">
+    <!-- <div class="vux-form-preview weui-form-preview zkui_order_buy-address">
       <div class="address-left-icon">
         <m-icon name="zk-orderaddress" class="icon"></m-icon>
       </div>
@@ -41,7 +41,7 @@
       <div class="address-right-icon">
         <m-icon name="zk-fixation-phone" class="icon"></m-icon>
       </div>
-    </div>
+    </div> -->
     <div class="vux-form-preview weui-form-preview zkui_order_buy-address">
       <div class="address-left-icon">
         <m-icon name="zk-orderaddress" class="icon"></m-icon>

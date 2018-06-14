@@ -274,6 +274,7 @@
             productId: this.productView.id
           }
           var responseRecord = await productService.groupBuyRecord(par)
+          console.log('responseRecord', responseRecord)
           if (responseRecord.data.status === 1) {
             this.groupBuyRecord = responseRecord.data.result
             this.groupBuyLength = this.groupBuyRecord.length
