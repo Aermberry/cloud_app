@@ -1,19 +1,20 @@
 <template>
   <section class="zkui-zm">
+    <div class="zkui-zm-top-placeholder"></div>
     <div class="zkui-zm-top flex">
       <div class="zm-head-left">
-  <img :src="Ilogo">
+        <img :src="Ilogo">
       </div>
       <div class="zm-head-center">
-  <div class="center-box">
-        <m-icon name="zk-search"></m-icon>
-        <div class="cneter-test">
-          搜索商品
+        <div class="center-box">
+          <m-icon name="zk-search"></m-icon>
+          <div class="cneter-test">
+            搜索商品
+          </div>
         </div>
-  </div>
       </div>
-            <div class="zm-head-right">
-               <m-icon name="zk-qrcode1" class="icon-brand index-qrcode " link="/user/qrcode"></m-icon>
+      <div class="zm-head-right">
+        <m-icon name="zk-qrcode1" class="icon-brand index-qrcode " link="/user/qrcode"></m-icon>
       </div>
     </div>
     <zk-swiper diykey="swiper_index" height="210px"></zk-swiper>
@@ -81,45 +82,54 @@
     background: white;
   }
   .zkui-zm {
+    .zkui-zm-top-placeholder {
+      height: 2.5rem;
+    }
     .zkui-zm-top {
-      height:3rem;
+      width: 100%;
+      height: 3rem;
       background: @white;
-      .zm-head-left{
-        height:100%;
-        padding:.3rem 1.5rem;
-        img{
-        width:4rem;
-        height:2.4rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      border-bottom: 1px solid rgba(229, 229, 229, 0.7);
+      .zm-head-left {
+        height: 100%;
+        padding: 0.3rem 1.5rem;
+        img {
+          width: 4rem;
+          height: 2.4rem;
+        }
+      }
+      .zm-head-center {
+        flex: 1;
+        height: 3rem;
+        padding: 0.5rem 0;
+        .center-box {
+          background: #eeeeee;
+          height: 100%;
+          display: flex;
+          padding-left: 1rem;
+          svg {
+            height: 1.4rem;
+            width: 1.4rem;
+            margin: 0.3rem;
           }
-      }
-      .zm-head-center{
-        flex:1;
-        height:3rem;
-        padding:.5rem 0;
-        .center-box{
-        background:#eeeeee;
-        height:100%;
-        display:flex;
-        padding-left:1rem;
-        svg{
-            height:1.4rem;
-            width:1.4rem;
-            margin:.3rem;
-        }
-        .cneter-test{
-          color:#6c757d;
-          line-height:2rem;
-          font-size:1rem;
-        }
+          .cneter-test {
+            color: #6c757d;
+            line-height: 2rem;
+            font-size: 1rem;
+          }
         }
       }
-      .zm-head-right{
-        padding:.3rem;
-        width:3rem;
-        height:3rem;
-        svg{
-          width:2.4rem;
-          height:2.4rem;
+      .zm-head-right {
+        padding: 0.3rem;
+        width: 3rem;
+        height: 3rem;
+        svg {
+          width: 2.4rem;
+          height: 2.4rem;
         }
       }
     }
