@@ -89,7 +89,7 @@
           </ul>
         </div>
         <div class="scontent-right">
-          <x-button type="primary" @click.native="showStayshare=!showStayshare">邀请好友</x-button>
+          <x-button type="primary" :link="'/product/show/'+data.productSkuItems[0].productId+'?activitySelectId='+OrderGroupUser.activityRecordId+'&&userId='+OrderGroupUser.userId">邀请好友</x-button>
         </div>
       </div>
     </div>
@@ -108,7 +108,6 @@
           </ul>
         </div>
       </div>
-
     </div>
     <divider class="divider-bg " v-if="data.orderStatus === 10"></divider>
     <group class="order_show-title">

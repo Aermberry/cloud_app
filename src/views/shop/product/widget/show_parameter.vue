@@ -11,7 +11,7 @@
     <group class="zkui-product-show-groupbuy" v-if="isGroupBuyProduct">
       <cell :title="groupBuyLength+'人在拼团，可直接参与'" v-if="groupBuyLength>0"></cell>
       <div class="groupbuy-box">
-        <ul v-for="(item,index) in groupBuyRecord" :key="index">
+        <ul v-for="(item,index) in groupBuyRecord" :key="index" v-if="share.activitySelectId!==item.activityRecordId">
           <li class="groupbuy-img">
             <img :src="item.users[0].avator" alt="">
           </li>
@@ -158,6 +158,23 @@
         </div>
       </popup>
     </div>
+    <!-- 分享 -->
+    <div class="stayShare-popup-parameter" v-if="showStayshare">
+      <div class="popup-box">
+        <span class="vux-close" @click="showStayshare=!showStayshare"></span>
+        <div class="p-title">还差
+          <span>5</span>人,赶快邀请好友来拼单吧
+        </div>
+        <div class="p-content">
+          <ul class="flex">
+            <li>
+              <m-icon name="zk-vx" class="icon"></m-icon>
+              <p>点击右上角分享给微信好友</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -195,7 +212,8 @@
         groupBuyWindowMessage: {
           name: '',
           time: '',
-          places: ''
+          places: '',
+          id: ''
         },
         groupBuyRecord: '', // 商品拼团记录
         groupBuyLength: '', // 拼团数量
@@ -207,11 +225,33 @@
           one: [],
           two: [],
           three: []
-        }
+        },
+        share: { // 分享跳转接收到的数据
+          activitySelectId: '',
+          userId: ''
+        },
+        showStayshare: false // 分享框
       }
     },
     created () {
       this.isGroupBuyProduct = this.productView.productActivityExtension.isGroupBuy
+      console.log('this.$route.query', this.$route.query)
+      // 分享
+      if (this.$route.query.activitySelectId !== undefined) {
+        this.share.activitySelectId = this.$route.query.activitySelectId
+        console.log('this.share.activitySelectId ', this.share.activitySelectId)
+      }
+      if (this.$route.query.userId !== undefined) {
+        this.share.userId = this.$route.query.userId
+        console.log('this.share.userId ', this.share.userId)
+      }
+      var uid = this.LoginUser().id
+      console.log('this.LoginUser().id', this.LoginUser().id, typeof (this.LoginUser().id))
+      console.log(' this.$route.query.userId', this.$route.query.userId, typeof (this.$route.query.userId))
+      if (this.$route.query.activitySelectId !== undefined && this.$route.query.userId === uid.toString()) {
+        this.showStayshare = true
+      }
+      console.log('this.showStayshare ', this.showStayshare)
     },
     mounted: function () {
       this.init()
@@ -258,6 +298,7 @@
         this.groupBuyWindowMessage.name = name
         this.groupBuyWindowMessage.time = time
         this.groupBuyWindowMessage.places = places
+        this.groupBuyWindowMessage.id = id
         this.isGroupBuy = true
       },
       async init () {
@@ -273,7 +314,7 @@
             productId: this.productView.id
           }
           var responseRecord = await productService.groupBuyRecord(par)
-          console.log('responseRecord', responseRecord)
+          console.log('responseRecord拼团记录', responseRecord)
           if (responseRecord.data.status === 1) {
             this.groupBuyRecord = responseRecord.data.result
             this.groupBuyLength = this.groupBuyRecord.length
@@ -308,8 +349,10 @@
       // (activitySelectId=0，isGroupBuy=true)表示发起拼团 (activitySelectId>0，isGroupBuy=true)参与拼团,isGroupBuy=false，普通购买
       buyProduct (isGroupBuy) {
         console.log('isGroupBuy', isGroupBuy)
-        if (this.isInitiateGroup === true) {
+        if (this.isInitiateGroup === true && isGroupBuy === true) {
           this.activitySelectId = 0
+        } else {
+          this.activitySelectId = this.groupBuyWindowMessage.id
         }
         this.groupBuyWindow = false
         helper.checkLogin(true)
@@ -330,13 +373,13 @@
         }]
         this.showSale = false
         console.log(buyProductInfo)
-        this.$router.push({
-          name: 'order_buy',
-          params: {
-            buyInfo: buyProductInfo,
-            isFromOrder: this.isFromOrder
-          }
-        })
+        // this.$router.push({
+        //   name: 'order_buy',
+        //   params: {
+        //     buyInfo: buyProductInfo,
+        //     isFromOrder: this.isFromOrder
+        //   }
+        // })
       },
       getSku () {
         var specSn = ''
@@ -391,7 +434,61 @@
 <style   lang="less">
   @import '../../../../assets/css/zkui/theme';
   @import '../../../../assets/css/zkui/mixin';
-
+  .stayShare-popup-parameter {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 8888;
+    background: rgba(0, 0, 0, 0.8);
+    .popup-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      background: white;
+      min-height: 3rem;
+      border-radius: 10px;
+      padding: 2rem;
+      .vux-close {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+      .p-title {
+        height: 2.5rem;
+        color: @black;
+        font-size: @h4-font-size;
+        font-weight: bold;
+        text-align: center;
+        span {
+          font-size: @h4-font-size;
+          font-weight: bold;
+          color: @brand;
+        }
+      }
+      .p-content {
+        .flex {
+          li {
+            flex: 1;
+            svg {
+              display: block;
+              margin: 0 auto;
+              width: 3.5rem;
+              height: 3.5rem;
+            }
+            p {
+              text-align: center;
+              color: @gray-600;
+              margin-top: 0.5rem;
+            }
+          }
+        }
+      }
+    }
+  }
   .zkui-product-show-parameter {
     .vux-label {
       font-weight: @font-weight-normal;

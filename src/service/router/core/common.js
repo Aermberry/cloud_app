@@ -73,7 +73,7 @@ export default [{
     meta: {
       title: '中酶首页'
     },
-    name: 'gs',
+    name: 'zm',
     component: function (resolve) {
       require(['src/views/zmIndex'], resolve)
     }
