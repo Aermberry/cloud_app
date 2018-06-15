@@ -221,7 +221,6 @@
       }
       this.$nextTick(function () {
         // 接收父主件的拼团参数
-        console.log(this.saleItems)
         this.$on('childMethod', function (isGroupBuyAction) {
           this.isGroupBuy = isGroupBuyAction // 接收父主件的拼团参数
           this.showSale = true
@@ -308,6 +307,7 @@
       // 购买商品,isGroupBuy是否为拼团,activitySelectId:参与拼团的活动Id,
       // (activitySelectId=0，isGroupBuy=true)表示发起拼团 (activitySelectId>0，isGroupBuy=true)参与拼团,isGroupBuy=false，普通购买
       buyProduct (isGroupBuy) {
+        console.log('isGroupBuy', isGroupBuy)
         if (this.isInitiateGroup === true) {
           this.activitySelectId = 0
         }
