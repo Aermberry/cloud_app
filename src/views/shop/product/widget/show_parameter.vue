@@ -264,6 +264,7 @@
         this.$on('childMethod', function (isGroupBuyAction) {
           this.isGroupBuy = isGroupBuyAction // 接收父主件的拼团参数
           this.showSale = true
+          this.isInitiateGroup = true
           this.showgroupBuy = true
           if (isGroupBuyAction === true) {
             console.log('this.isGroupBuy === true', isGroupBuyAction)
@@ -294,6 +295,7 @@
       groupBuy (id, name, time, places) {
         this.groupBuyWindow = true
         this.activitySelectId = id
+        this.isInitiateGroup = false
         console.log('this.activitySelectId', id, name, time, places)
         this.groupBuyWindowMessage.name = name
         this.groupBuyWindowMessage.time = time
@@ -348,7 +350,6 @@
       // 购买商品,isGroupBuy是否为拼团,activitySelectId:参与拼团的活动Id,
       // (activitySelectId=0，isGroupBuy=true)表示发起拼团 (activitySelectId>0，isGroupBuy=true)参与拼团,isGroupBuy=false，普通购买
       buyProduct (isGroupBuy) {
-        console.log('isGroupBuy', isGroupBuy)
         if (this.isInitiateGroup === true && isGroupBuy === true) {
           this.activitySelectId = 0
         } else {
@@ -373,13 +374,13 @@
         }]
         this.showSale = false
         console.log(buyProductInfo)
-        // this.$router.push({
-        //   name: 'order_buy',
-        //   params: {
-        //     buyInfo: buyProductInfo,
-        //     isFromOrder: this.isFromOrder
-        //   }
-        // })
+        this.$router.push({
+          name: 'order_buy',
+          params: {
+            buyInfo: buyProductInfo,
+            isFromOrder: this.isFromOrder
+          }
+        })
       },
       getSku () {
         var specSn = ''
