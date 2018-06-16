@@ -64,7 +64,8 @@
           <m-icon name="zk-cart"></m-icon>
         </div>
         <div class="stitle-right">
-          待分享,还差5人,剩余23:57:06
+          待分享,还差{{GroupUserFirst.count}}人,剩余
+          <zk-timedown @time-end="message = '倒计时结束'" :endTime='GroupUserFirst.time '></zk-timedown>
         </div>
       </div>
       <div class="scontent flex">
@@ -179,6 +180,7 @@
   // import orderService from 'src/service/api/order.api'
   import apiUser from 'src/service/api/user.api'
   import orderService from 'src/service/api/order.api'
+  import { ZkTimedown } from 'widgets'
   import { Divider, Group, Cell, XButton, Box, XTextarea } from 'zkui'
   import local from 'src/service/common/local'
   export default {
@@ -188,7 +190,8 @@
       Cell,
       XButton,
       Box,
-      XTextarea
+      XTextarea,
+      ZkTimedown
     },
     data () {
       return {
@@ -197,7 +200,11 @@
         state: '',
         showPay: false,
         showStayshare: false,
-        OrderGroupUser: ''
+        OrderGroupUser: '',
+        GroupUserFirst: {
+          tiem: '',
+          count: ''
+        }
       }
     },
     mounted () {
@@ -243,6 +250,8 @@
         var OrderGroupUser = await orderService.OrderGroupUser(oId)
         console.log('OrderGroupUser', OrderGroupUser)
         this.OrderGroupUser = OrderGroupUser.data.result
+        this.GroupUserFirst.time = this.OrderGroupUser[0].endTime
+        this.GroupUserFirst.count = this.OrderGroupUser[0].remainCount
       },
       pay () {
         var buyProductInfo = []
