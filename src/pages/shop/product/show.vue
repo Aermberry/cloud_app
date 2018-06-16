@@ -125,33 +125,29 @@
           line-height: 30px;
           height: 30px;
           width: 100px;
-          display: flex; //启用flex布局
-          flex-flow: row nowrap; //flex是flex-direction和flex-wrap的缩写
-          justify-content: center; //主轴的对齐方式
-          align-items: center; //侧轴的对齐方式
+          display: flex;
+          flex-flow: row nowrap;
+          justify-content: center;
+          align-items: center;
           span {
             font-size: 12px;
           }
           span:first-child {
             line-height: 30px;
-            flex-basis: 26px; //调整第一个span在flex布局中的占空间的比例
+            flex-basis: 26px;
           }
         }
         ul {
           position: absolute;
-          // display: block;
+
           right: 10px;
           top: 0;
           display: flex;
           flex-flow: row nowrap;
           justify-content: space-around;
           width: auto;
-          // background-color: pink;
+
           li {
-            // padding: 0 10px;
-
-            //  background-color: green;
-
             height: 100%;
             a {
               border-right: 1px solid #eeeeee;
