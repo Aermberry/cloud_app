@@ -69,22 +69,14 @@
       </div>
       <div class="scontent flex">
         <div class="scontent-left">
-          <ul class="flex">
-            <li>
+          <ul class="">
+            <li v-for="(item,index) in OrderGroupUser" :key="index">
               ?
-              <img :src="OrderGroupUser.avator" alt="">
+              <img :src="item.avator" alt="">
             </li>
             <li>
               ?
-            </li>
-            <li>
-              ?
-            </li>
-            <li>
-              ?
-            </li>
-            <li>
-              ?
+              <img src="" alt="">
             </li>
           </ul>
         </div>
@@ -250,7 +242,7 @@
         }
         var OrderGroupUser = await orderService.OrderGroupUser(oId)
         console.log('OrderGroupUser', OrderGroupUser)
-        this.OrderGroupUser = OrderGroupUser.data.result[0]
+        this.OrderGroupUser = OrderGroupUser.data.result
       },
       pay () {
         var buyProductInfo = []
@@ -321,8 +313,9 @@
         padding-left: 4rem;
         .scontent-left {
           flex: 1;
-          .flex {
+          ul {
             li {
+              float: left;
               width: 2.5rem;
               height: 2.5rem;
               border: 2px dashed #e5e5e5;
@@ -343,6 +336,11 @@
               }
             }
           }
+        }
+        .scontent-left::after {
+          content: '';
+          display: block;
+          clear: both;
         }
         .scontent-right {
           width: 7rem;

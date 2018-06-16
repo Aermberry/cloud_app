@@ -55,12 +55,12 @@
               <div class="meassge-bottom">
                 剩余
                 <!-- {{item.remainTime}} -->
-                <zk-timedown @time-end="message = '倒计时结束'" :endTime='time[index]'></zk-timedown>
+                <zk-timedown @time-end="message = '倒计时结束'" :endTime='item.endTime'></zk-timedown>
               </div>
             </div>
           </li>
           <li class="groupbuy-btn">
-            <x-button @click.native="groupBuy(item.activityRecordId,item.users[0].userName,item.remainTime,item.remainCount)" type="primary" :disabled="item.users[0].userName===LoginUser().userName">去拼单</x-button>
+            <x-button @click.native="groupBuy(item.activityRecordId,item.users[0].userName,item.endTime,item.remainCount)" type="primary" :disabled="item.users[0].userName===LoginUser().userName">去拼单</x-button>
           </li>
         </ul>
       </div>
@@ -71,8 +71,8 @@
       <x-dialog v-model="groupBuyWindow" class="dialog-demo">
         <div class="groupbuy-dialog">
           <h1 class="gd-title">参与{{groupBuyWindowMessage.name}}的拼单</h1>
-          <div class="gd-message">仅剩{{groupBuyWindowMessage.places}}个名额,<br>{{groupBuyWindowMessage.time}}后结束
-            <!-- <zk-timedown @time-end="message = '倒计时结束'" :endTime='groupBuyWindowMessage.time'></zk-timedown> -->
+          <div class="gd-message">仅剩{{groupBuyWindowMessage.places}}个名额,<br>
+            <zk-timedown @time-end="message = '倒计时结束'" :endTime='groupBuyWindowMessage.time'></zk-timedown>后结束
           </div>
           <div class="gd-img-box">
             <div class="gd-img">
