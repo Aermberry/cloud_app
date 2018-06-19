@@ -272,6 +272,10 @@
       }
       var uid = this.LoginUser().id
       if (this.$route.query.activitySelectId !== undefined && this.$route.query.userId === uid.toString()) {
+        console.log('1', this.$route.query.userId)
+        console.log('2', uid.toString())
+        this.showStayshare = false
+      } else if (this.$route.query.activitySelectId !== undefined && this.$route.query.userId !== uid.toString()) {
         this.showStayshare = true
       }
       console.log('share.activitySelectId', this.share.activitySelectId)

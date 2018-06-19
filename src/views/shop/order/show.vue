@@ -82,7 +82,7 @@
           </ul>
         </div>
         <div class="scontent-right">
-          <x-button type="primary" :link="'/product/show/'+data.productSkuItems[0].productId+'?activitySelectId='+OrderGroupUser.activityRecordId+'&&userId='+OrderGroupUser.userId">邀请好友</x-button>
+          <x-button type="primary" :link="'/product/show/'+data.productSkuItems[0].productId+'?activitySelectId='+OrderGroupUser[0].activityRecordId+'&&userId='+OrderGroupUser[0].userId">邀请好友</x-button>
         </div>
       </div>
     </div>
@@ -250,6 +250,8 @@
         var OrderGroupUser = await orderService.OrderGroupUser(oId)
         console.log('OrderGroupUser', OrderGroupUser)
         this.OrderGroupUser = OrderGroupUser.data.result
+        console.log('OrderGroupUser', this.OrderGroupUser[0])
+        console.log('login.id', this.LoginUser().id)
         this.GroupUserFirst.time = this.OrderGroupUser[0].endTime
         this.GroupUserFirst.count = this.OrderGroupUser[0].remainCount
       },
