@@ -53,8 +53,21 @@
       </div>
       <zk-upload :fileCount="20" :savePath="savePath" :size="5*1024" ref="uploadFile">上传相关凭证</zk-upload>
     </group>
+    <label role="checkbox" class="el-checkbox " :class="{'is-checked':checkeded}">
+      <span aria-checked="mixed" class="el-checkbox__input " :class="{'is-checked':checkeded}">
+        <span class="el-checkbox__inner"></span><input type="checkbox" class="el-checkbox__original" value=""></span>
+      <span class="el-checkbox__label">
+        已阅读并同意
+        <span class="" @click="showAgreement=true" style="color:#586c94">《债事协议》</span>
+      </span>
+      <div class="close-box" @click="checker"></div>
+    </label>
+    <div class="agreement-box" v-if="showAgreement" @click="showAgreement=!showAgreement">
+      <span class="vux-close"></span>
+      <div v-html="AgreementTest"></div>
+    </div>
     <box gap="2rem 6rem">
-      <x-button type="primary" @click.native="apiPost()" action-type="button"> 确认提交</x-button>
+      <x-button type="primary" @click.native="apiPost()" action-type="button" :disabled="disabledB"> 确认提交</x-button>
     </box>
     <zk-foot></zk-foot>
   </section>
@@ -63,6 +76,7 @@
 <script>
   import { ZkUpload } from 'widgets'
   import apiService from 'src/service/api/debt.api'
+  import common from 'src/service/api/common.api'
   import { XInput, Group, XButton, Cell, XTextarea, Checker, CheckerItem, Box } from 'zkui'
   export default {
     components: {
@@ -78,6 +92,10 @@
     },
     data () {
       return {
+        showAgreement: false,
+        AgreementTest: '',
+        checkeded: false,
+        disabledB: true,
         savePath: '/open/debt',
         demo1CheckboxMax: [],
         demo2CheckboxMax: [],
@@ -98,9 +116,25 @@
       }
     },
     mounted () {
-
+      this.Getdata()
     },
     methods: {
+      checker () {
+        this.checkeded = !this.checkeded
+        if (this.checkeded === true) {
+          this.disabledB = false
+        } else {
+          this.disabledB = true
+        }
+      },
+      async Getdata () {
+        let response = await common.GetConfigValue('DebtAgreementConfig')
+        console.log('response', response)
+        if (response.data.status === 1) {
+          this.AgreementTest = response.data.result.serviceAgreement
+          console.log('AgreementTest', this.AgreementTest)
+        }
+      },
       async apiPost () {
         var a = document.getElementById('input10')
         console.log(a.value)
@@ -128,13 +162,53 @@
           this.$vux.toast.warn(response.data.message)
         }
       }
-
     }
   }
 </script>
 
 <style lang="less">
   .zkui-user-apply {
+    .agreement-box {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 85%;
+      height: 70vh;
+      background: @white;
+      border: 1px solid #e5e5e5;
+      padding: 1.5rem;
+      p {
+        text-align: center;
+      }
+      .vux-close {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+    }
+    .el-checkbox {
+      padding: 0.5em 1.25rem;
+      position: relative;
+      .close-box {
+        width: 55%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    }
+    .el-checkbox__input.is-checked .el-checkbox__inner,
+    .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+      background-color: @brand;
+      border-color: @brand;
+    }
+    .el-checkbox__input.is-checked + .el-checkbox__label {
+      color: @black;
+    }
+    .el-checkbox__inner:hover {
+      border-color: @brand;
+    }
     .check-icon-item-selected .weui-icon-success {
       color: @brand;
     }

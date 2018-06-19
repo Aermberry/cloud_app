@@ -1,5 +1,6 @@
 <template>
   <section class="zkui-yqp">
+    <div class="zkui-yqp-top-placeholder  "></div>
     <div class="zkui-yqp-top flex">
       <div class="top-left">
         <div class="logo">
@@ -160,9 +161,17 @@
     background: white;
   }
   .zkui-yqp {
+    .zkui-yqp-top-placeholder {
+      height: 2.5rem;
+    }
     .zkui-yqp-top {
+      width: 100%;
       height: 2.5rem;
       background: @black;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
       .top-left {
         width: 60%;
         height: 100%;

@@ -6,7 +6,7 @@
         <cell title="地址" value="请选择地址" is-link svg='zk-orderaddress'> </cell>
       </group>
     </div> -->
-    <div class="vux-form-preview weui-form-preview zkui_order_buy-address">
+    <!-- <div class="vux-form-preview weui-form-preview zkui_order_buy-address">
       <div class="address-left-icon">
         <m-icon name="zk-orderaddress" class="icon"></m-icon>
       </div>
@@ -41,7 +41,7 @@
       <div class="address-right-icon">
         <m-icon name="zk-fixation-phone" class="icon"></m-icon>
       </div>
-    </div>
+    </div> -->
     <div class="vux-form-preview weui-form-preview zkui_order_buy-address">
       <div class="address-left-icon">
         <m-icon name="zk-orderaddress" class="icon"></m-icon>
@@ -64,32 +64,25 @@
           <m-icon name="zk-cart"></m-icon>
         </div>
         <div class="stitle-right">
-          待分享,还差5人,剩余23:57:06
+          待分享,还差{{GroupUserFirst.count}}人,剩余
+          <zk-timedown @time-end="message = '倒计时结束'" :endTime='GroupUserFirst.time '></zk-timedown>
         </div>
       </div>
       <div class="scontent flex">
         <div class="scontent-left">
-          <ul class="flex">
-            <li>
+          <ul class="">
+            <li v-for="(item,index) in OrderGroupUser" :key="index">
               ?
-              <img :src="OrderGroupUser.avator" alt="">
+              <img :src="item.avator" alt="">
             </li>
             <li>
               ?
-            </li>
-            <li>
-              ?
-            </li>
-            <li>
-              ?
-            </li>
-            <li>
-              ?
+              <img src="" alt="">
             </li>
           </ul>
         </div>
         <div class="scontent-right">
-          <x-button type="primary" @click.native="showStayshare=!showStayshare">邀请好友</x-button>
+          <x-button type="primary" :link="'/product/show/'+data.productSkuItems[0].productId+'?activitySelectId='+OrderGroupUser.activityRecordId+'&&userId='+OrderGroupUser.userId">邀请好友</x-button>
         </div>
       </div>
     </div>
@@ -108,7 +101,6 @@
           </ul>
         </div>
       </div>
-
     </div>
     <divider class="divider-bg " v-if="data.orderStatus === 10"></divider>
     <group class="order_show-title">
@@ -188,6 +180,7 @@
   // import orderService from 'src/service/api/order.api'
   import apiUser from 'src/service/api/user.api'
   import orderService from 'src/service/api/order.api'
+  import { ZkTimedown } from 'widgets'
   import { Divider, Group, Cell, XButton, Box, XTextarea } from 'zkui'
   import local from 'src/service/common/local'
   export default {
@@ -197,7 +190,8 @@
       Cell,
       XButton,
       Box,
-      XTextarea
+      XTextarea,
+      ZkTimedown
     },
     data () {
       return {
@@ -206,7 +200,11 @@
         state: '',
         showPay: false,
         showStayshare: false,
-        OrderGroupUser: ''
+        OrderGroupUser: '',
+        GroupUserFirst: {
+          tiem: '',
+          count: ''
+        }
       }
     },
     mounted () {
@@ -251,7 +249,9 @@
         }
         var OrderGroupUser = await orderService.OrderGroupUser(oId)
         console.log('OrderGroupUser', OrderGroupUser)
-        this.OrderGroupUser = OrderGroupUser.data.result[0]
+        this.OrderGroupUser = OrderGroupUser.data.result
+        this.GroupUserFirst.time = this.OrderGroupUser[0].endTime
+        this.GroupUserFirst.count = this.OrderGroupUser[0].remainCount
       },
       pay () {
         var buyProductInfo = []
@@ -322,8 +322,9 @@
         padding-left: 4rem;
         .scontent-left {
           flex: 1;
-          .flex {
+          ul {
             li {
+              float: left;
               width: 2.5rem;
               height: 2.5rem;
               border: 2px dashed #e5e5e5;
@@ -344,6 +345,11 @@
               }
             }
           }
+        }
+        .scontent-left::after {
+          content: '';
+          display: block;
+          clear: both;
         }
         .scontent-right {
           width: 7rem;
