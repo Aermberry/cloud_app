@@ -383,8 +383,10 @@
       buyProduct (isGroupBuy) {
         if (this.isInitiateGroup === true && isGroupBuy === true) {
           this.activitySelectId = 0
-        } else {
+        } else if (this.isInitiateGroup === false && isGroupBuy === true) {
           this.activitySelectId = this.groupBuyWindowMessage.id
+        } else {
+          this.activitySelectId = 0
         }
         this.groupBuyWindow = false
         helper.checkLogin(true)
