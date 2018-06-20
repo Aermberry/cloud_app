@@ -2,7 +2,7 @@
   <div class="zkui-pc-productshow">
     <header class="productshow-top-box">
       <div class="nav">
-        <div class="contain">
+        <div class="wrap contain">
           <a href="#" class="l-logo ">
             <span class="el-icon-goods"></span>
             <span>匠芯首页</span>
@@ -26,7 +26,16 @@
             </li>
             <li>
               <a href="#">
-                客户服务
+                <el-dropdown :hide-on-click="false">
+                  <span class="el-dropdown-link">客户服务
+                    <i class="el-icon-arrow-down el-icon--right"></i>
+                  </span>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item class="el-dropdown-item">消费者服务</el-dropdown-item>
+                    <el-dropdown-item class="el-dropdown-item">商家服务</el-dropdown-item>
+                    <el-dropdown-item class="el-dropdown-item">规则中心</el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
               </a>
             </li>
             <li>
@@ -49,7 +58,44 @@
           </ul>
         </div>
       </div>
+      <div class="zkui-shop-info-product-search">
+        <div class="shop-info-box contain">
+          <div class="user-info-box">
+            <a href="#" class="avater">
+              <img src="../../../assets/images/icon/me.png" alt="" class="face">
+            </a>
+            <div class="name-score-wrap m_l10">
+              <div class="name-wrap">
+                <a href="#" title="哈哈笑" class="name">哈哈笑</a>
+              </div>
+              <div class="score-wrap">
+                <p class="star"></p>
+                <p class="descript">
+                  <span class="cat">
+                    描述
+                    <b class="m_r10">4.84</b>
+                  </span>
+                  <span class="cat">
+                    质量
+                    <b class="m_r10">4.85</b>
+                  </span>
+                  <span class="cat">
+                    服务
+                    <b>4.90</b>
+                  </span>
+                </p>
+              </div>
+            </div>
 
+            <div class="shop-header-action">
+              <a href="javscript:void(0)" class="el-icon-circle-plus-outline">收藏店铺</a>
+              <a href="javscript:void(0)" class="el-icon-phone-outline">
+                私聊</a>
+            </div>
+          </div>
+          <div class="shop-search">2</div>
+        </div>
+      </div>
     </header>
 
     <body>
@@ -62,8 +108,6 @@
   </div>
 </template>
 <script>
-
-
 
 </script>
 /*  element组件无法修改时，另写一个样式 */
@@ -86,7 +130,7 @@
   .f_right {
     float: right;
   }
-  .m_r10 {
+  .m_l10 {
     margin-left: 10px;
   }
 
@@ -94,28 +138,33 @@
     margin-right: 10px;
   }
 
-  .m_r10 {
+  .m_t10 {
     margin-top: 10px;
   }
 
-  .m_r10 {
+  .m_b10 {
     margin-bottom: 10px;
+  }
+
+  .contain {
+    margin: 0 auto;
   }
 
   // Private style
 
   .zkui-pc-productshow {
     .nav {
+      position: relative;
+      z-index: 10;
       height: auto;
       width: 100%;
       border-bottom: 1px solid lighten(@gray-600, 40%);
-      box-shadow: 0 0 5px 5px lighten(@gray-600, 40%);
+      box-shadow: 0 0 60px 10px lighten(@gray-600, 45%);
     }
     header {
       background-color: #f2f2f2;
-      .contain {
+      .wrap {
         // background-color: yellowgreen;
-        margin: 0 auto;
         position: relative;
         height: 30px;
         max-width: 90%;
@@ -173,6 +222,112 @@
               border: none;
             }
           }
+        }
+      }
+    }
+
+    .zkui-shop-info-product-search {
+      padding-top: 16px;
+      background-color: #ffffff;
+      padding-left: 30px;
+
+      .shop-info-box {
+        // background-color: red;
+        height: 83px;
+        max-width: 90%;
+        min-width: 60%;
+        width: percentage(1);
+        display: flex;
+        justify-content: space-around;
+        flex-flow: row nowrap;
+        line-height: 83px;
+
+        .user-info-box {
+          width: 50%;
+          display: flex;
+          padding-right: 30px;
+          .avater {
+            display: block;
+            height: 100%;
+            .face {
+              align: bottom;
+              // background-color: #000000;
+              border: 1px solid #e0e0e0;
+              box-shadow: 0 0 2px 3px #ababab inset;
+              border-radius: 50%;
+              width: 40px;
+              height: 40px;
+              display: block;
+              vertical-align: bottom;
+            }
+          }
+          .name-score-wrap {
+            height: percentage(1);
+            .name-wrap {
+              display: flex;
+              width: 100%;
+              height: 20px;
+              line-height: 20px;
+              overflow: hidden;
+              // background-color: #ff0000;
+              .name {
+                height: 100%;
+                display: block;
+                font-size: 12px;
+                font-weight: bolder;
+              }
+            }
+
+            .score-wrap {
+              .star {
+              }
+              .descript {
+                height: 63px;
+                display: flex;
+                .cat {
+                  font-size: 12px;
+                  // background-color: #804000;
+                  b {
+                    font-size: 12px;
+                    color: @danger;
+                  }
+                }
+              }
+            }
+          }
+          .shop-header-action {
+            display: flex;
+            width: 192px;
+            height: 100%;
+            flex-flow: row nowrap;
+            justify-content: flex-end;
+            a {
+              margin-top: 15px;
+              height: 22px;
+              padding: 5px;
+              background-color: #fff;
+              font-size: 12px;
+              display: inline-block;
+              border: 1px solid #dddddd;
+            }
+            a:last-of-type {
+              margin-left: 10px;
+              position: relative;
+            }
+            a:last-of-type::after {
+              content: '';
+              position: absolute;
+              top: -11;
+              background-color: green;
+              right: -36px;
+
+              height: 40px;
+              border-right: 2px solid lighten(@gray-200, 1%);
+            }
+          }
+        }
+        .shop-search {
+          width: 50%;
         }
       }
     }
