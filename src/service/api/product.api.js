@@ -33,7 +33,7 @@ export default {
   },
   // 拼团
   groupBuyRecord (data) {
-    var response = http.getLogin('/GroupBuy/ProductRecord', data)
+    var response = http.get('/GroupBuy/ProductRecord', data)
     return response
   }
 }
