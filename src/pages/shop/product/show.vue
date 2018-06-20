@@ -1,5 +1,5 @@
 <template>
-  <div class="zkui-pc-productshow">
+  <div class="zkui-pc-productshow contain">
     <header class="productshow-top-box">
       <div class="nav">
         <div class="wrap contain">
@@ -21,7 +21,14 @@
             </li>
             <li>
               <a href="#" class="el-icon-edit">
-                购物车
+                <el-dropdown :hide-on-click="false">
+                  <span class="el-dropdown-link">购物车
+                    <i class="el-icon-arrow-down el-icon--right"></i>
+                  </span>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item class="el-dropdown-item">消费者服务</el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
               </a>
             </li>
             <li>
@@ -93,7 +100,15 @@
                 私聊</a>
             </div>
           </div>
-          <div class="shop-search">2</div>
+          <div class="shop-search">
+            <div class="top_nav_search">
+              <form class="search_inner_box" action="#">
+                <input type="text" class="ts_txt" placeholder="连衣裙">
+                <input type="submit" value="搜全站" class="ts_btn">
+              </form>
+              <input type="text" value="搜本店" class="searchInShop m_l10">
+            </div>
+          </div>
         </div>
       </div>
     </header>
@@ -153,6 +168,8 @@
   // Private style
 
   .zkui-pc-productshow {
+    max-width: 100%;
+    min-width: 800px;
     .nav {
       position: relative;
       z-index: 10;
@@ -251,7 +268,7 @@
             height: 100%;
             .face {
               align: bottom;
-              // background-color: #000000;
+              background-color: #000000;
               border: 1px solid #e0e0e0;
               box-shadow: 0 0 2px 3px #ababab inset;
               border-radius: 50%;
@@ -285,6 +302,8 @@
                 height: 63px;
                 display: flex;
                 .cat {
+                  width: 58px;
+                  height: 14px;
                   font-size: 12px;
                   // background-color: #804000;
                   b {
@@ -302,6 +321,7 @@
             flex-flow: row nowrap;
             justify-content: flex-end;
             a {
+              width: 73px;
               margin-top: 15px;
               height: 22px;
               padding: 5px;
@@ -311,6 +331,7 @@
               border: 1px solid #dddddd;
             }
             a:last-of-type {
+              width: 52px;
               margin-left: 10px;
               position: relative;
             }
@@ -328,6 +349,58 @@
         }
         .shop-search {
           width: 50%;
+          .top_nav_search {
+            margin-top: 6px;
+            height: auto;
+            display: flex;
+            // background: #80ffff;
+            flex-flow: row nowrap;
+            justify-content: flex-end;
+            .search_inner_box {
+              display: flex;
+              flex-flow: row nowrap;
+              justify-content: flex-start;
+              height: 34px;
+              background-color: #80ff80;
+              border: 1px solid #ff0080;
+              border-radius: 0 3px 3px 0;
+              .ts_txt {
+                width: 305px;
+                height: 34px;
+                padding: 6px 0 6px 10px;
+                border-radius: 0;
+                background-color: #fff;
+                overflow: hidden;
+                color: #999999;
+                line-height: 34px;
+                border: 1px solid #cccccc;
+                box-shadow: 0 1px 10px 1px #cccccc inset;
+              }
+              .ts_btn {
+                cursor: pointer;
+                border-radius: 0px;
+                width: 100px;
+                font-size: 16px;
+              }
+            }
+            input {
+              line-hight: 34px;
+              height: 34px;
+              font-size: 12px;
+              color: #ffffff;
+              border-radius: 3px;
+              background-color: @danger;
+            }
+
+            .searchInShop {
+              font-size: 16px;
+              cursor: pointer;
+              height: 36px;
+              line-height: 36px;
+              background-color: @danger;
+              text-align: center;
+            }
+          }
         }
       }
     }
