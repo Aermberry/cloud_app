@@ -171,6 +171,11 @@
         <x-button mini plain type="primary" :link="'/order/isonLineDeliver/'+$route.query.id">发货</x-button>
       </cell>
     </group>
+    <group class="operation">
+      <cell>
+        <x-button mini plain type="primary" :link="'/order/isonLineDeliver/'+$route.query.id">发货</x-button>
+      </cell>
+    </group>
     <zk-foot></zk-foot>
   </section>
 </template>
@@ -230,16 +235,17 @@
           } else if (this.data.orderStatus === 10) {
             this.state = '待分享'
           }
-          let oId = {
-            orderId: this.data.id
+          if (this.data.isGroupBuy === true) {
+            let oId = {
+              orderId: this.data.id
+            }
+            var OrderGroupUser = await orderService.OrderGroupUser(oId)
+            if (OrderGroupUser.data.result === 1) {
+              this.OrderGroupUser = OrderGroupUser.data.result
+              this.GroupUserFirst.time = this.OrderGroupUser[0].endTime
+              this.GroupUserFirst.count = this.OrderGroupUser[0].remainCount
+            }
           }
-          var OrderGroupUser = await orderService.OrderGroupUser(oId)
-          console.log('OrderGroupUser', OrderGroupUser)
-          this.OrderGroupUser = OrderGroupUser.data.result
-          console.log('OrderGroupUser', this.OrderGroupUser[0])
-          console.log('login.id', this.LoginUser().id)
-          this.GroupUserFirst.time = this.OrderGroupUser[0].endTime
-          this.GroupUserFirst.count = this.OrderGroupUser[0].remainCount
         }
       },
       pay () {

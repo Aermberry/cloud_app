@@ -16,6 +16,13 @@
           </section>
           <section class="li_text" :class="$route.path.indexOf('product') !== -1 ? 'brand' : 'metal' ">分类</section>
         </router-link> -->
+
+        <!-- <router-link to="/order/cart" tag="li" class="footer_li">
+          <section class="li_svg">
+            <m-icon name="zk-cart" :class="$route.path.indexOf('order') !== -1 ? 'brand' : 'metal' "></m-icon>
+          </section>
+          <section class="li_text" :class="$route.path.indexOf('order') !== -1 ? 'brand' : 'metal' ">购物车</section>
+        </router-link> -->
         <router-link to="/order/goods" tag="li" class="footer_li">
           <section class="li_svg">
             <m-icon name="zk-classification" :class="$route.path.indexOf('goods') !== -1 ? 'brand' : 'metal' "></m-icon>
@@ -28,12 +35,6 @@
           </section>
           <section class="li_text" :class="$route.path.indexOf('Deliver') !== -1 ? 'brand' : 'metal' ">发货管理</section>
         </router-link>
-        <!-- <router-link to="/order/cart" tag="li" class="footer_li">
-          <section class="li_svg">
-            <m-icon name="zk-cart" :class="$route.path.indexOf('order') !== -1 ? 'brand' : 'metal' "></m-icon>
-          </section>
-          <section class="li_text" :class="$route.path.indexOf('order') !== -1 ? 'brand' : 'metal' ">购物车</section>
-        </router-link> -->
         <router-link to="/user/index" tag="li" class="footer_li">
           <section class="li_svg">
             <m-icon name="zk-me" :class="$route.path.indexOf('user') !== -1 ? 'brand' : 'metal' "></m-icon>

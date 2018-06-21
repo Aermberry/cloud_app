@@ -8,8 +8,8 @@ export default {
     return response
   },
   //  线下发货
-  offlineDelivery (data) {
-    var response = http.get('/userstock/OfflineDelivery', data)
+  async offlineDelivery (data) {
+    var response = http.postLogin('/userstock/OfflineDelivery', data)
     return response
   },
   //  虚拟订货商品列表

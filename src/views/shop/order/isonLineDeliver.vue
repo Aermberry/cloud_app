@@ -6,30 +6,28 @@
         <li class="zkui-order-cart-item">
           <div class="order-cart-commodity">
             <div slot="content" class="demo-content " style="min-height:7.8rem">
-              <ul class="flex order-cart-commodity-box">
+              <ul class="flex order-cart-commodity-box" v-for="(item,index) in data" :key="index">
                 <li class="flex_one">
                   <div class="order-cart-commodit-into flex">
                     <div class="order-cart-commodity-into_left">
-                      <router-link to="/product/show/1111">
-                        <img src="" alt="">
+                      <router-link :to="'/product/show/'+item.productId">
+                        <img :src="item.thumbnailUrl" alt="">
                       </router-link>
                     </div>
                     <div class="flex_one order-cart-commodity-into_right ">
-                      <router-link to="/product/show/1111">
-                        <p>成恩的袜子</p>
+                      <router-link :to="'/product/show/'+item.productId">
+                        <p>{{item.name}}</p>
                       </router-link>
-                      <span>极丑</span>
+                      规格：
+                      <span v-for="(t,i) in item.skuStocks" :key="i">{{t.propertyValueDesc}}</span>
                       <div class="price-box flex">
-                        <div class="price-box-left">
-                          7
-                        </div>
                         <div class="price-box-right flex_one">
                           <div class="flex">
                             <div class="right-icon">
                               虚拟
                             </div>
                             <div class="right-test">
-                              977
+                              库存：{{item.skuStocks[0].stock}}
                             </div>
                           </div>
                         </div>
@@ -43,18 +41,23 @@
         </li>
       </ul>
     </div>
+    <div class="isonline-bottom">
+      <x-button type="primary" @click.native="sumbit()">确定</x-button>
+    </div>
   </section>
 </template>
 
 <script>
-  import { } from 'zkui'
+  import { XButton } from 'zkui'
   import userService from 'src/service/api/erp.api'
   export default {
     data () {
       return {
+        data: []
       }
     },
     components: {
+      XButton
     },
     mounted () {
       this.Getdata()
@@ -62,11 +65,31 @@
     methods: {
       async Getdata () {
         let par = {
+          OrderId: this.$route.params.id
+        }
+        console.log('this.$route.params.id', this.$route.params.id)
+        var response = await userService.offlineDeliveryProduct(par)
+        if (response.data.status === 1) {
+          this.data = response.data.result
+        }
+        console.log('response', response)
+      },
+      async sumbit () {
+        let par = {
           UserId: this.LoginUser().id,
           OrderId: this.$route.params.id
         }
+        console.log('par', par)
         var response = await userService.offlineDelivery(par)
         console.log('response', response)
+        if (response.data.status === 1) {
+          this.$vux.toast.success(response.data.message)
+          this.$router.push({
+            name: 'order_Deliver'
+          })
+        } else {
+          this.$vux.toast.warm(response.data.message)
+        }
       }
     }
   }
@@ -87,6 +110,7 @@
       flex: 1;
     }
     .zkui-order-cart-box {
+      padding-bottom: 3.5rem;
       .cart_item-box {
         border-bottom: 8 * @rem solid rgba(229, 229, 229, 0.5);
         .weui-cells_checkbox {
@@ -168,7 +192,7 @@
               min-height: 7rem;
               p {
                 padding: 5px 0;
-                font-size: @h5-font-size;
+                font-size: @h6-font-size;
                 color: @brand;
                 word-break: break-all;
                 text-overflow: ellipsis;
@@ -182,9 +206,6 @@
                 color: @gray-500;
               }
               div.price-box {
-                position: absolute;
-                bottom: 0.8rem;
-                left: 0.8rem;
                 width: 100%;
                 height: 2.5rem;
                 line-height: 2.5rem;
@@ -223,6 +244,23 @@
             }
           }
         }
+      }
+    }
+    .isonline-bottom {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 3.5rem;
+      width: 100%;
+      border-top: 1px solid rgba(229, 229, 229, 0.7);
+      border-bottom: 1px solid rgba(229, 229, 229, 0.7);
+      .weui-btn {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 30%;
+        height: 3.5rem;
+        border-radius: 0;
       }
     }
   }

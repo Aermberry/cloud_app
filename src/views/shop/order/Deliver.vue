@@ -17,12 +17,12 @@
                 <div class="zkui-order-list-product" v-for="(itemss,indexss) in item.outOrderProducts" :key="indexss">
                   <ul class="flex">
                     <li class="left-img">
-                      <router-link :to="'/order/Show?id='+itemss.id" class="">
+                      <router-link :to="'/order/Show?id='+item.id" class="">
                         <img :src="itemss.thumbnailUrl" alt="">
                       </router-link>
                     </li>
                     <li class="flex_one center-content">
-                      <router-link :to="'/order/Show?id='+itemss.id" class="">
+                      <router-link :to="'/order/Show?id='+item.id" class="">
                         <p>
                           {{itemss.name}}
                         </p>
@@ -71,12 +71,12 @@
                 <div class="zkui-order-list-product" v-for="(itemss,indexss) in item.outOrderProducts" :key="indexss">
                   <ul class="flex">
                     <li class="left-img">
-                      <router-link :to="'/order/Show?id='+itemss.id" class="">
+                      <router-link :to="'/order/Show?id='+item.id" class="">
                         <img :src="itemss.thumbnailUrl" alt="">
                       </router-link>
                     </li>
                     <li class="flex_one center-content">
-                      <router-link :to="'/order/Show?id='+itemss.id" class="">
+                      <router-link :to="'/order/Show?id='+item.id" class="">
                         <p>
                           {{itemss.name}}
                         </p>
@@ -125,12 +125,12 @@
                 <div class="zkui-order-list-product" v-for="(itemss,indexss) in item.outOrderProducts" :key="indexss">
                   <ul class="flex">
                     <li class="left-img">
-                      <router-link :to="'/order/Show?id='+itemss.id" class="">
+                      <router-link :to="'/order/Show?id='+item.id" class="">
                         <img :src="itemss.thumbnailUrl" alt="">
                       </router-link>
                     </li>
                     <li class="flex_one center-content">
-                      <router-link :to="'/order/Show?id='+itemss.id" class="">
+                      <router-link :to="'/order/Show?id='+item.id" class="">
                         <p>
                           {{itemss.name}}
                         </p>
