@@ -59,7 +59,7 @@
     </div>
     <divider class="divider-bg"></divider>
     <group class="order_show-title">
-      <cell title="data.storeName" :value="state"></cell>
+      <cell :title="data.storeName" :value="state"></cell>
     </group>
     <div class="zkui-order-show-price">
       <div class="vux-form-preview weui-form-preview">
@@ -83,49 +83,49 @@
         </div> -->
       </div>
     </div>
-    <div class="zkui-order-list-product">
+    <div class="zkui-order-list-product" v-for="(item,index) in data.productSkuItems" :key="index">
       <ul class="flex">
-        <li class="left-img"><img src="" alt=""></li>
+        <li class="left-img"><img :src="item.thumbnailUrl" alt=""></li>
         <li class="flex_one center-content">
           <p>
-            成恩的袜子
+            {{item.name}}
           </p>
           <span>
-            极臭
+            {{item.propertyValueDesc}}
           </span>
         </li>
         <li class="left-price">
           <ul>
-            <li class="price_now">￥50</li>
+            <li class="price_now">￥{{item.price}}</li>
             <li class="price_count">
-              x 2
+              x {{item.buyCount}}
             </li>
           </ul>
         </li>
       </ul>
     </div>
-    <x-textarea title="卖家留言 " placeholder="填写内容已和卖家协商确认 " :show-counter="false " :rows="1"></x-textarea>
+    <!-- <x-textarea title="卖家留言 " placeholder="填写内容已和卖家协商确认 " :show-counter="false " :rows="1"></x-textarea> -->
     <divider class="divider-bg "></divider>
     <div class="zkui-order-information">
       <div class="vux-form-preview weui-form-preview">
         <div class="weui-form-preview__bd">
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">订单编号:777777777777777</label>
+            <label class="weui-form-preview__label">订单编号:{{data.serial}}</label>
           </div>
-          <!-- <div class="weui-form-preview__item" v-for="(item,index) in this.data.orderDeliverys" :key="index">
+          <div class="weui-form-preview__item" v-for="(item,index) in this.data.orderDeliverys" :key="index">
             <label class="weui-form-preview__label">物流编号:{{item.expressNumber}}({{item.name}})</label>
           </div>
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">创建时间: {{data.createTime}}</label>
-          </div> -->
+          </div>
         </div>
       </div>
     </div>
-    <!-- <group class="operation " v-if="showPay">
+    <group class="operation" v-if="data.orderStatus===2">
       <cell>
-        <x-button mini plain type="primary" @click.native="pay()">付款</x-button>
+        <x-button mini plain type="primary" :link="'/order/isonLineDeliver/'+$route.query.id">发货</x-button>
       </cell>
-    </group> -->
+    </group>
 
     <zk-foot></zk-foot>
   </section>
