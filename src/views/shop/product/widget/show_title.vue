@@ -43,6 +43,9 @@
       Cell
     },
     props: ['productView'],
+    created () {
+      document.title = this.productView.name
+    },
     mounted () {
     }
   }
