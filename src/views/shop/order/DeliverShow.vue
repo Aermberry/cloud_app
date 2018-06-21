@@ -126,7 +126,6 @@
         <x-button mini plain type="primary" :link="'/order/isonLineDeliver/'+$route.query.id">发货</x-button>
       </cell>
     </group>
-
     <zk-foot></zk-foot>
   </section>
 </template>
