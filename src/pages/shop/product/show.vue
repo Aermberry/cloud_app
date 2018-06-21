@@ -59,7 +59,6 @@
                     <el-dropdown-item divided class="el-dropdown-item">市场入驻</el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>
-
               </a>
             </li>
           </ul>
@@ -93,7 +92,83 @@
                 </p>
               </div>
             </div>
-
+            <div class="J-shop-user-info-detail">
+              <div class="info-box">
+                <div class="box">
+                  <li>
+                    <span>所在地区：</span>广东省广州市</li>
+                  <li>
+                    <span>商品数：</span>371</li>
+                  <li>
+                    <span>收藏数：</span>15439</li>
+                  <li>
+                    <span>销售量：</span>82018</li>
+                  <li>
+                    创建时间日期:
+                    <span>2015年08月17日</span>
+                  </li>
+                  <li>
+                    <span>店铺保证金：</span>已缴纳</li>
+                  <li class="detail_img"><img src="../../../assets/images/bg/1.jpg" alt=""></li>
+                  <li class="detail_go_a">
+                    <a href="#" class="detail_go">查看详情</a>
+                  </li>
+                </div>
+              </div>
+              <div class="info-box">
+                <div class="Bbox">
+                  <div class="box">
+                    <li>动态评分</li>
+                    <li>描述相符：
+                      <span>4.78</span>
+                    </li>
+                    <li>
+                      质量满意：
+                      <span>4.79</span>
+                    </li>
+                    <li>
+                      服务周到：
+                      <span>4.85</span>
+                    </li>
+                  </div>
+                  <div class="box">
+                    <li>比同行平均</li>
+                    <li>
+                      <span>高</span>
+                      1.84%</li>
+                    <li>
+                      <span>高</span>
+                      1.98%</li>
+                    <li>
+                      <span>高</span>
+                      3.27%</li>
+                  </div>
+                </div>
+                <div class="Bbox">
+                  <div class="box">
+                    <li>本店</li>
+                    <li>
+                      平均发货时间：
+                      <span>0.77</span>
+                      天</li>
+                    <li>
+                      退货率：
+                      <span>8.53%</span>
+                      天</li>
+                    <li>
+                      有效投诉：
+                      <span>0.00%</span>
+                      天</li>
+                  </div>
+                  <div class="box">
+                    <li>行业</li>
+                    <li>1.11天</li>
+                    <li>5.54%</li>
+                    <li>0.03%</li>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="shop-header-action">
               <a href="javscript:void(0)" class="el-icon-circle-plus-outline">收藏店铺</a>
               <a href="javscript:void(0)" class="el-icon-phone-outline">
@@ -205,7 +280,6 @@
         }
         ul {
           position: absolute;
-
           right: 10px;
           top: 0;
           display: flex;
@@ -247,7 +321,7 @@
       padding-top: 16px;
       background-color: #ffffff;
       padding-left: 30px;
-
+      height: auto;
       .shop-info-box {
         // background-color: red;
         height: 83px;
@@ -314,6 +388,115 @@
               }
             }
           }
+          position: relative;
+          .J-shop-user-info-detail {
+            display: none !important;
+            padding-top: 10px;
+            background: lighten(@brand, 50%);
+            width: 505px;
+            height: 259px;
+            position: absolute;
+            // opacity: 0.5;
+            top: 83px;
+            left: 0;
+            display: flex;
+            .info-box {
+              display: flex;
+              width: 240px;
+              overflow: hidden;
+              min-height: 250px;
+              flex-flow: row nowrap;
+              justify-content: flex-start;
+              .box {
+                display: flex;
+                flex-flow: column nowrap;
+                justify-content: flex-start;
+                height: 100%;
+                padding-left: 10px;
+                li {
+                  width: 202px;
+                  height: 26px;
+                  line-height: 12px;
+                  font-size: 12px;
+                  span {
+                    text-align: right;
+                    font-size: 12px;
+                    color: #999;
+                  }
+                }
+
+                .detail_img {
+                  height: auto;
+                  img {
+                    border: 1px solid @light;
+                    width: 206px;
+                    height: 46px;
+                  }
+                }
+
+                .detail_go_a {
+                  height: auto;
+                  width: 100%;
+                  .detail_go {
+                    line-height: 26px;
+                    text-align: center;
+                    margin: 0 auto;
+                    margin-top: 10px;
+                    display: block;
+                    width: 100px;
+                    height: 26px;
+                    line-height: 26px;
+                    font-size: 12px;
+                    background-color: #fff;
+                  }
+                }
+              }
+
+              .Bbox {
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: flex-start;
+                .box {
+                  width: 150px;
+                  span {
+                    color: @brand;
+                  }
+                }
+                div:last-child {
+                  li {
+                    margin-bottom: -2px;
+                  }
+                  span {
+                    text-align: center;
+                    line-height: 18px;
+                    width: 18px;
+                    height: 18px;
+                    display: inline-block;
+                    color: #ffffff;
+                    background-color: @brand;
+                  }
+                }
+              }
+            }
+            .info-box:first-child {
+              border-right: 1px solid #c0c0c0;
+            }
+
+            .info-box:last-child {
+              flex-flow: column nowrap;
+              div:last-child {
+                div:last-child {
+                  li {
+                    margin-bottom: 0;
+                  }
+                }
+              }
+            }
+            &:hover {
+              display: block !important;
+            }
+          }
+
           .shop-header-action {
             display: flex;
             width: 192px;
