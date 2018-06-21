@@ -8,199 +8,176 @@
       <swiper v-model="showView" height="100px" :show-dots="false">
         <swiper-item v-for="(t, i) in list2" :key="i">
           <!-- 全部 -->
-          <div class="zkui-order-list-box" v-if="i===0">
+          <div class="zkui-order-list-box" v-if="i===0&&showBox">
             <div class="zkui-order-list-content">
-              <div class="zkui-order-list-box-item">
+              <div class="zkui-order-list-box-item" v-for="(item,index) in data" :key="index">
                 <group class="box-title">
-                  <cell title="自营店铺" value="待发货"></cell>
+                  <cell :title="item.storeName" :value="item.orderStatuName"></cell>
                 </group>
-                <div class="zkui-order-list-product">
+                <div class="zkui-order-list-product" v-for="(itemss,indexss) in item.outOrderProducts" :key="indexss">
                   <ul class="flex">
                     <li class="left-img">
-                      <a href="/order/show?id=378" class=""><img src="http://zqingchun.yiqipingou.com//wwwroot/Uploads/Product/2018/04/b1d526395f5240bd8b3b4c18deb7d36f.jpg_320X320.jpg" alt=""></a>
+                      <router-link :to="'/order/DeliverShow?id='+itemss.id" class="">
+                        <img :src="itemss.thumbnailUrl" alt="">
+                      </router-link>
                     </li>
                     <li class="flex_one center-content">
-                      <a href="/order/show?id=378" class="">
+                      <router-link :to="'/order/DeliverShow?id='+itemss.id" class="">
                         <p>
-                          韩国Paparecipe春雨 美白面膜 25g*10
+                          {{itemss.name}}
                         </p>
-                      </a>
+                      </router-link>
                       <span>
-                        一盒
+                        {{itemss.propertyValueDesc}}
                       </span>
                     </li>
                     <li class="left-price">
                       <ul>
-                        <li class="price_now">￥111</li>
-                        <li class="price_count">x 1</li>
+                        <!-- <li class="price_now">￥111</li> -->
+                        <li class="price_count">x {{itemss.buyCount}}</li>
                       </ul>
                     </li>
                   </ul>
                   <group class="list-aggregate">
                     <cell>
                       共
-                      <span class="num">1</span> 件商品 合计：
-                      <span class="num">￥111</span>(含运费
-                      <span class="num">￥0</span>)
+                      <span class="num">{{item.totalCount}}</span> 件商品 合计：
+                      <span class="num">￥{{item.paymentAmount}}</span>(含运费
+                      <span class="num">￥{{item.expressAmount}}</span>)
                     </cell>
                   </group>
-                  <group class="product-option">
+                  <!-- <group class="product-option">
                     <cell>
-                      <!-- <x-button mini plain>确认收货</x-button>
+                      <x-button mini plain>确认收货</x-button>
                       <x-button mini plain>取消订单</x-button>
-                      <x-button mini plain type="primary">付款</x-button> -->
+                      <x-button mini plain type="primary">付款</x-button>
                     </cell>
-                  </group>
-                </div>
-              </div>
-              <div class="zkui-order-list-box-item">
-                <group class="box-title">
-                  <cell title="自营店铺" value="已发货"></cell>
-                </group>
-                <div class="zkui-order-list-product">
-                  <ul class="flex">
-                    <li class="left-img">
-                      <a href="/order/show?id=378" class=""><img src="http://zqingchun.yiqipingou.com//wwwroot/Uploads/Product/2018/04/b1d526395f5240bd8b3b4c18deb7d36f.jpg_320X320.jpg" alt=""></a>
-                    </li>
-                    <li class="flex_one center-content">
-                      <a href="/order/show?id=378" class="">
-                        <p>
-                          韩国Paparecipe春雨 美白面膜 25g*10
-                        </p>
-                      </a>
-                      <span>
-                        一盒
-                      </span>
-                    </li>
-                    <li class="left-price">
-                      <ul>
-                        <li class="price_now">￥111</li>
-                        <li class="price_count">x 1</li>
-                      </ul>
-                    </li>
-                  </ul>
-                  <group class="list-aggregate">
-                    <cell>
-                      共
-                      <span class="num">1</span> 件商品 合计：
-                      <span class="num">￥111</span>(含运费
-                      <span class="num">￥0</span>)
-                    </cell>
-                  </group>
-                  <group class="product-option">
-                    <cell>
-                      <!-- <x-button mini plain>确认收货</x-button>
-                      <x-button mini plain>取消订单</x-button>
-                      <x-button mini plain type="primary">付款</x-button> -->
-                    </cell>
-                  </group>
+                  </group> -->
                 </div>
               </div>
             </div>
+          </div>
+          <div class="zk-not-data" v-if="i===0&&!showBox">
+            <m-icon name="zk-notdata"></m-icon>
+            <p>暂无数据</p>
           </div>
           <!-- 代发货 -->
-          <div class="zkui-order-list-box" v-if="i===1">
+          <div class="zkui-order-list-box" v-if="i===1&&allShow[0]">
             <div class="zkui-order-list-content">
-              <div class="zkui-order-list-box-item">
+              <div class="zkui-order-list-box-item" v-for="(item,index) in stayShipments" :key="index">
                 <group class="box-title">
-                  <cell title="自营店铺" value="待发货"></cell>
+                  <cell :title="item.storeName" :value="item.orderStatuName"></cell>
                 </group>
-                <div class="zkui-order-list-product">
+                <div class="zkui-order-list-product" v-for="(itemss,indexss) in item.outOrderProducts" :key="indexss">
                   <ul class="flex">
                     <li class="left-img">
-                      <a href="/order/show?id=378" class=""><img src="http://zqingchun.yiqipingou.com//wwwroot/Uploads/Product/2018/04/b1d526395f5240bd8b3b4c18deb7d36f.jpg_320X320.jpg" alt=""></a>
+                      <router-link :to="'/order/DeliverShow?id='+itemss.id" class="">
+                        <img :src="itemss.thumbnailUrl" alt="">
+                      </router-link>
                     </li>
                     <li class="flex_one center-content">
-                      <a href="/order/show?id=378" class="">
+                      <router-link :to="'/order/DeliverShow?id='+itemss.id" class="">
                         <p>
-                          韩国Paparecipe春雨 美白面膜 25g*10
+                          {{itemss.name}}
                         </p>
-                      </a>
+                      </router-link>
                       <span>
-                        一盒
+                        {{itemss.propertyValueDesc}}
                       </span>
                     </li>
                     <li class="left-price">
                       <ul>
-                        <li class="price_now">￥111</li>
-                        <li class="price_count">x 1</li>
+                        <!-- <li class="price_now">￥111</li> -->
+                        <li class="price_count">x {{itemss.buyCount}}</li>
                       </ul>
                     </li>
                   </ul>
                   <group class="list-aggregate">
                     <cell>
                       共
-                      <span class="num">1</span> 件商品 合计：
-                      <span class="num">￥111</span>(含运费
-                      <span class="num">￥0</span>)
+                      <span class="num">{{item.totalCount}}</span> 件商品 合计：
+                      <span class="num">￥{{item.paymentAmount}}</span>(含运费
+                      <span class="num">￥{{item.expressAmount}}</span>)
                     </cell>
                   </group>
-                  <group class="product-option">
+                  <!-- <group class="product-option">
                     <cell>
-                      <!-- <x-button mini plain>确认收货</x-button>
+                      <x-button mini plain>确认收货</x-button>
                       <x-button mini plain>取消订单</x-button>
-                      <x-button mini plain type="primary">付款</x-button> -->
+                      <x-button mini plain type="primary">付款</x-button>
                     </cell>
-                  </group>
+                  </group> -->
                 </div>
               </div>
             </div>
           </div>
+          <div class="zk-not-data" v-if="i===1&&!allShow[0]">
+            <m-icon name="zk-notdata"></m-icon>
+            <p>暂无数据</p>
+          </div>
           <!-- 已发货 -->
-          <div class="zkui-order-list-box" v-if="i===2">
+          <div class="zkui-order-list-box" v-if="i===2&&allShow[1]">
             <div class="zkui-order-list-content">
-              <div class="zkui-order-list-box-item">
+              <div class="zkui-order-list-box-item" v-for="(item,index) in stayEvaluate" :key="index">
                 <group class="box-title">
-                  <cell title="自营店铺" value="已发货"></cell>
+                  <cell :title="item.storeName" :value="item.orderStatuName"></cell>
                 </group>
-                <div class="zkui-order-list-product">
+                <div class="zkui-order-list-product" v-for="(itemss,indexss) in item.outOrderProducts" :key="indexss">
                   <ul class="flex">
                     <li class="left-img">
-                      <a href="/order/show?id=378" class=""><img src="http://zqingchun.yiqipingou.com//wwwroot/Uploads/Product/2018/04/b1d526395f5240bd8b3b4c18deb7d36f.jpg_320X320.jpg" alt=""></a>
+                      <router-link :to="'/order/DeliverShow?id='+itemss.id" class="">
+                        <img :src="itemss.thumbnailUrl" alt="">
+                      </router-link>
                     </li>
                     <li class="flex_one center-content">
-                      <a href="/order/show?id=378" class="">
+                      <router-link :to="'/order/DeliverShow?id='+itemss.id" class="">
                         <p>
-                          韩国Paparecipe春雨 美白面膜 25g*10
+                          {{itemss.name}}
                         </p>
-                      </a>
+                      </router-link>
                       <span>
-                        一盒
+                        {{itemss.propertyValueDesc}}
                       </span>
                     </li>
                     <li class="left-price">
                       <ul>
-                        <li class="price_now">￥111</li>
-                        <li class="price_count">x 1</li>
+                        <!-- <li class="price_now">￥111</li> -->
+                        <li class="price_count">x {{itemss.buyCount}}</li>
                       </ul>
                     </li>
                   </ul>
                   <group class="list-aggregate">
                     <cell>
                       共
-                      <span class="num">1</span> 件商品 合计：
-                      <span class="num">￥111</span>(含运费
-                      <span class="num">￥0</span>)
+                      <span class="num">{{item.totalCount}}</span> 件商品 合计：
+                      <span class="num">￥{{item.paymentAmount}}</span>(含运费
+                      <span class="num">￥{{item.expressAmount}}</span>)
                     </cell>
                   </group>
-                  <group class="product-option">
+                  <!-- <group class="product-option">
                     <cell>
-                      <!-- <x-button mini plain>确认收货</x-button>
+                      <x-button mini plain>确认收货</x-button>
                       <x-button mini plain>取消订单</x-button>
-                      <x-button mini plain type="primary">付款</x-button> -->
+                      <x-button mini plain type="primary">付款</x-button>
                     </cell>
-                  </group>
+                  </group> -->
                 </div>
               </div>
             </div>
+          </div>
+          <div class="zk-not-data" v-if="i===2&&!allShow[1]">
+            <m-icon name="zk-notdata"></m-icon>
+            <p>暂无数据</p>
           </div>
         </swiper-item>
       </swiper>
     </div>
+    <zk-foot></zk-foot>
   </section>
 </template>
 
 <script>
+  import orderService from 'src/service/api/order.api'
   import { Tab, TabItem, Sticky, Divider, XButton, Swiper, SwiperItem, Group, Cell, Xbutton } from 'zkui'
   export default {
     components: {
@@ -210,17 +187,61 @@
       return {
         list2: ['全部', '待发货', '已发货'],
         demo2: '全部',
-        showView: 0
+        showView: 0,
+        data: [],
+        showBox: false,
+        allShow: [false, false],
+        stayShipments: [], // 待发货
+        stayEvaluate: [] // 已发货
       }
     },
     mounted () {
+      this.GetData()
     },
     methods: {
+      async GetData () {
+        var reponse = await orderService.list()
+        this.data = reponse.data.result
+        if (this.data.length !== 0) {
+          this.showBox = true
+        }
+        for (var i = 0; i < this.data.length; i++) {
+          if (this.data[i].orderStatus === 2) {
+            console.log('this.data[i]', this.data[i])
+            this.stayShipments.push(this.data[i])
+          }
+          if (this.data[i].orderStatus === 4) {
+            console.log('this.data[i]', this.data[i])
+            this.stayEvaluate.push(this.data[i])
+          }
+        }
+        if (this.stayShipments.length !== 0) {
+          this.allShow[0] = true
+        }
+        if (this.stayEvaluate.length !== 0) {
+          this.allShow[1] = true
+        }
+        console.log('data', this.data)
+        console.log('stayShipments', this.stayShipments)
+        console.log('stayEvaluate', this.stayEvaluate)
+      }
     }
   }
 </script>
 <style  lang="less">
   .zkui-order-Deliver {
+    .zk-not-data {
+      margin: 0 auto;
+      padding-top: 150 * @rem;
+      text-align: center;
+      svg {
+        width: 50 * @rem;
+        height: 50 * @rem;
+      }
+      p {
+        font-size: @h4-font-size;
+      }
+    }
     .flex {
       display: -moz-box;
       display: -ms-flexbox;
