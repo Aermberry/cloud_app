@@ -169,10 +169,6 @@ export default {
   async Rate (data) {
     var response = await http.postLogin('Order/Rate', data)
     return response
-  },
-  // 我的库存
-  async userStock (data) {
-    var response = await http.getLogin('/UserStock/GetList', data)
-    return response
   }
+
 }

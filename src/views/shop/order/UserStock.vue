@@ -17,7 +17,7 @@
 
 <script>
   import { } from 'zkui'
-  import userService from 'src/service/api/user.api'
+  import erpService from 'src/service/api/erp.api'
   export default {
     data () {
       return {
@@ -34,7 +34,7 @@
           UserId: this.LoginUser().id
         }
         console.log('this.LoginUser().id', this.LoginUser().id)
-        var response = await userService.userStock(par)
+        var response = await erpService.userStock(par)
         console.log('response', response)
       }
     }

@@ -16,5 +16,10 @@ export default {
   productList (data) {
     var response = http.get('/userstock/GetProductList', data)
     return response
+  },
+  // 我的库存
+  async userStock (data) {
+    var response = await http.getLogin('/UserStock/GetList', data)
+    return response
   }
 }
