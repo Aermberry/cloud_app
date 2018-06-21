@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-order-isonLineDeliver">
-    <zk-head title='我的库存'></zk-head>
+    <zk-head title='线下发货'></zk-head>
     <div class="order-isonLineDeliver-box">
       <ul class="zkui-order-cart-box">
         <li class="zkui-order-cart-item">
