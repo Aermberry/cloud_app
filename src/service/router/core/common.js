@@ -1,33 +1,55 @@
 export default [{
-    path: '/', // 默认为空的时候，挑战到首页
+    path: '/',
     meta: {
-      title: '首页'
+      title: '会员中心',
+      login: true
     },
-    name: 'commont_index',
+    name: '/',
     component: function (resolve) {
-      require(['src/views/default'], resolve)
+      require(['src/views/core/user/index'], resolve)
     }
   },
   {
-    path: '/index', // 默认为空的时候，挑战到首页
+    path: '/default',
     meta: {
-      title: '首页'
+      title: '会员中心',
+      login: true
     },
-    name: 'commont_index_2',
+    name: 'default',
     component: function (resolve) {
-      require(['src/views/default'], resolve)
+      require(['src/views/core/user/index'], resolve)
     }
   },
-  {
-    path: '/default', // 默认为空的时候，挑战到首页
-    meta: {
-      title: '首页'
-    },
-    name: 'commont_default',
-    component: function (resolve) {
-      require(['src/views/default'], resolve)
-    }
-  },
+  // {
+  //   path: '/', // 默认为空的时候，挑战到首页
+  //   meta: {
+  //     title: '首页'
+  //   },
+  //   name: 'commont_index',
+  //   component: function (resolve) {
+  //     require(['src/views/default'], resolve)
+  //   }
+  // },
+  // {
+  //   path: '/index', // 默认为空的时候，挑战到首页
+  //   meta: {
+  //     title: '首页'
+  //   },
+  //   name: 'commont_index_2',
+  //   component: function (resolve) {
+  //     require(['src/views/default'], resolve)
+  //   }
+  // },
+  // {
+  //   path: '/default', // 默认为空的时候，挑战到首页
+  //   meta: {
+  //     title: '首页'
+  //   },
+  //   name: 'commont_default',
+  //   component: function (resolve) {
+  //     require(['src/views/default'], resolve)
+  //   }
+  // },
   {
     path: '/url', // 默认为空的时候，挑战到首页
     meta: {
