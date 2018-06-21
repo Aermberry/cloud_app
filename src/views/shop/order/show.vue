@@ -11,7 +11,7 @@
         <m-icon name="zk-orderaddress" class="icon"></m-icon>
       </div>
 
-      <div class="weui-form-preview__hd">
+      <div class="weui-form-preview__hd" v-if="viewModel.order.deliverUserId>0">
         <label class="weui-form-preview__label address_name" style="width:12rem">销售人：杨雨</label>
         <em class="weui-form-preview__value">{{viewModel.mobile}}</em>
         <div class="weui-form-preview__item">
@@ -171,18 +171,19 @@
         <x-button mini plain type="primary" @click.native="pay()">付款</x-button>
       </cell>
     </group> -->
-
+    <group class="operation" v-if="data.orderStatus===1 && viewModel.order.deliverUserId>0">
+      <cell>
+        <x-button mini plain type="primary" :link="'/order/isonLineDeliver/'+$route.query.id">发货</x-button>
+      </cell>
+    </group>
     <zk-foot></zk-foot>
   </section>
 </template>
 
 <script>
-  // import orderService from 'src/service/api/order.api'
-  import apiUser from 'src/service/api/user.api'
   import orderService from 'src/service/api/order.api'
   import { ZkTimedown } from 'widgets'
   import { Divider, Group, Cell, XButton, Box, XTextarea } from 'zkui'
-  import local from 'src/service/common/local'
   export default {
     components: {
       Divider,
@@ -213,26 +214,15 @@
     },
     methods: {
       async GetData () {
-        var defaultAddress = local.getLoginStore('default_address') // 刷新时从缓冲中读取地址
-        if (defaultAddress === undefined) {
-          // 缓存中不存在地址
-          var response = await apiUser.SingleAddress()
-          if (response.data.status === 1) {
-            this.viewModel = response.data.result
-            local.setLoginStore('default_address', this.viewModel) // 将购买信息写到缓存中
-          }
-        } else {
-          this.viewModel = defaultAddress
-        }
-        // console.log(this.$route.params.showId)
         var id = this.$route.query.id
         let par = {
           id: id
         }
-        console.log('par ', par)
-        var showData = await orderService.show(par)
-        this.data = showData.data.result
-        console.log('data', this.data)
+        var response = await orderService.show(par)
+        if(response.data.status===1){
+          this.data = showData.data.result
+        console.info('订单详情',this.data )
+        this.viewModel = this.data.order.orderExtension.userAddress
         if (this.data.orderStatus === 1) {
           this.state = '待付款'
           this.showPay = true
@@ -255,6 +245,7 @@
         console.log('login.id', this.LoginUser().id)
         this.GroupUserFirst.time = this.OrderGroupUser[0].endTime
         this.GroupUserFirst.count = this.OrderGroupUser[0].remainCount
+        }
       },
       pay () {
         var buyProductInfo = []

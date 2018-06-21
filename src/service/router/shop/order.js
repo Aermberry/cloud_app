@@ -91,16 +91,6 @@ export default [{
       require(['src/views/shop/order/Deliver'], resolve)
     }
   }, {
-    path: '/order/DeliverShow',
-    meta: {
-      title: '订单详情',
-      login: true
-    },
-    name: 'order_DeliverShow',
-    component: function (resolve) {
-      require(['src/views/shop/order/DeliverShow'], resolve)
-    }
-  }, {
     path: '/order/isonLineDeliver/:id',
     meta: {
       title: '线下发货',
