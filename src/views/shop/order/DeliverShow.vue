@@ -6,7 +6,7 @@
         <cell title="地址" value="请选择地址" is-link svg='zk-orderaddress'> </cell>
       </group>
     </div> -->
-    <!-- <div class="vux-form-preview weui-form-preview zkui_order_buy-address">
+    <div class="vux-form-preview weui-form-preview zkui_order_buy-address">
       <div class="address-left-icon">
         <m-icon name="zk-orderaddress" class="icon"></m-icon>
       </div>
@@ -41,7 +41,7 @@
       <div class="address-right-icon">
         <m-icon name="zk-fixation-phone" class="icon"></m-icon>
       </div>
-    </div> -->
+    </div>
     <div class="vux-form-preview weui-form-preview zkui_order_buy-address">
       <div class="address-left-icon">
         <m-icon name="zk-orderaddress" class="icon"></m-icon>
@@ -58,53 +58,8 @@
       </div>
     </div>
     <divider class="divider-bg"></divider>
-    <div class="stayShare" v-if="data.orderStatus === 10">
-      <div class="stitle flex">
-        <div class="stitle-left">
-          <m-icon name="zk-cart"></m-icon>
-        </div>
-        <div class="stitle-right">
-          待分享,还差{{GroupUserFirst.count}}人,剩余
-          <zk-timedown @time-end="message = '倒计时结束'" :endTime='GroupUserFirst.time '></zk-timedown>
-        </div>
-      </div>
-      <div class="scontent flex">
-        <div class="scontent-left">
-          <ul class="">
-            <li v-for="(item,index) in OrderGroupUser" :key="index">
-              ?
-              <img :src="item.avator" alt="">
-            </li>
-            <li>
-              ?
-              <img src="" alt="">
-            </li>
-          </ul>
-        </div>
-        <div class="scontent-right">
-          <x-button type="primary" :link="'/product/show/'+data.productSkuItems[0].productId+'?activitySelectId='+OrderGroupUser[0].activityRecordId+'&&userId='+OrderGroupUser[0].userId">邀请好友</x-button>
-        </div>
-      </div>
-    </div>
-    <div class="stayShare-popup" v-if="showStayshare">
-      <div class="popup-box">
-        <span class="vux-close" @click="showStayshare=!showStayshare"></span>
-        <div class="p-title">还差
-          <span>5</span>人,赶快邀请好友来拼单吧
-        </div>
-        <div class="p-content">
-          <ul class="flex">
-            <li>
-              <m-icon name="zk-vx" class="icon"></m-icon>
-              <p>点击右上角分享给微信好友</p>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <divider class="divider-bg " v-if="data.orderStatus === 10"></divider>
     <group class="order_show-title">
-      <cell :title="data.storeName" :value="state"></cell>
+      <cell title="data.storeName" :value="state"></cell>
     </group>
     <div class="zkui-order-show-price">
       <div class="vux-form-preview weui-form-preview">
@@ -128,22 +83,22 @@
         </div> -->
       </div>
     </div>
-    <div class="zkui-order-list-product" v-for="(item,index) in data.productSkuItems" :key="index">
+    <div class="zkui-order-list-product">
       <ul class="flex">
-        <li class="left-img"><img :src="item.thumbnailUrl" alt=""></li>
+        <li class="left-img"><img src="" alt=""></li>
         <li class="flex_one center-content">
           <p>
-            {{item.name}}
+            成恩的袜子
           </p>
           <span>
-            {{item.propertyValueDesc}}
+            极臭
           </span>
         </li>
         <li class="left-price">
           <ul>
-            <li class="price_now">￥{{item.price}}</li>
+            <li class="price_now">￥50</li>
             <li class="price_count">
-              x {{item.buyCount}}
+              x 2
             </li>
           </ul>
         </li>
@@ -155,14 +110,14 @@
       <div class="vux-form-preview weui-form-preview">
         <div class="weui-form-preview__bd">
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">订单编号:{{data.serial}}</label>
+            <label class="weui-form-preview__label">订单编号:777777777777777</label>
           </div>
-          <div class="weui-form-preview__item" v-for="(item,index) in this.data.orderDeliverys" :key="index">
+          <!-- <div class="weui-form-preview__item" v-for="(item,index) in this.data.orderDeliverys" :key="index">
             <label class="weui-form-preview__label">物流编号:{{item.expressNumber}}({{item.name}})</label>
           </div>
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">创建时间: {{data.createTime}}</label>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -229,7 +184,6 @@
         let par = {
           id: id
         }
-        console.log('par ', par)
         var showData = await orderService.show(par)
         this.data = showData.data.result
         console.log('data', this.data)
