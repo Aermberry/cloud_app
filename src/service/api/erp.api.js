@@ -21,5 +21,10 @@ export default {
   async userStock (data) {
     var response = await http.getLogin('/UserStock/GetList', data)
     return response
+  },
+  // 根据订单，查询订单发货商品以及发货商品数量
+  async offlineDeliveryProduct (data) {
+    var response = await http.getLogin('/UserStock/GetList', data)
+    return response
   }
 }

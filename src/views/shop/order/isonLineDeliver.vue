@@ -65,8 +65,6 @@
           UserId: this.LoginUser().id,
           OrderId: this.$route.params.id
         }
-        console.log('this.LoginUser().id', this.LoginUser().id)
-        console.log('this.$route.params.id', this.$route.params.id)
         var response = await userService.offlineDelivery(par)
         console.log('response', response)
       }
