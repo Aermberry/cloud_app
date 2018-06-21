@@ -148,13 +148,6 @@
                     <span>邓晓霖</span>
                     <a class="edit-header" href="#">修改</a>
                   </span>
-                  <span class="header-box">
-                    <span class="header-err-message hide">
-                      <ins class="icon icon-chucuo"></ins>
-                      <span>&nbsp;请填写发票抬头</span>
-                      <ins class="arrow-top"></ins>
-                    </span>
-                  </span>
                 </div>
               </div>
             </div>
@@ -197,24 +190,6 @@
               </div>
             </div>
           </div>
-          <div class="order-postageInsurance" id="postageInsurance_51caec6510a0da1de054f5438cf962c8">
-            <div class="user-title">运费险:</div>
-            <div class="user-operate">
-              <label>
-                <span class="trigger">运费险</span>
-                <span class="ins-select">卖家送,确认收货前退货可赔</span>
-              </label>
-              <span class="widget-tips-box">
-                <div class="wtip-msg-box">
-                  <div class="wtip-arrow-icon"></div>
-                  <ins class="wtip-msg-icon"></ins>
-                  <div class="wtip-msg">卖家送,确认收货前退货可赔</div>
-                </div>
-              </span>
-              <a href="https://www.taobao.com/markets/baoxian/thyfx?cp=seller" target="_blank" class="ins-question widget-tips-question"></a>
-            </div>
-            <div class="user-price checked">0.00</div>
-          </div>
         </div>
       </div>
       <div class="orderPay">
@@ -226,6 +201,47 @@
         </span>
       </div>
     </div>
+    <div class="order-payInfo" id="payInfo_1">
+        <div class="payInfo-wrapper">
+          <div class="payInfo-shadow">
+            <div class="order-realPay" id="realPay_1">
+              <div>
+                <span class="realPay-title">实付款：</span>
+                <span class="order-price">￥</span>
+                <span class="realPay-price">459.00</span>
+              </div>
+            </div>
+            <div class="order-confirmAddr" id="confirmAddr_1">
+              <div class="confirmAddr-addr" title="寮步 力盈商务中心鑫盈百货对面电梯7楼">
+                <span class="confirmAddr-title">寄送至：</span>
+                <span class="confirmAddr-addr-bd">
+                  <span class="prov">广东</span>
+                  <span class="city">东莞</span>
+                  <span class="town">寮步</span>
+                  <span class="street">力盈商务中心鑫盈百货对面电梯7楼</span>
+                </span>
+              </div>
+              <div class="confirmAddr-addr-user">
+                <span class="confirmAddr-title">收货人：</span>
+                <span class="confirmAddr-addr-bd">
+                  <span>邓晓霖</span>
+                  <span>18476213154</span>
+                </span>
+              </div>
+            </div>
+            <div></div>
+            <div class="order-confirmAddr"></div>
+          </div>
+        </div>
+      </div>
+      <div class="order-submitOrder" id="submitOrder_1">
+        <div class="wrapper">
+          <a class="go-back" target="_self" role="button" title="{cartText}" href="//cart.taobao.com/cart.htm">
+            <span>返回购物车</span>
+          </a>
+          <a role="button" title="提交订单" class="go-btn">提交订单</a>
+        </div>
+      </div>
   </section>
 </template>
 <script>
@@ -525,6 +541,217 @@
         .edit-header {
           margin-left: 10px;
         }
+      }
+    }
+    .order-memo {
+      position: relative;
+      padding: 10px;
+      border-top: 1px solid #fff;
+      .memo-name {
+        vertical-align: top;
+        display: inline-block;
+      }
+      .memo-hint {
+        position: absolute;
+        top: 30px;
+        display: none;
+      }
+      .hint-title {
+        color: #ff0036;
+      }
+      .hint-content {
+        display: none;
+      }
+      .memo-detail {
+        .memo-input {
+          vertical-align: top;
+          //width: 328px;
+          width: 150px;
+          resize: none;
+          //height: 18px;
+          height: 20px;
+          line-height: 18px;
+          text-indent: 4px;
+          border: 1px solid #ccc;
+          outline: 0;
+          overflow: auto;
+        }
+      }
+    }
+    .mui-msg-normal {
+      color: #666;
+      border: 1px solid #f1f1f1;
+      background-color: #fcfcfc;
+      .mui-msg-arrow-top {
+        background-image: url(//img.alicdn.com/tps/i4/TB1aFimFVXXXXbwXVXXXsE_.VXX-14-10.png);
+        left: 0.5em;
+        top: -4px;
+        display: block;
+        width: 7px;
+        height: 5px;
+        line-height: 5px;
+      }
+    }
+    .mui-msg {
+      line-height: 1.4;
+      position: relative;
+      white-space: normal;
+      border-radius: 2px;
+      padding: 0.1em 0.5em 0.1em 1.3em;
+      cursor: pointer;
+      word-break: break-all;
+      word-wrap: break-word;
+      .mui-msg-icon {
+        position: absolute;
+        left: 0.1em;
+        font: 1.2em/1.2 mui-msg-font;
+        text-decoration: none;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-stroke-width: 0.2px;
+      }
+      .mui-msg-content {
+        display: inline-block;
+      }
+      .mui-msg-arrow {
+        position: absolute;
+        text-decoration: none;
+        background-repeat: no-repeat;
+        background-size: 100%;
+      }
+    }
+    .mui-msg-icon-tip {
+      color: #f8a564;
+    }
+    .order-extInfo {
+      width: 565px;
+      margin-left: -1px;
+      border-left: 1px solid #fff;
+      display: inline-block;
+      vertical-align: top;
+    }
+    .order-deliveryMethod {
+      border-top: 1px solid #fff;
+      padding: 10px 0;
+      .delivery-title {
+        float: left;
+        vertical-align: top;
+        text-align: right;
+        width: 95px;
+        padding-right: 15px;
+      }
+      .delivery-select {
+        float: left;
+        width: 455px;
+        .select-item {
+          padding-bottom: 0;
+          div {
+            float: left;
+          }
+          .select-info {
+            margin-left: 1px;
+            width: 324px;
+            display: block;
+            .delivery-box {
+              float: left;
+            }
+            label {
+              margin-right: 4px;
+            }
+          }
+          .select-price {
+            width: 119px;
+            padding-right: 10px;
+            text-align: right;
+            color: #ff0036;
+            font: 700 12px tahoma;
+          }
+        }
+      }
+    }
+    .orderPay {
+      text-align: right;
+      color: #333;
+      background-color: #f2f7ff;
+      padding: 3px 10px 3px 0;
+      height: 45px;
+      line-height: 45px;
+      .price {
+        color: #ff0036;
+        font-family: verdana, arial;
+        margin-left: 10px;
+        font-size: 16px;
+        font-weight: bolder;
+        vertical-align: middle;
+      }
+    }
+    .order-payInfo {
+      text-align: right;
+      margin-top: 15px;
+      .payInfo-wrapper {
+        display: inline-block;
+        border: 1px solid #ff0036;
+        .payInfo-shadow {
+          border: 3px solid #fff0e8;
+          min-width: 230px;
+          padding: 10px 10px 10px 20px;
+        }
+      }
+    }
+    .order-realPay {
+      .realPay-title {
+        font-weight: 700;
+        color: #333;
+      }
+      .order-price {
+        font-size: 26px;
+        margin-right: 4px;
+        color: #999;
+        font-family: verdana, arial;
+      }
+      .realPay-price {
+        color: #ff0036;
+        font: 700 26px tahoma;
+      }
+    }
+    .order-confirmAddr {
+      line-height: 1.6;
+      margin-top: 10px;
+      .confirmAddr-title {
+        font-weight: 700;
+        color: #333;
+      }
+      .confirmAddr-addr-bd {
+        span {
+          margin-left: 5px;
+        }
+      }
+    }
+    .order-submitOrder {
+      text-align: right;
+      margin-top: -1px;
+      .wrapper {
+        display: inline-block;
+        padding: 0 0 5px 5px;
+      }
+      .go-back {
+        color: #36c;
+        text-decoration: none;
+        margin-right: 50px;
+        line-height: 34px;
+      }
+      .go-btn {
+        display: inline-block;
+        width: 182px;
+        height: 39px;
+        position: relative;
+        vertical-align: middle;
+        line-height: 39px;
+        cursor: pointer;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 700;
+        background: #ff0036;
+        color: #fff;
       }
     }
   }
