@@ -1,6 +1,6 @@
 <template>
   <section class="zkui-order-isonLineDeliver">
-    <zk-head title='我的库存'></zk-head>
+    <zk-head title='线下发货'></zk-head>
     <div class="order-isonLineDeliver-box">
       <ul class="zkui-order-cart-box">
         <li class="zkui-order-cart-item">
@@ -48,7 +48,7 @@
 
 <script>
   import { } from 'zkui'
-  import userService from 'src/service/api/user.api'
+  import userService from 'src/service/api/erp.api'
   export default {
     data () {
       return {
@@ -62,10 +62,12 @@
     methods: {
       async Getdata () {
         let par = {
-          UserId: this.LoginUser().id
+          UserId: this.LoginUser().id,
+          OrderId: this.$route.params.id
         }
         console.log('this.LoginUser().id', this.LoginUser().id)
-        var response = await userService.userStock(par)
+        console.log('this.$route.params.id', this.$route.params.id)
+        var response = await userService.offlineDelivery(par)
         console.log('response', response)
       }
     }

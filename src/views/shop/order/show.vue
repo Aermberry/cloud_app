@@ -149,7 +149,7 @@
         </li>
       </ul>
     </div>
-    <x-textarea title="卖家留言 " placeholder="填写内容已和卖家协商确认 " :show-counter="false " :rows="1"></x-textarea>
+    <!-- <x-textarea title="卖家留言 " placeholder="填写内容已和卖家协商确认 " :show-counter="false " :rows="1"></x-textarea> -->
     <divider class="divider-bg "></divider>
     <div class="zkui-order-information">
       <div class="vux-form-preview weui-form-preview">
