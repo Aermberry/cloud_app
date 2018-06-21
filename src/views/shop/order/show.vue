@@ -166,12 +166,7 @@
         </div>
       </div>
     </div>
-    <!-- <group class="operation " v-if="showPay">
-      <cell>
-        <x-button mini plain type="primary" @click.native="pay()">付款</x-button>
-      </cell>
-    </group> -->
-    <group class="operation" v-if="data.orderStatus===1 && viewModel.order.deliverUserId>0">
+    <group class="operation" v-if="data.orderStatus===1 && data.order.deliverUserId>0">
       <cell>
         <x-button mini plain type="primary" :link="'/order/isonLineDeliver/'+$route.query.id">发货</x-button>
       </cell>
