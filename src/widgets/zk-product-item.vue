@@ -111,7 +111,7 @@
         let response = await apiService.list(params) // 通过异步方法获取数据
         var totalSize = response.data.result.totalSize // 获取总页数
         this.styleType = response.data.result.styleType // 选择何种风格
-        if (this.pagination === '' || this.pagination === 'undefined') {
+        if (this.pagination === '' || this.pagination === undefined) {
           this.pagination = totalSize
         }
         if (this.pageIndex < this.pagination) {

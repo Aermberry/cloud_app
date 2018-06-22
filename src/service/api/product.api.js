@@ -35,5 +35,10 @@ export default {
   groupBuyRecord (data) {
     var response = http.get('/GroupBuy/ProductRecord', data)
     return response
+  },
+  // 拼团商品列表
+  groupBuylist (data) {
+    var response = http.get('/GroupBuy/List', data)
+    return response
   }
 }
