@@ -7,42 +7,42 @@
       <div class="weui-form-preview">
         <div class="weui-form-preview__hd">
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">金额</label>
-            <em class="weui-form-preview__value zkui-reward-show-price">¥1000.00</em>
+            <label class="weui-form-preview__label">充值金额</label>
+            <em class="weui-form-preview__value zkui-reward-show-price">{{data.account}}元</em>
           </div>
         </div>
         <div class="weui-form-preview__bd">
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">流水号</label>
-            <span class="weui-form-preview__value">0000000000</span>
+            <span class="weui-form-preview__value">{{data.serial}}</span>
           </div>
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">账户名称</label>
-            <span class="weui-form-preview__value">余额账户</span>
+            <label class="weui-form-preview__label">充值账户（金额）</label>
+            <span class="weui-form-preview__value">{{data.moneyTypeName}}</span>
           </div>
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">账户余额</label>
-            <span class="weui-form-preview__value">2000</span>
+            <label class="weui-form-preview__label">状态</label>
+            <span class="weui-form-preview__value">{{data.status}}</span>
           </div>
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">操作类型</label>
-            <span class="weui-form-preview__value">充值</span>
+            <label class="weui-form-preview__label">手续费</label>
+            <span class="weui-form-preview__value">{{data.fee}}</span>
           </div>
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">货币类型</label>
-            <span class="weui-form-preview__value">人民币</span>
+            <label class="weui-form-preview__label">留言</label>
+            <span class="weui-form-preview__value">{{data.message}}</span>
           </div>
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">币种类型</label>
-            <span class="weui-form-preview__value">余额账户</span>
+            <label class="weui-form-preview__label">创建时间</label>
+            <span class="weui-form-preview__value">{{data.dateTime}}</span>
           </div>
           <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">账户状态</label>
-            <span class="weui-form-preview__value">付款成功</span>
+            <label class="weui-form-preview__label">支付时间</label>
+            <span class="weui-form-preview__value">{{data.payTime}}</span>
           </div>
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">描述</label>
-            <span class="weui-form-preview__value">杨大哥充值了一百</span>
+            <span class="weui-form-preview__value">{{data.description}}</span>
           </div>
         </div>
       </div>
@@ -52,11 +52,27 @@
 </template>
 
 <script>
-
+  import apiUser from 'src/service/api/account.api'
   export default {
     data () {
       return {
-
+        title: '充值详情',
+        goBack: '充值记录',
+        data: ''
+      }
+    },
+    mounted () {
+      this.Getdate()
+      console.log(this.$route.params.id)
+    },
+    methods: {
+      async Getdate () {
+        let par = {
+          id: this.$route.params.id
+        }
+        var data = await apiUser.RechargeDetail(par)
+        this.data = data.data.result
+        console.log(data)
       }
     }
   }

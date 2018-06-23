@@ -7,17 +7,17 @@
         <div class="weui-form-preview__hd">
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">金额</label>
-            <em class="weui-form-preview__value zkui-reward-show-price">¥{{data.amount}}</em>
+            <em class="weui-form-preview__value zkui-reward-show-price">{{data.amount}}</em>
           </div>
         </div>
         <div class="weui-form-preview__bd">
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">手续费：</label>
-            <span class="weui-form-preview__value">¥{{data.fee}}</span>
+            <span class="weui-form-preview__value">{{data.fee}}</span>
           </div>
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">账户类型</label>
-            <span class="weui-form-preview__value">{{data.moneyTypeName}}</span>
+            <span class="weui-form-preview__value">{{data.moneyTypeConfig.name}}</span>
           </div>
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">提现状态：</label>
@@ -26,6 +26,10 @@
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">用户名称:</label>
             <span class="weui-form-preview__value">{{data.userName}}</span>
+          </div>
+          <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label">银行卡信息:</label>
+            <span class="weui-form-preview__value">{{data.bankCardInfo}}</span>
           </div>
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">创建时间：</label>

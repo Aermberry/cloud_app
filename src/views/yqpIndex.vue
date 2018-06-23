@@ -45,7 +45,7 @@
         拼团
       </div>
     </group-title>
-    <zk-groupbuy :pageSize=4 classIds='' :pagination=6 tagsId='' diykey='index'></zk-groupbuy>
+    <zk-groupbuy :pageSize=12 classIds='' :pagination=6 tagsId='' diykey='index'></zk-groupbuy>
     <group-title class="flex">
       <div class="fashion-title">
         流行单品
@@ -62,7 +62,7 @@
         </swiper>
       </div>
     </group-title>
-    <zk-product-item :pageSize=4 classIds='' :pagination=6 tagsId='' diykey='index'></zk-product-item>
+    <zk-product-item :pageSize=4 classIds='' tagsId='' diykey='index'></zk-product-item>
     <div class="yqp-more">
       <router-link to="/product/list?SortOrder=2">查看更多 </router-link>
     </div>
