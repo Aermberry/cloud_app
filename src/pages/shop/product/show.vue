@@ -186,6 +186,40 @@
           </div>
         </div>
       </div>
+      <div class="zkui-banner">
+        <div class="top-banner-img">
+
+        </div>
+      </div>
+
+      <div class="zkui-shop-top-nav">
+        <div class="top-nav">
+          <span>
+            <a href="javascript:void(0)">首页</a>
+          </span>
+          <span>
+            <a href="javascript:void(0)">全部商品</a>
+          </span>
+          <span>
+            <a href="javascript:void(0)">6.23</a>
+          </span>
+          <span>
+            <a href="javascript:void(0)">时尚套装</a>
+          </span>
+          <span>
+            <a href="javascript:void(0)">连衣裙</a>
+          </span>
+          <span>
+            <a href="javascript:void(0)">防嗮衣/薄外套</a>
+          </span>
+          <span>
+            <a href="javascript:void(0)">衬衫/T恤</a>
+          </span>
+          <span>
+            <a href="javascript:void(0)">裙/裤</a>
+          </span>
+        </div>
+      </div>
     </header>
 
     <body>
@@ -198,6 +232,11 @@
   </div>
 </template>
 <script>
+  export default {
+    data () {
+
+    }
+  }
 
 </script>
 /*  element组件无法修改时，另写一个样式 */
@@ -240,21 +279,31 @@
     margin: 0 auto;
   }
 
+  #bundle {
+    .flex(@display:flex,@flex-direction:row,
+                  @flex-wrap:nowrap,@justify-content:flex-start) {
+      display: @display;
+      flex-flow: @flex-direction @flex-wrap;
+      justify-content: @justify-content;
+    }
+  }
+
   // Private style
 
   .zkui-pc-productshow {
     max-width: 100%;
     min-width: 800px;
-    .nav {
-      position: relative;
-      z-index: 100;
-      height: auto;
-      width: 100%;
-      border-bottom: 1px solid lighten(@gray-600, 40%);
-      box-shadow: 0 0 60px 10px lighten(@gray-600, 48%);
-    }
+
     header {
       background-color: #f2f2f2;
+      .nav {
+        position: relative;
+        z-index: 100;
+        height: auto;
+        width: 100%;
+        border-bottom: 1px solid lighten(@gray-600, 40%);
+        box-shadow: 0 0 60px 10px lighten(@gray-600, 48%);
+      }
       .wrap {
         // background-color: yellowgreen;
         position: relative;
@@ -266,9 +315,7 @@
           line-height: 30px;
           height: 30px;
           width: 100px;
-          display: flex;
-          flex-flow: row nowrap;
-          justify-content: center;
+          #bundle > .flex(@justify-content: center);
           align-items: center;
           span {
             font-size: 12px;
@@ -277,15 +324,12 @@
             line-height: 30px;
             flex-basis: 26px;
           }
-
         }
         ul {
           position: absolute;
           right: 10px;
           top: 0;
-          display: flex;
-          flex-flow: row nowrap;
-          justify-content: space-around;
+          #bundle > .flex(@justify-content: space-around);
           width: auto;
 
           li {
@@ -310,305 +354,392 @@
                 }
               }
             }
-
-            .login {
-            padding-right: 10px;
-            border-right: 1px solid #ccc;
-          }
             a:last-child {
               border: none;
             }
           }
-        }
-      }
-    }
 
-    .zkui-shop-info-product-search {
-      padding-top: 16px;
-      background-color: #ffffff;
-      padding-left: 30px;
-      height: auto;
-      .shop-info-box {
-        // background-color: red;
-        height: 83px;
-        max-width: 90%;
-        min-width: 60%;
-        width: percentage(1);
-        display: flex;
-        justify-content: space-around;
-        flex-flow: row nowrap;
-        line-height: 83px;
-
-        .user-info-box {
-          width: 50%;
-          display: flex;
-          padding-right: 30px;
-          .avater {
-            display: block;
-            height: 100%;
-            .face {
-              align: bottom;
-              background-color: #000000;
-              border: 1px solid #e0e0e0;
-              box-shadow: 0 0 2px 3px #ababab inset;
-              border-radius: 50%;
-              width: 40px;
-              height: 40px;
-              display: block;
-              vertical-align: bottom;
-            }
-          }
-          .name-score-wrap {
-            height: percentage(1);
-            .name-wrap {
-              display: flex;
-              width: 100%;
-              height: 20px;
-              line-height: 20px;
-              overflow: hidden;
-              // background-color: #ff0000;
-              .name {
-                height: 100%;
-                display: block;
-                font-size: 12px;
-                font-weight: bolder;
-              }
-            }
-
-            .score-wrap {
-              .star {
-              }
-              .descript {
-                height: 63px;
-                display: flex;
-                .cat {
-                  width: 58px;
-                  height: 14px;
-                  font-size: 12px;
-                  // background-color: #804000;
-                  b {
-                    font-size: 12px;
-                    color: @danger;
-                  }
-                }
-              }
-            }
-          }
-          position: relative;
-          .J-shop-user-info-detail {
-            // display: none;
-            visibility: hidden;
-            padding-top: 10px;
-            background: lighten(@brand, 50%);
-            width: 505px;
-            height: 259px;
-            position: absolute;
-            // opacity: 0.5;
-            top: 83px;
-            left: 0;
-            display: flex;
-            .info-box {
-              display: flex;
-              width: 240px;
-              overflow: hidden;
-              min-height: 250px;
-              flex-flow: row nowrap;
-              justify-content: flex-start;
-              .box {
-                display: flex;
-                flex-flow: column nowrap;
-                justify-content: flex-start;
-                height: 100%;
-                padding-left: 10px;
-                li {
-                  width: 202px;
-                  height: 26px;
-                  line-height: 12px;
-                  font-size: 12px;
-                  span {
-                    text-align: right;
-                    font-size: 12px;
-                    color: #999;
-                  }
-                }
-
-                .detail_img {
-                  height: auto;
-                  img {
-                    border: 1px solid @light;
-                    width: 206px;
-                    height: 46px;
-                  }
-                }
-
-                .detail_go_a {
-                  height: auto;
-                  width: 100%;
-                  .detail_go {
-                    line-height: 26px;
-                    text-align: center;
-                    margin: 0 auto;
-                    margin-top: 10px;
-                    display: block;
-                    width: 100px;
-                    height: 26px;
-                    line-height: 26px;
-                    font-size: 12px;
-                    background-color: #fff;
-                    border: 1px solid lighten(@metal, 55%);
-                    border-radius: 10%;
-                  }
-                }
-              }
-
-              .Bbox {
-                display: flex;
-                flex-flow: row nowrap;
-                justify-content: flex-start;
-                .box {
-                  width: 150px;
-                  li:first-child {
-                    color: #999;
-                  }
-                  span {
-                    color: @brand;
-                  }
-                }
-                div:last-child {
-                  li {
-                    margin-bottom: -2px;
-                  }
-                  span {
-                    text-align: center;
-                    line-height: 18px;
-                    width: 18px;
-                    height: 18px;
-                    display: inline-block;
-                    color: #ffffff;
-                    background-color: @brand;
-                  }
-                }
-              }
-            }
-            .info-box:first-child {
-              border-right: 1px solid #c0c0c0;
-            }
-
-            .info-box:last-child {
-              padding-left: 10px;
-              flex-flow: column nowrap;
-              .Bbox:first-child {
-                margin-bottom: 20px;
-              }
-
-              div:last-child {
-                div:last-child {
-                  li {
-                    margin-bottom: 0;
-                  }
-                }
-              }
-            }
-          }
-
-          &:hover .J-shop-user-info-detail {
-            visibility: visible;
-            // background-color: fade(@danger, 2%);
-            background-image: radial-gradient(
-              circle farthest-corner at 50%,
-              #fafad2,
-              transparent,
-              #ffffff
-            );
-          }
-
-          .shop-header-action {
-            display: flex;
-            width: 192px;
-            height: 100%;
-            flex-flow: row nowrap;
-            justify-content: flex-end;
+          li:first-child {
             a {
-              width: 73px;
-              margin-top: 15px;
-              height: 22px;
-              padding: 5px;
-              background-color: #fff;
-              font-size: 12px;
-              display: inline-block;
-              border: 1px solid #dddddd;
-            }
-            a:last-of-type {
-              width: 52px;
-              margin-left: 10px;
               position: relative;
             }
-            a:last-of-type::after {
+
+            a::after {
               content: '';
               position: absolute;
-              top: -11;
-              background-color: green;
-              right: -36px;
-
-              height: 40px;
-              border-right: 2px solid lighten(@gray-200, 1%);
+              top: -1px;
+              right: 0;
+              height: 10px;
+              border: 1px solid lighten(@metal, 42%);
+              background-color: #fff;
             }
           }
         }
+      }
 
-        .shop-search {
-          width: 50%;
-          .top_nav_search {
-            margin-top: 6px;
-            height: auto;
-            display: flex;
-            // background: #80ffff;
-            flex-flow: row nowrap;
-            justify-content: flex-end;
-            .search_inner_box {
-              display: flex;
-              flex-flow: row nowrap;
-              justify-content: flex-start;
-              height: 34px;
-              background-color: #80ff80;
-              border: 1px solid #ff0080;
-              border-radius: 0 3px 3px 0;
-              .ts_txt {
-                width: 305px;
-                height: 34px;
-                padding: 6px 0 6px 10px;
-                border-radius: 0;
-                background-color: #fff;
+      .zkui-shop-info-product-search {
+        padding-top: 16px;
+        background-color: #ffffff;
+        padding-left: 30px;
+        height: auto;
+        .shop-info-box {
+          // background-color: red;
+          height: 83px;
+          max-width: 90%;
+          min-width: 60%;
+          width: percentage(1);
+          #bundle > .flex(@justify-content: space-around);
+          line-height: 83px;
+
+          .user-info-box {
+            width: 50%;
+            #bundle > .flex;
+            padding-right: 30px;
+            .avater {
+              display: block;
+              height: 100%;
+              .face {
+                align: bottom;
+                background-color: #000000;
+                border: 1px solid #e0e0e0;
+                box-shadow: 0 0 2px 3px #ababab inset;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                display: block;
+                vertical-align: bottom;
+              }
+            }
+            .name-score-wrap {
+              height: percentage(1);
+              .name-wrap {
+                display: flex;
+                width: 100%;
+                height: 20px;
+                line-height: 20px;
                 overflow: hidden;
-                color: #999999;
-                line-height: 34px;
-                border: 1px solid #cccccc;
-                box-shadow: 0 1px 10px 1px #cccccc inset;
+                // background-color: #ff0000;
+                .name {
+                  height: 100%;
+                  display: block;
+                  font-size: 12px;
+                  font-weight: bolder;
+                }
               }
-              .ts_btn {
-                cursor: pointer;
-                border-radius: 0px;
-                width: 100px;
-                font-size: 16px;
+
+              .score-wrap {
+                .star {
+                }
+                .descript {
+                  height: 63px;
+                  display: flex;
+                  .cat {
+                    width: 58px;
+                    height: 14px;
+                    font-size: 12px;
+                    // background-color: #804000;
+                    b {
+                      font-size: 12px;
+                      color: @danger;
+                    }
+                  }
+                }
               }
             }
-            input {
-              line-hight: 34px;
-              height: 34px;
-              font-size: 12px;
-              color: #ffffff;
-              border-radius: 3px;
-              background-color: @danger;
+            position: relative;
+            .J-shop-user-info-detail {
+              // display: none;
+              visibility: hidden;
+              padding-top: 10px;
+              background: lighten(@brand, 50%);
+              width: 505px;
+              height: 259px;
+              position: absolute;
+              // opacity: 0.5;
+              top: 83px;
+              left: 0;
+              #bundle > .flex;
+              .info-box {
+                #bundle > .flex;
+                width: 240px;
+                overflow: hidden;
+                min-height: 250px;
+                .box {
+                  #bundle > .flex(@flex-direction:column);
+                  height: 100%;
+                  padding-left: 10px;
+                  li {
+                    width: 202px;
+                    height: 26px;
+                    line-height: 12px;
+                    font-size: 12px;
+                    span {
+                      text-align: right;
+                      font-size: 12px;
+                      color: #999;
+                    }
+                  }
+
+                  .detail_img {
+                    height: auto;
+                    img {
+                      border: 1px solid @light;
+                      width: 206px;
+                      height: 46px;
+                    }
+                  }
+
+                  .detail_go_a {
+                    height: auto;
+                    width: 100%;
+                    .detail_go {
+                      line-height: 26px;
+                      text-align: center;
+                      margin: 0 auto;
+                      margin-top: 10px;
+                      display: block;
+                      width: 100px;
+                      height: 26px;
+                      line-height: 26px;
+                      font-size: 12px;
+                      background-color: #fff;
+                      border: 1px solid lighten(@metal, 55%);
+                      border-radius: 10%;
+                    }
+                  }
+                }
+
+                .Bbox {
+                  #bundle > .flex;
+                  .box {
+                    width: 150px;
+                    li:first-child {
+                      color: #999;
+                    }
+                    span {
+                      color: @brand;
+                    }
+                  }
+                  div:last-child {
+                    li {
+                      margin-bottom: -2px;
+                    }
+                    span {
+                      text-align: center;
+                      line-height: 18px;
+                      width: 18px;
+                      height: 18px;
+                      display: inline-block;
+                      color: #ffffff;
+                      background-color: @brand;
+                    }
+                  }
+                }
+              }
+              .info-box:first-child {
+                border-right: 1px solid #c0c0c0;
+              }
+
+              .info-box:last-child {
+                padding-left: 10px;
+                flex-flow: column nowrap;
+                .Bbox:first-child {
+                  margin-bottom: 20px;
+                }
+
+                div:last-child {
+                  div:last-child {
+                    li {
+                      margin-bottom: 0;
+                    }
+                  }
+                }
+              }
             }
 
-            .searchInShop {
-              font-size: 16px;
-              cursor: pointer;
-              height: 36px;
-              line-height: 36px;
-              background-color: @danger;
-              text-align: center;
+            &:hover .J-shop-user-info-detail {
+              z-index: 100;
+              visibility: visible;
+              // background-color: fade(@danger, 2%);
+              background-image: radial-gradient(
+                circle farthest-corner at 50%,
+                #fafad2,
+                transparent,
+                #ffffff
+              );
             }
+
+            .shop-header-action {
+              width: 192px;
+              height: 100%;
+              #bundle > .flex(@justify-content: flex-end);
+              a {
+                width: 73px;
+                margin-top: 15px;
+                height: 22px;
+                padding: 5px;
+                background-color: #fff;
+                font-size: 12px;
+                display: inline-block;
+                border: 1px solid #dddddd;
+              }
+              a:last-of-type {
+                width: 52px;
+                margin-left: 10px;
+                position: relative;
+              }
+              a:last-of-type::after {
+                content: '';
+                position: absolute;
+                top: -11;
+                background-color: green;
+                right: -36px;
+
+                height: 40px;
+                border-right: 2px solid lighten(@gray-200, 1%);
+              }
+            }
+          }
+
+          .shop-search {
+            width: 50%;
+            .top_nav_search {
+              margin-top: 6px;
+              height: auto;
+              #bundle > .flex(@justify-content: flex-end);
+              .search_inner_box {
+                #bundle > .flex(@justify-content: flex-start);
+                height: 34px;
+                background-color: #80ff80;
+                border: 1px solid #ff0080;
+                border-radius: 0 3px 3px 0;
+                .ts_txt {
+                  width: 305px;
+                  height: 34px;
+                  padding: 6px 0 6px 10px;
+                  border-radius: 0;
+                  background-color: #fff;
+                  overflow: hidden;
+                  color: #999999;
+                  line-height: 34px;
+                  border: 1px solid #cccccc;
+                  box-shadow: 0 1px 10px 1px #cccccc inset;
+                }
+                .ts_btn {
+                  cursor: pointer;
+                  border-radius: 0px;
+                  width: 100px;
+                  font-size: 16px;
+                }
+              }
+              input {
+                line-hight: 34px;
+                height: 34px;
+                font-size: 12px;
+                color: #ffffff;
+                border-radius: 3px;
+                background-color: @danger;
+              }
+
+              .searchInShop {
+                font-size: 16px;
+                cursor: pointer;
+                height: 36px;
+                line-height: 36px;
+                background-color: @danger;
+                text-align: center;
+              }
+            }
+          }
+        }
+      }
+
+      .zkui-banner {
+        height: 150px;
+        width: 100%;
+        .top-banner-img {
+          width: 500px;
+          margin: 0 auto;
+          height: 100%;
+          background-image: url('../../../assets/images/bg/1.jpg');
+          background-repeat: no-repeat;
+          background-size: contain;
+          background-position: center;
+          background-color: #fff;
+          // border-top:1px solid #cccccc;
+          animation: tada 1s ease-in-out 1s alternate backwards;
+          transform-origin: center;
+        }
+
+        @keyframes tada {
+          from {
+            -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+          }
+
+          10%,
+          20% {
+            -webkit-transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+            transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+          }
+
+          30%,
+          50%,
+          70%,
+          90% {
+            -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+            transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+          }
+
+          40%,
+          60%,
+          80% {
+            -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+            transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+          }
+
+          to {
+            -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+          }
+        }
+      }
+
+      .zkui-shop-top-nav {
+        .top-nav {
+          padding-left: 73px;
+          background: lighten(@metal, 10%);
+          height: 30px;
+          width: 100%;
+          #bundle > .flex(@justify-content:flex-start);
+          span {
+            display: block;
+            width: auto;
+
+            a {
+              position: relative;
+              padding: 0 17px;
+              line-height: 30px;
+              height: 100%;
+              color: @light;
+              display: block;
+              font-size: 12px;
+              // border-right: 1px solid #ffffff;
+            }
+
+            a::after {
+              content: '';
+              position: absolute;
+              top: 11px;
+              right: 0;
+              width: 1px;
+              height: 10px;
+              background-color: #5c5c5c;
+            }
+          }
+
+          span:last-child > a::after {
+            display: none;
           }
         }
       }
