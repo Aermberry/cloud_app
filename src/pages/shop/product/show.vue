@@ -9,7 +9,7 @@
           </a>
           <ul>
             <li>
-              <a href="#">
+              <a href="#" class="login">
                 登陆
               </a>
             </li>
@@ -104,8 +104,8 @@
                   <li>
                     <span>销售量：</span>82018</li>
                   <li>
-                    创建时间日期:
-                    <span>2015年08月17日</span>
+                    <span>创建时间日期:</span>
+                    2015年08月17日
                   </li>
                   <li>
                     <span>店铺保证金：</span>已缴纳</li>
@@ -247,11 +247,11 @@
     min-width: 800px;
     .nav {
       position: relative;
-      z-index: 10;
+      z-index: 100;
       height: auto;
       width: 100%;
       border-bottom: 1px solid lighten(@gray-600, 40%);
-      box-shadow: 0 0 60px 10px lighten(@gray-600, 45%);
+      box-shadow: 0 0 60px 10px lighten(@gray-600, 48%);
     }
     header {
       background-color: #f2f2f2;
@@ -277,6 +277,7 @@
             line-height: 30px;
             flex-basis: 26px;
           }
+
         }
         ul {
           position: absolute;
@@ -309,6 +310,11 @@
                 }
               }
             }
+
+            .login {
+            padding-right: 10px;
+            border-right: 1px solid #ccc;
+          }
             a:last-child {
               border: none;
             }
@@ -390,7 +396,8 @@
           }
           position: relative;
           .J-shop-user-info-detail {
-            display: none !important;
+            // display: none;
+            visibility: hidden;
             padding-top: 10px;
             background: lighten(@brand, 50%);
             width: 505px;
@@ -448,6 +455,8 @@
                     line-height: 26px;
                     font-size: 12px;
                     background-color: #fff;
+                    border: 1px solid lighten(@metal, 55%);
+                    border-radius: 10%;
                   }
                 }
               }
@@ -458,6 +467,9 @@
                 justify-content: flex-start;
                 .box {
                   width: 150px;
+                  li:first-child {
+                    color: #999;
+                  }
                   span {
                     color: @brand;
                   }
@@ -483,7 +495,12 @@
             }
 
             .info-box:last-child {
+              padding-left: 10px;
               flex-flow: column nowrap;
+              .Bbox:first-child {
+                margin-bottom: 20px;
+              }
+
               div:last-child {
                 div:last-child {
                   li {
@@ -492,9 +509,17 @@
                 }
               }
             }
-            &:hover {
-              display: block !important;
-            }
+          }
+
+          &:hover .J-shop-user-info-detail {
+            visibility: visible;
+            // background-color: fade(@danger, 2%);
+            background-image: radial-gradient(
+              circle farthest-corner at 50%,
+              #fafad2,
+              transparent,
+              #ffffff
+            );
           }
 
           .shop-header-action {
@@ -530,6 +555,7 @@
             }
           }
         }
+
         .shop-search {
           width: 50%;
           .top_nav_search {
