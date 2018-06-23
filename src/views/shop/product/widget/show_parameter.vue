@@ -27,13 +27,12 @@
               </div>
               <div class="meassge-bottom">
                 剩余
-                <!-- {{item.remainTime}} -->
-                <zk-timedown @time-end="message = '倒计时结束'" :endTime='time[index]'></zk-timedown>
+                <zk-timedown @time-end="message = '倒计时结束'" :endTime='item.endTime'></zk-timedown>
               </div>
             </div>
           </li>
           <li class="groupbuy-btn">
-            <x-button @click.native="groupBuy(item.activityRecordId,item.users[0].userName,item.remainTime,item.remainCount)" type="primary" :disabled="item.users[0].userName===LoginUser().userName">去拼单</x-button>
+            <x-button @click.native="groupBuy(item.activityRecordId,item.users[0].userName,item.endTime,item.remainCount)" type="primary" :disabled="item.users[0].userId===share.userId">去拼单</x-button>
           </li>
         </ul>
       </div>
@@ -54,13 +53,12 @@
               </div>
               <div class="meassge-bottom">
                 剩余
-                <!-- {{item.remainTime}} -->
                 <zk-timedown @time-end="message = '倒计时结束'" :endTime='item.endTime'></zk-timedown>
               </div>
             </div>
           </li>
           <li class="groupbuy-btn">
-            <x-button @click.native="groupBuy(item.activityRecordId,item.users[0].userName,item.endTime,item.remainCount)" type="primary" :disabled="item.users[0].userName===LoginUser().userName">去拼单</x-button>
+            <x-button @click.native="groupBuy(item.activityRecordId,item.users[0].userName,item.endTime,item.remainCount)" type="primary" :disabled="LoginUser()===null&&item.users[0].userName===pLoginUser.id">去拼单</x-button>
           </li>
         </ul>
       </div>
@@ -257,7 +255,10 @@
           activitySelectId: '',
           userId: ''
         },
-        showStayshare: false // 分享框
+        showStayshare: false, // 分享框
+        pLoginUser: {
+          id: 9999999999
+        }
       }
     },
     created () {
@@ -268,13 +269,18 @@
         this.share.activitySelectId = Number(uAid)
       }
       if (this.$route.query.userId !== undefined) {
-        this.share.userId = this.$route.query.userId
+        this.share.userId = Number(this.$route.query.userId)
       }
-      var uid = this.LoginUser().id
-      if (this.$route.query.activitySelectId !== undefined && this.$route.query.userId === uid.toString()) {
+      if (this.LoginUser() !== null) {
+        this.pLoginUser.id = this.LoginUser().id
+      }
+
+      var uid = this.pLoginUser.id
+      if (this.$route.query.activitySelectId !== undefined && this.share.userId === uid) {
         this.showStayshare = true
+      } else if (this.$route.query.activitySelectId !== undefined && this.share.userId !== uid) {
+        this.showStayshare = false
       }
-      console.log('share.activitySelectId', this.share.activitySelectId)
     },
     mounted: function () {
       this.init()
@@ -343,6 +349,8 @@
           if (responseRecord.data.status === 1) {
             this.groupBuyRecord = responseRecord.data.result
             this.groupBuyLength = this.groupBuyRecord.length
+            console.log('groupBuyRecord', this.groupBuyRecord)
+            console.log('groupBuyLength', this.groupBuyRecord)
             if (this.$route.query.activitySelectId !== undefined) {
               let uAid = Number(this.$route.query.activitySelectId)
               for (let aw = 0; aw < this.groupBuyRecord.length; aw++) {
@@ -383,8 +391,10 @@
       buyProduct (isGroupBuy) {
         if (this.isInitiateGroup === true && isGroupBuy === true) {
           this.activitySelectId = 0
-        } else {
+        } else if (this.isInitiateGroup === false && isGroupBuy === true) {
           this.activitySelectId = this.groupBuyWindowMessage.id
+        } else {
+          this.activitySelectId = 0
         }
         this.groupBuyWindow = false
         helper.checkLogin(true)
