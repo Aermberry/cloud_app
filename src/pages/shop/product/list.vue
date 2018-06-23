@@ -202,46 +202,46 @@
       </div>
     </div>
     <div class="order-payInfo" id="payInfo_1">
-        <div class="payInfo-wrapper">
-          <div class="payInfo-shadow">
-            <div class="order-realPay" id="realPay_1">
-              <div>
-                <span class="realPay-title">实付款：</span>
-                <span class="order-price">￥</span>
-                <span class="realPay-price">459.00</span>
-              </div>
+      <div class="payInfo-wrapper">
+        <div class="payInfo-shadow">
+          <div class="order-realPay" id="realPay_1">
+            <div>
+              <span class="realPay-title">实付款：</span>
+              <span class="order-price">￥</span>
+              <span class="realPay-price">459.00</span>
             </div>
-            <div class="order-confirmAddr" id="confirmAddr_1">
-              <div class="confirmAddr-addr" title="寮步 力盈商务中心鑫盈百货对面电梯7楼">
-                <span class="confirmAddr-title">寄送至：</span>
-                <span class="confirmAddr-addr-bd">
-                  <span class="prov">广东</span>
-                  <span class="city">东莞</span>
-                  <span class="town">寮步</span>
-                  <span class="street">力盈商务中心鑫盈百货对面电梯7楼</span>
-                </span>
-              </div>
-              <div class="confirmAddr-addr-user">
-                <span class="confirmAddr-title">收货人：</span>
-                <span class="confirmAddr-addr-bd">
-                  <span>邓晓霖</span>
-                  <span>18476213154</span>
-                </span>
-              </div>
-            </div>
-            <div></div>
-            <div class="order-confirmAddr"></div>
           </div>
+          <div class="order-confirmAddr" id="confirmAddr_1">
+            <div class="confirmAddr-addr" title="寮步 力盈商务中心鑫盈百货对面电梯7楼">
+              <span class="confirmAddr-title">寄送至：</span>
+              <span class="confirmAddr-addr-bd">
+                <span class="prov">广东</span>
+                <span class="city">东莞</span>
+                <span class="town">寮步</span>
+                <span class="street">力盈商务中心鑫盈百货对面电梯7楼</span>
+              </span>
+            </div>
+            <div class="confirmAddr-addr-user">
+              <span class="confirmAddr-title">收货人：</span>
+              <span class="confirmAddr-addr-bd">
+                <span>邓晓霖</span>
+                <span>18476213154</span>
+              </span>
+            </div>
+          </div>
+          <div></div>
+          <div class="order-confirmAddr"></div>
         </div>
       </div>
-      <div class="order-submitOrder" id="submitOrder_1">
-        <div class="wrapper">
-          <a class="go-back" target="_self" role="button" title="{cartText}" href="//cart.taobao.com/cart.htm">
-            <span>返回购物车</span>
-          </a>
-          <a role="button" title="提交订单" class="go-btn">提交订单</a>
-        </div>
+    </div>
+    <div class="order-submitOrder" id="submitOrder_1">
+      <div class="wrapper">
+        <a class="go-back" target="_self" role="button" title="{cartText}" href="//cart.taobao.com/cart.htm">
+          <span>返回购物车</span>
+        </a>
+        <a role="button" title="提交订单" class="go-btn">提交订单</a>
       </div>
+    </div>
   </section>
 </template>
 <script>
