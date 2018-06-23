@@ -44,7 +44,7 @@
                   <span class="prov">广东</span>
                   <span class="city">东莞</span>
                   <span>（</span>
-                  <span class="name">邓晓霖</span>
+                  <span class="name">邓晓</span>
                   <span> 收）</span>
                 </div>
                 <div class="addr-bd" title="横沥 横沥镇山厦村康乐路 名巨中央">
