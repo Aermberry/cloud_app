@@ -201,7 +201,7 @@
             <a href="javascript:void(0)">全部商品</a>
           </span>
           <span>
-            <a href="javascript:void(0)">6.23</a>
+            <a href="javascript:void(0)">{{grade}}</a>
           </span>
           <span>
             <a href="javascript:void(0)">时尚套装</a>
@@ -221,9 +221,31 @@
         </div>
       </div>
     </header>
+    <!-- goods -->
 
     <body>
-
+      <div class="shop-detail contain">
+        <el-row>
+          <el-col :span="12">
+            <div class="goods-topimg grid-content bg-purple">
+              <div class="big-img">
+                <img src="../../../assets/images/debticon/B_1.jpg" alt="">
+              </div>
+              <div class="small-img">
+                <div class="box">
+                  <ul class="list">
+                    <li><img src="../../../assets/images/icon/m_1.jpg" alt="" srcset=""></li>
+                    <li><img src="../../../assets/images/icon/m_2.jpg" alt="" srcset=""></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </el-col>
+          <el-col :span="12">
+            <div class="grid-content bg-purple-light"></div>
+          </el-col>
+        </el-row>
+      </div>
     </body>
     <footer>
 
@@ -234,7 +256,9 @@
 <script>
   export default {
     data () {
-
+      return {
+        grade: '6.23'
+      }
     }
   }
 
@@ -281,7 +305,7 @@
 
   #bundle {
     .flex(@display:flex,@flex-direction:row,
-                  @flex-wrap:nowrap,@justify-content:flex-start) {
+                                                                                                                              @flex-wrap:nowrap,@justify-content:flex-start) {
       display: @display;
       flex-flow: @flex-direction @flex-wrap;
       justify-content: @justify-content;
@@ -305,7 +329,6 @@
         box-shadow: 0 0 60px 10px lighten(@gray-600, 48%);
       }
       .wrap {
-        // background-color: yellowgreen;
         position: relative;
         height: 30px;
         max-width: 90%;
@@ -383,7 +406,6 @@
         padding-left: 30px;
         height: auto;
         .shop-info-box {
-          // background-color: red;
           height: 83px;
           max-width: 90%;
           min-width: 60%;
@@ -418,7 +440,6 @@
                 height: 20px;
                 line-height: 20px;
                 overflow: hidden;
-                // background-color: #ff0000;
                 .name {
                   height: 100%;
                   display: block;
@@ -437,7 +458,6 @@
                     width: 58px;
                     height: 14px;
                     font-size: 12px;
-                    // background-color: #804000;
                     b {
                       font-size: 12px;
                       color: @danger;
@@ -448,14 +468,12 @@
             }
             position: relative;
             .J-shop-user-info-detail {
-              // display: none;
               visibility: hidden;
               padding-top: 10px;
               background: lighten(@brand, 50%);
               width: 505px;
               height: 259px;
               position: absolute;
-              // opacity: 0.5;
               top: 83px;
               left: 0;
               #bundle > .flex;
@@ -560,7 +578,6 @@
             &:hover .J-shop-user-info-detail {
               z-index: 100;
               visibility: visible;
-              // background-color: fade(@danger, 2%);
               background-image: radial-gradient(
                 circle farthest-corner at 50%,
                 #fafad2,
@@ -594,7 +611,6 @@
                 top: -11;
                 background-color: green;
                 right: -36px;
-
                 height: 40px;
                 border-right: 2px solid lighten(@gray-200, 1%);
               }
@@ -666,7 +682,6 @@
           background-size: contain;
           background-position: center;
           background-color: #fff;
-          // border-top:1px solid #cccccc;
           animation: tada 1s ease-in-out 1s alternate backwards;
           transform-origin: center;
         }
@@ -724,7 +739,6 @@
               color: @light;
               display: block;
               font-size: 12px;
-              // border-right: 1px solid #ffffff;
             }
 
             a::after {
@@ -738,9 +752,81 @@
             }
           }
 
+          span:nth-child(3) > a {
+            color: @danger;
+          }
+
           span:last-child > a::after {
             display: none;
           }
+        }
+      }
+    }
+
+    body {
+      background-color: #00ffff;
+      .shop-detail {
+        width: 90%;
+        height: auto;
+        .el-row {
+          margin-top: 30px;
+          margin-bottom: 20px;
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+        .goods-topimg {
+          width: 400px;
+          height: 669px;
+          .big-img {
+            width: 100%;
+            img {
+              vertical-align: bottom;
+              width: 400px;
+            }
+          }
+
+          .small-img {
+            width: 100%;
+            background-color: #8080ff;
+            .box {
+              background-color: #0080c0;
+              .list {
+                width: 180px;
+                text-align: center;
+                margin-top: 10px;
+                background-color: #fff;
+                #bundle > .flex(@justify-content:space-between);
+                li {
+                  height: auto;
+                  img {
+                    vertical-align: bottom;
+                    width: 60px;
+                  }
+                }
+              }
+            }
+          }
+        }
+        .el-col {
+          border-radius: 4px;
+        }
+        .bg-purple-dark {
+          background: #99a9bf;
+        }
+        .bg-purple {
+          background: #d3dce6;
+        }
+        .bg-purple-light {
+          background: #e5e9f2;
+        }
+        .grid-content {
+          border-radius: 4px;
+          min-height: 36px;
+        }
+        .row-bg {
+          padding: 10px 0;
+          background-color: #f9fafc;
         }
       }
     }
