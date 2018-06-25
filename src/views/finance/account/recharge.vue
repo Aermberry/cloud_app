@@ -111,7 +111,14 @@
         // 获取银行卡类型
         var bankCardType = await apiUser.bankCardType()
         console.log('bankCardType', bankCardType)
-        this.bankCardType = bankCardType.data.result
+        for (var a in bankCardType.data.result) {
+          let arr = {
+            'name': bankCardType.data.result[a],
+            'value': a
+          }
+          this.bankCardType.push(arr)
+          console.log(' this.bankCardType', this.bankCardType)
+        }
       }
     }
   }

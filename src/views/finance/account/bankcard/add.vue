@@ -27,7 +27,7 @@
         dataList: '',
         operation: '添加', // 记录操作类型
         bankTitle: '添加银行卡',
-        bankList: [[]],
+        bankList: [],
         backMessage: {
           UserId: this.LoginUser().id,
           BankType: '', // 银行类型
@@ -101,9 +101,15 @@
             this.$vux.toast.warn(Single.data.message)
           }
         }
-        var bankList = await apiUser.bankCardType()
-        this.bankList = bankList.data.result
-        console.log('this.bankList', this.bankList)
+        var bankCardType = await apiUser.bankCardType()
+
+        for (var a in bankCardType.data.result) {
+          let arr = {
+            'name': bankCardType.data.result[a],
+            'value': a
+          }
+          this.bankList.push(arr)
+        }
       }
     }
   }

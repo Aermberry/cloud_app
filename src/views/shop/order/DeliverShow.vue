@@ -6,12 +6,12 @@
         <cell title="地址" value="请选择地址" is-link svg='zk-orderaddress'> </cell>
       </group>
     </div> -->
-    <!-- <div class="vux-form-preview weui-form-preview zkui_order_buy-address">
+    <div class="vux-form-preview weui-form-preview zkui_order_buy-address">
       <div class="address-left-icon">
         <m-icon name="zk-orderaddress" class="icon"></m-icon>
       </div>
 
-      <div class="weui-form-preview__hd" v-if="viewModel.order.deliverUserId>0">
+      <div class="weui-form-preview__hd">
         <label class="weui-form-preview__label address_name" style="width:12rem">销售人：杨雨</label>
         <em class="weui-form-preview__value">{{viewModel.mobile}}</em>
         <div class="weui-form-preview__item">
@@ -41,7 +41,7 @@
       <div class="address-right-icon">
         <m-icon name="zk-fixation-phone" class="icon"></m-icon>
       </div>
-    </div> -->
+    </div>
     <div class="vux-form-preview weui-form-preview zkui_order_buy-address">
       <div class="address-left-icon">
         <m-icon name="zk-orderaddress" class="icon"></m-icon>
@@ -58,51 +58,6 @@
       </div>
     </div>
     <divider class="divider-bg"></divider>
-    <div class="stayShare" v-if="data.orderStatus === 10">
-      <div class="stitle flex">
-        <div class="stitle-left">
-          <m-icon name="zk-cart"></m-icon>
-        </div>
-        <div class="stitle-right">
-          待分享,还差{{GroupUserFirst.count}}人,剩余
-          <zk-timedown @time-end="message = '倒计时结束'" :endTime='GroupUserFirst.time '></zk-timedown>
-        </div>
-      </div>
-      <div class="scontent flex">
-        <div class="scontent-left">
-          <ul class="">
-            <li v-for="(item,index) in OrderGroupUser" :key="index">
-              ?
-              <img :src="item.avator" alt="">
-            </li>
-            <li>
-              ?
-              <img src="" alt="">
-            </li>
-          </ul>
-        </div>
-        <div class="scontent-right">
-          <x-button type="primary" :link="'/product/show/'+data.productSkuItems[0].productId+'?activitySelectId='+OrderGroupUser[0].activityRecordId+'&&userId='+OrderGroupUser[0].userId">邀请好友</x-button>
-        </div>
-      </div>
-    </div>
-    <div class="stayShare-popup" v-if="showStayshare">
-      <div class="popup-box">
-        <span class="vux-close" @click="showStayshare=!showStayshare"></span>
-        <div class="p-title">还差
-          <span>5</span>人,赶快邀请好友来拼单吧
-        </div>
-        <div class="p-content">
-          <ul class="flex">
-            <li>
-              <m-icon name="zk-vx" class="icon"></m-icon>
-              <p>点击右上角分享给微信好友</p>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <divider class="divider-bg " v-if="data.orderStatus === 10"></divider>
     <group class="order_show-title">
       <cell :title="data.storeName" :value="state"></cell>
     </group>
@@ -166,12 +121,7 @@
         </div>
       </div>
     </div>
-    <group class="operation" v-if="data.orderStatus===1 && data.order.deliverUserId>0">
-      <cell>
-        <x-button mini plain type="primary" :link="'/order/isonLineDeliver/'+$route.query.id">发货</x-button>
-      </cell>
-    </group>
-    <group class="operation">
+    <group class="operation" v-if="data.orderStatus===2">
       <cell>
         <x-button mini plain type="primary" :link="'/order/isonLineDeliver/'+$route.query.id">发货</x-button>
       </cell>
@@ -181,9 +131,12 @@
 </template>
 
 <script>
+  // import orderService from 'src/service/api/order.api'
+  import apiUser from 'src/service/api/user.api'
   import orderService from 'src/service/api/order.api'
   import { ZkTimedown } from 'widgets'
   import { Divider, Group, Cell, XButton, Box, XTextarea } from 'zkui'
+  import local from 'src/service/common/local'
   export default {
     components: {
       Divider,
@@ -214,39 +167,47 @@
     },
     methods: {
       async GetData () {
+        var defaultAddress = local.getLoginStore('default_address') // 刷新时从缓冲中读取地址
+        if (defaultAddress === undefined) {
+          // 缓存中不存在地址
+          var response = await apiUser.SingleAddress()
+          if (response.data.status === 1) {
+            this.viewModel = response.data.result
+            local.setLoginStore('default_address', this.viewModel) // 将购买信息写到缓存中
+          }
+        } else {
+          this.viewModel = defaultAddress
+        }
+        // console.log(this.$route.params.showId)
         var id = this.$route.query.id
         let par = {
           id: id
         }
-        var response = await orderService.show(par)
-        if (response.data.status === 1) {
-          this.data = response.data.result
-          console.info('订单详情', this.data)
-          this.viewModel = this.data.order.orderExtension.userAddress
-          if (this.data.orderStatus === 1) {
-            this.state = '待付款'
-            this.showPay = true
-          } else if (this.data.orderStatus === 2) {
-            this.state = '待发货'
-          } else if (this.data.orderStatus === 3) {
-            this.state = '待收货'
-          } else if (this.data.orderStatus === 4) {
-            this.state = '待评价'
-          } else if (this.data.orderStatus === 10) {
-            this.state = '待分享'
-          }
-          if (this.data.isGroupBuy === true) {
-            let oId = {
-              orderId: this.data.id
-            }
-            var OrderGroupUser = await orderService.OrderGroupUser(oId)
-            if (OrderGroupUser.data.result === 1) {
-              this.OrderGroupUser = OrderGroupUser.data.result
-              this.GroupUserFirst.time = this.OrderGroupUser[0].endTime
-              this.GroupUserFirst.count = this.OrderGroupUser[0].remainCount
-            }
-          }
+        var showData = await orderService.show(par)
+        this.data = showData.data.result
+        console.log('data', this.data)
+        if (this.data.orderStatus === 1) {
+          this.state = '待付款'
+          this.showPay = true
+        } else if (this.data.orderStatus === 2) {
+          this.state = '待发货'
+        } else if (this.data.orderStatus === 3) {
+          this.state = '待收货'
+        } else if (this.data.orderStatus === 4) {
+          this.state = '待评价'
+        } else if (this.data.orderStatus === 10) {
+          this.state = '待分享'
         }
+        let oId = {
+          orderId: this.data.id
+        }
+        var OrderGroupUser = await orderService.OrderGroupUser(oId)
+        console.log('OrderGroupUser', OrderGroupUser)
+        this.OrderGroupUser = OrderGroupUser.data.result
+        console.log('OrderGroupUser', this.OrderGroupUser[0])
+        console.log('login.id', this.LoginUser().id)
+        this.GroupUserFirst.time = this.OrderGroupUser[0].endTime
+        this.GroupUserFirst.count = this.OrderGroupUser[0].remainCount
       },
       pay () {
         var buyProductInfo = []

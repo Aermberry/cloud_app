@@ -31,7 +31,7 @@
 
 <script>
   import { XScroll } from 'zkui'
-  import apiService from 'src/service/api/product.api'
+  import apiService from 'src/service/api/erp.api'
   import local from 'src/service/common/local'
   export default {
     data () {
@@ -56,9 +56,8 @@
         let params = {
           pageIndex: this.pageIndex,
           pageSize: this.pageSize
-
         }
-        let response = await apiService.list(params)
+        let response = await apiService.productList(params)
         console.log('response', response)
         var totalSize = response.data.result.totalSize // 获取总页数
         this.styleType = response.data.result.styleType // 选择何种风格
