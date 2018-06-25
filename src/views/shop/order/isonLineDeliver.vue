@@ -88,7 +88,7 @@
             name: 'order_Deliver'
           })
         } else {
-          this.$vux.toast.warm(response.data.message)
+          this.$vux.toast.warn(response.data.message)
         }
       }
     }
