@@ -225,7 +225,7 @@
 
     <body>
       <div class="shop-detail contain">
-        <el-row>
+        <el-row :gutter="50">
           <el-col :span="8">
             <div class="goods-topimg grid-content bg-purple">
               <div class="big-img">
@@ -242,8 +242,31 @@
             </div>
           </el-col>
           <el-col :span="16">
-            <div class="grid-content bg-purple-light">
-              <h1 class="goods-title">{{goods_title}}</h1>
+            <div class="goods-info grid-content bg-purple-light">
+              <h1 class="goods-title" itemscope>
+                <span itemprop="name">
+                  {{goods_title}}
+                </span>
+              </h1>
+              <div class="goods-main">
+                <div class="event-box">
+                  <div class="event-box-content">
+                    <span>距6.23活动结束距离仅剩：</span>
+                    <span class="event-time">
+                      <span class="d">day</span>
+                      <span class="h">hour</span>
+                      <span class="m">minutes</span>
+                      <span class="s">seconds</span>
+                    </span>
+                  </div>
+                </div>
+                <div class="main-box">
+                  <div class="price">
+                    <span>价格：</span>
+                    <span>¥114.00</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </el-col>
         </el-row>
@@ -835,6 +858,50 @@
 
                 li:hover::before {
                   opacity: 0;
+                }
+              }
+            }
+          }
+        }
+
+        .goods-info {
+          overflow: hidden;
+          width: 538px;
+          height: 100%;
+          #bundle > .flex(@flex-direction:column,@justify-content:space-between);
+          .goods-title {
+            span {
+              display: block;
+              font-family: Microsoft YaHei, arial;
+              font-size: 24px;
+              line-height: 25px;
+              color: @gray-600;
+            }
+          }
+          .goods-main {
+            margin-top: 20px;
+            .event-box {
+              background: url(http://s3.mogucdn.com/mlcdn/c45406/180612_1e1a8h34aegkf7ea3h3iie4kgaea8_538x68.jpg)
+                0 0 no-repeat;
+              height: 68px;
+
+              .event-box-content {
+                #bundle > .flex;
+                span {
+                  font-size: 12px;
+                }
+              }
+            }
+
+            .main-box {
+              .price {
+                #bundle > .flex;
+                span {
+                  font-size: 12px;
+                  color: @gray-400;
+                  &:last-child {
+                    text-decoration: line-through;
+                  }
                 }
               }
             }
