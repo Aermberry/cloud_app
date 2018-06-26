@@ -226,7 +226,7 @@
     <body>
       <div class="shop-detail contain">
         <el-row>
-          <el-col :span="12">
+          <el-col :span="8">
             <div class="goods-topimg grid-content bg-purple">
               <div class="big-img">
                 <img src="../../../assets/images/debticon/B_1.jpg" alt="">
@@ -241,8 +241,10 @@
               </div>
             </div>
           </el-col>
-          <el-col :span="12">
-            <div class="grid-content bg-purple-light"></div>
+          <el-col :span="16">
+            <div class="grid-content bg-purple-light">
+              <h1 class="goods-title">{{goods_title}}</h1>
+            </div>
           </el-col>
         </el-row>
       </div>
@@ -257,7 +259,8 @@
   export default {
     data () {
       return {
-        grade: '6.23'
+        grade: '6.23',
+        goods_title: '娃娃裙女2018夏季新款chic露背镂空仙女裙小清新条纹拼接荷叶边a字短裙宽松喇叭袖连衣裙'
       }
     }
   }
@@ -304,8 +307,7 @@
   }
 
   #bundle {
-    .flex(@display:flex,@flex-direction:row,
-                                                                                                                              @flex-wrap:nowrap,@justify-content:flex-start) {
+    .flex(@display:flex,@flex-direction:row,               @flex-wrap:nowrap,@justify-content:flex-start) {
       display: @display;
       flex-flow: @flex-direction @flex-wrap;
       justify-content: @justify-content;
@@ -788,21 +790,51 @@
 
           .small-img {
             width: 100%;
-            background-color: #8080ff;
             .box {
-              background-color: #0080c0;
+              position: relative;
               .list {
-                width: 180px;
+                position: absolute;
+                left: 50%;
+                transform: translatex(-50%);
+                width: 132px;
                 text-align: center;
                 margin-top: 10px;
-                background-color: #fff;
+                // background-color: #fff;
                 #bundle > .flex(@justify-content:space-between);
                 li {
-                  height: auto;
+                  position: relative;
+                  cursor: pointer;
                   img {
-                    vertical-align: bottom;
+                    display: inline-block;
                     width: 60px;
                   }
+                }
+                li::before {
+                  content: '';
+                  position: absolute;
+                  border: none;
+                  left: 0;
+                  top: 0;
+                  background-color: #fff;
+                  width: 60px;
+                  height: 60px;
+                  opacity: 0.5;
+                }
+
+                li:hover::after {
+                  content: '';
+                  position: absolute;
+                  left: 0;
+                  bottom: 13px;
+                  width: 54px;
+                  border-style: solid;
+                  border-bottom-width: 10px;
+                  border-bottom: 2px;
+                  border-color: red;
+                }
+
+                li:hover::before {
+                  opacity: 0;
                 }
               }
             }
@@ -812,10 +844,10 @@
           border-radius: 4px;
         }
         .bg-purple-dark {
-          background: #99a9bf;
+          // background: #99a9bf;
         }
         .bg-purple {
-          background: #d3dce6;
+          // background: #d3dce6;
         }
         .bg-purple-light {
           background: #e5e9f2;
