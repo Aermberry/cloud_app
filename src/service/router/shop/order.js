@@ -14,6 +14,7 @@ export default [{
     params: {
       buyInfo: '',
       isFromCart: false,
+      isFromOrder: false,
       selectId: ''
     },
     meta: {
@@ -28,7 +29,8 @@ export default [{
   {
     path: '/order/list',
     meta: {
-      title: '我的订单'
+      title: '我的订单',
+      login: true
     },
     name: 'order_list',
     component: function (resolve) {
@@ -38,7 +40,8 @@ export default [{
   {
     path: '/order/show',
     meta: {
-      title: '订单详情'
+      title: '订单详情',
+      login: true
     },
     params: {
       showId: ''
@@ -50,12 +53,52 @@ export default [{
   }, {
     path: '/order/evaluate',
     meta: {
-      title: '发表评价'
+      title: '发表评价',
+      login: true
     },
     name: 'order_evaluate',
     component: function (resolve) {
       require(['src/views/shop/order/evaluate'], resolve)
     }
+  }, {
+    path: '/order/goods',
+    meta: {
+      title: '订货下单',
+      login: true
+    },
+    name: 'order_goods',
+    component: function (resolve) {
+      require(['src/views/shop/order/goods'], resolve)
+    }
+  }, {
+    path: '/order/UserStock',
+    meta: {
+      title: '我的库存',
+      login: true
+    },
+    name: 'order_UserStock',
+    component: function (resolve) {
+      require(['src/views/shop/order/UserStock'], resolve)
+    }
+  }, {
+    path: '/order/Deliver',
+    meta: {
+      title: '发货管理',
+      login: true
+    },
+    name: 'order_Deliver',
+    component: function (resolve) {
+      require(['src/views/shop/order/Deliver'], resolve)
+    }
+  }, {
+    path: '/order/isonLineDeliver/:id',
+    meta: {
+      title: '线下发货',
+      login: true
+    },
+    name: 'order_isonLineDeliver',
+    component: function (resolve) {
+      require(['src/views/shop/order/isonLineDeliver'], resolve)
+    }
   }
-
 ]

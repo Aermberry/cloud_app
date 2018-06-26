@@ -1,6 +1,14 @@
 <template>
   <section class="zkui_order_buy">
     <buy-address></buy-address>
+    <div class="isFromOrder-warm" v-if="isFromOrder===true">
+      <div class="warm-icon">
+        <m-icon name="zk-warm"></m-icon>
+      </div>
+      <div class="warm-text">
+        虚拟库存：付款后，把货存在上级那代管。下级下单可直接转上级发货，省去自己发货，减少物流成本。
+      </div>
+    </div>
     <group class="order_buy_product " v-for="(store,storeIndex) in modelView.storeItems " :key="storeIndex">
       <cell :title="store.storeName" class="border-bottom"> </cell>
       <div class="item-contnet">
@@ -39,7 +47,7 @@
           </li>
         </ul>
       </div>
-      <popup-radio title="请选择 " :options="store.expressTemplates" v-model="showDelivery[storeIndex]" @on-change="countPrice()">
+      <popup-radio title="请选择 " :options="store.expressTemplates" v-model="showDelivery[storeIndex]" @on-change="countPrice()" v-if="isFromOrder===false">
         <p slot="popup-header" class="border-bottom popup-header">选择快递方式</p>
       </popup-radio>
       <x-textarea title="卖家留言 " placeholder="填写内容已和卖家协商确认 " :show-counter="false " :rows="1" autosize v-model="userMessages[storeIndex]"></x-textarea>
@@ -113,9 +121,11 @@
         addressId: '00000000-0000-0000-0000-000000000000', // 地址选择，默认为空,
         userMessages: [], // 留言信息
         isFromCart: false, // 购买信息是否来自购物车，如果是，则需要删除购物车中，相对应的商品数据
+        isFromOrder: false, // 是否从订购页面来
         reduceMoneys: [], // 非人民币资产信息
         isGroupBuy: false, // 是否为拼团购买
-        showDelivery: [] // 显示物流快递
+        showDelivery: [], // 显示物流快递
+        activityRecordId: ''
       }
     },
     mounted () {
@@ -185,7 +195,9 @@
             isGroupBuy: this.isGroupBuy, // 是否为拼团购买/*  */
             sign: this.modelView.sign, // 签名信息
             isFromCart: this.isFromCart, // 是否从购物车购买
-            userId: this.LoginUser().id // 下单用户ID
+            isFromOrder: this.isFromOrder, // 是否从订货页面来
+            userId: this.LoginUser().id, // 下单用户ID
+            activityRecordId: this.activityRecordId
           }
           // console.info('购买格式', buyInput)
           var response = await apiService.Buy(buyInput)
@@ -203,8 +215,8 @@
         }
       },
       async GetData () {
+        console.log('this.$route.params.buyInfo', this.$route.params.buyInfo)
         var buyProductInfo = ''
-        console.info('this.$route.params.buyInfo', this.$route.params.buyInfo)
         if (this.$route.params.buyInfo !== undefined) {
           buyProductInfo = this.$route.params.buyInfo
           local.setStore('order_buy', buyProductInfo) // 将购买信息写到缓存中
@@ -212,8 +224,16 @@
           buyProductInfo = local.getStore('order_buy') // 刷新时从缓冲中读取数据
         }
         this.isGroupBuy = buyProductInfo[0].isGroupBuy
+        this.isFromOrder = buyProductInfo[0].isFromOrder
+        this.activityRecordId = buyProductInfo[0].activityRecordId
         if (this.$route.params.isFromCart !== undefined) {
           this.isFromCart = this.$route.params.isFromCart // 记录购买信息是否来自购物车
+        }
+        if (this.$route.params.isFromOrder !== undefined) {
+          this.isFromOrder = this.$route.params.isFromOrder// 是否从订货页面来
+          local.setStore('isFromOrder', this.$route.params.isFromOrder)
+        } else {
+          this.isFromOrder = local.getStore('isFromOrder')
         }
         if (buyProductInfo === undefined) {
           this.$vux.toast.warn('暂无商品，清先购买商品')
@@ -221,6 +241,13 @@
             name: 'commont_index'
           })
         } else {
+          if (this.$route.params.isFromOrder !== undefined) {
+            this.isFromOrder = this.$route.params.isFromOrder
+            local.setStore('isFromOrder', this.$route.params.isFromOrder)
+          } else {
+            this.isFromOrder = local.getStore('isFromOrder')
+          }
+
           var buyInfoInput = {
             loginUserId: this.LoginUser().id,
             isGroupBuy: this.isGroupBuy,
@@ -228,7 +255,6 @@
           }
           console.info('购物信息', buyInfoInput)
           var response = await apiService.buyProduct(buyInfoInput)
-          console.log('response', response)
           if (response.data.status !== 1) {
             this.messageWarn(response.data.message)
           } else {
@@ -253,7 +279,6 @@
       },
       // 获取价格,更改店铺运费方式，修改地址时候，会修改价格
       async getPrice () {
-        console.log('defaultAddress', local.getLoginStore('default_address'))
         var defaultAddress = local.getLoginStore('default_address') // 刷新时从缓冲中读取地址
         if (defaultAddress !== undefined) {
           console.log('defaultAddress', defaultAddress)
@@ -310,6 +335,24 @@
 <style  lang="less">
   .zkui_order_buy {
     margin-bottom: 2.5rem;
+    .isFromOrder-warm {
+      display: flex;
+      padding: 0.5rem 1rem;
+      background: #fceec7;
+      .warm-icon {
+        svg {
+          width: 1rem;
+          height: 1rem;
+          color: #f56e01;
+        }
+      }
+      .warm-text {
+        padding-left: 0.5rem;
+        flex: 1;
+        color: #f56e01;
+        font-size: @h6-font-size;
+      }
+    }
     .weui-cells {
       margin-top: 0;
     }

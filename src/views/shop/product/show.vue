@@ -18,8 +18,8 @@
   import ShowIntro from './widget/show_intro' // 商品详情
   import ShowRecommend from './widget/show_recommend' // 推荐商品
   import ShowBar from './widget/show_bar' // 底部操作按钮 立即购买 加入购物车等
-
   import { Group, Box } from 'zkui'
+  import local from 'src/service/common/local'
   // import { setInterval } from 'timers';
 
   export default {
@@ -38,6 +38,7 @@
       // this.fetchData()
     },
     mounted () {
+      console.log(local.getStore('goods'))
     },
     // watch: {
     //   // 监听路由的变化。
@@ -78,6 +79,12 @@
           this.asyncFlag = true
           this.modelView = product
         }
+      }
+    },
+    route: {
+      canActivate (transition) {
+        console.log(transition, '======上一个页面的url信息=======')
+        transition.next()
       }
     }
   }

@@ -3,7 +3,7 @@
     <group class="zkui-product-show-parameter">
       <div class="weui-cells-top"></div>
       <cell :title="salePropertyTitle" @click.native="specification()" is-link :value="selectSku.propertyValueDesc"></cell>
-      <cell title="商品参数" @click.native="showParameter = true" is-link class="border-bottom"></cell>
+      <cell title="商品参数" @click.native="showParameter = true" is-link class="border-bottom" v-if="productView.productExtensions.productCategory.displayPropertys.length!==0"></cell>
       <cell :title="'备注：'+productView.detail.productDetailExtension.remark" v-if="productView.detail.productDetailExtension.remark!==''&&productView.detail.productDetailExtension.remark!==null"></cell>
       <div class="weui-cells-bottom"></div>
     </group>
@@ -11,7 +11,7 @@
     <group class="zkui-product-show-groupbuy" v-if="isGroupBuyProduct">
       <cell :title="groupBuyLength+'人在拼团，可直接参与'" v-if="groupBuyLength>0"></cell>
       <div class="groupbuy-box">
-        <ul v-for="(item,index) in groupBuyRecord" :key="index">
+        <ul v-for="(item,index) in groupBuyRecord" :key="index" v-if="share.activitySelectId===item.activityRecordId&&share.activitySelectId!== ''">
           <li class="groupbuy-img">
             <img :src="item.users[0].avator" alt="">
           </li>
@@ -27,13 +27,38 @@
               </div>
               <div class="meassge-bottom">
                 剩余
-                <!-- {{item.remainTime}} -->
-                <zk-timedown @time-end="message = '倒计时结束'" :endTime='time[index]'></zk-timedown>
+                <zk-timedown @time-end="message = '倒计时结束'" :endTime='item.endTime'></zk-timedown>
               </div>
             </div>
           </li>
           <li class="groupbuy-btn">
-            <x-button @click.native="groupBuy(item.activityRecordId,item.users[0].userName,item.remainTime,item.remainCount)" type="primary" :disabled="item.users[0].userName===LoginUser().userName">去拼单</x-button>
+            <x-button @click.native="groupBuy(item.activityRecordId,item.users[0].userName,item.endTime,item.remainCount)" type="primary" :disabled="item.users[0].userId===share.userId">去拼单</x-button>
+          </li>
+        </ul>
+      </div>
+      <div class="groupbuy-box">
+        <ul v-for="(item,index) in groupBuyRecord" :key="index" v-if="share.activitySelectId=== ''">
+          <li class="groupbuy-img">
+            <img :src="item.users[0].avator" alt="">
+          </li>
+          <li class="groupbuy-name">
+            <span>{{item.users[0].userName}}</span>
+          </li>
+          <li class="groupbuy-message">
+            <div class="message-box">
+              <div class="message-top">
+                还差
+                <span>{{item.remainCount}}人</span>
+                拼成
+              </div>
+              <div class="meassge-bottom">
+                剩余
+                <zk-timedown @time-end="message = '倒计时结束'" :endTime='item.endTime'></zk-timedown>
+              </div>
+            </div>
+          </li>
+          <li class="groupbuy-btn">
+            <x-button @click.native="groupBuy(item.activityRecordId,item.users[0].userName,item.endTime,item.remainCount)" type="primary" :disabled="LoginUser()===null&&item.users[0].userName===pLoginUser.id">去拼单</x-button>
           </li>
         </ul>
       </div>
@@ -44,8 +69,8 @@
       <x-dialog v-model="groupBuyWindow" class="dialog-demo">
         <div class="groupbuy-dialog">
           <h1 class="gd-title">参与{{groupBuyWindowMessage.name}}的拼单</h1>
-          <div class="gd-message">仅剩{{groupBuyWindowMessage.places}}个名额,<br>{{groupBuyWindowMessage.time}}后结束
-            <!-- <zk-timedown @time-end="message = '倒计时结束'" :endTime='groupBuyWindowMessage.time'></zk-timedown> -->
+          <div class="gd-message">仅剩{{groupBuyWindowMessage.places}}个名额,<br>
+            <zk-timedown @time-end="message = '倒计时结束'" :endTime='groupBuyWindowMessage.time'></zk-timedown>后结束
           </div>
           <div class="gd-img-box">
             <div class="gd-img">
@@ -71,7 +96,7 @@
               <img :src="productView.thumbnailUrl" />
             </dt>
             <dd class="sale-info-name">{{productView.name}}</dd>
-            <dd class="sale-info-price brand">￥{{selectSku.displayPrice}}
+            <dd class="sale-info-price brand">￥{{selectSkuDisplayPrice}}
               <span class="metal">￥{{selectSku.marketPrice}}</span>
             </dd>
             <dd class="sale-info-stock metal">库存：{{selectSku.stock}} 货号：{{selectSku.bn}}</dd>
@@ -112,7 +137,7 @@
               <img :src="productView.thumbnailUrl" />
             </dt>
             <dd class="sale-info-name">{{productView.name}}</dd>
-            <dd class="sale-info-price brand">￥{{selectSku.displayPrice}}
+            <dd class="sale-info-price brand">￥{{selectSkuDisplayPrice}}
               <span class="metal">￥{{selectSku.marketPrice}}</span>
             </dd>
             <dd class="sale-info-stock metal">库存：{{selectSku.stock}} 货号：{{selectSku.bn}}</dd>
@@ -144,7 +169,7 @@
       </popup>
     </div>
     <!-- 商品参数 -->
-    <div v-transfer-dom v-if="productView.productExtensions.productCategory.displayPropertys.length===0">
+    <div v-transfer-dom>
       <popup v-model="showParameter " class="showParameter " max-height="70%" is-transparent>
         <div style="width: 100%;background-color:#fff;height:250*@rem;margin:0 auto;border-radius:5*@rem; ">
           <div class="goods-title">商品参数</div>
@@ -158,11 +183,29 @@
         </div>
       </popup>
     </div>
+    <!-- 分享 -->
+    <div class="stayShare-popup-parameter" v-if="showStayshare">
+      <div class="popup-box">
+        <span class="vux-close" @click="showStayshare=!showStayshare"></span>
+        <div class="p-title">还差
+          <span>{{groupBuyWindowMessage.places }}</span>人,赶快邀请好友来拼单吧
+        </div>
+        <div class="p-content">
+          <ul class="flex">
+            <li>
+              <m-icon name="zk-vx" class="icon"></m-icon>
+              <p>点击右上角分享给微信好友</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
   import { Group, Checker, CheckerItem, Divider, GroupTitle, Cell, TransferDom, Popup, XButton, XSwitch, InlineXNumber, ButtonTab, ButtonTabItem, XDialog } from 'zkui'
   import userService from 'src/service/api/user.api'
+  import local from 'src/service/common/local'
   import productService from 'src/service/api/product.api'
   import helper from 'src/service/common/helper'
   import { ZkTimedown } from 'widgets'
@@ -180,6 +223,7 @@
         showSale: false, // 显示规格选择窗口
         salePropertyTitle: '请选择：',
         selectSku: '', // 选择的商品Sku
+        selectSkuDisplayPrice: '', // 选择sku的显示价格
         buyCount: 1, // 商品购买数量
         saleItems: [], // 可能存在多个商品规格属性，默认填充四个
         content: '',
@@ -189,10 +233,12 @@
         isGroupBuyProduct: false, // 是否为拼团商品
         activitySelectId: 0, // 拼团时选择的活动Id，为0表示发起拼团
         groupBuyWindow: false, // 拼团弹窗
+        isFromOrder: false, // 是否从订货页面来
         groupBuyWindowMessage: {
           name: '',
           time: '',
-          places: ''
+          places: '',
+          id: ''
         },
         groupBuyRecord: '', // 商品拼团记录
         groupBuyLength: '', // 拼团数量
@@ -204,27 +250,66 @@
           one: [],
           two: [],
           three: []
+        },
+        share: { // 分享跳转接收到的数据
+          activitySelectId: '',
+          userId: ''
+        },
+        showStayshare: false, // 分享框
+        pLoginUser: {
+          id: 9999999999
         }
       }
     },
     created () {
       this.isGroupBuyProduct = this.productView.productActivityExtension.isGroupBuy
+      // 分享
+      if (this.$route.query.activitySelectId !== undefined) {
+        var uAid = this.$route.query.activitySelectId
+        this.share.activitySelectId = Number(uAid)
+      }
+      if (this.$route.query.userId !== undefined) {
+        this.share.userId = Number(this.$route.query.userId)
+      }
+      if (this.LoginUser() !== null) {
+        this.pLoginUser.id = this.LoginUser().id
+      }
+
+      var uid = this.pLoginUser.id
+      if (this.$route.query.activitySelectId !== undefined && this.share.userId === uid) {
+        this.showStayshare = true
+      } else if (this.$route.query.activitySelectId !== undefined && this.share.userId !== uid) {
+        this.showStayshare = false
+      }
     },
     mounted: function () {
-      console.log('productView', this.productView)
       this.init()
+      console.log('productView', this.productView)
+      for (var b = 0; b < this.productView.productExtensions.productCategory.salePropertys.length; b++) {
+        this.saleItems[b] = this.productView.productExtensions.productCategory.salePropertys[b].propertyValues[0]
+      }
       this.$nextTick(function () {
         // 接收父主件的拼团参数
         this.$on('childMethod', function (isGroupBuyAction) {
           this.isGroupBuy = isGroupBuyAction // 接收父主件的拼团参数
-          console.info('是否拼团操作', this.isGroupBuy)
           this.showSale = true
+          this.isInitiateGroup = true
           this.showgroupBuy = true
+          if (isGroupBuyAction === true) {
+            console.log('this.isGroupBuy === true', isGroupBuyAction)
+            this.selectSkuDisplayPrice = this.getGroupBuySkuPrice(this.productView.productActivityExtension.activitys[0].value.SkuProducts[0].Id)
+            console.log('this.isGroupBuy === true', this.selectSkuDisplayPrice)
+            for (var a = 0; a < this.productView.productExtensions.productCategory.salePropertys.length; a++) {
+              this.saleItems[a] = this.productView.productExtensions.productCategory.salePropertys[a].propertyValues[0]
+            }
+          } else {
+            this.selectSkuDisplayPrice = this.productView.productExtensions.productSkus[0].displayPrice
+            for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
+              this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
+            }
+          }
         })
       })
-      for (var i = 0; i < this.productView.productExtensions.productCategory.salePropertys.length; i++) {
-        this.saleItems[i] = this.productView.productExtensions.productCategory.salePropertys[i].propertyValues[0]
-      }
     },
     methods: {
       specification () {
@@ -239,33 +324,47 @@
       groupBuy (id, name, time, places) {
         this.groupBuyWindow = true
         this.activitySelectId = id
+        this.isInitiateGroup = false
         console.log('this.activitySelectId', id, name, time, places)
         this.groupBuyWindowMessage.name = name
         this.groupBuyWindowMessage.time = time
         this.groupBuyWindowMessage.places = places
+        this.groupBuyWindowMessage.id = id
         this.isGroupBuy = true
       },
       async init () {
+        console.log('this.LoginUser()', this.LoginUser())
         this.productView.productExtensions.productCategory.salePropertys.forEach(element => {
           this.salePropertyTitle = this.salePropertyTitle + element.name + ' '
         })
-        this.selectSku = this.productView.productExtensions.productSkus[0] // 根据specSn获取商品的规格
+        var productViewTemp = this.productView
+        this.selectSku = productViewTemp.productExtensions.productSkus[0] // 根据specSn获取商品的规格
         // 如果是拼团操作
         if (this.isGroupBuyProduct) {
-          this.selectSku.displayPrice = this.getGroupBuySkuPrice(this.selectSku.id)
-          // 获取拼团记录
-          console.log('this.productView.id', this.productView.id)
           let par = {
             productId: this.productView.id
           }
           var responseRecord = await productService.groupBuyRecord(par)
-          console.log('responseRecord', responseRecord)
+          console.log('responseRecord拼团记录', responseRecord)
           if (responseRecord.data.status === 1) {
             this.groupBuyRecord = responseRecord.data.result
-            console.info('拼团记录', this.groupBuyRecord)
             this.groupBuyLength = this.groupBuyRecord.length
+            console.log('groupBuyRecord', this.groupBuyRecord)
+            console.log('groupBuyLength', this.groupBuyRecord)
+            if (this.$route.query.activitySelectId !== undefined) {
+              let uAid = Number(this.$route.query.activitySelectId)
+              for (let aw = 0; aw < this.groupBuyRecord.length; aw++) {
+                if (this.groupBuyRecord[aw].activityRecordId === uAid) {
+                  this.groupBuyWindowMessage.places = this.groupBuyRecord[aw].remainCount
+                }
+              }
+            }
           }
-          console.info('是否拼团操作', this.selectSku.displayPrice)
+        }
+        if (local.getStore('goods') === true) {
+          this.isFromOrder = local.getStore('goods')
+          console.log('this.isFromOrder', this.isFromOrder)
+          local.removeStore('goods')
         }
       },
       // 添加到购物车
@@ -290,13 +389,13 @@
       // 购买商品,isGroupBuy是否为拼团,activitySelectId:参与拼团的活动Id,
       // (activitySelectId=0，isGroupBuy=true)表示发起拼团 (activitySelectId>0，isGroupBuy=true)参与拼团,isGroupBuy=false，普通购买
       buyProduct (isGroupBuy) {
-        // 是发起拼团把activitySelectId变为0
-        if (this.isInitiateGroup === true) {
+        if (this.isInitiateGroup === true && isGroupBuy === true) {
+          this.activitySelectId = 0
+        } else if (this.isInitiateGroup === false && isGroupBuy === true) {
+          this.activitySelectId = this.groupBuyWindowMessage.id
+        } else {
           this.activitySelectId = 0
         }
-        console.log('this.activitySelectId', this.activitySelectId)
-        // this.isGroupBuy = isGroupBuy
-        console.info('是否拼团', isGroupBuy)
         this.groupBuyWindow = false
         helper.checkLogin(true)
         if (this.selectSku.id === undefined) {
@@ -319,7 +418,8 @@
         this.$router.push({
           name: 'order_buy',
           params: {
-            buyInfo: buyProductInfo
+            buyInfo: buyProductInfo,
+            isFromOrder: this.isFromOrder
           }
         })
       },
@@ -328,18 +428,21 @@
         this.saleItems.forEach(element => {
           specSn += element.id + '|'
         })
-        console.log('this.saleItems', this.saleItems)
-        console.log('specSn', specSn)
-        var skus = this.productView.productExtensions.productSkus
+        var productViewTemps = this.productView
+        var skus = productViewTemps.productExtensions.productSkus
         var sku = ''
         for (var i = 0; i < skus.length; i++) {
           if (skus[i].specSn === specSn) {
             sku = skus[i]
+            // console.info('是否为拼团操作', this.isGroupBuy)
+            if (this.isGroupBuy) {
+              // this.selectSkuDisplayPrice = this.getGroupBuySkuPrice(skus[i].id)
+              // console.info('拼团显示价格', this.selectSkuDisplayPrice)
+            } else {
+              // console.info('非拼团Sku', skus[i])
+              this.selectSkuDisplayPrice = skus[i].displayPrice
+            }
           }
-        }
-        console.log('this.sku', sku)
-        if (this.isGroupBuy) {
-          sku.displayPrice = this.getGroupBuySkuPrice(sku.id)
         }
         return sku
       },
@@ -347,7 +450,6 @@
       getGroupBuySkuPrice (id) {
         var price = 0
         var activitys = this.productView.productActivityExtension.activitys // 所有活动
-        console.log('activitys', activitys)
         var groupBuyActivity
         activitys.forEach(element => {
           if (element.key === 'ZKCloud.App.Shop.Activitys.Modules.GroupBuy.Model.GroupBuyActivity') {
@@ -365,15 +467,7 @@
       },
       // 获取Sku ，用户选择不同的sku
       changSku () {
-        console.info('zhugantai', this.isGroupBuy)
         this.selectSku = this.getSku() // 根据specSn获取商品的规格
-        // this.selectSku = this.getSku() // 根据specSn获取商品的规格
-        // 如果拼团获取拼团价格
-        if (this.isGroupBuy) {
-          this.selectSku.displayPrice = this.getGroupBuySkuPrice(this.selectSku.id)
-        } else {
-          this.selectSku = this.getSku()
-        }
       }
     }
   }
@@ -382,6 +476,61 @@
 <style   lang="less">
   @import '../../../../assets/css/zkui/theme';
   @import '../../../../assets/css/zkui/mixin';
+  .stayShare-popup-parameter {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 8888;
+    background: rgba(0, 0, 0, 0.8);
+    .popup-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      background: white;
+      min-height: 3rem;
+      border-radius: 10px;
+      padding: 2rem;
+      .vux-close {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+      .p-title {
+        height: 2.5rem;
+        color: @black;
+        font-size: @h4-font-size;
+        font-weight: bold;
+        text-align: center;
+        span {
+          font-size: @h4-font-size;
+          font-weight: bold;
+          color: @brand;
+        }
+      }
+      .p-content {
+        .flex {
+          li {
+            flex: 1;
+            svg {
+              display: block;
+              margin: 0 auto;
+              width: 3.5rem;
+              height: 3.5rem;
+            }
+            p {
+              text-align: center;
+              color: @gray-600;
+              margin-top: 0.5rem;
+            }
+          }
+        }
+      }
+    }
+  }
   .zkui-product-show-parameter {
     .vux-label {
       font-weight: @font-weight-normal;

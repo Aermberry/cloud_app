@@ -28,6 +28,7 @@
               <option value="2">护照</option>
               <option value="3">港澳通行证</option>
               <option value="4">营业执照</option>
+              <option value="5">驾照</option>
             </select>
           </div>
         </div>
@@ -165,7 +166,6 @@
       },
       async apipost () {
         var a = document.getElementsByClassName('inputimg')
-
         let par = {
           IdentityType: this.identity.IdentityType,
           IdentityCardType: this.identity.IdentityCardType,
@@ -179,7 +179,6 @@
           userId: this.LoginUser().id,
           Sex: this.identity.Sex
         }
-        console.info(par)
         var repsonse = await apiUser.Identity(par)
         if (repsonse.data.status === 1) {
           this.getData()

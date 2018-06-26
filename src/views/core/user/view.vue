@@ -23,6 +23,14 @@
             <label class="weui-form-preview__label">等级</label>
             <span class="weui-form-preview__value">{{modelView.gradeName}}</span>
           </div>
+          <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label">性别</label>
+            <span class="weui-form-preview__value">{{modelView.sex}}</span>
+          </div>
+          <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label">邮箱</label>
+            <span class="weui-form-preview__value">{{modelView.email}}</span>
+          </div>
           <!-- <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">时间</label>
             <span class="weui-form-preview__value"></span>
@@ -53,7 +61,6 @@
         }
         var response = await apiService.view(params)
         this.modelView = response.data.result
-        console.dir((this.modelView))
       }
     }
   }

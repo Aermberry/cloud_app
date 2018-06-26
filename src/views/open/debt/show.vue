@@ -214,20 +214,20 @@
           var info = this.modelView.debtSolutions[this.radio001.indexOf(this.subscript)].debtProducts[i]
           var buyItem = {
             ProductSkuId: info.debtProductSkus[0].skuId,
-            Count: 1,
-            ProductId: info.productId,
-            storeId: 2,
+            Count: info.debtProductSkus[0].count,
+            ProductId: info.debtProductSkus[0].productId,
+            storeId: info.debtProductSkus[0].storeId,
             LoginUserId: this.LoginUser().id
           }
           buyProductInfo.push(buyItem)
         }
-        console.log(buyProductInfo)
+        console.log('buyProductInfo', buyProductInfo)
         let parameter = {
           AdminPlanId: this.modelView.debtSolutions[this.radio001.indexOf(this.subscript)].id,
           Signature: this.screenName
         }
         var message = await apiService.Solution(parameter)
-        console.log(message)
+        console.log('message', message)
         this.$vux.toast.success('提交成功')
         this.$router.push({
           name: 'order_buy',

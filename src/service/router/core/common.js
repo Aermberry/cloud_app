@@ -1,33 +1,55 @@
 export default [{
-    path: '/', // 默认为空的时候，挑战到首页
+    path: '/',
     meta: {
-      title: '首页'
+      title: '会员中心',
+      login: true
     },
-    name: 'commont_index',
+    name: '/',
     component: function (resolve) {
-      require(['src/views/default'], resolve)
+      require(['src/views/core/user/index'], resolve)
     }
   },
   {
-    path: '/index', // 默认为空的时候，挑战到首页
+    path: '/default',
     meta: {
-      title: '首页'
+      title: '会员中心',
+      login: true
     },
-    name: 'commont_index_2',
+    name: 'default',
     component: function (resolve) {
-      require(['src/views/default'], resolve)
+      require(['src/views/core/user/index'], resolve)
     }
   },
-  {
-    path: '/default', // 默认为空的时候，挑战到首页
-    meta: {
-      title: '首页'
-    },
-    name: 'commont_default',
-    component: function (resolve) {
-      require(['src/views/default'], resolve)
-    }
-  },
+  // {
+  //   path: '/', // 默认为空的时候，挑战到首页
+  //   meta: {
+  //     title: '首页'
+  //   },
+  //   name: 'commont_index',
+  //   component: function (resolve) {
+  //     require(['src/views/default'], resolve)
+  //   }
+  // },
+  // {
+  //   path: '/index', // 默认为空的时候，挑战到首页
+  //   meta: {
+  //     title: '首页'
+  //   },
+  //   name: 'commont_index_2',
+  //   component: function (resolve) {
+  //     require(['src/views/default'], resolve)
+  //   }
+  // },
+  // {
+  //   path: '/default', // 默认为空的时候，挑战到首页
+  //   meta: {
+  //     title: '首页'
+  //   },
+  //   name: 'commont_default',
+  //   component: function (resolve) {
+  //     require(['src/views/default'], resolve)
+  //   }
+  // },
   {
     path: '/url', // 默认为空的时候，挑战到首页
     meta: {
@@ -41,7 +63,7 @@ export default [{
   {
     path: '/cztIndex', // 云债通首页
     meta: {
-      title: '首页'
+      title: '云债通首页'
     },
     name: 'czt',
     component: function (resolve) {
@@ -51,7 +73,7 @@ export default [{
   {
     path: '/yqpIndex', // 一起拼首页
     meta: {
-      title: '首页'
+      title: '一起拼首页'
     },
     name: 'yqp',
     component: function (resolve) {
@@ -61,11 +83,21 @@ export default [{
   {
     path: '/gsIndex', // 港生首页
     meta: {
-      title: '首页'
+      title: '港生首页'
     },
     name: 'gs',
     component: function (resolve) {
       require(['src/views/gsIndex'], resolve)
+    }
+  },
+  {
+    path: '/zmIndex', // 中酶首页
+    meta: {
+      title: '中酶首页'
+    },
+    name: 'zm',
+    component: function (resolve) {
+      require(['src/views/zmIndex'], resolve)
     }
   },
   {
