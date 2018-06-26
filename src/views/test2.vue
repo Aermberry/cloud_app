@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
   <section class="zkui-login">
     <zk-head title='登录' goBack='首页'></zk-head>
     <cell title="用户名/手机/邮箱登录"></cell>
@@ -27,16 +26,6 @@
   import { Group, XInput, Box, XButton, Cell } from 'zkui'
   import api from 'src/untils/api'
   import { USER_LOGIN_POST } from 'src/untils/apiUrl'
-=======
-  <div>
-
-  </div>
-</template>
-
-<script>
-  import apiService from 'src/service/api/product.api'
-  import { } from 'zkui'
->>>>>>> 4f07c812ba1b02dab2cfe0a6e30fa200a51aa7e1
   export default {
     components: {
       Group,
@@ -47,18 +36,12 @@
     },
     data () {
       return {
-<<<<<<< HEAD
         password1: '',
         user: {
           username: '',
           password: '',
           openId: ''
         }
-=======
-        imageUrl: '',
-        actionUrl: '',
-        imageName: ''
->>>>>>> 4f07c812ba1b02dab2cfe0a6e30fa200a51aa7e1
       }
     },
     computed: {
@@ -70,7 +53,6 @@
       this.ceshi()
     },
     methods: {
-<<<<<<< HEAD
       async  login () {
         this.user.password = this.password1
         this.user.openId = window.localStorage.getItem('wechat_openId')
@@ -83,15 +65,6 @@
           window.localStorage.setItem('wechat_autoLoginByOpenId', true)
         }
         window.location = '/user/index'
-=======
-      async ceshi () {
-        let params = {
-          PageSize: 20,
-          PageIndex: 1
-        }
-        let response = await apiService.groupBuylist(params)
-        console.log('response', response)
->>>>>>> 4f07c812ba1b02dab2cfe0a6e30fa200a51aa7e1
       }
     }
   }

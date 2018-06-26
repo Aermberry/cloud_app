@@ -22,11 +22,7 @@ if (process.env.NODE_ENV === 'development') {
   // baseUrl = 'http://admin.czhait.com'
   // baseUrl = 'http://test.5ug.com'
   // baseUrl = 'http://zkgs.5ug.com'
-<<<<<<< HEAD
   // baseUrl = 'http://zkqd.5ug.com'
-=======
-  baseUrl = 'http://zmsd.5ug.com'
->>>>>>> 4f07c812ba1b02dab2cfe0a6e30fa200a51aa7e1
   // baseUrl = 'http://zqingchun.yiqipingou.com/'
   // baseUrl = 'http://ceshi.5ug.com'
   baseUrl = 'http://localhost:9011'
