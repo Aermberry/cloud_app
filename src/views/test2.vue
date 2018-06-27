@@ -33,7 +33,6 @@
       this.ApiGet()
     },
     methods: {
-
       async  ApiGet () {
         let params = {
 
@@ -43,6 +42,7 @@
       }
     }
   }
+
 </script>
 <style lang="less">
   .zkui-login {
