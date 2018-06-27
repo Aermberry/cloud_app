@@ -265,6 +265,23 @@
                     <span>价格：</span>
                     <span>¥114.00</span>
                   </div>
+                  <div class="now_price">
+                    <span>6.23价：</span>
+                    <span>¥69.90</span>
+                    <span>
+                      <span>评价：
+                        <span>19</span>
+                      </span>
+                      <span>累计销量：
+                        <span>84</span>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+                <div class="J_ModulePromotions ">
+                  店铺优惠：
+                  <span class="promotions-card-text">满119元立减5元</span>
+                  <span class="promotions-card-get">领取</span>
                 </div>
               </div>
             </div>
@@ -869,6 +886,7 @@
           width: 538px;
           height: 100%;
           #bundle > .flex(@flex-direction:column,@justify-content:space-between);
+
           .goods-title {
             span {
               display: block;
@@ -895,12 +913,47 @@
 
             .main-box {
               .price {
+                margin-top: 10px;
                 #bundle > .flex;
                 span {
                   font-size: 12px;
                   color: @gray-400;
+                  &:first-child {
+                    margin-left: 10px;
+                  }
                   &:last-child {
                     text-decoration: line-through;
+                  }
+                }
+              }
+
+              .now_price {
+                height: 30px;
+                line-height: 30px;
+                #bundle > .flex;
+                span {
+                  display: inline;
+                  font-size: 12px;
+                  &:nth-child(1) {
+                    margin-left: 10px;
+                  }
+                  &:nth-child(2) {
+                    color: @brand;
+                    // flex-basis: 200px;
+                  }
+                  &:nth-child(3) {
+                    text-align: right;
+                    width: 410px;
+                    span {
+                      margin: 0;
+                      color: @gray-500;
+                      span {
+                        color: @gray-900;
+                      }
+                      &:nth-child(2) {
+                        margin-left: 10px;
+                      }
+                    }
                   }
                 }
               }
