@@ -34,7 +34,7 @@ if (process.env.NODE_ENV === 'development') {
   // baseUrl = 'http://zkdebt.5ug.com'
   // baseUrl = 'http://admin.czhait.com
   // baseUrl = 'http://zmsd.5ug.com/'
-  // baseUrl = 'http://zqingchun.yiqipingou.com/'
+  baseUrl = 'http://zqingchun.yiqipingou.com/'
 }
 export {
   baseUrl,
