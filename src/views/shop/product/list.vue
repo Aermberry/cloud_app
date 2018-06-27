@@ -1,6 +1,6 @@
 
 <template>
-  <section class="zkui-product_list">
+  <section class="zkui-product_list-m">
     <zk-head :title='headTitle' goBack=''></zk-head>
     <div style="width: 100%;" class="list-fixed">
       <!-- <tab-item  @click.native="sortNum(0)" selected>默认排序</tab-item> -->
@@ -236,7 +236,7 @@
   }
 </script>
 <style lang="less">
-  .zkui-product_list {
+  .zkui-product_list-m {
     .placeholder {
       height: 3.66666667rem;
     }
