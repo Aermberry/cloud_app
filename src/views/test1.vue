@@ -21,12 +21,6 @@
       XButton
     },
     mounted () {
-      // // 云债通八图暂用这页面提示
-      // this.$vux.toast.show('敬请期待')
-      // setTimeout(function () {
-      //   this.$router ? this.$router.back() : window.history.back()
-      // }, 2000)
-      // this.ceshi()
     },
     data () {
       return {
