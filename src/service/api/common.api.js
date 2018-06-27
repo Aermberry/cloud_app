@@ -1,22 +1,27 @@
 import http from 'src/service/common/http'
 
 export default {
-  //  获取自动配置
-  GetConfigValue (data) {
-    let params = {
-      ConfigKey: data
+    //  获取自动配置
+    GetConfigValue (data) {
+        let params = {
+            ConfigKey: data
+        }
+        var response = http.get('/Common/GetAutoConfig', params)
+        return response
+    },
+    //  文件上传
+    upload (file, path) {
+        var response = http.post('/common/upload', file)
+        return response
+    },
+    //  发送手机验证码 ，发送六位数手机验证码
+    sendmobileVerifiyCode (mobile) {
+        var response = http.post('/common/sendmobileVerifiyCode', mobile)
+        return response
+    },
+    // 获取所有的Api接口
+    GetApi (data) {
+        var response = http.get('/Common/GetApi', data)
+        return response
     }
-    var response = http.get('/Common/GetAutoConfig', params)
-    return response
-  },
-  //  文件上传
-  upload (file, path) {
-    var response = http.post('/common/upload', file)
-    return response
-  },
-  //  发送手机验证码 ，发送六位数手机验证码
-  sendmobileVerifiyCode (mobile) {
-    var response = http.post('/common/sendmobileVerifiyCode', mobile)
-    return response
-  }
 }

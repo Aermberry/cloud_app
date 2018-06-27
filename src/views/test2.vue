@@ -1,63 +1,74 @@
 <template>
-  <div>
+  <section class="zkui-login">
+    <zk-head title='登录' goBack='首页'></zk-head>
+    <cell title="用户名/手机/邮箱登录"></cell>
+    <div class="weui-footer">
+      <p class="weui-footer__links">
+        <a href="/user/findpassword">找回密码</a>
+        <a href="/user/reg">会员注册</a>
+      </p>
+    </div>
 
-  </div>
+  </section>
 </template>
 
 <script>
-  import apiService from 'src/service/api/product.api'
-  import { } from 'zkui'
+  import { Group, XInput, Box, XButton, Cell } from 'zkui'
+  import apiService from 'src/service/api/common.api'
   export default {
     components: {
+      Group,
+      XInput,
+      Box,
+      XButton,
+      Cell
     },
     data () {
       return {
-        imageUrl: '',
-        actionUrl: '',
-        imageName: ''
       }
     },
-    created () {
+    computed: {
     },
     mounted () {
-      this.ceshi()
+      this.ApiGet()
     },
     methods: {
-      async ceshi () {
+
+      async  ApiGet () {
         let params = {
-          PageSize: 20,
-          PageIndex: 1
+
         }
-        let response = await apiService.groupBuylist(params)
-        console.log('response', response)
+        var repsonse = await apiService.GetApi(params)
+        console.log(repsonse.data)
       }
     }
   }
 </script>
-<style>
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409eff;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
+<style lang="less">
+  .zkui-login {
+    .weui-cells {
+      margin-top: 0;
+    }
+    .weui-cell {
+      .vux-label {
+        font-weight: @font-weight-bold;
+        font-size: @h4-font-size;
+        color: @brand;
+      }
+    }
+    .weui-btn {
+      height: 3rem;
+      font-size: @h4-font-size;
+    }
+    .weui-msg__extra-area {
+      width: 100%;
+      .weui-footer {
+        margin: 0 auto;
+        .weui-footer__links {
+          margin: 15 * @rem 10 * @rem 0 0;
+          text-align: right;
+        }
+      }
+    }
   }
 </style>
-
-
