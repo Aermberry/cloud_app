@@ -12,34 +12,34 @@ const clientType = 'moblie'
 // 云债通
 const key = 'A2C17ABA-6444-4035-A59F-C3C1848A737D'
 const projectId =
-    'WNNK5JPZUVAPO6837QT67UJTBP08RJ4EEX8RMX3DKZOPYZOESUWDT3SBE3TQSQHK16U07RRJWZWHQ34BBVPHXALLF6MSENKTRDY2OXGBCMQDGKVL9RYGKKXAUJVBPZFJ'
+  'WNNK5JPZUVAPO6837QT67UJTBP08RJ4EEX8RMX3DKZOPYZOESUWDT3SBE3TQSQHK16U07RRJWZWHQ34BBVPHXALLF6MSENKTRDY2OXGBCMQDGKVL9RYGKKXAUJVBPZFJ'
 
 let baseUrl
 
 let routerMode = 'history'
 
 if (process.env.NODE_ENV === 'development') {
-    // baseUrl = 'http://admin.czhait.com'
-    // baseUrl = 'http://test.5ug.com'
-    // baseUrl = 'http://zkgs.5ug.com'
-    // baseUrl = 'http://zkqd.5ug.com'
-    // baseUrl = 'http://zqingchun.yiqipingou.com/'
-    // baseUrl = 'http://ceshi.5ug.com'
-    baseUrl = 'http://localhost:9011'
-        // baseUrl = 'http://zkdebt.5ug.com'
-        // baseUrl = 'http://lll.5ug.com'
+  // baseUrl = 'http://admin.czhait.com'
+  // baseUrl = 'http://test.5ug.com'
+  // baseUrl = 'http://zkgs.5ug.com'
+  // baseUrl = 'http://zkqd.5ug.com'
+  baseUrl = 'http://zqingchun.yiqipingou.com/'
+  // baseUrl = 'http://ceshi.5ug.com'
+  // baseUrl = 'http://localhost:9011'
+  // baseUrl = 'http://zkdebt.5ug.com'
+  // baseUrl = 'http://lll.5ug.com'
 } else {
-    // baseUrl = 'http://lll.5ug.com'
-    // baseUrl = 'http://localhost:9011'
-    // baseUrl = 'http://zkdebt.5ug.com'
-    // baseUrl = 'http://admin.czhait.com
-    // baseUrl = 'http://zmsd.5ug.com/'
-    // baseUrl = 'http://zqingchun.yiqipingou.com/'
+  // baseUrl = 'http://lll.5ug.com'
+  // baseUrl = 'http://localhost:9011'
+  // baseUrl = 'http://zkdebt.5ug.com'
+  // baseUrl = 'http://admin.czhait.com
+  // baseUrl = 'http://zmsd.5ug.com/'
+  baseUrl = 'http://zqingchun.yiqipingou.com/'
 }
 export {
-    baseUrl,
-    routerMode,
-    key,
-    projectId,
-    clientType
+  baseUrl,
+  routerMode,
+  key,
+  projectId,
+  clientType
 }

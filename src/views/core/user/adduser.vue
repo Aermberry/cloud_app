@@ -98,6 +98,7 @@
       async reg () {
         this.user.mobile = this.user.mobile.replace(/\s+/g, '')
         var response = await apiUser.reg(this.user)
+        console.log(response)
         if (response.data.status === 1) {
           this.messageSuccess('新会员注册成功')
         } else {

@@ -1,55 +1,56 @@
-export default [{
-    path: '/',
+export default [
+  // {
+  //   path: '/',
+  //   meta: {
+  //     title: '会员中心',
+  //     login: true
+  //   },
+  //   name: '/',
+  //   component: function (resolve) {
+  //     require(['src/views/core/user/index'], resolve)
+  //   }
+  // },
+  // {
+  //   path: '/default',
+  //   meta: {
+  //     title: '会员中心',
+  //     login: true
+  //   },
+  //   name: 'default',
+  //   component: function (resolve) {
+  //     require(['src/views/core/user/index'], resolve)
+  //   }
+  // },
+  {
+    path: '/', // 默认为空的时候，挑战到首页
     meta: {
-      title: '会员中心',
-      login: true
+      title: '首页'
     },
-    name: '/',
+    name: 'commont_index',
     component: function (resolve) {
-      require(['src/views/core/user/index'], resolve)
+      require(['src/views/default'], resolve)
     }
   },
   {
-    path: '/default',
+    path: '/index', // 默认为空的时候，挑战到首页
     meta: {
-      title: '会员中心',
-      login: true
+      title: '首页'
     },
-    name: 'default',
+    name: 'commont_index_2',
     component: function (resolve) {
-      require(['src/views/core/user/index'], resolve)
+      require(['src/views/default'], resolve)
     }
   },
-  // {
-  //   path: '/', // 默认为空的时候，挑战到首页
-  //   meta: {
-  //     title: '首页'
-  //   },
-  //   name: 'commont_index',
-  //   component: function (resolve) {
-  //     require(['src/views/default'], resolve)
-  //   }
-  // },
-  // {
-  //   path: '/index', // 默认为空的时候，挑战到首页
-  //   meta: {
-  //     title: '首页'
-  //   },
-  //   name: 'commont_index_2',
-  //   component: function (resolve) {
-  //     require(['src/views/default'], resolve)
-  //   }
-  // },
-  // {
-  //   path: '/default', // 默认为空的时候，挑战到首页
-  //   meta: {
-  //     title: '首页'
-  //   },
-  //   name: 'commont_default',
-  //   component: function (resolve) {
-  //     require(['src/views/default'], resolve)
-  //   }
-  // },
+  {
+    path: '/default', // 默认为空的时候，挑战到首页
+    meta: {
+      title: '首页'
+    },
+    name: 'commont_default',
+    component: function (resolve) {
+      require(['src/views/default'], resolve)
+    }
+  },
   {
     path: '/url', // 默认为空的时候，挑战到首页
     meta: {

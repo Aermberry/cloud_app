@@ -1,5 +1,6 @@
 <template>
   <section class="zkui-yqp">
+    <div class="zkui-yqp-top-placeholder  "></div>
     <div class="zkui-yqp-top flex">
       <div class="top-left">
         <div class="logo">
@@ -39,12 +40,12 @@
     </div>
     <zk-grid diykey="grid_index" :cols="4" class="zkui-grid-border__none border-bottom grid-icon-middle "></zk-grid>
     <zk-singlead diykey="index_single_ad"></zk-singlead>
-    <!-- <group-title class="flex">
+    <group-title class="flex">
       <div class="fashion-title">
         拼团
       </div>
     </group-title>
-    <zk-groupbuy :pageSize=4 classIds='' :pagination=6 tagsId='' diykey='index'></zk-groupbuy> -->
+    <zk-groupbuy classIds='' tagsId='' diykey='index'></zk-groupbuy>
     <group-title class="flex">
       <div class="fashion-title">
         流行单品
@@ -61,8 +62,7 @@
         </swiper>
       </div>
     </group-title>
-
-    <zk-product-item :pageSize=4 classIds='' :pagination=6 tagsId='' diykey='index'></zk-product-item>
+    <zk-product-item :pageSize=4 classIds='' tagsId='' diykey='index'></zk-product-item>
     <div class="yqp-more">
       <router-link to="/product/list?SortOrder=2">查看更多 </router-link>
     </div>
@@ -131,7 +131,6 @@
       this.GetData()
     },
     methods: {
-
       async GetData () {
         let style = {
           DataType: 'topline'
@@ -158,10 +157,21 @@
 </script>
 
 <style  lang="less" >
+  body {
+    background: white;
+  }
   .zkui-yqp {
+    .zkui-yqp-top-placeholder {
+      height: 2.5rem;
+    }
     .zkui-yqp-top {
+      width: 100%;
       height: 2.5rem;
       background: @black;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
       .top-left {
         width: 60%;
         height: 100%;
