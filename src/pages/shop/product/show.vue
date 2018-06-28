@@ -251,12 +251,12 @@
               <div class="goods-main">
                 <div class="event-box">
                   <div class="event-box-content">
-                    <span>距6.23活动结束距离仅剩：</span>
+                    <span class="event_box_title">距6.23活动结束距离仅剩：</span>
                     <span class="event-time">
-                      <span class="d">day</span>
-                      <span class="h">hour</span>
-                      <span class="m">minutes</span>
-                      <span class="s">seconds</span>
+                      <span class="d">天</span>
+                      <span class="h">小时</span>
+                      <span class="m">分</span>
+                      <span class="s">秒</span>
                     </span>
                   </div>
                 </div>
@@ -277,11 +277,38 @@
                       </span>
                     </span>
                   </div>
+                  <div class="J_ModulePromotions ">
+                    <span>店铺优惠:</span>
+                    <span class="promotions-card">
+                      <span class="promotions-card-text">满119元立减5元</span>
+                      <span class="promotions-card-get">领取</span>
+                    </span>
+                    <span class="promotions-card">
+                      <span class="promotions-card-text">满258元立减10元</span>
+                      <span class="promotions-card-get">领取</span>
+                    </span>
+                    <span class="promotions-more">更多优惠
+                      <span class="el-icon-arrow-down"></span>
+                    </span>
+                  </div>
                 </div>
-                <div class="J_ModulePromotions ">
-                  店铺优惠：
-                  <span class="promotions-card-text">满119元立减5元</span>
-                  <span class="promotions-card-get">领取</span>
+
+                <div class="goods-prowrap">
+                  <span>客服：</span>
+                  <span class="el-icon-phone"> 联系客服</span>
+                </div>
+
+                <div class="goods-color">
+                  <span>颜色：</span>
+                  <span><img src="../../../assets/images/icon/m_3.jpg" alt=""></span>
+                </div>
+
+                <div class="size">
+                  <span>尺码:</span>
+                  <span>S</span>
+                  <span>M</span>
+                  <span>L</span>
+                  <span>ML</span>
                 </div>
               </div>
             </div>
@@ -290,7 +317,6 @@
       </div>
     </body>
     <footer>
-
     </footer>
 
   </div>
@@ -888,6 +914,7 @@
           #bundle > .flex(@flex-direction:column,@justify-content:space-between);
 
           .goods-title {
+            background-color: #fff;
             span {
               display: block;
               font-family: Microsoft YaHei, arial;
@@ -897,16 +924,23 @@
             }
           }
           .goods-main {
-            margin-top: 20px;
+            padding-top: 20px;
+            background-color: #fff;
             .event-box {
               background: url(http://s3.mogucdn.com/mlcdn/c45406/180612_1e1a8h34aegkf7ea3h3iie4kgaea8_538x68.jpg)
                 0 0 no-repeat;
               height: 68px;
+              line-height: 68px;
 
               .event-box-content {
+                height: 100%;
                 #bundle > .flex;
                 span {
-                  font-size: 12px;
+                  font-size: 16px;
+                  color: #ffffff;
+                }
+                .event_box_title {
+                  margin-left: 115px;
                 }
               }
             }
@@ -917,7 +951,7 @@
                 #bundle > .flex;
                 span {
                   font-size: 12px;
-                  color: @gray-400;
+                  color: @gray-500;
                   &:first-child {
                     margin-left: 10px;
                   }
@@ -934,16 +968,21 @@
                 span {
                   display: inline;
                   font-size: 12px;
+                  color: @gray-600;
                   &:nth-child(1) {
+                    width: 49px;
                     margin-left: 10px;
                   }
                   &:nth-child(2) {
                     color: @brand;
+                    font-size: 18px;
+                    font-weight: 700;
                     // flex-basis: 200px;
                   }
                   &:nth-child(3) {
+                    margin-right: 18px;
                     text-align: right;
-                    width: 410px;
+                    width: 400px;
                     span {
                       margin: 0;
                       color: @gray-500;
@@ -951,10 +990,103 @@
                         color: @gray-900;
                       }
                       &:nth-child(2) {
+                        font-weight: normal;
+                        font-size: 12px;
                         margin-left: 10px;
                       }
                     }
                   }
+                }
+              }
+            }
+
+            .J_ModulePromotions {
+              text-align: center;
+              height: 22px;
+              line-height: 20px;
+              font-size: 12px;
+              #bundle > .flex;
+              span {
+                font-size: 12px;
+                color: @gray-500;
+                &:nth-child(1) {
+                  margin-left: 10px;
+                }
+                &:nth-child(2) {
+                  #bundle > .flex;
+                  &:last-child {
+                    border: none;
+                    border-radius: 0;
+                    display: inline-block;
+                    background-color: lighten(@brand, 20%);
+                    color: #ffffff;
+                    width: 30px;
+                    line-height: 20px;
+                    text-align: center;
+                    height: 22px;
+                  }
+                }
+
+                &:not(:first-child) {
+                  border: 1px solid lighten(@brand, 20%);
+                  border-radius: 2px;
+                  margin-left: 10px;
+                  span {
+                    color: @brand;
+                  }
+                }
+
+                &:nth-child(4) {
+                  text-align: center;
+                  color: @gray-800;
+                  margin-left: 74px;
+                  border: none;
+                  span {
+                    display: inline-block;
+                  }
+                }
+              }
+            }
+            .goods-prowrap {
+              height: 30px;
+              line-height: 33px;
+              background-color: #fff;
+              margin-top: 10px;
+              #bundle > .flex;
+              span {
+                height: 22px;
+                font-size: 12px;
+                color: @gray-500;
+                &:first-child {
+                  margin-left: 10px;
+                }
+                &:nth-child(2) {
+                  width: 80px;
+                  border: 1px solid @gray-500;
+                  border-radius: 2px;
+                  height: 21px;
+                  line-height: 20px;
+                  margin-top: 6px;
+                  text-align: center;
+                }
+              }
+            }
+
+            .goods-color {
+              color: @gray-500;
+              height: 50px;
+              line-height: 40px;
+              margin: 20px 0;
+              #bundle > .flex;
+              span {
+                font-size: 12px;
+                &:first-child {
+                  margin-left: 10px;
+                }
+                img {
+                  width: 45px;
+                  vertical-align: middle;
+                  border: 2px solid #cccccc;
                 }
               }
             }
