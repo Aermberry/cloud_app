@@ -314,9 +314,7 @@
                 <div class="num">
                   <span>数量：</span>
                   <span class="goods-num">
-                    <span>—</span>
-                    <input type="text">
-                    <span>+</span>
+                    <el-input-number size="mini" v-model="num1" @change="handleChange" :min="1" :max="10" label="描述文字" class="ipt"></el-input-number>
                   </span>
                   <span class="goods-stock">库存991件</span>
                 </div>
@@ -336,7 +334,13 @@
     data () {
       return {
         grade: '6.23',
-        goods_title: '娃娃裙女2018夏季新款chic露背镂空仙女裙小清新条纹拼接荷叶边a字短裙宽松喇叭袖连衣裙'
+        goods_title: '娃娃裙女2018夏季新款chic露背镂空仙女裙小清新条纹拼接荷叶边a字短裙宽松喇叭袖连衣裙',
+        num1: 1
+      }
+    },
+    methods: {
+      handleChange (value) {
+        console.log(value)
       }
     }
   }
@@ -348,6 +352,27 @@
     .el-dropdown-item {
       color: lighten(@metal, 10%);
       font-size: 12px;
+    }
+  }
+
+  .el-input-number {
+    .el-input-number__decrease {
+      width: 24px;
+      height: 25px;
+      i {
+        font-size: 12px;
+      }
+    }
+
+    .el-input {
+      height: 25px;
+    }
+    .el-input-number__increase {
+      width: 24px;
+      height: 25px;
+      i {
+        font-size: 12px;
+      }
     }
   }
 </style>
@@ -1154,13 +1179,37 @@
             .num {
               #bundle > .flex;
               font-size: 12px;
+              color: @gray-500;
+
               span {
+                height: 25px;
                 font-size: 12px;
-                margin-left: 10px;
+                &:nth-child(1) {
+                  margin-left: 10px;
+                }
+              }
+
+              .goods-stock {
+                margin-left: 30px;
+                line-height: 25px;
+                color: @gray-500;
               }
 
               .goods-num {
-                #bundle > .flex;
+                width: 95px;
+                height: 25px;
+                .ipt {
+                  width: 97px;
+                  height: 27px;
+                  font-size: 12px;
+                }
+
+                span {
+                  line-height: 25px;
+                  padding: 0 3px;
+                  font-size: 12px;
+                  margin: 0;
+                }
               }
             }
           }
