@@ -304,11 +304,21 @@
                 </div>
 
                 <div class="size">
-                  <span>尺码:</span>
+                  <span>尺码：</span>
                   <span>S</span>
                   <span>M</span>
                   <span>L</span>
-                  <span>ML</span>
+                  <span>XL</span>
+                </div>
+
+                <div class="num">
+                  <span>数量：</span>
+                  <span class="goods-num">
+                    <span>—</span>
+                    <input type="text">
+                    <span>+</span>
+                  </span>
+                  <span class="goods-stock">库存991件</span>
                 </div>
               </div>
             </div>
@@ -1078,16 +1088,79 @@
               line-height: 40px;
               margin: 20px 0;
               #bundle > .flex;
+              position: relative;
+              &::before {
+                content: '';
+                position: absolute;
+                z-index: 10;
+                bottom: 2px;
+                left: 83px;
+                border: 2px solid @gray-600;
+                border-width: 5px;
+                border-top-color: transparent;
+                border-left-color: transparent;
+              }
+
+              &::after {
+                content: '';
+                position: absolute;
+                z-index: 10;
+                bottom: 3px;
+                left: 88px;
+                border: 2px solid @white;
+                border-width: 1px;
+                width: 1.5px;
+                height: 4px;
+                transform: rotate(40deg);
+                border-top-color: transparent;
+                border-left-color: transparent;
+              }
               span {
                 font-size: 12px;
                 &:first-child {
                   margin-left: 10px;
                 }
                 img {
+                  cursor: pointer;
                   width: 45px;
                   vertical-align: middle;
-                  border: 2px solid #cccccc;
+                  border: 2px solid @gray-600;
+                  position: relative;
                 }
+              }
+            }
+
+            .size {
+              #bundle > .flex;
+              span {
+                color: @gray-500;
+                font-size: 12px;
+                &:first-child {
+                  margin-left: 10px;
+                }
+
+                &:not(:first-child) {
+                  cursor: pointer;
+                  font-weight: 700;
+                  color: @gray-800;
+                  border: 1px solid @gray-400;
+                  padding: 0 10px;
+                  line-height: 28px;
+                  margin: 0 10px 5px 0;
+                }
+              }
+            }
+
+            .num {
+              #bundle > .flex;
+              font-size: 12px;
+              span {
+                font-size: 12px;
+                margin-left: 10px;
+              }
+
+              .goods-num {
+                #bundle > .flex;
               }
             }
           }
